@@ -19,4 +19,4 @@ This project was created with the Hypixel API, Express, and Ejs.
 
 ## 3) Create a levels.json file with [] inside
 
-Run the server by typing "node ."
+Run the server by typing `node .`
