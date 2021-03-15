@@ -4,11 +4,11 @@ This webpage was created to display the difference in Hypixel Level between AmKa
 This project was created with the Hypixel API, Express, and Ejs.
 
 ## 1) Make sure to install these modules first by typing:
-#### npm install dotenv
-#### npm install hypixel-api 
-#### npm install https
-#### npm install express 
-#### npm install ejs
+`npm install dotenv`
+`npm install hypixel-api`
+`npm install https`
+`npm install express`
+`npm install ejs`
 
 ## 2) Create a .env file with these properties:
 #### API_KEY = [type /api new on mc.hypixel.net to get api key]
