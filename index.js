@@ -1,78 +1,135 @@
-// ALSO on README.md
+require("dotenv").config(); //* npm install dotenv
 
-//! Make sure to install these modules first
-// npm install hypixel-api 
-// npm install express 
-// npm install ejs
+//? Requirements ----------------------------------------------------------------------------------
+const HypixelAPI = require("hypixel-api"); //* npm install hypixel-api
+const client = new HypixelAPI(process.env.API_KEY);
 
-//! ALSO make sure to get an api key by typing "/api new" on Hypixel and replace "apikey" with the key you have.
+const fs = require("fs");
+const levels = require("./levels"); //* create levels.json with [] inside
 
+const https = require("https"); //* npm install https
+const express = require("express"); //* npm install express
+const app = express();
+app.set("view engine", "ejs"); //* npm install ejs
 
-
-
-
-//? Hypixel API ----------------------------------------------------------------------------
-//? Grabs the Difference between AmKale and DSNS in Hypixel Levels
-
-const HypixelAPI = require("hypixel-api");
-
-const client = new HypixelAPI("apikey");
-
-//? Function that onverts Hypixel EXP into Levels, since the Hypixel API doesn't supply that natively
+//? Hypixel API Functions -------------------------------------------------------------------------
 function xpToLevel(xp) {
-	// You can find the equation at, plus further help:
-	// https://hypixel.net/threads/python-how-to-get-a-person%E2%80%99s-network-level-from-their-network-exp.3242392/
 	return Math.sqrt(2 * xp + 30625) / 50 - 2.5;
 }
 
+async function grabPlayerData() {
+	const DSNS = client.getPlayer("name", "DSNS");
+	const AmKale = client.getPlayer("name", "AmKale");
+	const jiebi = client.getPlayer("name", "jiebi");
 
-// First, get DSNS's player object, and grab the player XP
-client.getPlayer("name", "DSNS").then((player) => {
-	// Make the XP a global variable to be able to access in a different function
-	global.DSNS = xpToLevel(player.player.networkExp);
-})
-    .then(() => { // Wait until the async process is done, then get AmKale's player object, and grab the player XP
-        client.getPlayer("name", "AmKale").then((player) => {
-            // Make the XP a global variable to be able to access in a different function
-			global.AmKale = xpToLevel(player.player.networkExp);
-		})
-            .then(() => { // Wait for the async process to end before calculating
-                // Find the difference between the two levels
-                var difference = global.DSNS - global.AmKale;
+	return Promise.all([DSNS, AmKale, jiebi]);
+}
 
-                // Round the difference to 3 decimal places
-                var roundedDifference = difference.toFixed(3);
+async function getDifference(playerData) {
+	const DSNS = xpToLevel(playerData[0]["player"]["networkExp"]);
+	const AmKale = xpToLevel(playerData[1]["player"]["networkExp"]);
+	const jiebi = xpToLevel(playerData[2]["player"]["networkExp"]);
 
-                // Make the result a string so it can be used on the website
-				var stringDifference = roundedDifference.toString();
+	const difference = {
+		differenceAmKale: DSNS - AmKale,
+		differenceJiebi: DSNS - jiebi
+    };
 
-				//? Express Web Server ----------------------------------------------------------------------------
-                //? This webserver will take the result from the API and display it on a webpage when accessed
+	return difference;
+}
 
-                //? Express is used for the webserver itself
-				var express = require("express");
-				var app = express();
+async function writeDifference(difference) {
+	let lastItemIndex = levels.length - 1;
 
-                //? Ejs is an engine to take variables from node.js and put them in HTML
-                // Allows Express to interact with Ejs
-				app.set("view engine", "ejs");
+	if (lastItemIndex != -1) {
+		if (difference.differenceAmKale == levels[lastItemIndex].differenceAmKale) {
+			if (difference.differenceJiebi == levels[lastItemIndex].differenceJiebi) {
+				return;
+			}
+		}
+	}
 
-                // This will run when a request is sent to the server
-                app.get("/", function (req, res) {
-                    // Send the ejs file to the engine, so it can create a HTML file
-                    // Ejs will send a reply to the user
-                    res.render("index", {
-                        // Specifies the variables we want to bring over
-						difference: stringDifference,
-					});
-				});
+	let entry = {
+		date: new Date().toLocaleTimeString("en-US", {
+			hour: "numeric",
+			minute: "numeric",
+			hour12: true
+		}),
+		differenceAmKale: difference.differenceAmKale,
+		differenceJiebi: difference.differenceJiebi
+	};
 
-                // Make the Express server wait for port 80 requests
-                app.listen(80);
-                
-                //Notify the console that the server is hosted on port 80
-				console.log("Express server is hosting on Port 80");
-			});
+	levels.push(entry);
+
+	fs.writeFileSync("levels.json", JSON.stringify(levels));
+	console.log("Wrote to levels.json");
+}
+
+async function createGraphArray() {
+	AmKaleGraphArray = [["Time", "Difference between DSNS and AmKale"]];
+	jiebiGraphArray = [["Time", "Difference between DSNS and jiebi"]];
+
+	for (var i in levels) {
+		AmKaleGraphArray.push([levels[i].date, levels[i].differenceAmKale]);
+		jiebiGraphArray.push([levels[i].date, levels[i].differenceJiebi]);
+	}
+
+	const result = {
+		AmKaleGraphArray: JSON.stringify(AmKaleGraphArray),
+		jiebiGraphArray: JSON.stringify(jiebiGraphArray)
+	};
+
+	return result;
+}
+
+//? Express Server Functions  ---------------------------------------------------------------------
+async function startServer() {
+	const playerData = await grabPlayerData();
+	const difference = await getDifference(playerData);
+
+	await writeDifference(difference);
+	const graphArray = await createGraphArray();
+
+	app.get("/", function (req, res) {
+		res.render("index", {
+			differenceAmKale: difference.differenceAmKale.toFixed(3).toString(),
+			differenceJiebi: difference.differenceJiebi.toFixed(3).toString(),
+			AmKaleGraphArray: graphArray.AmKaleGraphArray,
+			jiebiGraphArray: graphArray.jiebiGraphArray,
+			reloadTime: process.env.RELOAD_TIME.toString(),
+			date: new Date().toLocaleDateString("en-US", {
+				hour: "numeric",
+				minute: "numeric",
+				hour12: true
+			})
+		});
 	});
+}
 
+async function openPort() {
+	app.listen(80);
+	console.log("Express server is hosting on Port", 80);
 
+	if (process.platform != "win32") {
+		const credentials = {
+			key: fs.readFileSync(process.env.HTTPS_KEY, "utf8"),
+			cert: fs.readFileSync(process.env.HTTPS_CERT, "utf8"),
+			ca: fs.readFileSync(process.env.HTTPS_CHAIN, "utf8")
+		};
+
+		const httpsServer = https.createServer(credentials, app);
+
+		httpsServer.listen(443, () => {
+			console.log("HTTPS Server running on Port", 443);
+		});
+
+		setTimeout(function () {
+			//* restarts program to remove cache
+			return process.exit(22);
+		}, process.env.RELOAD_TIME);
+    }
+    
+    
+}
+
+startServer().then(() => openPort());

@@ -5,31 +5,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Difference</title>
+
+    <!--? DISCORD EMBED METADATA ---------------------------------------------------------------------------------------------------------------------- -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Difference in Hypixel Levels" />
+    <meta property="og:description" content="Calculate the difference between AmKale, DSNS, and jiebi's Hypixel Levels." />
+    <meta property="og:url" content="https://dsnsgithub.github.io/difference" />
+    <meta property="og:image" content="https://dsnsgithub.github.io/static/images/pfp.png" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dsnsgithub.github.io/static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dsnsgithub.github.io/static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dsnsgithub.github.io/static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://dsnsgithub.github.io/static/favicon/site.webmanifest">
+
+
+    <!--? CSS ---------------------------------------------------------------------------------------------------------------------- -->
     <style>
-        p {
-            font-family: monospace;
-            font-size: 9vw;
+        .row {
+            display: flex;
+        }
+
+        .column {
             text-align: center;
+            flex: 50%;
+            padding: 8px;
+        }
+
+        p {
+            font-size: 5vw;
         }
 
         h1 {
-            font-family: monospace;
-            font-size: 3vw;
+            font-size: 2vw;
+        }
+
+        h2 {
+            font-size: 2vw;
             text-align: center;
+        }
+
+        main {
+            font-family: monospace;
+        }
+
+        .bordersection {
+            border-right: 1px solid #aaa;
         }
     </style>
 
 
+    <!--? JS ---------------------------------------------------------------------------------------------------------------------- -->
+
+    <script type="text/javascript">
+        window.setTimeout(function () { document.location.reload(true); }, Number(<%= reloadTime %>));
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+
 </head>
 
+<!--? BACK BUTTON TO DSNSGITHUB.GITHUB.IO ---------------------------------------------------------------------------------------------------------------------- -->
+<nav>
+    <script src="https://kit.fontawesome.com/8b8f2eda4a.js" crossorigin="anonymous"></script>
+    <style>
+        #backNav {
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            border: solid;
+        }
+
+        #navlink {
+            text-decoration: none;
+            font-size: 30px;
+            color: black;
+        }
+    </style>
+
+
+    <button id="backNav">
+        <a id="navlink" href="https://dsnsgithub.github.io"><i class="fas fa-arrow-left"></i></a>
+    </button>
+
+</nav>
+
+<!--? MAIN CONTENT ---------------------------------------------------------------------------------------------------------------------- -->
+
 <body>
-    <p>
-        <%= difference; %>
-    </p>
+    <main>
+
+        <div class="row">
+            <div class="column bordersection">
+                <p>
+                    <%= differenceAmKale; %>
+                </p>
+
+                <h1>Is The Difference Between</h1>
+                <h1>AmKale and DSNS In Hypixel Levels</h1>
+
+                <div id="AmKale_chart" style="height: 500px"></div>
+            </div>
 
 
-    <h1>Is The Difference Between</h1>
-    <h1>AmKale and DSNS In Hypixel Levels</h1>
+            <div class="column">
+                <p>
+                    <%= differenceJiebi; %>
+                </p>
+
+                <h1>Is The Difference Between</h1>
+                <h1>jiebi and DSNS In Hypixel Levels</h1>
+
+                <div id="jiebi_chart" style="height: 500px"></div>
+            </div>
+        </div>
+
+        <h2>
+            Last updated: <%= date; %>
+        </h2>
+
+        <center>
+            <iframe src="https://dsnsgithub.github.io/status/" frameborder="0" height="500px" width="100%"></iframe>
+        </center>
+
+    </main>
+
 </body>
+
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawAmKaleChart);
+    google.charts.setOnLoadCallback(drawJiebiChart);
+
+    function drawAmKaleChart() {
+        var data = google.visualization.arrayToDataTable(<%- AmKaleGraphArray %>);
+
+        var options = {
+            title: "Graph of the difference between AmKale and DSNS's levels",
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('AmKale_chart'));
+
+        chart.draw(data, options);
+    }
+
+    function drawJiebiChart() {
+        var data = google.visualization.arrayToDataTable(<%- jiebiGraphArray %>);
+
+        var options = {
+            title: "Graph of the difference between jiebi and DSNS's levels",
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('jiebi_chart'));
+
+        chart.draw(data, options);
+    }
+
+
+</script>
+
 
 </html>
