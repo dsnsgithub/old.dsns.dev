@@ -19,4 +19,4 @@ This project was created with the Hypixel API, Express, and Ejs.
 
 ## 3) Create a levels.json file with [] inside
 
-Move into the directory and type "node ." in the terminal.
+Move into the directory and type "node ." in the terminal and it should run.
