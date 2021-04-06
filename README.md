@@ -19,3 +19,6 @@ HTTPS_CERT = [put path to HTTPS cert.pem]
 HTTPS_CHAIN = [put path to HTTPS chain.pem]
 ```
 5. Run `npm start` in the root directory
+
+
+**FYI: You won't need a HTTPS cert if you are running on Windows.  This feature is for testing locally.**
