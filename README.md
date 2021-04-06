@@ -10,7 +10,7 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 1. Download the repository from the [master](https://github.com/dsnsgithub/levelDifference) branch on GitHub.
 2. Extract the `levelDifference-main.zip`.
 3. Run `npm install` in the root directory (where the `package.json` file is found).
-4. Create a .env file with these properties:
+4. Create a `.env` file with these properties:
 ```
 API_KEY = [type /api new on mc.hypixel.net to get api key]
 RELOAD_TIME = 60000
