@@ -62,9 +62,6 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-
-
-
 </head>
 
 <!--? BACK BUTTON TO DSNSGITHUB.GITHUB.IO ---------------------------------------------------------------------------------------------------------------------- -->
@@ -99,42 +96,56 @@
 
         <div class="row">
             <div class="column bordersection">
+
+                <h1>The Difference Between DSNS and AmKale</h1>
                 <p>
                     <%= differenceAmKale; %>
                 </p>
-
-                <h1>Is The Difference Between</h1>
-                <h1>AmKale and DSNS In Hypixel Levels</h1>
 
                 <div id="AmKale_chart" style="height: 500px"></div>
             </div>
 
 
             <div class="column">
+                <h1>The Difference Between DSNS and jiebi</h1>
                 <p>
                     <%= differenceJiebi; %>
                 </p>
 
-                <h1>Is The Difference Between</h1>
-                <h1>jiebi and DSNS In Hypixel Levels</h1>
-
                 <div id="jiebi_chart" style="height: 500px"></div>
             </div>
         </div>
+ 
+        <center>
+            <h1>The Difference Between jiebi and AmKale</h1> 
+            <p id="jiebiAmkale"></p>
+        </center>
+        
+        <hr>
 
         <h2>
             Last updated: <%= date; %>
         </h2>
 
         <center>
-            <iframe src="https://dsnsgithub.github.io/status/" frameborder="0" height="500px" width="100%"></iframe>
+            <iframe src="https://dsnsgithub.github.io/status/" scrolling="no" height="1000px" frameborder="0" width="100%"></iframe>
         </center>
 
     </main>
 
 </body>
 
+<!--? LOADING CHART JS ---------------------------------------------------------------------------------------------------------------------- -->
 <script type="text/javascript">
+    const round = (number, decimalPlaces) => {
+        const factorOfTen = Math.pow(10, decimalPlaces);
+        return Math.round(number * factorOfTen) / factorOfTen;
+    };
+
+
+    const jiebiAmkale = document.getElementById("jiebiAmkale")
+    jiebiAmkale.innerHTML = round(<%- differenceJiebi; %> - <%- differenceAmKale; %>, 3)
+
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawAmKaleChart);
     google.charts.setOnLoadCallback(drawJiebiChart);

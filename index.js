@@ -33,7 +33,7 @@ async function getDifference(playerData) {
 	const difference = {
 		differenceAmKale: DSNS - AmKale,
 		differenceJiebi: DSNS - jiebi
-    };
+	};
 
 	return difference;
 }
@@ -104,6 +104,8 @@ async function startServer() {
 			})
 		});
 	});
+    
+    app.use(express.static(__dirname + "/static", { dotfiles: "allow" }));
 }
 
 async function openPort() {
@@ -127,9 +129,7 @@ async function openPort() {
 			//* restarts program to remove cache
 			return process.exit(22);
 		}, process.env.RELOAD_TIME);
-    }
-    
-    
+	}
 }
 
 startServer().then(() => openPort());
