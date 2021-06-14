@@ -150,7 +150,7 @@
         var data = google.visualization.arrayToDataTable(<%- AmKaleGraphArray %>);
 
         var options = {
-            title: "Graph of the difference between AmKale and DSNS's levels",
+            title: "The Difference Between DSNS and AmKale",
             curveType: 'function',
             legend: { position: 'bottom' }
         };
@@ -164,7 +164,7 @@
         var data = google.visualization.arrayToDataTable(<%- jiebiGraphArray %>);
 
         var options = {
-            title: "Graph of the difference between jiebi and DSNS's levels",
+            title: "The Difference Between DSNS and jiebi",
             curveType: 'function',
             legend: { position: 'bottom' }
         };
@@ -217,7 +217,7 @@
         let statusDiv = document.getElementById("statusDiv");
         statusDiv.style.visibility = "hidden";
 
-        for (var i of usernames) {
+        for (const i of usernames) {
             const status = await getStatus(i);
             const recentGame = await getRecentGame(i);
             statusDiv.innerHTML = statusDiv.innerHTML + status;
