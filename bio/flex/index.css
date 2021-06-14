@@ -1,0 +1,19 @@
+/*? FLEXBOX STYLES ---------------------------------------------------------------*/
+
+.grid-container {
+	display: flex;
+	display: grid;
+	grid-template-columns: auto auto auto;
+}
+
+.grid-item {
+	border-right: 1px solid #aaa;
+}
+
+h1 {
+	font-size: 3vw;
+}
+
+* {
+	font-family: "Open Sans", sans-serif;
+}

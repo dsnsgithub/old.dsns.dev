@@ -1,0 +1,15 @@
+body {
+    font-family: monospace;
+    font-size: 50px;
+}
+
+p {
+    font-weight: bold;
+    font-size: 70px;
+}
+
+input {
+    zoom: 2;
+    text-align: center;
+    width: 50px;
+}

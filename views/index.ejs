@@ -10,16 +10,14 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Difference in Hypixel Levels" />
     <meta property="og:description" content="Calculate the difference between AmKale, DSNS, and jiebi's Hypixel Levels." />
-    <meta property="og:url" content="https://dsnsgithub.github.io/difference" />
-    <meta property="og:image" content="https://dsnsgithub.github.io/static/images/pfp.png" />
+    <meta property="og:url" content="https://adamsai.com/difference" />
+    <meta property="og:image" content="https://adamsai.com/static/images/pfp.png" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://dsnsgithub.github.io/static/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://dsnsgithub.github.io/static/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://dsnsgithub.github.io/static/favicon/favicon-16x16.png">
-    <link rel="manifest" href="https://dsnsgithub.github.io/static/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://adamsai.com/static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://adamsai.com/static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://adamsai.com/static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://adamsai.com/static/favicon/site.webmanifest">
 
-
-    <!--? CSS ---------------------------------------------------------------------------------------------------------------------- -->
     <style>
         .row {
             display: flex;
@@ -64,7 +62,7 @@
 
 </head>
 
-<!--? BACK BUTTON TO DSNSGITHUB.GITHUB.IO ---------------------------------------------------------------------------------------------------------------------- -->
+<!--? BACK BUTTON TO adamsai.com ---------------------------------------------------------------------------------------------------------------------- -->
 <nav>
     <script src="https://kit.fontawesome.com/8b8f2eda4a.js" crossorigin="anonymous"></script>
     <style>
@@ -84,7 +82,7 @@
 
 
     <button id="backNav">
-        <a id="navlink" href="https://dsnsgithub.github.io"><i class="fas fa-arrow-left"></i></a>
+        <a id="navlink" href="/"><i class="fas fa-arrow-left"></i></a>
     </button>
 
 </nav>
@@ -115,22 +113,20 @@
                 <div id="jiebi_chart" style="height: 500px"></div>
             </div>
         </div>
- 
+
         <center>
-            <h1>The Difference Between jiebi and AmKale</h1> 
+            <h1>The Difference Between jiebi and AmKale</h1>
             <p id="jiebiAmkale"></p>
         </center>
-        
+
         <hr>
 
         <h2>
             Last updated: <%= date; %>
         </h2>
 
-        <center>
-            <iframe src="https://dsnsgithub.github.io/status/" scrolling="no" height="1000px" frameborder="0" width="100%"></iframe>
-        </center>
-
+        <div id="statusDiv"></div>
+        
     </main>
 
 </body>
@@ -178,8 +174,63 @@
         chart.draw(data, options);
     }
 
-
 </script>
 
+<!--? LOADING STATUS JS ---------------------------------------------------------------------------------------------------------------------- -->
+<script>
+    const baseURL = "https://api.slothpixel.me/api/players/";
+
+    async function getStatus(playerName) {
+        let response = await fetch(`${baseURL}${playerName}/status`).then((response) => response.json());
+
+        if (response["online"]) {
+            if (response["game"]["mode"] == null) {
+                return `${playerName} is online. They are playing ${response["game"]["type"]}.`;
+            } else {
+                return `${playerName} is online. They are playing ${response["game"]["mode"]} ${response["game"]["type"]}.`;
+            }
+        } else {
+            return `${playerName} is offline`;
+        }
+    }
+
+    async function getRecentGame(playerName) {
+        let response = await fetch(`${baseURL}${playerName}/recentGames`).then((response) => response.json());
+
+        if (response[0]) {
+            const time = new Date(response[0]["date"]).toLocaleDateString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true
+            });
+            if (response[0]["mode"] == null) {
+                return `${playerName} played ${response[0]["gameType"]} at ${time}.`;
+            } else {
+                return `${playerName} played ${response[0]["mode"]} ${response[0]["gameType"]} at ${time}.`;
+            }
+        } else {
+            return `${playerName} has not played Hypixel in 3 days.`;
+        }
+    }
+
+    async function run(usernames) {
+        let statusDiv = document.getElementById("statusDiv");
+        statusDiv.style.visibility = "hidden";
+
+        for (var i of usernames) {
+            const status = await getStatus(i);
+            const recentGame = await getRecentGame(i);
+            statusDiv.innerHTML = statusDiv.innerHTML + status;
+            statusDiv.innerHTML = statusDiv.innerHTML + "<br>";
+            statusDiv.innerHTML = statusDiv.innerHTML + recentGame;
+            statusDiv.innerHTML = statusDiv.innerHTML + "<br><br>";
+        }
+        statusDiv.innerHTML = statusDiv.innerHTML + `<style>#statusDiv {font-size: 40px; font-family: monospace; margin: 20px; text-align: center;}`;
+        statusDiv.style.visibility = "visible";
+    }
+
+    run(["DSNS", "jiebi", "Retsed", "AmKale", "LonelySouls", "Node13", "KDMCC123"]);
+
+</script>
 
 </html>

@@ -5,12 +5,12 @@ const HypixelAPI = require("hypixel-api"); //* npm install hypixel-api
 const client = new HypixelAPI(process.env.API_KEY);
 
 const fs = require("fs");
-const levels = require("./levels"); //* create levels.json with [] inside
+const levels = require("./levels.json"); //* create levels.json with [] inside
 
 const https = require("https"); //* npm install https
 const express = require("express"); //* npm install express
 const app = express();
-app.set("view engine", "ejs"); //* npm install ejs
+app.set("view engine", "ejs"); //* npm   install ejs
 
 //? Hypixel API Functions -------------------------------------------------------------------------
 function xpToLevel(xp) {
@@ -18,11 +18,20 @@ function xpToLevel(xp) {
 }
 
 async function grabPlayerData() {
-	const DSNS = client.getPlayer("name", "DSNS");
-	const AmKale = client.getPlayer("name", "AmKale");
-	const jiebi = client.getPlayer("name", "jiebi");
+	const DSNS = client.getPlayer("uuid", "557bafa10aad40bbb67207a9cefa8220");
+	const AmKale = client.getPlayer("uuid", "9e6cdbe98a744a33b53941cb0efd8113");
+	const jiebi = client.getPlayer("uuid", "769f1d98aeef49cd934b4202e1c5537f");
 
-	return Promise.all([DSNS, AmKale, jiebi]);
+	return Promise.all([DSNS, AmKale, jiebi]).catch((error) => {
+		console.error("Unable to complete request to Hypixel API.", error);
+
+		app.get("/", function (_req, res) {
+			res.status(502);
+			res.render("error", { error: error });
+		});
+
+		openPort();
+	});
 }
 
 async function getDifference(playerData) {
@@ -66,8 +75,8 @@ async function writeDifference(difference) {
 }
 
 async function createGraphArray() {
-	AmKaleGraphArray = [["Time", "Difference between DSNS and AmKale"]];
-	jiebiGraphArray = [["Time", "Difference between DSNS and jiebi"]];
+	let AmKaleGraphArray = [["Time", "Difference between DSNS and AmKale"]];
+	let jiebiGraphArray = [["Time", "Difference between DSNS and jiebi"]];
 
 	for (var i in levels) {
 		AmKaleGraphArray.push([levels[i].date, levels[i].differenceAmKale]);
@@ -90,7 +99,7 @@ async function startServer() {
 	await writeDifference(difference);
 	const graphArray = await createGraphArray();
 
-	app.get("/", function (req, res) {
+	app.get("/difference", function (req, res) {
 		res.render("index", {
 			differenceAmKale: difference.differenceAmKale.toFixed(3).toString(),
 			differenceJiebi: difference.differenceJiebi.toFixed(3).toString(),
@@ -104,8 +113,7 @@ async function startServer() {
 			})
 		});
 	});
-    
-    app.use(express.static(__dirname + "/static", { dotfiles: "allow" }));
+
 }
 
 async function openPort() {
@@ -128,8 +136,22 @@ async function openPort() {
 		setTimeout(function () {
 			//* restarts program to remove cache
 			return process.exit(22);
-		}, process.env.RELOAD_TIME);
+		}, Number(process.env.RELOAD_TIME));
 	}
 }
 
+app.use(function (req, res, next) {
+	if (req.hostname == "portobellomarina.com") {
+		res.sendFile(__dirname + "/portobellamarina.html");
+    }
+    else if (!req.secure) {
+		if (process.platform != "win32") {
+			res.redirect("https://" + req.headers.host + req.url);
+		}
+	} 
+	next();
+	
+});
+
+app.use(express.static(__dirname + "/bio", { dotfiles: "allow" }));
 startServer().then(() => openPort());
