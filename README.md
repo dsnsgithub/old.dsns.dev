@@ -1,4 +1,4 @@
-# levelDifference
+# adamsai.com
 This webpage was created to display the difference in Hypixel Level between AmKale, DSNS, and jiebi.
 
 This project was created with the Hypixel API, Express, and Ejs.
@@ -7,8 +7,8 @@ This project was created with the Hypixel API, Express, and Ejs.
 ## How To Install
 
 To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) installed on your machine. Once you do, follow these steps:
-1. Download the repository from the [master](https://github.com/dsnsgithub/levelDifference) branch on GitHub.
-2. Extract the `levelDifference-main.zip`.
+1. Download the repository from the [master](https://github.com/dsnsgithub/adamsai.com) branch on GitHub.
+2. Extract the `adamsai.com-main.zip`.
 3. Run `npm install` in the root directory (where the `package.json` file is found).
 4. Create a `.env` file with these properties:
 ```
