@@ -1,36 +1,35 @@
 {
-  "name": "leveldifference",
-  "version": "1.0.0",
-  "description": "This webpage was created to display the difference in Hypixel Level between AmKale, DSNS, and jiebi.",
-  "main": "index.js",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "https": "^1.0.0",
-    "hypixel-api": "^1.2.0",
-    "node-fetch": "^2.6.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "start": "node ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dsnsgithub/levelDifference.git"
-  },
-  "keywords": [
-    "adamsai.com",
-    "dsns",
-    "jiebi",
-    "amkale",
-    "level",
-    "difference"
-  ],
-  "author": "DSNS",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dsnsgithub/levelDifference/issues"
-  },
-  "homepage": "https://github.com/dsnsgithub/levelDifference#readme"
+	"name": "adamsai.com",
+	"version": "1.0.0",
+	"description": "This webpage was created to display the difference in Hypixel Level between AmKale, DSNS, and jiebi.",
+	"main": "index.js",
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"ejs": "^3.1.6",
+		"express": "^4.17.1",
+		"hypixel-api": "^1.2.0",
+		"node-fetch": "^2.6.1"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"start": "node ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dsnsgithub/levelDifference.git"
+	},
+	"keywords": [
+		"adamsai.com",
+		"dsns",
+		"jiebi",
+		"amkale",
+		"level",
+		"difference"
+	],
+	"author": "DSNS",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/dsnsgithub/adamsai.com/issues"
+	},
+	"homepage": "https://github.com/dsnsgithub/adamsai.com#readme"
 }
