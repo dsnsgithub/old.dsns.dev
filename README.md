@@ -1,7 +1,9 @@
 # adamsai.com
-This webpage was created to display the difference in Hypixel Level between AmKale, DSNS, and jiebi.
+An express server running both adamsai.com and portobellomarina.com
 
-This project was created with the Hypixel API, Express, and Ejs.
+https://adamsai.com/difference was created with the Hypixel API, Express, and Ejs.
+
+https://adamsai.com/ and all other sites are created with Bulma.
 
 
 ## How To Install
@@ -17,6 +19,9 @@ RELOAD_TIME = 60000
 HTTPS_KEY = [put path to HTTPS privkey.pem]
 HTTPS_CERT = [put path to HTTPS cert.pem]
 HTTPS_CHAIN = [put path to HTTPS chain.pem]
+SECOND_KEY = [put path to HTTPS privkey.pem]
+SECOND_CERT = [put path to HTTPS cert.pem]
+SECOND_CHAIN = [put path to HTTPS chain.pem]
 ```
 5. Run `npm start` in the root directory.
 
