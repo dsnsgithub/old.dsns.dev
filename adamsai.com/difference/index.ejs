@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference</title>
+
+    <!--? DISCORD EMBED METADATA ---------------------------------------------------------------------------------------------------------------------- -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Difference in Hypixel Levels" />
+    <meta property="og:description" content="Calculate the difference between AmKale, DSNS, and jiebi's Hypixel Levels." />
+    <meta property="og:url" content="https://adamsai.com/difference" />
+    <meta property="og:image" content="https://adamsai.com/static/images/pfp.png" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://adamsai.com/static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://adamsai.com/static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://adamsai.com/static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://adamsai.com/static/favicon/site.webmanifest">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/difference/index.css">
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d4bfae6f613b4c11a881a3bff5670622"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+
+    <!--? JS ---------------------------------------------------------------------------------------------------------------------- -->
+
+    <script type="text/javascript">
+        window.setTimeout(function () { document.location.reload(true); }, Number(<%= reloadTime %>));
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+
+
+<!--? MAIN CONTENT ---------------------------------------------------------------------------------------------------------------------- -->
+
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <a href="/">
+                    <img src="/static/images/png/kirby.png" alt="">
+                </a>
+            </div>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <a href="/" class="navbar-item">Home</a>
+                <div href="" class="navbar-item has-dropdown is-hoverable">
+                    <a href="/projects/" class="navbar-link">
+                        Projects
+                    </a>
+
+                    <div class="navbar-dropdown is-right">
+                        <a href="/difference" class="navbar-item">
+                            Hypixel Level Difference
+                        </a>
+                        <a href="/portal" class="navbar-item">
+                            Nether Portal Calculator
+                        </a>
+                        <a href="/ppi" class="navbar-item">
+                            PPI Calculator
+                        </a>
+                        <a href="/webcam" class="navbar-item">
+                            Webcam Test
+                        </a>
+                        <a href="/quests" class="navbar-item">
+                            Hypixel Quest Finder
+                        </a>
+                        <a href="/birthdays" class="navbar-item">
+                            Birthday Countdown
+                        </a>
+
+                        <a href="/christmas" class="navbar-item">
+                            Christmas Countdown
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <main>
+
+        <div class="row">
+            <div class="column bordersection">
+
+                <h1>The Difference Between DSNS and AmKale</h1>
+                <p>
+                    <%= differenceAmKale; %>
+                </p>
+
+                <div id="AmKale_chart" style="height: 27vh"></div>
+            </div>
+
+
+            <div class="column">
+                <h1>The Difference Between DSNS and jiebi</h1>
+                <p>
+                    <%= differenceJiebi; %>
+                </p>
+
+                <div id="jiebi_chart" style="height: 27vh"></div>
+            </div>
+        </div>
+
+        <center>
+            <h1>The Difference Between jiebi and AmKale</h1>
+            <p id="jiebiAmkale"></p>
+        </center>
+
+        <h2>
+            Last updated: <%= date; %>
+        </h2>
+
+        <hr>
+
+        <div id="statusDiv"></div>
+
+    </main>
+
+</body>
+
+<!--? LOADING CHART JS ---------------------------------------------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+    const jiebiAmkale = document.getElementById("jiebiAmkale")
+    jiebiAmkale.innerHTML = Number(<%- differenceJiebi; %> - <%- differenceAmKale; %>).toFixed(3)
+
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawAmKaleChart);
+    google.charts.setOnLoadCallback(drawJiebiChart);
+
+    function drawAmKaleChart() {
+        const data = google.visualization.arrayToDataTable(<%- AmKaleGraphArray %>);
+
+        const options = {
+            curveType: 'function',
+            chartArea: { height: "97%" },
+            legend: { position: 'none' },
+            hAxis: { textPosition: 'none' },
+        };
+
+        const chart = new google.visualization.LineChart(document.getElementById('AmKale_chart'));
+
+        chart.draw(data, options);
+    }
+
+    function drawJiebiChart() {
+        const data = google.visualization.arrayToDataTable(<%- jiebiGraphArray %>);
+
+        const options = {
+            curveType: 'function',
+            chartArea: { height: "97%" },
+            legend: { position: 'none' },
+            hAxis: { textPosition: 'none' },
+        };
+
+        const chart = new google.visualization.LineChart(document.getElementById('jiebi_chart'));
+
+        chart.draw(data, options);
+    }
+
+</script>
+
+<!--? LOADING STATUS JS ---------------------------------------------------------------------------------------------------------------------- -->
+<script>
+    const status = <%- status %>
+    const recentGames = <%- recentGames %>
+
+    const statusDiv = document.getElementById("statusDiv");
+
+    statusDiv.style.visibility = "hidden"
+
+    for (const i in status) {
+        statusDiv.innerHTML = statusDiv.innerHTML + status[i];
+        statusDiv.innerHTML = statusDiv.innerHTML + "<br>";
+        statusDiv.innerHTML = statusDiv.innerHTML + recentGames[i];
+        statusDiv.innerHTML = statusDiv.innerHTML + "<br><br>";
+    }
+
+    statusDiv.style.visibility = "visible";
+
+</script>
+
+</html>

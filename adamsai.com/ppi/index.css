@@ -1,0 +1,20 @@
+input,label,button {
+    zoom: 2;
+    color:black;
+}
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.explain {
+    background-color: #BBB;
+    padding: 30px;
+    border-radius: 10px;
+    display:inline-block;
+    color:black;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
