@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
 
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d4bfae6f613b4c11a881a3bff5670622"}'></script>
@@ -19,8 +18,9 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Countdown until Christmas" />
     <meta property="og:description" content="Counts down in seconds until Christmas." />
+    <meta property="description" content="Counts down in seconds until Christmas." />
     <meta property="og:url" content="https://adamsai.com/christmas" />
-    <meta property="og:image" content="https://adamsai.com/static/images/pfp.png" />
+    <meta property="og:image" content="https://adamsai.com/static/images/png/kirby.png" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="https://adamsai.com/static/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://adamsai.com/static/favicon/favicon-32x32.png">
@@ -38,9 +38,15 @@
         <div class="navbar-brand">
             <div class="navbar-item">
                 <a href="/">
-                    <img src="/static/images/png/kirby.png" alt="">
+                    <img src="/static/images/webp/kirby.webp" alt="">
                 </a>
             </div>
+
+            <a role="button" class="navbar-burger" href="/projects">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
 
         <div class="navbar-menu">
@@ -80,8 +86,26 @@
         </div>
     </nav>
 
-    <p id="demo"></p>
-    <h1>Seconds Until Christmas</h1>
+    <section class="hero is-fullheight-with-navbar">
+        <div class="hero-body">
+            <div class="container">
+                <div class="">
+                    <p class="title">
+                    <p id="demo"></p>
+                    </p>
+                    <p class="subtitle">
+                    <h1>Seconds Until Christmas</h1>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <script src="index.js"></script>
 </body>
+
 
 </html>

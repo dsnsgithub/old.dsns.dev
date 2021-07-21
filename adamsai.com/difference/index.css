@@ -9,20 +9,19 @@
 }
 
 p {
-	font-size: 5vw;
+	font-size: 110px;
 	margin: 6vh;
     color:black;
 }
 
-h1 {
-	font-size: 2vw;
+h1, h2 {
+	font-size: 50px;
     color:black;
+    font-weight: bold;
 }
 
 h2 {
-	font-size: 2vw;
-	text-align: center;
-    color:black;
+    text-align: center;
 }
 
 main {
