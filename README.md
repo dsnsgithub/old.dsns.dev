@@ -1,7 +1,7 @@
 # adamsai.com
 An express server running both adamsai.com and portobellomarina.com
 
-https://adamsai.com/difference was created with the Hypixel API, Express, and Ejs.
+https://adamsai.com/difference was created with the Hypixel API, Express, EventSource (SSE), and Bulma.
 
 https://adamsai.com/ and all other sites are created with Bulma.
 
