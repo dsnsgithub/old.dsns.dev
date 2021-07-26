@@ -1,9 +1,9 @@
-# adamsai.com
+# dsns.dev
 An express server running both adamsai.com and portobellomarina.com
 
-https://adamsai.com/difference was created with the Hypixel API, Express, EventSource (SSE), and Bulma.
+https://dsns.dev/difference was created with the Hypixel API, Express, EventSource (SSE), and Bulma.
 
-https://adamsai.com/ and all other sites are created with Bulma.
+https://dsns.dev/ and all other sites are created with Bulma.
 
 
 ## How To Install
@@ -16,12 +16,18 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 ```
 API_KEY = [type /api new on mc.hypixel.net to get api key]
 RELOAD_TIME = 60000
-HTTPS_KEY = [put path to HTTPS privkey.pem]
-HTTPS_CERT = [put path to HTTPS cert.pem]
-HTTPS_CHAIN = [put path to HTTPS chain.pem]
-SECOND_KEY = [put path to HTTPS privkey.pem]
-SECOND_CERT = [put path to HTTPS cert.pem]
-SECOND_CHAIN = [put path to HTTPS chain.pem]
+ADAMS_KEY = [path to HTTPS key]
+ADAMS_CERT = [path to HTTPS cert]
+ADAMS_CHAIN = [path to HTTPS chain]
+MARINA_KEY = [path to HTTPS key]
+MARINA_CERT = [path to HTTPS cert]
+MARINA_CHAIN = [path to HTTPS chain]
+DSNS_KEY = [path to HTTPS key]
+DSNS_CERT = [path to HTTPS cert]
+DSNS_CHAIN = [path to HTTPS chain]
+MAX_KEY = [path to HTTPS key]
+MAX_CERT = [path to HTTPS cert]
+MAX_CHAIN = [path to HTTPS chain]
 ```
 5. Run `npm start` in the root directory.
 
