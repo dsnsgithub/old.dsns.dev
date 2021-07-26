@@ -17,13 +17,15 @@
 		"url": "git+https://github.com/dsnsgithub/dsns.dev"
 	},
 	"keywords": [
-		"adamsai",
-		"portobellomarina",
 		"express",
 		"https",
 		"ssl",
 		"letsencrypt",
-		"sse"
+		"sse",
+        "jiebi",
+        "amkale",
+        "dsns",
+        "nodejs"
 	],
 	"author": "DSNS",
 	"license": "ISC",
