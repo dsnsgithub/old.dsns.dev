@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Test</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Webcam Test" />
+    <meta property="og:description" content="Make sure your webcam works in your browser." />
+    <meta name="description" content="Make sure your webcam works in your browser." />
+    <meta property="og:url" content="https://dsns.dev/webcam" />
+    <meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://dsns.dev/static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://dsns.dev/static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://dsns.dev/static/favicon/site.webmanifest">
+
+</head>
+
+<body>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <a href="/">
+                    <img src="/static/images/webp/kirby.webp" alt="">
+                </a>
+            </div>
+
+            <a role="button" class="navbar-burger" href="/projects">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <a href="/" class="navbar-item">Home</a>
+                <div href="" class="navbar-item has-dropdown is-hoverable">
+                    <a href="/projects/" class="navbar-link">
+                        Projects
+                    </a>
+
+                    <div class="navbar-dropdown is-right">
+                        <a href="/difference" class="navbar-item">
+                            Hypixel Level Difference
+                        </a>
+                        <a href="/portal" class="navbar-item">
+                            Nether Portal Calculator
+                        </a>
+                        <a href="/ppi" class="navbar-item">
+                            PPI Calculator
+                        </a>
+                        <a href="/webcam" class="navbar-item">
+                            Webcam Test
+                        </a>
+                        <a href="/quests" class="navbar-item">
+                            Hypixel Quest Finder
+                        </a>
+                        <a href="/birthdays" class="navbar-item">
+                            Birthday Countdown
+                        </a>
+
+                        <a href="/christmas" class="navbar-item">
+                            Christmas Countdown
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Webcam Test</h1>
+        <video autoplay="true" id="videoElement"></video>
+    </main>
+</body>
+
+<script src="index.js"></script>
+
+</html>

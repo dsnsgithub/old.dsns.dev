@@ -1,0 +1,25 @@
+@font-face {
+	font-family: "Open Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/opensans/v20/mem8YaGs126MiZpBA-UFVZ0b.woff2") format("woff2");
+}
+
+.image img { width: auto; height:auto; }
+
+a {
+    text-decoration: none !important;
+}
+
+.notification .content, .notification .subtitle, .notification .title {
+    color: black;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
+
+* {
+	font-family: "Open Sans", sans-serif;
+}

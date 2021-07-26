@@ -1,0 +1,17 @@
+main {
+    text-align: center;
+    font-family: monospace;
+    color:black;
+}
+
+h1{
+    font-size: 4vw;
+}
+
+video {
+    zoom:2;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}

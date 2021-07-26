@@ -197,11 +197,11 @@ async function mergeAPI() {
 
 //? Express Server Functions  ---------------------------------------------------------------------
 async function sendSSE() {
-    let result = await mergeAPI();
-    
-    setInterval(async () => {
-        result = await mergeAPI();
-    }, 60000);
+	let result = await mergeAPI();
+
+	setInterval(async () => {
+		result = await mergeAPI();
+	}, 60000);
 
 	app.get("/differenceData", async (req, res) => {
 		res.setHeader("Cache-Control", "no-cache");
@@ -211,8 +211,8 @@ async function sendSSE() {
 		res.flushHeaders();
 
 		//? Send data to client every minute
-        res.write(`data: ${JSON.stringify(result)} \n\n`);
-        
+		res.write(`data: ${JSON.stringify(result)} \n\n`);
+
 		const eventSend = setInterval(() => {
 			res.write(`data: ${JSON.stringify(result)} \n\n`);
 		}, 60000);
@@ -227,26 +227,44 @@ async function sendSSE() {
 
 async function openPort() {
 	app.listen(80);
-	console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m",  80);
+	console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
 
 	if (process.platform != "win32") {
 		//? HTTPS Certificates to adamsai.com / portobellomarina.com -----------------------------------------------
 		const adamsai = {
-			key: fs.readFileSync(process.env["HTTPS_KEY"], "utf8"),
-			cert: fs.readFileSync(process.env["HTTPS_CERT"], "utf8"),
-			ca: fs.readFileSync(process.env["HTTPS_CHAIN"], "utf8")
+			key: fs.readFileSync(process.env["ADAMS_KEY"], "utf8"),
+			cert: fs.readFileSync(process.env["ADAMS_CERT"], "utf8"),
+			ca: fs.readFileSync(process.env["ADAMS_CHAIN"], "utf8")
 		};
 
 		const portobellomarina = {
-			key: fs.readFileSync(process.env["SECOND_KEY"], "utf8"),
-			cert: fs.readFileSync(process.env["SECOND_CERT"], "utf8"),
-			ca: fs.readFileSync(process.env["SECOND_CHAIN"], "utf8")
+			key: fs.readFileSync(process.env["MARINA_KEY"], "utf8"),
+			cert: fs.readFileSync(process.env["MARINA_CERT"], "utf8"),
+			ca: fs.readFileSync(process.env["MARINA_CHAIN"], "utf8")
 		};
 
-		const httpsServer = https.createServer(adamsai, app);
+		const DSNS = {
+			key: fs.readFileSync(process.env["DSNS_KEY"], "utf8"),
+			cert: fs.readFileSync(process.env["DSNS_CERT"], "utf8"),
+			ca: fs.readFileSync(process.env["DSNS_CHAIN"], "utf8")
+		};
+
+		const max = {
+			key: fs.readFileSync(process.env["MAX_KEY"], "utf8"),
+			cert: fs.readFileSync(process.env["MAX_CERT"], "utf8"),
+			ca: fs.readFileSync(process.env["MAX_CHAIN"], "utf8")
+		};
+
+		const httpsServer = https.createServer(DSNS, app);
 
 		httpsServer.addContext("portobellomarina.com", portobellomarina);
 		httpsServer.addContext("www.portobellomarina.com", portobellomarina);
+
+		httpsServer.addContext("adamsai.com", adamsai);
+		httpsServer.addContext("www.adamsai.com", adamsai);
+
+		httpsServer.addContext("mseung.dev", max);
+		httpsServer.addContext("www.mseung.dev", max);
 
 		httpsServer.listen(443, () => {
 			console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[0m", 443);
@@ -270,11 +288,20 @@ async function openPort() {
 				return res.sendFile(__dirname + "/portobellomarina.com/index.html");
 			}
 
+			if (req.hostname == "adamsai.com" || req.hostname == "www.adamsai.com") {
+				// return res.sendFile(__dirname + "/adamsai.com/" + req.url);
+                return res.redirect("https://dsns.dev" + req.url);
+			}
+
+			if (req.hostname == "mseung.dev" || req.hostname == "www.mseung.dev") {
+				return res.sendFile(__dirname + "/mseung.dev" + req.url);
+			}
+
 			next();
 		});
 	}
 
-	app.use(express.static(__dirname + "/adamsai.com", { dotfiles: "allow" }));
+	app.use(express.static(__dirname + "/dsns.dev", { dotfiles: "allow" }));
 
 	app.use((req, res, next) => {
 		return res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");

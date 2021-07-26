@@ -1,0 +1,37 @@
+/*? FLEXBOX STYLES ---------------------------------------------------------------*/
+
+* {
+	font-family: "Open Sans", sans-serif;
+}
+
+p {
+	font-size: 1.5vw;
+	display: block;
+    color:black;
+}
+
+h1 {
+	font-size: 2vw;
+    color:black;
+}
+.navbar-item img {
+    max-height: 3rem;
+}
+
+progress {
+    display: block;
+    width: 15em;
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+}
+
+progress {
+    width: 20em !important;
+    text-align: left;
+} 

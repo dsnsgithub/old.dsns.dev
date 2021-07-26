@@ -1,0 +1,9 @@
+center {
+    font-family: monospace;
+    font-size: 30px;
+    color:black;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
