@@ -10,24 +10,12 @@ https://dsns.dev/ and all other sites are created with Bulma.
 
 To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) installed on your machine. Once you do, follow these steps:
 1. Download the repository from the [master](https://github.com/dsnsgithub/adamsai.com) branch on GitHub.
-2. Extract the `adamsai.com-main.zip`.
+2. Extract the `dsns.dev-main.zip`.
 3. Run `npm install` in the root directory (where the `package.json` file is found).
 4. Create a `.env` file with these properties:
 ```
 API_KEY = [type /api new on mc.hypixel.net to get api key]
 RELOAD_TIME = 60000
-ADAMS_KEY = [path to HTTPS key]
-ADAMS_CERT = [path to HTTPS cert]
-ADAMS_CHAIN = [path to HTTPS chain]
-MARINA_KEY = [path to HTTPS key]
-MARINA_CERT = [path to HTTPS cert]
-MARINA_CHAIN = [path to HTTPS chain]
-DSNS_KEY = [path to HTTPS key]
-DSNS_CERT = [path to HTTPS cert]
-DSNS_CHAIN = [path to HTTPS chain]
-MAX_KEY = [path to HTTPS key]
-MAX_CERT = [path to HTTPS cert]
-MAX_CHAIN = [path to HTTPS chain]
 ```
 5. Run `npm start` in the root directory.
 
