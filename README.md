@@ -9,7 +9,7 @@ https://dsns.dev/ and all other sites are created with Bulma.
 ## How To Install
 
 To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) installed on your machine. Once you do, follow these steps:
-1. Download the repository from the [master](https://github.com/dsnsgithub/adamsai.com) branch on GitHub.
+1. Download the repository from the [master](https://github.com/dsnsgithub/dsns.dev) branch on GitHub.
 2. Extract the `dsns.dev-main.zip`.
 3. Run `npm install` in the root directory (where the `package.json` file is found).
 4. Create a `.env` file with these properties:
