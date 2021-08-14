@@ -1,0 +1,30 @@
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2") format("woff2");
+}
+
+* {
+	font-family: "Poppins", sans-serif !important;
+}
+
+#demo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 9vw;
+	font-weight: bold;
+    color:black;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4vw;
+    color:black;
+}
+
+.navbar-item img {
+    max-height: 3rem;
+}
