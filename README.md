@@ -18,6 +18,3 @@ API_KEY = [type /api new on mc.hypixel.net to get api key]
 RELOAD_TIME = 60000
 ```
 5. Run `npm start` in the root directory.
-
-
-**FYI: You won't need a HTTPS cert if you are running on Windows.  This feature is for testing locally.**
