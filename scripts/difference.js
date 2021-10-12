@@ -16,16 +16,7 @@ async function grabPlayerData() {
 		hypixel.player("557bafa10aad40bbb67207a9cefa8220"), // DSNS
 		hypixel.player("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
 		hypixel.player("769f1d98aeef49cd934b4202e1c5537f") // jiebi
-	]).catch((error) => {
-		console.error("\x1b[31m" + "Unable to complete request to Hypixel API!", error + "\x1b[0m");
-
-		app.get("/difference", function (_req, res) {
-			res.status(502);
-			res.render("error");
-		});
-
-		openPort();
-	});
+	])
 }
 
 async function getDifference(playerData) {

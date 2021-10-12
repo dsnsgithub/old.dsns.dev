@@ -31,7 +31,15 @@
         <div class="navbar-brand">
             <div class="navbar-item">
                 <a href="/">
-                    <img src="/static/images/webp/kirby.webp" alt="">
+                    <picture>
+                        <source srcset="
+                        /static/images/webp/kirby.webp 1x,
+                        /static/images/webp/kirby.webp 2x" type="image/webp">
+                        <source srcset="
+                        /static/images/png/kirby.png 1x, 
+                        /static/images/png/kirby.png 2x" type="image/png">
+                        <img src="/static/images/webp/kirby.webp" alt="DSNS icon">
+                    </picture>
                 </a>
             </div>
 
@@ -69,9 +77,14 @@
                         <a href="/birthdays" class="navbar-item">
                             Birthday Countdown
                         </a>
-
                         <a href="/christmas" class="navbar-item">
                             Christmas Countdown
+                        </a>
+                        <a href="/recentgames" class="navbar-item">
+                            Recent Games Finder
+                        </a>
+                        <a href="/ip" class="navbar-item">
+                            IP Address Finder
                         </a>
                     </div>
                 </div>

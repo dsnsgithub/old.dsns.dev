@@ -1,13 +1,13 @@
-.image img { width: auto; height:auto; }
-
-a {
-    text-decoration: none !important;
+center {
+    font-family: monospace;
+    font-size: 20px;
+    color:black;
 }
 
-.notification .content, .notification .subtitle, .notification .title {
-    color: black;
+h1 {
+    font-weight: bold;
+    font-size: 40px;
 }
-
 .navbar-item img {
     max-height: 3rem;
 }

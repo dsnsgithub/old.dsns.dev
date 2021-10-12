@@ -22,6 +22,7 @@ const birthdays = [
 	{ id: "nsno", date: "November 1, 2021 " },
 	{ id: "Max_AS", date: "July 8, 2022 " },
 	{ id: "B0B643", date: "July 11, 2021 " },
+	{ id: "Potato.png", date: "July 25, 2022 " }, 
 	{ id: "euphoriials", date: "August 5, 2021 " }, 
 ];
 
@@ -40,7 +41,7 @@ for (const singleBirthday of birthdays) {
 
 // Create a function that sorts the array of birthdays by date
 birthdays.sort(function (a, b) {
-	return new Date(a.date) - new Date(b.date);
+    return new Date(a.date) - new Date(b.date);
 });
 
 for (const eachBirthday of birthdays) {
@@ -97,8 +98,3 @@ if (turnConfettiOn) {
 	const confetti = new ConfettiGenerator();
 	confetti.render();
 }
-
-
-const numberVar = 10.3232
-
-

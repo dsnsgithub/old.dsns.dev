@@ -43,3 +43,6 @@ h3 {
     font-family: 'Poppins', sans-serif !important;
 }
 
+body.has-navbar-fixed-top,html.has-navbar-fixed-top {
+    padding-top: 4rem;
+}

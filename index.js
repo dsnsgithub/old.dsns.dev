@@ -1,11 +1,9 @@
 require("dotenv").config(); //* npm install dotenv
 
 //? Requirements ----------------------------------------------------------------------------------
-const https = require("https"); //* npm install https
 const express = require("express"); //* npm install express
 const app = express();
 
-const fs = require("fs");
 const hypixel = require("./scripts/createSSEData.js");
 
 app.set("views", __dirname + "/pages/dsns.dev/difference");
@@ -16,8 +14,8 @@ async function sendSSE() {
 
 	setInterval(async () => {
 		result = await hypixel.createSSEData();
-	}, process.env["RELOAD_TIME"]);
-
+    }, process.env["RELOAD_TIME"]);
+    
 	app.get("/differenceData", async (req, res) => {
 		res.setHeader("Cache-Control", "no-cache");
 		res.setHeader("Content-Type", "text/event-stream");
@@ -40,29 +38,6 @@ async function sendSSE() {
 	});
 }
 
-async function useHTTPS() {
-	let certs = {};
-	const domains = ["adamsai.com", "portobellomarina.com", "mseung.dev", "dsns.dev"];
-
-	for (const value in domains) {
-		certs[value] = {
-			key: fs.readFileSync("/etc/letsencrypt/live/" + domains[value] + "/privkey.pem", "utf8"),
-			cert: fs.readFileSync("/etc/letsencrypt/live/" + domains[value] + "/cert.pem", "utf8"),
-			ca: fs.readFileSync("/etc/letsencrypt/live/" + domains[value] + "/chain.pem", "utf8")
-		};
-	}
-
-	const httpsServer = https.createServer(certs["dsns.dev"], app);
-
-	httpsServer.addContext("portobellomarina.com", certs["portobellomarina.com"]);
-	httpsServer.addContext("adamsai.com", certs["adamsai.com"]);
-	httpsServer.addContext("mseung.dev", certs["mseung.dev"]);
-
-	httpsServer.listen(443, () => {
-		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[0m", 443);
-	});
-}
-
 async function useMiddleware() {
 	app.use((req, res, next) => {
 		if (req.hostname == "portobellomarina.com") {
@@ -75,10 +50,12 @@ async function useMiddleware() {
 
 		if (req.hostname == "mseung.dev") {
 			return res.sendFile(__dirname + "/pages/mseung.dev" + req.url);
-        }
-        
-        next()
+		}
+
+		next();
 	});
+
+	app.get("/ipAPI", async (req, res) => res.json(req.headers));
 
 	app.use(express.static(__dirname + "/pages/dsns.dev", { dotfiles: "allow" }));
 
@@ -92,8 +69,6 @@ async function openPort() {
 	app.listen(80, () => {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
 	});
-
-	if (process.platform != "win32") useHTTPS();
 
 	useMiddleware();
 }

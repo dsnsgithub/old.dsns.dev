@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRMS Student Index</title>
+    <title>DVHS Student Index</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="index.css">
@@ -12,7 +12,7 @@
     <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Student Index" />
+    <meta property="og:title" content="DVHS Student Index" />
     <meta property="og:description" content="Use the Student Index Here." />
     <meta name="description" content="Use the Student Index Here." />
     <meta property="og:url" content="https://dsns.dev/studentindex" />
@@ -30,7 +30,15 @@
         <div class="navbar-brand">
             <div class="navbar-item">
                 <a href="/">
-                    <img src="/static/images/webp/kirby.webp" alt="">
+                    <picture>
+                        <source srcset="
+                        /static/images/webp/kirby.webp 1x,
+                        /static/images/webp/kirby.webp 2x" type="image/webp">
+                        <source srcset="
+                        /static/images/png/kirby.png 1x, 
+                        /static/images/png/kirby.png 2x" type="image/png">
+                        <img src="/static/images/webp/kirby.webp" alt="DSNS icon">
+                    </picture>
                 </a>
             </div>
 
@@ -68,9 +76,14 @@
                         <a href="/birthdays" class="navbar-item">
                             Birthday Countdown
                         </a>
-
                         <a href="/christmas" class="navbar-item">
                             Christmas Countdown
+                        </a>
+                        <a href="/recentgames" class="navbar-item">
+                            Recent Games Finder
+                        </a>
+                        <a href="/ip" class="navbar-item">
+                            IP Address Finder
                         </a>
                     </div>
                 </div>
@@ -80,17 +93,16 @@
 
 
     <center>
-        <input id="search" onkeyup="search()"></input>
-        <br>
-        <h1>Name:<h1> 
-        <span id="searchName"></span>
-        <br>
-        <h1>ID #:<h1>
-        <span id="searchID"></span>
-        <br>
-        <h1>Email:<h1>
-        <span id="searchEmail"></span>
+        <input id="search"></input>
+        <button onclick="search()">Search</button>
+
+        <hr>
+
+        <div id="searchResult"></div>
+
+        
+
     </center>
 </body>
-    <script src="non.js"></script>
+    <script src="index.js"></script>
 </html>

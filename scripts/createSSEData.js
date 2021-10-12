@@ -3,20 +3,17 @@ require("dotenv").config();
 //? Requirements ----------------------------------------------------------------------------------
 const diffJS = require("./difference.js");
 const statusJS = require("./status.js");
-const weeklyStatJS = require("./weeklyStats.js");
 
 const fs = require("fs");
 
 async function createSSEData() {
 	let levels = JSON.parse(fs.readFileSync("levels.json", "utf8"));
-	const statusData = await statusJS.grabStatus();
+    const statusData = await statusJS.grabStatus();
 	const status = await statusJS.parseStatus(statusData);
 
 	const playerData = await diffJS.grabPlayerData();
 	const difference = await diffJS.getDifference(playerData);
     
-    const weeklyStats = await weeklyStatJS.saveStats(playerData);
-
     levels = await diffJS.writeDifference(difference, levels);
     const graphArray = await diffJS.createGraphArray(levels);
     
