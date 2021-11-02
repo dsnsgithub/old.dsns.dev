@@ -23,5 +23,5 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 API_KEY = [type /api new on mc.hypixel.net to get api key]
 RELOAD_TIME = 60000
 ```
-5. Remove the `.template` the .template.json files in /json.
+5. Remove `.template` from the .template.json files in /json.
 6. Run `npm start` in the root directory.

@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const express = require("express"); //* npm install express
 const fs = require("fs");
 const crypto = require("crypto");
+const path = require("path");
 
 module.exports = function (app) {
     app.use(express.urlencoded({ extended: false }));
@@ -74,18 +75,21 @@ module.exports = function (app) {
                 const action = req.body["action"];
 
                 if (action == "login") {
-                    return res.sendFile(__dirname + "/pages/private/studentindex.html");
+                    return res.sendFile(path.resolve(__dirname + "/../pages/private/studentindex.html"));
                 }
                 if (action == "create") {
                     const newCode = crypto.randomBytes(8).toString("hex");
 
 		            let codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
                     codes.push(newCode);
+
                     fs.writeFileSync(__dirname + "/../json/codes.json", JSON.stringify(codes));
 
                     return res
 						.status(201)
-						.send(`<h1>New Code Created: ${newCode}</h1> <br> <a href="/studentindex/createAccount.html">Link to Create Account</a> <br> <img src="https://http.cat/201"><br><a href="/studentindex">Back</a>`);
+						.send(
+							`<h1>New Code Created: ${newCode}</h1> <br> <a href="/studentindex/createAccount.html">Link to Create Account</a> <br> <a href="/studentindex">Back</a> <br> <img src="https://http.cat/201">`
+						);
                 }
 
             } else {
