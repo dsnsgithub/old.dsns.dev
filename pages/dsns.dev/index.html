@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSNS's Portfolio</title>
+
+    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/static/favicon/site.webmanifest">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DSNS's Portfolio" />
+    <meta property="og:description" content="Check out what I do, and explore some of my projects." />
+    <meta name="description" content="Check out what I do, and explore some of my projects." />
+    <meta property="og:url" content="https://dsns.dev" />
+    <meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
+
+</head>
+
+<body>
+    <nav class="navbar is-fixed-top" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <a href="/">
+                    <picture>
+                        <source srcset="
+                        /static/images/webp/kirby.webp 1x,
+                        /static/images/webp/kirby.webp 2x" type="image/webp">
+                        <source srcset="
+                        /static/images/png/kirby.png 1x, 
+                        /static/images/png/kirby.png 2x" type="image/png">
+                        <img src="/static/images/webp/kirby.webp" alt="DSNS icon">
+                    </picture>
+                </a>
+            </div>
+
+            <a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <a href="/" class="navbar-item">Home</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="/projects/" class="navbar-link">
+                        Projects
+                    </a>
+
+                    <div class="navbar-dropdown is-right">
+                        <a href="/difference" class="navbar-item">
+                            Hypixel Level Difference
+                        </a>
+                        <a href="/portal" class="navbar-item">
+                            Nether Portal Calculator
+                        </a>
+                        <a href="/ppi" class="navbar-item">
+                            PPI Calculator
+                        </a>
+                        <a href="/webcam" class="navbar-item">
+                            Webcam Test
+                        </a>
+                        <a href="/quests" class="navbar-item">
+                            Hypixel Quest Finder
+                        </a>
+                        <a href="/birthdays" class="navbar-item">
+                            Birthday Countdown
+                        </a>
+                        <a href="/christmas" class="navbar-item">
+                            Christmas Countdown
+                        </a>
+                        <a href="/recentgames" class="navbar-item">
+                            Recent Games Finder
+                        </a>
+                        <a href="/ip" class="navbar-item">
+                            IP Address Finder
+                        </a>
+                        <a href="/studentindex" class="navbar-item">
+                            Student Index
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="hero is-fullheight-with-navbar">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <h1>DSNS</h1>
+                        <h2>A full-stack developer that creates API gadgets in JS and plays Minecraft.</h2>
+
+                        <div class="columns mt-8 is-mobile" style="zoom:0.12;">
+                            <div class="column">
+                                <a href="https://github.com/dsnsgithub" aria-label="DSNS github">
+                                    <img src="/static/images/icons/github.svg" alt="DSNS github icon">
+                                </a>
+                            </div>
+                            <div class="column">
+                                <a href="https://www.twitch.tv/dsnsosu" aria-label="DSNS twitch">
+                                    <img src="/static/images/icons/twitch.svg" alt="DSNS twitch icon">
+                                </a>
+                            </div>
+                            <div class="column">
+                                <a href="https://www.youtube.com/channel/UCvUkvYDaBdqFJA0THLPs0qQ" aria-label="DSNS youtube">
+                                    <img src="/static/images/icons/youtube.svg" alt="DSNS youtube icon">
+                                </a>
+                            </div>
+                            <div class="column">
+                                <a href="https://www.reddit.com/user/Dominic_Mine" aria-label="DSNS reddit">
+                                    <img src="/static/images/icons/reddit.svg" alt="DSNS reddit icon">
+                                </a>
+                            </div>
+                            <div class="column">
+                                <a href="https://twitter.com/DSNSminecraft" aria-label="DSNS twitter">
+                                    <img src="/static/images/icons/twitter.svg" alt="DSNS twitter icon">
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="column is-hidden-mobile">
+                        <img id="minecraftAvatar" src="./static/images/png/557bafa1-0aad-40bb-b672-07a9cefa8220.png" alt="minecraftAvatar">
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hero-foot">
+            <div class="container" style="display:flex; justify-content: center;">
+                <a href="#experiences" aria-label="scroll to experiences">
+                    <img class="bounce" width="80" height="80" alt="" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSLQodC70L7QuV8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yODUsMTEuMjg0TDE2LDE5LjU3MWwtOC4yODUtOC4yODhjLTAuMzk1LTAuMzk1LTEuMDM0LTAuMzk1LTEuNDI5LDAgIGMtMC4zOTQsMC4zOTUtMC4zOTQsMS4wMzUsMCwxLjQzbDguOTk5LDkuMDAybDAsMGwwLDBjMC4zOTQsMC4zOTUsMS4wMzQsMC4zOTUsMS40MjgsMGw4Ljk5OS05LjAwMiAgYzAuMzk0LTAuMzk1LDAuMzk0LTEuMDM2LDAtMS40MzFDMjUuMzE5LDEwLjg4OSwyNC42NzksMTAuODg5LDI0LjI4NSwxMS4yODR6IiBmaWxsPSIjMTIxMzEzIiBpZD0iRXhwYW5kX01vcmUiLz48Zy8+PGcvPjxnLz48Zy8+PGcvPjxnLz48L3N2Zz4=" />
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+        <h1 style="text-align:center; margin-bottom: 100px;" id="experiences">Experiences</h1>
+
+        <div class="container">
+            <div class="columns is-variable is-8 is-multiline">
+                <div class="column is-one-third">
+                    <a href="https://github.com/SanjitRao/truthBeTold">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image is-1by1">
+                                    <img src="static/images/webp/TruthBeTold.webp" loading="lazy" alt="TruthBeTold logo">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="content">
+                                    <h1 class="has-text-centered" style="margin:0px; font-weight: bold; color: black;">TruthBeTold</h1>
+                                    <h4 class="has-text-centered" style="margin:10px;">Web Developer</h4>
+                                    <p>TruthBeTold is a browser extension designed to detect misinformation using AI.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="https://github.com/dsnsgithub/chromocraft">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image">
+                                    <img src="static/images/webp/ChromoBanner.webp" loading="lazy" alt="Chromocraft Banner">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="content">
+                                    <h1 class="has-text-centered" style="margin:0px; font-weight: bold; color: black;">Chromocraft</h1>
+                                    <h4 class="has-text-centered" style="margin:10px;">Server Owner</h4>
+                                    <p>Chromocraft is a public Minecraft SMP that was hosted from 2018-2019.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="https://github.com/dsnsgithub/dsns.dev">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image">
+                                    <img src="static/images/webp/kirby.webp" loading="lazy" alt="DSNS pfp">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="content">
+                                    <h1 class="has-text-centered" style="margin:0px; font-weight: bold; color: black;">dsns.dev</h1>
+                                    <h4 class="has-text-centered" style="margin:10px;">Founder/Developer</h4>
+                                    <p>This portofolio was created to show off projects I have been working on.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h1 style="text-align:center;margin-bottom: 100px;" id="skills">Skills</h1>
+
+            <div class="columns is-multiline is-variable is-7 skillsList">
+                <div class="column is-2" style="text-align: center;">
+                    <h2>Bootstrap</h2>
+                    <img src="static/skills/bootstrap.svg" alt="bootstrap" style="filter: invert(35%) sepia(44%) saturate(1424%) hue-rotate(231deg) brightness(88%) contrast(78%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Bulma</h2>
+                    <img src="static/skills/bulma.svg" alt="bulma" style="filter: invert(93%) sepia(66%) saturate(7494%) hue-rotate(90deg) brightness(80%) contrast(105%);">
+                </div>
+                <div class="column is-2">
+                    <h2>CentOS</h2>
+                    <img src="static/skills/centos.svg" alt="centos">
+                </div>
+                <div class="column is-2" style="text-align: center;">
+                    <h2>Cloudflare</h2>
+                    <img src="static/skills/cloudflare.svg" alt="cloudflare" style="filter: invert(74%) sepia(46%) saturate(6350%) hue-rotate(348deg) brightness(99%) contrast(92%);">
+                </div>
+                <div class="column is-2">
+                    <h2>CSS</h2>
+                    <img src="static/skills/css3.svg" alt="css3" style="filter: invert(41%) sepia(66%) saturate(1348%) hue-rotate(179deg) brightness(74%) contrast(88%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Discord API</h2>
+                    <img src="static/skills/discord.svg" alt="discord" style="filter: invert(33%) sepia(62%) saturate(3581%) hue-rotate(227deg) brightness(101%) contrast(90%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Express.js</h4>
+                    <img src="static/skills/express.svg" alt="express">
+                </div>
+                <div class="column is-2">
+                    <h2>Git</h4>
+                    <img src="static/skills/git.svg" alt="git" style="filter: invert(42%) sepia(32%) saturate(6282%) hue-rotate(344deg) brightness(99%) contrast(91%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Github</h4>
+                    <img src="static/skills/github.svg" alt="github" style="filter: invert(5%) sepia(4%) saturate(628%) hue-rotate(314deg) brightness(104%) contrast(91%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Github Pages</h4>
+                    <img src="static/skills/githubpages.svg" alt="githubpages" style="filter: invert(12%) sepia(0%) saturate(1022%) hue-rotate(270deg) brightness(101%) contrast(97%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Google Domains</h4>
+                    <img src="static/skills/googledomains.svg" alt="googledomains" style="margin-top: 70px;">
+                </div>
+                <div class="column is-2">
+                    <h2>Google Fonts</h4>
+                    <img src="static/skills/googlefonts.svg" alt="googlefonts" style="margin-top: 70px;">
+                </div>
+                <div class="column is-2">
+                    <h2>HTML</h4>
+                    <img src="static/skills/html5.svg" alt="html5" style="filter: invert(43%) sepia(80%) saturate(3266%) hue-rotate(346deg) brightness(92%) contrast(93%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Javascript</h4>
+                    <img src="static/skills/javascript.svg" alt="javascript" style="filter: invert(91%) sepia(69%) saturate(7482%) hue-rotate(339deg) brightness(101%) contrast(94%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Linux</h4>
+                    <img src="static/skills/linux.svg" alt="linux">
+                </div>
+                <div class="column is-2">
+                    <h2>Node.js</h4>
+                    <img src="static/skills/nodedotjs.svg" alt="nodedotjs" style="filter: invert(58%) sepia(10%) saturate(3372%) hue-rotate(71deg) brightness(82%) contrast(80%);">
+                </div>
+                <div class="column is-2">
+                    <h2>npm</h4>
+                    <img src="static/skills/npm.svg" alt="npm" style="filter: invert(32%) sepia(37%) saturate(2418%) hue-rotate(330deg) brightness(91%) contrast(100%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Lighthouse</h4>
+                    <img src="static/skills/lighthouse.svg" alt="lighthouse">
+                </div>
+                <div class="column is-2">
+                    <h2>Python</h4>
+                    <img src="static/skills/python.svg" alt="python" style="filter: invert(43%) sepia(39%) saturate(732%) hue-rotate(166deg) brightness(90%) contrast(94%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Raspberry Pi</h4>
+                    <img src="static/skills/raspberrypi.svg" alt="raspberrypi">
+                </div>
+                <div class="column is-2">
+                    <h2>Unity</h4>
+                    <img src="static/skills/unity.svg" alt="unity">
+                </div>
+                <div class="column is-2">
+                    <h2>VS Code</h4>
+                    <img src="static/skills/visualstudiocode.svg" alt="visualstudiocode" style="filter: invert(30%) sepia(90%) saturate(1297%) hue-rotate(181deg) brightness(98%) contrast(101%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Windows</h4>
+                    <img src="static/skills/windows.svg" alt="windows" style="filter: invert(45%) sepia(68%) saturate(6868%) hue-rotate(190deg) brightness(93%) contrast(101%);">
+                </div>
+                <div class="column is-2">
+                    <h2>Windows Terminal</h4>
+                    <img src="static/skills/windowsterminal.svg" alt="windowsterminal" style="filter: invert(23%) sepia(74%) saturate(0%) hue-rotate(215deg) brightness(100%) contrast(85%);">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+/*? FLEXBOX STYLES ---------------------------------------------------------------*/
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2") format("woff2");
+}
+
+* {
+	font-family: "Poppins", sans-serif !important;
+}
+
+
+p {
+	font-size: 1.5vw;
+	display: block;
+    color:black;
+}
+
+h1 {
+	font-size: 2vw;
+    color:black;
+}
+.navbar-item img {
+    max-height: 3rem;
+}
+
+progress {
+    display: block;
+    width: 15em;
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+}
+
+progress {
+    width: 12vw !important;
+    text-align: left;
+} 
+
+body.has-navbar-fixed-top,html.has-navbar-fixed-top {
+    padding-top: 4rem;
+}

@@ -1,0 +1,25 @@
+center {
+	zoom: 2;
+	color: black;
+}
+
+.navbar-item img {
+	max-height: 3rem;
+}
+
+@font-face {
+	font-family: poppins;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2) format("woff2");
+}
+
+* {
+	font-family: poppins, sans-serif !important;
+}
+
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 5rem;
+}
