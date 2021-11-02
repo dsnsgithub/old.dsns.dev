@@ -49,9 +49,6 @@ a {
 
 .bounce {
 	position: relative;
-	-webkit-animation: bounce 3s ease-in-out;
-	-moz-animation: bounce 3000ms ease-in-out;
-	-o-animation: bounce 3000ms ease-in-out;
 	animation: bounce 3s ease-in-out;
 	animation-iteration-count: infinite;
 }
