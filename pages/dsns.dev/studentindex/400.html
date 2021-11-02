@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Login</title>
+    <title>400</title>
 
     <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/studentindex/index.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
@@ -96,34 +96,12 @@
         </div>
     </nav>
 
-    <center style="color: black; font-size: 20px;">
-        <h2 style="font-weight: bold;">The student index has been privated to ensure privacy. <br>
-            Please enter the correct email and password before continuing.</h2>
-
+    <center>
+        <h1 style="font-size:40px;">You forgot to enter a username or password!</h1>
+        <img src="https://http.cat/400" style="zoom:0.5;">
         <br>
-
-        <form action="/checkpassword" method="post">
-            <label for="email">Email</label><br>
-            <input type="email" name="email"><br>
-            <label for="password">Password</label><br>
-            <input type="password" name="password"><br>
-            <br>
-            <label for="action">Login / Create New Account</label> <br>
-            <select id="action" name="action">
-                <option value="login">Login</option>
-                <option value="create">Create Account</option>
-            </select>
-            <br>
-            <br>
-            <input type="submit" value="Submit">
-        </form>
-
-        <hr>
-
-        <h1>Want to create an account? <br> Ask a person with access to the student index to create a code for you. <br> Enter the code <a href="createAccount.html">here</a>.</h1>
-
+        <a href="/studentindex">Back</a>
     </center>
-
 
 </body>
 

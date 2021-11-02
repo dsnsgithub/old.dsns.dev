@@ -6,7 +6,8 @@ const crypto = require("crypto");
 const path = require("path");
 
 module.exports = function (app) {
-    app.use(express.urlencoded({ extended: false }));
+	//? Allows form-encoded data to be sent to the server
+	app.use(express.urlencoded({ extended: false }));
 
 	async function passwordProtector(email, password) {
 		let database = JSON.parse(fs.readFileSync(__dirname + "/../json/passwords.json", "utf8"));
@@ -15,86 +16,78 @@ module.exports = function (app) {
 		database[email] = saltedPassword;
 
 		fs.writeFileSync(__dirname + "/../json/passwords.json", JSON.stringify(database));
-
 		return saltedPassword;
 	}
 
     app.post("/create", async (req, res) => {
-        // Verify that the user is permitted to create an account
-		let codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
-        let code = req.body["code"];
+		const database = JSON.parse(fs.readFileSync(__dirname + "/../json/passwords.json", "utf8"));
+		const codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
+
+		//? Verify that the user has the correct code to create an account
+		const code = req.body["code"];
 
 		if (codes.indexOf(code) == -1) {
-			return res.status(401).send(`<h1>You must enter the correct code to create a new account. Codes can be created by other people that create one for you.</h1><img src="https://http.cat/401"><br><a href="/studentindex">Back</a>`);
-        }
-        
-        codes.splice(codes.indexOf(code), 1);
+			return res.status(412).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/412.html"));
+		}
+
+		//? Remove the one time code from the list of codes
+		codes.splice(codes.indexOf(code), 1);
 		fs.writeFileSync(__dirname + "/../json/codes.json", JSON.stringify(codes));
-        
 
-		let database = JSON.parse(fs.readFileSync(__dirname + "/../json/passwords.json", "utf8"));
-
+		//? Verify the user entered an email and password
 		const email = req.body["email"];
-		if (!email) {
-            return res.status(400)
-                .send(`<h1>No Email Given</h1><img src="https://http.cat/400"><br><a href="/studentindex">Back</a>`);
-		}
 		const password = req.body["password"];
-		if (!password) {
-            return res.status(400)
-                .send(`<h1>No Password Given</h1><img src="https://http.cat/400"><br><a href="/studentindex">Back</a>`);
+		if (!email || !password) {
+			return res.status(400).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/400.html"));
 		}
 
+		//? Verify if the email already exists in the database
 		if (database[email]) {
-            return res.status(400)
-                .send(`<h1>Account Already Created</h1><img src="https://http.cat/400"><br><a href="/studentindex">Back</a>`);
+			return res.status(403).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/403.html"));
 		}
 
+		//? Create a new account
 		await passwordProtector(email, password);
-        res.status(201)
-            .send(`<h1>You have created the email login ${email.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h1><img src="https://http.cat/201"><br><a href="/studentindex">Back</a>`);
+		return res
+			.status(201)
+			.send(`<h1>You have created the email login ${email.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h1><img src="https://http.cat/201"><br><a href="/studentindex">Back</a>`);
 	});
 
 	app.post("/checkpassword", async (req, res) => {
 		const database = JSON.parse(fs.readFileSync(__dirname + "/../json/passwords.json", "utf8"));
 
+		//? Verify if the user entered an email
 		const email = req.body["email"];
-		if (!email) {
-            return res.status(400)
-                .send(`<h1>No Email Given</h1><img src="https://http.cat/400"><br><a href="/studentindex">Back</a>`);
-		}
-
 		const password = req.body["password"];
-		if (!password) {
-            return res.status(400)
-                .send(`<h1>No Password Given</h1><img src="https://http.cat/400"><br><a href="/studentindex">Back</a>`);
+		if (!email || !password) {
+			return res.status(400).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/400.html"));
 		}
 
-		bcrypt.compare(password, database[email], function (err, result) {
-            if (result) {
-                const action = req.body["action"];
+		//? Check if the bcrypt hash matches the password
+        bcrypt.compare(password, database[email], (err, result) => {
+            //? If incorrect password:
+			if (!result) return res.status(401).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/401.html"));
 
-                if (action == "login") {
-                    return res.sendFile(path.resolve(__dirname + "/../pages/private/studentindex.html"));
-                }
-                if (action == "create") {
-                    const newCode = crypto.randomBytes(8).toString("hex");
+			const action = req.body["action"];
 
-		            let codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
-                    codes.push(newCode);
+			if (action == "login") {
+				return res.sendFile(path.resolve(__dirname + "/../pages/private/studentindex.html"));
+			}
+			if (action == "create") {
+				//? Create a new one time code
+				const newCode = crypto.randomBytes(8).toString("hex");
 
-                    fs.writeFileSync(__dirname + "/../json/codes.json", JSON.stringify(codes));
+				let codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
+				codes.push(newCode);
 
-                    return res
-						.status(201)
-						.send(
-							`<h1>New Code Created: ${newCode}</h1> <br> <a href="/studentindex/createAccount.html">Link to Create Account</a> <br> <a href="/studentindex">Back</a> <br> <img src="https://http.cat/201">`
-						);
-                }
+				fs.writeFileSync(__dirname + "/../json/codes.json", JSON.stringify(codes));
 
-            } else {
-                return res.status(401)
-                    .send(`<h1>Invalid Password</h1><img src="https://http.cat/401"><br><a href="/studentindex">Back</a>`);
+				//? Send the code to the user
+				return res
+					.status(201)
+					.send(
+						`<h1>New Code Created: ${newCode}</h1> <img src="https://http.cat/201"> <br> <a href="/studentindex/createAccount.html">Link to Create Account</a> <br> <a href="/studentindex">Back</a>`
+					);
 			}
 		});
 	});
