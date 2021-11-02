@@ -1,0 +1,6 @@
+node_modules/
+*.env
+json/
+pages/private/
+archive/
+package-lock.json
