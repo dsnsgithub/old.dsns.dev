@@ -46,8 +46,3 @@ async function useMiddleware() {
 }
 
 runRoutes().then(() => openPort());
-
-		// "bcrypt": "^5.0.1",
-		// "dotenv": "^10.0.0",
-		// "express": "^4.17.1",
-		// "hypixel-api-v2": "^1.2.25"

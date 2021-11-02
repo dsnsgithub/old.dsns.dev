@@ -2,12 +2,15 @@
 
 ![dsns portfolio](https://github.com/dsnsgithub/dsns.dev/blob/main/portfolio.png?raw=true)
 
-An express server running both adamsai.com and portobellomarina.com
+An express server running adamsai.com, dsns.dev, mseung,dev and portobellomarina.com.
 
-https://dsns.dev/difference was created with the Hypixel API, Express, EventSource (SSE), and Bulma.
-
-https://dsns.dev/ and all other sites are created with Bulma.
-
+Created with: 
+- Bulma
+- Hypixel API
+- BCrypt
+- Express
+- SSE (EventSource)
+- HTML/CSS/JS
 
 ## How To Install
 
@@ -20,4 +23,5 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 API_KEY = [type /api new on mc.hypixel.net to get api key]
 RELOAD_TIME = 60000
 ```
-5. Run `npm start` in the root directory.
+5. Remove the `.template` the .template.json files in /json.
+6. Run `npm start` in the root directory.
