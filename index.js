@@ -2,14 +2,17 @@
 require("dotenv").config(); //* npm install dotenv
 
 //? Requirements ----------------------------------------------------------------------------------
+const https = require("https");
+const fs = require("fs");
+
 const express = require("express"); //* npm install express
 const app = express();
 app.set("trust proxy", 1);
 
-async function runRoutes() {
-	await require(__dirname + "/routes/differenceSSE.js")(app);
-	await require(__dirname + "/routes/studentindex.js")(app);
-	app.get("/ipAPI", async (req, res) => res.json(req.headers));
+async function runRoutes() { 
+    await require(__dirname + "/routes/differenceSSE.js")(app);
+    await require(__dirname + "/routes/studentindex.js")(app);
+    app.get("/ipAPI", async (req, res) => res.json(req.headers));
 }
 
 async function openPort() {
@@ -17,34 +20,29 @@ async function openPort() {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
 	});
 
-    useHTTPS();
+	useHTTPS();
 	useMiddleware();
 }
 
 async function useHTTPS() {
-    const https = require("https");
-    const fs = require("fs");
+	const server = https.createServer({
+		key: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.key"),
+		cert: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.pem")
+	}, app);
 
-    const options = {
-        key: fs.readFileSync(__dirname + "/cert/dsns.dev/cert.key"),
-        cert: fs.readFileSync(__dirname + "/cert/dsns.dev/cert.pem"),
-    };
-
-    const server = https.createServer(options, app);
-
-    server.addContext("portobellomarina.com", {
-        key: fs.readFileSync(__dirname + "/cert/portobellomarina.com/cert.key"),
-        cert: fs.readFileSync(__dirname + "/cert/portobellomarina.com/cert.pem"),
-    })
-
-    server.addContext("mseung.dev", {
-		key: fs.readFileSync(__dirname + "/cert/mseung.dev/cert.key"),
-		cert: fs.readFileSync(__dirname + "/cert/mseung.dev/cert.pem")
+	server.addContext("portobellomarina.com", {
+		key: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/cert.key"),
+		cert: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/cert.pem")
 	});
 
-    server.listen(443, () => {
-        console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[0m", 443);
-    });
+	server.addContext("mseung.dev", {
+		key: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.key"),
+		cert: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.pem")
+	});
+
+	server.listen(443, () => {
+		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[0m", 443);
+	});
 }
 
 async function useMiddleware() {
