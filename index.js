@@ -17,7 +17,34 @@ async function openPort() {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
 	});
 
+    useHTTPS();
 	useMiddleware();
+}
+
+async function useHTTPS() {
+    const https = require("https");
+    const fs = require("fs");
+
+    const options = {
+        key: fs.readFileSync(__dirname + "/cert/dsns.dev/cert.key"),
+        cert: fs.readFileSync(__dirname + "/cert/dsns.dev/cert.pem"),
+    };
+
+    const server = https.createServer(options, app);
+
+    server.addContext("portobellomarina.com", {
+        key: fs.readFileSync(__dirname + "/cert/portobellomarina.com/cert.key"),
+        cert: fs.readFileSync(__dirname + "/cert/portobellomarina.com/cert.pem"),
+    })
+
+    server.addContext("mseung.dev", {
+		key: fs.readFileSync(__dirname + "/cert/mseung.dev/cert.key"),
+		cert: fs.readFileSync(__dirname + "/cert/mseung.dev/cert.pem")
+	});
+
+    server.listen(443, () => {
+        console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[0m", 443);
+    });
 }
 
 async function useMiddleware() {
