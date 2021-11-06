@@ -104,12 +104,12 @@
 
         <form action="/checkpassword" method="post">
             <label for="email">Email</label><br>
-            <input type="email" name="email"><br>
+            <input type="email" name="email" required><br>
             <label for="password">Password</label><br>
-            <input type="password" name="password"><br>
+            <input type="password" name="password" required><br>
             <br>
             <label for="action">Login / Create New Account</label> <br>
-            <select id="action" name="action">
+            <select id="action" name="action" required>
                 <option value="login">Login</option>
                 <option value="create">Create Account</option>
             </select>
