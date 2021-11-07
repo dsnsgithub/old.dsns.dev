@@ -1,50 +1,25 @@
 const source = new EventSource("/differenceData");
 
 source.addEventListener("message", (message) => {
-	google.charts.load("current", { packages: ["corechart"] });
-	google.charts.setOnLoadCallback(drawAmKaleChart);
-	google.charts.setOnLoadCallback(drawJiebiChart);
+	// Parse SSE from server
+	const serverData = JSON.parse(message.data);
 
-    const serverData = JSON.parse(event.data);
-    if (serverData == "failed") {
-        window.location.href = "/difference/error.html";
-    }
-
-	console.log(serverData);
-	const jiebiAmkale = document.getElementById("jiebiAmkale");
-	jiebiAmkale.innerHTML = Math.abs(Number(serverData.differenceJiebi - serverData.differenceAmKale).toFixed(3));
-
-	function drawAmKaleChart() {
-		const data = google.visualization.arrayToDataTable(JSON.parse(serverData.AmKaleGraphArray));
-
-		const options = {
-			curveType: "function",
-			chartArea: { height: "97%" },
-			legend: { position: "none" },
-			hAxis: { textPosition: "none" }
-		};
-
-		const chart = new google.visualization.LineChart(document.getElementById("AmKale_chart"));
-
-		// Setup a timer
-		var timeout;
-
-		// Listen for resize events
-		window.addEventListener("resize", () => {
-			if (timeout) {
-				window.cancelAnimationFrame(timeout);
-			}
-
-			timeout = window.requestAnimationFrame(function () {
-				chart.draw(data, options);
-			});
-		});
-
-		chart.draw(data, options);
+	// If SSE failed
+	if (serverData == "failed") {
+		window.location.href = "/difference/error.html";
 	}
+	console.log(serverData);
 
-	function drawJiebiChart() {
-		const data = google.visualization.arrayToDataTable(JSON.parse(serverData.jiebiGraphArray));
+	//Load Google Charts JS
+	google.charts.load("current", { packages: ["corechart"] });
+	google.charts.setOnLoadCallback(createCharts);
+
+	function createCharts() {
+		const amkaleData = google.visualization.arrayToDataTable(JSON.parse(serverData.AmKaleGraphArray));
+		const jiebiData = google.visualization.arrayToDataTable(JSON.parse(serverData.jiebiGraphArray));
+
+		const amkaleChart = new google.visualization.LineChart(document.getElementById("AmKale_chart"));
+		const jiebiChart = new google.visualization.LineChart(document.getElementById("jiebi_chart"));
 
 		const options = {
 			curveType: "function",
@@ -53,35 +28,31 @@ source.addEventListener("message", (message) => {
 			hAxis: { textPosition: "none" }
 		};
 
-		const chart = new google.visualization.LineChart(document.getElementById("jiebi_chart"));
+		// Draw the charts
+		amkaleChart.draw(amkaleData, options);
+		jiebiChart.draw(jiebiData, options);
 
-		// Setup a timer
-		var timeout;
-
-		// Listen for resize events
+		// Responsive Charts
+		let timeout;
 		window.addEventListener("resize", () => {
-			if (timeout) {
-				window.cancelAnimationFrame(timeout);
-			}
+			if (timeout) window.cancelAnimationFrame(timeout);
 
 			timeout = window.requestAnimationFrame(function () {
 				chart.draw(data, options);
 			});
 		});
-
-		chart.draw(data, options);
 	}
 
 	const status = JSON.parse(serverData.status);
 	const recentGames = JSON.parse(serverData.recentGames);
 
-    const statusDiv = document.getElementById("statusColumns")
+	const statusDiv = document.getElementById("statusColumns");
 
-    statusDiv.innerHTML = ""
+	statusDiv.innerHTML = "";
 
 	for (const i in status) {
 		const column = document.createElement("div");
-		column.classList = "column is-full mt-4	";
+		column.classList = "column is-full mt-4";
 		const statusSpan = document.createElement("h3");
 		const recentSpan = document.createElement("h3");
 		statusSpan.innerText = status[i];
@@ -93,13 +64,8 @@ source.addEventListener("message", (message) => {
 		statusDiv.appendChild(column);
 	}
 
-	const differenceAmKaleElem = document.getElementById("differenceAmKale");
-	const differenceJiebiElem = document.getElementById("differenceJiebi");
-	const dateElem = document.getElementById("date");
-
-	differenceAmKaleElem.innerText = serverData.differenceAmKale;
-	differenceJiebiElem.innerText = serverData.differenceJiebi;
-
-	dateElem.innerHTML = "Last Updated: " + serverData.date;
-
+	document.getElementById("differenceAmKale").innerText = serverData.differenceAmKale;
+	document.getElementById("differenceJiebi").innerText = serverData.differenceJiebi;
+	document.getElementById("jiebiAmkale").innerHTML = Math.abs(Number(serverData.differenceJiebi - serverData.differenceAmKale).toFixed(3));
+	document.getElementById("date").innerHTML = "Last Updated: " + serverData.date;
 });
