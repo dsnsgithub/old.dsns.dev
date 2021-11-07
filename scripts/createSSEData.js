@@ -28,7 +28,7 @@ async function createSSEData() {
 	const difference = await diffJS.getDifference(playerData);
 
 	if (difference == "FAILURE") {
-		console.error("\x1b[31m" + "PLAYER API DOWN!" + "\x1b[0m" + " | " + "\x1b[35m" + newDate + "\x1b[0m");
+		console.error("\x1b[31m" + "Player API DOWN!" + "\x1b[0m" + " | " + "\x1b[35m" + newDate + "\x1b[0m");
 		return "failed";
 	}
 

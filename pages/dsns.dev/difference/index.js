@@ -38,7 +38,8 @@ source.addEventListener("message", (message) => {
 			if (timeout) window.cancelAnimationFrame(timeout);
 
 			timeout = window.requestAnimationFrame(function () {
-				chart.draw(data, options);
+				amkaleChart.draw(amkaleData, options);
+				jiebiChart.draw(jiebiData, options);
 			});
 		});
 	}
@@ -66,6 +67,6 @@ source.addEventListener("message", (message) => {
 
 	document.getElementById("differenceAmKale").innerText = serverData.differenceAmKale;
 	document.getElementById("differenceJiebi").innerText = serverData.differenceJiebi;
-	document.getElementById("jiebiAmkale").innerHTML = Math.abs(Number(serverData.differenceJiebi - serverData.differenceAmKale).toFixed(3));
-	document.getElementById("date").innerHTML = "Last Updated: " + serverData.date;
+	document.getElementById("jiebiAmkale").innerText = Math.abs(Number(serverData.differenceJiebi - serverData.differenceAmKale).toFixed(3));
+	document.getElementById("date").innerText = "Last Updated: " + serverData.date;
 });
