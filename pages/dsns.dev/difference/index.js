@@ -5,7 +5,10 @@ source.addEventListener("message", (message) => {
 	google.charts.setOnLoadCallback(drawAmKaleChart);
 	google.charts.setOnLoadCallback(drawJiebiChart);
 
-	const serverData = JSON.parse(event.data);
+    const serverData = JSON.parse(event.data);
+    if (serverData == "failed") {
+        window.location.href = "/difference/error.html";
+    }
 
 	console.log(serverData);
 	const jiebiAmkale = document.getElementById("jiebiAmkale");

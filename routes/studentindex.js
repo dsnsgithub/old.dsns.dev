@@ -19,7 +19,7 @@ module.exports = function (app) {
 		return saltedPassword;
 	}
 
-    app.post("/create", async (req, res) => {
+	app.post("/create", async (req, res) => {
 		const database = JSON.parse(fs.readFileSync(__dirname + "/../json/passwords.json", "utf8"));
 		const codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
 
@@ -64,8 +64,8 @@ module.exports = function (app) {
 		}
 
 		//? Check if the bcrypt hash matches the password
-        bcrypt.compare(password, database[email], (err, result) => {
-            //? If incorrect password:
+		bcrypt.compare(password, database[email], (err, result) => {
+			//? If incorrect password:
 			if (!result) return res.status(401).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/401.html"));
 
 			const action = req.body["action"];

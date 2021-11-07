@@ -16,7 +16,7 @@ async function grabStatus() {
 	]);
 
 	if (!status[0] || !status[1] || !status[2]) {
-		return "FAILURE"
+		return "FAILURE";
 	}
 
 	const recentGames = await Promise.all([
