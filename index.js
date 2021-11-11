@@ -12,6 +12,7 @@ app.set("trust proxy", 1);
 async function runRoutes() { 
     await require(__dirname + "/routes/differenceSSE.js")(app);
     await require(__dirname + "/routes/studentindex.js")(app);
+    await require(__dirname + "/routes/whois.js")(app);
     app.get("/ipAPI", async (req, res) => res.json(req.headers));
 }
 

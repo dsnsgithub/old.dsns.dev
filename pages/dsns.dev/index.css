@@ -84,3 +84,8 @@ a {
     font-weight: bold; 
     color:black;
 }
+
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 5rem;
+}
