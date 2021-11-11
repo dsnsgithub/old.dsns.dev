@@ -5,12 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhoIs Domain Lookup</title>
+    <title>WHOIS Domain Lookup</title>
 
     <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="index.css">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="WHOIS Domain Lookup" />
+    <meta property="og:description" content="A WHOIS query that isn't garbage." />
+    <meta name="description" content="A WHOIS query that isn't garbage." />
+    <meta property="og:url" content="https://dsns.dev" />
+    <meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 </head>
 
@@ -30,15 +37,15 @@
                     </picture>
                 </a>
             </div>
-    
+
             <a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
-    
-    
+
+
         <div class="navbar-menu">
             <div class="navbar-end">
                 <a href="/" class="navbar-item">Home</a>
@@ -46,7 +53,7 @@
                     <a href="/projects/" class="navbar-link">
                         Projects
                     </a>
-    
+
                     <div class="navbar-dropdown is-right">
                         <a href="/difference" class="navbar-item">
                             Hypixel Level Difference
@@ -78,6 +85,9 @@
                         <a href="/studentindex" class="navbar-item">
                             Student Index
                         </a>
+                        <a href="/whois" class="navbar-item">
+                            WHOIS Domain Lookup
+                        </a>
                     </div>
                 </div>
             </div>
@@ -85,18 +95,18 @@
     </nav>
 
     <center>
-            <h1 style="font-size:30px;">Domain:</h1>
-            <input style="width:10vw" id="domain"></input> 
+        <h1 style="font-size:30px;">Domain:</h1>
+        <input style="width:10vw" id="domain"></input>
 
-            <br>
-            <br>
+        <br>
+        <br>
 
-            <button onclick="whoIs()">Submit</button>
+        <button onclick="whoIs()">Submit</button>
 
-            <br>
-            <br>
-            
-            <div style="display: inline-block;" class="box" id="whois"></div>
+        <br>
+        <br>
+
+        <div style="display: inline-block;" class="box" id="whois"></div>
 
     </center>
 
