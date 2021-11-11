@@ -21,7 +21,7 @@ async function openPort() {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
 	});
 
-	useHTTPS();
+    if (process.env["HTTPS"] == "true") useHTTPS();
 	useMiddleware();
 }
 
