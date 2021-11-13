@@ -47,11 +47,11 @@ async function useHTTPS() {
 }
 
 async function useMiddleware() {
-	app.use((req, res, next) => {
-        if (req.hostname == "localhost") {
+    app.use((req, res, next) => {
+        if (req.hostname == "portobellomarina.com") {
             const fullPath = __dirname + "/pages/portobellomarina.com/" + req.url;
-
-            if (fs.existsSync(fullPath)) {
+            
+			if (fs.existsSync(fullPath)) {
 				return res.sendFile(fullPath);
 			} else {
 				return res.redirect("https://portobellomarina.com/");
