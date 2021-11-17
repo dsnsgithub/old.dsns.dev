@@ -48,6 +48,7 @@ async function useHTTPS() {
 
 async function useMiddleware() {
     app.use((req, res, next) => {
+        if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
         if (req.hostname == "portobellomarina.com") {
             const fullPath = __dirname + "/pages/portobellomarina.com/" + req.url;
             
@@ -69,7 +70,7 @@ async function useMiddleware() {
 
 	//? 404
 	app.use((req, res, next) => {
-		return res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+		return res.sendFile(__dirname + "/pages/private/rickroll.html");
 	});
 }
 
