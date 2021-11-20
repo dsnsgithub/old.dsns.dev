@@ -50,9 +50,9 @@ async function useMiddleware() {
     app.use((req, res, next) => {
         if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
-        if (req.hostname == "localhost") {
+        if (req.hostname == "portobellomarina.com") {
             const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
-            
+
 			if (fs.existsSync(fullPath)) {
 				return res.sendFile(fullPath);
             } else {

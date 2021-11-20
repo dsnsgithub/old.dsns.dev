@@ -22,7 +22,7 @@ async function createSSEData() {
 		return "failed";
 	}
 
-	const status = await statusJS.parseStatus(statusData);
+	const status = await statusJS.parseData(statusData);
 
 	const playerData = await diffJS.grabPlayerData();
 	const difference = await diffJS.getDifference(playerData);
