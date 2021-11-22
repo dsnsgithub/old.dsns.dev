@@ -1,15 +1,20 @@
-.image img { width: auto; height:auto; }
-
-a {
-    text-decoration: none !important;
+.image img {
+	width: auto;
+	height: auto;
 }
 
-.notification .content, .notification .subtitle, .notification .title {
-    color: black;
+a {
+	text-decoration: none !important;
+}
+
+.notification .content,
+.notification .subtitle,
+.notification .title {
+	color: black;
 }
 
 .navbar-item img {
-    max-height: 3rem;
+	max-height: 3rem;
 }
 
 @font-face {
@@ -24,6 +29,7 @@ a {
 	font-family: "Poppins", sans-serif !important;
 }
 
-body.has-navbar-fixed-top,html.has-navbar-fixed-top {
-    padding-top: 4rem;
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 4rem;
 }

@@ -21,9 +21,8 @@ async function grabPlayerData() {
 }
 
 async function getDifference(playerData) {
-	if (!playerData[0] || !playerData[1] || !playerData[2]) {
-		return "FAILURE";
-	}
+	if (playerData.some((t) => !t)) return "FAILURE";
+
 	const DSNS = xpToLevel(Number(playerData[0]["networkExp"]));
 	const AmKale = xpToLevel(Number(playerData[1]["networkExp"]));
 	const jiebi = xpToLevel(Number(playerData[2]["networkExp"]));

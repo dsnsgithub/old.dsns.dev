@@ -1,20 +1,20 @@
 h1 {
 	font-size: 100px;
-    color:black;
-    text-align: center;
-    font-family: 'Pacifico', cursive !important;
+	color: black;
+	text-align: center;
+	font-family: "Pacifico", cursive !important;
 }
 
 h2 {
 	font-size: 45px;
-    color:black;
-    font-weight: bold;
-    text-align: center;
+	color: black;
+	font-weight: bold;
+	text-align: center;
 }
 
 main {
 	font-family: monospace;
-    color:black;
+	color: black;
 }
 
 .bordersection {
@@ -26,23 +26,24 @@ main {
 	font-family: monospace;
 	margin: 20px;
 	text-align: center;
-    color:black;
+	color: black;
 }
 
 .navbar-item img {
-    max-height: 3rem;
+	max-height: 3rem;
 }
 
 h3 {
-    font-size: 40px;
-    text-align: center;
-    color:black;
+	font-size: 40px;
+	text-align: center;
+	color: black;
 }
 
-*{
-    font-family: 'Poppins', sans-serif !important;
+* {
+	font-family: "Poppins", sans-serif !important;
 }
 
-body.has-navbar-fixed-top,html.has-navbar-fixed-top {
-    padding-top: 4rem;
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 4rem;
 }

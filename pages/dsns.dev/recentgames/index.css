@@ -1,15 +1,15 @@
 center {
-    font-family: monospace;
-    font-size: 20px;
-    color:black;
+	font-family: monospace;
+	font-size: 20px;
+	color: black;
 }
 
 h1 {
-    font-weight: bold;
-    font-size: 40px;
+	font-weight: bold;
+	font-size: 40px;
 }
 .navbar-item img {
-    max-height: 3rem;
+	max-height: 3rem;
 }
 
 @font-face {
@@ -24,6 +24,7 @@ h1 {
 	font-family: "Poppins", sans-serif !important;
 }
 
-body.has-navbar-fixed-top,html.has-navbar-fixed-top {
-    padding-top: 4rem;
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 4rem;
 }

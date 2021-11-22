@@ -1,7 +1,7 @@
-input,button {
-    zoom: 2;
-    color:black;
-    margin:10px;
+input, button {
+	zoom: 2;
+	color: black;
+	margin: 10px;
 }
 
 @font-face {
@@ -17,23 +17,23 @@ input,button {
 }
 
 .explain {
-    background-color: #BBB;
-    padding: 30px;
-    border-radius: 10px;
-    display:inline-block;
-    color:black;
+	background-color: #bbb;
+	padding: 30px;
+	border-radius: 10px;
+	display: inline-block;
+	color: black;
 }
 
 .navbar-item img {
-    max-height: 3rem;
+	max-height: 3rem;
 }
 
 center {
-    margin-top: 60px;
+	margin-top: 60px;
 }
 
 label, h1 {
-    font-size: 50px;
-    font-weight: bold;
-    color:black;
+	font-size: 50px;
+	font-weight: bold;
+	color: black;
 }

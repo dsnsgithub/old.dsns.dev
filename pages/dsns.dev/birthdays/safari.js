@@ -210,10 +210,10 @@ var birthdays = [
 		id: "euphoriials",
 		date: "August 5, 2021"
 	},
-    {
-        id: "doctor doom",
-        date: "November 10, 2021"
-    }
+	{
+		id: "doctor doom",
+		date: "November 10, 2021"
+	}
 ];
 
 for (var _i = 0, _birthdays = birthdays; _i < _birthdays.length; _i++) {
@@ -231,7 +231,7 @@ for (var _i = 0, _birthdays = birthdays; _i < _birthdays.length; _i++) {
 } // Create a function that sorts the array of birthdays by date
 
 birthdays.sort(function (a, b) {
-    return new Date(a.date) - new Date(b.date);
+	return new Date(a.date) - new Date(b.date);
 });
 
 var _loop = function _loop() {

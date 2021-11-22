@@ -1,7 +1,6 @@
 // Set the date we're counting down to
 var countDownDate = new Date("December 25, 2021").getTime();
 
-
 function countdown() {
 	// Get today's date and time
 	var now = new Date().getTime();
@@ -12,7 +11,7 @@ function countdown() {
 	var seconds = Math.floor(distance / 1000);
 
 	// Display the result in the element with id="demo"
-    document.getElementById("demo").innerHTML = seconds.toLocaleString("en-US");
+	document.getElementById("demo").innerHTML = seconds.toLocaleString("en-US");
 
 	// If the count down is finished, write some text
 	if (distance < 0) {

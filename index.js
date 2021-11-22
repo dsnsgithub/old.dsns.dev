@@ -9,11 +9,11 @@ const express = require("express"); //* npm install express
 const app = express();
 app.set("trust proxy", 1);
 
-async function runRoutes() { 
-    await require(__dirname + "/routes/differenceSSE.js")(app);
-    await require(__dirname + "/routes/studentindex.js")(app);
-    await require(__dirname + "/routes/whois.js")(app);
-    app.get("/ipAPI", async (req, res) => res.json(req.headers));
+async function runRoutes() {
+	await require(__dirname + "/routes/differenceSSE.js")(app);
+	await require(__dirname + "/routes/studentindex.js")(app);
+	await require(__dirname + "/routes/whois.js")(app);
+	app.get("/ipAPI", async (req, res) => res.json(req.headers));
 }
 
 async function openPort() {
@@ -21,7 +21,7 @@ async function openPort() {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
 	});
 
-    if (process.env["HTTPS"] == "true") useHTTPS();
+	if (process.env["HTTPS"] == "true") useHTTPS();
 	useMiddleware();
 }
 
@@ -47,15 +47,15 @@ async function useHTTPS() {
 }
 
 async function useMiddleware() {
-    app.use((req, res, next) => {
-        if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
+	app.use((req, res, next) => {
+		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
-        if (req.hostname == "portobellomarina.com") {
-            const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
+		if (req.hostname == "portobellomarina.com") {
+			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
 
 			if (fs.existsSync(fullPath)) {
 				return res.sendFile(fullPath);
-            } else {
+			} else {
 				return res.redirect("https://portobellomarina.com/");
 			}
 		}

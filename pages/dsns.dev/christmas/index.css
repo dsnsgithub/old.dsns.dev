@@ -16,19 +16,20 @@
 	align-items: center;
 	font-size: 9vw;
 	font-weight: bold;
-    color:black;
+	color: black;
 }
 
 h1 {
-    text-align: center;
-    font-size: 4vw;
-    color:black;
+	text-align: center;
+	font-size: 4vw;
+	color: black;
 }
 
 .navbar-item img {
-    max-height: 3rem;
+	max-height: 3rem;
 }
 
-body.has-navbar-fixed-top,html.has-navbar-fixed-top {
-    padding-top: 4rem;
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 4rem;
 }
