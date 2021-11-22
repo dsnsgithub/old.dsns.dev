@@ -7,7 +7,7 @@ const fs = require("fs");
 
 const express = require("express"); //* npm install express
 const app = express();
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 
 async function runRoutes() {
 	await require(__dirname + "/routes/differenceSSE.js")(app);
@@ -48,6 +48,7 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use((req, res, next) => {
+		console.log("\x1b[36m" + "Request: " + "\x1b[35m", req.hostname + req.url, "\x1b[0m" + "|", req.ip);
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
 		if (req.hostname == "portobellomarina.com") {
@@ -61,7 +62,10 @@ async function useMiddleware() {
 		}
 
 		if (req.hostname == "mseung.dev") {
-			return res.sendFile(__dirname + "/pages/mseung.dev" + req.url);
+			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
+			if (fs.existsSync(fullPath)) {
+				return res.sendFile(fullPath);
+			}
 		}
 
 		next();
