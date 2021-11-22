@@ -1,5 +1,5 @@
 #!/bin/bash
 
 while true; do
-    node .
+    node . 2>&1 | tee -a /logs/express.log
 done    
