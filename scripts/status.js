@@ -76,9 +76,7 @@ async function parseStatus(status, IGN) {
 }
 
 async function parseRecentGames(recentGame, IGN) {
-	const game = recentGame["gameType"];
-	const map = recentGame["map"];
-	let mode = recentGame["mode"];
+	if (!recentGame) return `${IGN} has no recent games.`;
 
 	const recentTime = new Date(recentGame["date"]).toLocaleDateString("en-US", {
 		hour: "numeric",
@@ -86,10 +84,13 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	if (!recentGame) return `${IGN} has no recent games.`;
+	const game = recentGame["gameType"];
+	const map = recentGame["map"];
+
 	if (!recentGame["mode"]) return `${IGN} played ${capitalize(game)} at ${recentTime}.`;
 
 	//? Sanitize Hypixel API into a more readable format
+	let mode = recentGame["mode"];
 	if (game == "DUELS") mode = mode.replace(/DUELS_/g, "");
 	if (game == "BEDWARS") mode = mode.replace(/BEDWARS_/g, "");
 
