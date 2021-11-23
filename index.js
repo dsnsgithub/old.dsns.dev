@@ -10,10 +10,15 @@ const app = express();
 app.set("trust proxy", true);
 
 async function runRoutes() {
-	await require(__dirname + "/routes/differenceSSE.js")(app);
-	await require(__dirname + "/routes/studentindex.js")(app);
-	await require(__dirname + "/routes/whois.js")(app);
-	app.get("/ipAPI", async (req, res) => res.json(req.headers));
+	const results = await Promise.allSettled([
+		require(__dirname + "/routes/differenceSSE.js")(app),
+		require(__dirname + "/routes/studentindex.js")(app),
+		require(__dirname + "/routes/whois.js")(app),
+		app.get("/ipAPI", async (req, res) => res.json(req.headers))
+	])
+
+	const failSafe = results.filter((result) => result.status === "rejected")
+	if (failSafe.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failSafe) + "\x1b[0m");
 }
 
 async function openPort() {
@@ -70,7 +75,7 @@ async function useMiddleware() {
 		next();
 	});
 
-	app.use(express.static(__dirname + "/pages/dsns.dev", { dotfiles: "allow" }));
+	app.use(express.static(__dirname + "/pages/dsns.dev"));
 
 	//? 404
 	app.use((req, res, next) => {

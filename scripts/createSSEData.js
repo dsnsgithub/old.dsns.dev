@@ -39,7 +39,7 @@ async function createSSEData() {
 
 		return result;
 	} catch (error) {
-		console.error("\x1b[31m" + error + "\x1b[0m");
+		console.error("\x1b[31m" + "SSE Error: " + (error.stack || error) + "\x1b[0m");
 		return "failed";
 	}
 }
