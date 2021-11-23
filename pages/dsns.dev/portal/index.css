@@ -23,7 +23,8 @@ p {
 	margin: 2vw;
 }
 
-#outputX, #outputY {
+#outputX,
+#outputY {
 	font-weight: bold;
 }
 

@@ -1,8 +1,8 @@
 function calculateCoords() {
-	var inputX = document.getElementById("inputX").value;
-	var inputY = document.getElementById("inputY").value;
-	var outputX = document.getElementById("outputX");
-	var outputY = document.getElementById("outputY");
+	const inputX = document.getElementById("inputX").value;
+	const inputY = document.getElementById("inputY").value;
+	const outputX = document.getElementById("outputX");
+	const outputY = document.getElementById("outputY");
 
 	outputX.innerHTML = inputX / 8;
 	outputY.innerHTML = inputY / 8;
