@@ -18,7 +18,7 @@ async function runRoutes() {
 
 async function openPort() {
 	app.listen(80, () => {
-		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[0m", 80);
+		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[33m", 80 + "\x1b[0m");
 	});
 
 	if (process.env["HTTPS"] == "true") useHTTPS();
@@ -42,13 +42,14 @@ async function useHTTPS() {
 	});
 
 	server.listen(443, () => {
-		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[0m", 443);
+		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[33m", 443 + "\x1b[0m");
 	});
 }
 
 async function useMiddleware() {
 	app.use((req, res, next) => {
-		console.log("\x1b[36m" + "Request: " + "\x1b[35m", req.hostname + req.url, "\x1b[0m" + "|", req.ip);
+		console.log("\x1b[36m" + "Request:" + "\x1b[35m", req.hostname + req.url, "\x1b[0m" + "|" + "\x1b[33m", req.ip);
+
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
 		if (req.hostname == "portobellomarina.com") {
@@ -63,9 +64,7 @@ async function useMiddleware() {
 
 		if (req.hostname == "mseung.dev") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
-			if (fs.existsSync(fullPath)) {
-				return res.sendFile(fullPath);
-			}
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
 		}
 
 		next();

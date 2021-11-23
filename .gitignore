@@ -5,3 +5,4 @@ pages/private/
 archive/
 package-lock.json
 certificates/
+*.log
