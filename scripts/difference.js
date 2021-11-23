@@ -21,7 +21,7 @@ async function grabPlayerData() {
 }
 
 async function getDifference(playerData) {
-	if (playerData.some((t) => !t)) return "FAILURE";
+	if (playerData.some((t) => !t)) return Promise.reject("Player API is DOWN!");
 
 	const DSNS = xpToLevel(Number(playerData[0]["networkExp"]));
 	const AmKale = xpToLevel(Number(playerData[1]["networkExp"]));

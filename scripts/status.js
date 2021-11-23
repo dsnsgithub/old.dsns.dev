@@ -26,7 +26,7 @@ async function grabStatus() {
 	]);
 
 	if (status.some((t) => !t) || recentGames.some((t) => !t)) {
-		return "FAILURE";
+		return Promise.reject("Status API is DOWN!");
 	}
 
 	const result = {

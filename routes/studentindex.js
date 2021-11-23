@@ -22,10 +22,9 @@ module.exports = function (app) {
 	app.post("/create", async (req, res) => {
 		const database = JSON.parse(fs.readFileSync(__dirname + "/../json/passwords.json", "utf8"));
 		const codes = JSON.parse(fs.readFileSync(__dirname + "/../json/codes.json", "utf8"));
+		const { email, password, code } = req.body;
 
 		//? Verify that the user has the correct code to create an account
-		const code = req.body["code"];
-
 		if (codes.indexOf(code) == -1) {
 			return res.status(412).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/412.html"));
 		}
@@ -35,8 +34,6 @@ module.exports = function (app) {
 		fs.writeFileSync(__dirname + "/../json/codes.json", JSON.stringify(codes));
 
 		//? Verify the user entered an email and password
-		const email = req.body["email"];
-		const password = req.body["password"];
 		if (!email || !password) {
 			return res.status(400).sendFile(path.resolve(__dirname + "/../pages/dsns.dev/studentindex/400.html"));
 		}
