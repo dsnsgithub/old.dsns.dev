@@ -69,7 +69,13 @@ async function useMiddleware() {
 
 		if (req.hostname == "mseung.dev") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
-			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+
+			if (fs.existsSync(fullPath)) {
+				return res.sendFile(fullPath);
+			} else {
+				return res.redirect("https://mseung.dev/");
+			}
+
 		}
 
 		next();
