@@ -6,6 +6,7 @@ const https = require("https");
 const fs = require("fs");
 
 const express = require("express"); //* npm install express
+const compression = require("compression");
 const app = express();
 app.set("trust proxy", true);
 
@@ -52,6 +53,7 @@ async function useHTTPS() {
 }
 
 async function useMiddleware() {
+	app.use(compression());
 	app.use((req, res, next) => {
 		console.log("\x1b[36m" + "Request:" + "\x1b[35m", req.hostname + req.url, "\x1b[0m" + "|" + "\x1b[33m", req.ip + "\x1b[0m");
 
