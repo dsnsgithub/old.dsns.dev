@@ -221,6 +221,7 @@
 		"name": "Prototype",
 		"games": {
 			"PVP_CTW": "Capture The Wool",
+			"PIXEL_PARTY": "Pixel Party",
 			"TOWERWARS": "TowerWars",
 			"TOWERWARS_SOLO": "TowerWars Solo",
 			"TOWERWARS_TEAM_OF_TWO": "TowerWars Team"

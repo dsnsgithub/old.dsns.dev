@@ -4,7 +4,6 @@ require("dotenv").config();
 //? Requirements ----------------------------------------------------------------------------------
 const { HypixelAPI } = require("hypixel-api-v2"); //* npm install hypixel-api-v2
 const hypixel = new HypixelAPI(process.env.API_KEY, 2);
-const gameTypes = require("../json/gameTypes.json");
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -68,10 +67,16 @@ async function parseData(statusData) {
 async function parseStatus(status, IGN) {
 	if (!status["online"]) return `${IGN} is offline.`;
 
-	if (status["mode"] == status["gameType"]) {
-		return `${IGN} is online. They are playing ${capitalize(status["gameType"])}.`;
+	const game = status["gameType"];
+	const mode = status["mode"];
+
+	if (mode == game) {
+		return `${IGN} is online. They are playing ${capitalize(game)}.`;
 	} else {
-		return `${IGN} is online. They are playing ${capitalize(status["mode"])} ${capitalize(status["gameType"])}.`;
+		if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${capitalize(game)} Lobby`;
+
+		const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+		return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
 	}
 }
 
@@ -85,24 +90,28 @@ async function parseRecentGames(recentGame, IGN) {
 	});
 
 	const game = recentGame["gameType"];
+	const mode = recentGame["mode"];
 	const map = recentGame["map"];
-
-	if (!recentGame["mode"]) return `${IGN} played ${capitalize(game)} at ${recentTime}.`;
+	
+	if (!mode) return `${IGN} played ${capitalize(game)} at ${recentTime}.`;
 
 	//? Sanitize Hypixel API into a more readable format
-	let mode = recentGame["mode"];
-	if (game == "DUELS") mode = mode.replace(/DUELS_/g, "");
-	if (game == "BEDWARS") mode = mode.replace(/BEDWARS_/g, "");
+	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+	return `${IGN} played ${sanitizedMode} ${sanitizedGame} at ${recentTime} on ${map}.`;
+}
 
-	// If the game exists in the gameTypes.json file
-	if (gameTypes[game.toUpperCase()]) {
-		// If the mode exists in the gameTypes.json file
-		if (mode in gameTypes[game.toUpperCase()]["games"]) {
-			mode = gameTypes[game.toUpperCase()]["games"][mode];
-		}
-	}
+async function sanitizeMode(game, mode) {
+	const gameList = require("../json/games.json")["games"];
+	
+	//? If the game doesn't exist in the games.json file
+	if (!gameList[game.toUpperCase()]) return [mode, game];
+	const sanitizedGame = gameList[game.toUpperCase()]["name"];
 
-	return `${IGN} played ${mode} ${capitalize(game)} at ${recentTime} on ${map}.`;
+	//? If the mode doesn't exist in the games.json file
+	if (!gameList[game.toUpperCase()]["modeNames"][mode]) return [sanitizedGame, mode];
+	const sanitizedMode = gameList[game.toUpperCase()]["modeNames"][mode];
+	
+	return [sanitizedGame, sanitizedMode];
 }
 
 module.exports = { grabStatus, parseData };
