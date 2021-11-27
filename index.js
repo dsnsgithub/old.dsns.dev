@@ -13,7 +13,6 @@ app.set("trust proxy", true);
 async function runRoutes() {
 	const results = await Promise.allSettled([
 		require(__dirname + "/routes/differenceSSE.js")(app),
-		require(__dirname + "/routes/studentindex.js")(app),
 		require(__dirname + "/routes/whois.js")(app),
 		app.get("/ipAPI", async (req, res) => res.json(req.headers))
 	])
