@@ -86,3 +86,30 @@ body.has-navbar-fixed-top,
 html.has-navbar-fixed-top {
 	padding-top: 5rem;
 }
+
+@media (max-width: 850px) {
+	.skillsList h2 {
+		font-size: 16px;
+	}
+	.is-one-third-mobile {
+		width: 33.3333% !important;
+	}
+	#experiences {
+		font-size: 10vw;
+	}
+}
+
+@media (max-width: 950px) {
+	.skillsList h2 {
+		font-size: 22px;
+	}
+	.oversizedText {
+		font-size: 18px !important;
+	}
+}
+
+@media (max-width: 1200px) {
+	.oversizedText {
+		font-size: 2vw;
+	}
+}
