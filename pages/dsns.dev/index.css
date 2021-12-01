@@ -113,3 +113,34 @@ html.has-navbar-fixed-top {
 		font-size: 2vw;
 	}
 }
+
+.icons {
+	transform: scale(0.5); /* Standard Property */
+	transform-origin: 0 0; /* Standard Property */
+}
+
+.icons div {
+	margin-right: 141px;
+}
+
+.icons div:last-child {
+	margin-right: 0px;
+}
+
+@media (max-width: 750px) {
+	.icons div {
+		margin-right: 50px !important;
+	}
+	.icons {
+		transform: scale(0.55) !important; /* Standard Property */
+	}
+}
+
+@media (max-width: 550px) {
+	.icons div {
+		margin-right: 15px !important;
+	}
+	.icons {
+		transform: scale(1) !important; /* Standard Property */
+	}
+}
