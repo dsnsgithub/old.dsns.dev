@@ -15,7 +15,7 @@ async function createSSEData() {
 	});
 
 	try {
-		console.time("createSSEData");
+		console.time("\x1b[35m[" + newDate + "] \x1b[34m" + "SSE Data Update" + "\x1b[0m");
 		let levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
 		const statusData = await statusJS.grabStatus();
 		const status = await statusJS.parseData(statusData);
@@ -25,8 +25,6 @@ async function createSSEData() {
 
 		levels = await diffJS.writeDifference(difference, levels);
 		const graphArray = await diffJS.createGraphArray(levels);
-
-		console.log("\x1b[34m" + "SSE Data Update" + "\x1b[0m" + " | " + "\x1b[35m" + newDate + "\x1b[0m");
 
 		const result = {
 			status: status["status"],
@@ -38,7 +36,7 @@ async function createSSEData() {
 			date: newDate
 		};
 
-		console.timeEnd("createSSEData");
+		console.timeEnd("\x1b[35m[" + newDate + "] \x1b[34m" + "SSE Data Update" + "\x1b[0m");
 		return result;
 	} catch (error) {
 		console.error("\x1b[31m" + "SSE Error: " + (error.stack || error) + "\x1b[0m");
