@@ -15,6 +15,7 @@ async function createSSEData() {
 	});
 
 	try {
+		console.time("createSSEData");
 		let levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
 		const statusData = await statusJS.grabStatus();
 		const status = await statusJS.parseData(statusData);
@@ -37,6 +38,7 @@ async function createSSEData() {
 			date: newDate
 		};
 
+		console.timeEnd("createSSEData");
 		return result;
 	} catch (error) {
 		console.error("\x1b[31m" + "SSE Error: " + (error.stack || error) + "\x1b[0m");

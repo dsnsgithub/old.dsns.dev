@@ -1,22 +1,20 @@
 // @ts-check
 require("dotenv").config();
 
-//? Requirements ----------------------------------------------------------------------------------
-const { HypixelAPI } = require("hypixel-api-v2"); //* npm install hypixel-api-v2
-const hypixel = new HypixelAPI(process.env.API_KEY, 2);
-
+//? Requirements
+const axios = require("axios").default;
 const fs = require("fs");
 
 function xpToLevel(xp) {
 	return Math.sqrt(2 * xp + 30625) / 50 - 2.5;
 }
 
-//? Hypixel Level Functions ------------------------------------------------------------------------------------------
 async function grabPlayerData() {
+	const baseURL = "https://api.hypixel.net/player?key=";
 	return Promise.all([
-		hypixel.player("557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		hypixel.player("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		hypixel.player("769f1d98aeef49cd934b4202e1c5537f") // jiebi
+		axios.get(baseURL + process.env.API_KEY + "&uuid=557bafa10aad40bbb67207a9cefa8220").then((response) => response.data["player"]), // DSNS
+		axios.get(baseURL + process.env.API_KEY + "&uuid=9e6cdbe98a744a33b53941cb0efd8113").then((response) => response.data["player"]), // AmKale
+		axios.get(baseURL + process.env.API_KEY + "&uuid=769f1d98aeef49cd934b4202e1c5537f").then((response) => response.data["player"]) // jiebi
 	]);
 }
 

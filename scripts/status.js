@@ -1,45 +1,42 @@
 // @ts-check
 require("dotenv").config();
 
-//? Requirements ----------------------------------------------------------------------------------
-const { HypixelAPI } = require("hypixel-api-v2"); //* npm install hypixel-api-v2
-const hypixel = new HypixelAPI(process.env.API_KEY, 2);
+//? Requirements
+const axios = require("axios").default;
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-//? Hypixel Status / Recent Games Functions -------------------------------------------------------------------------
-
 async function grabStatus() {
-	const status = await Promise.all([
-		hypixel.status("557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		hypixel.status("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		hypixel.status("769f1d98aeef49cd934b4202e1c5537f") // jiebi
+	const statusURL = "https://api.hypixel.net/status?key=";
+	const recentGamesURL = "https://api.hypixel.net/recentgames?key=";
+
+	const queryResult = await Promise.all([
+		axios.get(statusURL + process.env.API_KEY + "&uuid=557bafa10aad40bbb67207a9cefa8220").then((response) => response.data), // DSNS
+		axios.get(statusURL + process.env.API_KEY + "&uuid=9e6cdbe98a744a33b53941cb0efd8113").then((response) => response.data), // AmKale
+		axios.get(statusURL + process.env.API_KEY + "&uuid=769f1d98aeef49cd934b4202e1c5537f").then((response) => response.data), // jiebi
+		axios.get(recentGamesURL + process.env.API_KEY + "&uuid=557bafa10aad40bbb67207a9cefa8220").then((response) => response.data["games"]), // DSNS
+		axios.get(recentGamesURL + process.env.API_KEY + "&uuid=9e6cdbe98a744a33b53941cb0efd8113").then((response) => response.data["games"]), // AmKale
+		axios.get(recentGamesURL + process.env.API_KEY + "&uuid=769f1d98aeef49cd934b4202e1c5537f").then((response) => response.data["games"]) // jiebi
 	]);
 
-	const recentGames = await Promise.all([
-		hypixel.recentGames("557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		hypixel.recentGames("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		hypixel.recentGames("769f1d98aeef49cd934b4202e1c5537f") // jiebi
-	]);
-
-	if (status.some((t) => !t) || recentGames.some((t) => !t)) {
-		return Promise.reject(new Error("Status API is DOWN!"));
+	if (queryResult.some((t) => !t)) {
+		return Promise.reject(new Error("Status/Recent Games API is DOWN!"));
 	}
 
 	const result = {
 		DSNS: {
-			status: status[0],
-			recentGame: recentGames[0][0]
+			status: queryResult[0],
+			recentGame: queryResult[3][0]
 		},
 		AmKale: {
-			status: status[1],
-			recentGame: recentGames[1][0]
+			status: queryResult[1],
+			recentGame: queryResult[4][0]
 		},
 		jiebi: {
-			status: status[2],
-			recentGame: recentGames[2][0]
+			status: queryResult[2],
+			recentGame: queryResult[5][0]
 		}
 	};
 
