@@ -58,25 +58,18 @@ async function useMiddleware() {
 
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
-		if (req.hostname == "portobellomarina.com") {
+		if (req.hostname == "portobellomarina.com" || req.hostname == "portobellomarina.test") {
 			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
 
-			if (fs.existsSync(fullPath)) {
-				return res.sendFile(fullPath);
-			} else {
-				return res.redirect("https://portobellomarina.com/");
-			}
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://portobellomarina.com/");
 		}
 
-		if (req.hostname == "mseung.dev") {
+		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
 
-			if (fs.existsSync(fullPath)) {
-				return res.sendFile(fullPath);
-			} else {
-				return res.redirect("https://mseung.dev/");
-			}
-
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://mseung.dev/");
 		}
 
 		next();

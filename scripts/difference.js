@@ -33,15 +33,16 @@ async function getDifference(playerData) {
 	return difference;
 }
 
-async function writeDifference(difference, levels) {
+async function writeDifference(difference) {
 	const currentDate = new Date().toLocaleDateString("en-US", {
 		hour: "numeric",
 		minute: "numeric",
 		hour12: true
 	});
 
-	console.time("\x1b[35m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
-
+	console.time("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
+	
+	const levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
 	const lastItemIndex = levels.length - 1;
 
 	if (lastItemIndex != -1) {
@@ -65,7 +66,7 @@ async function writeDifference(difference, levels) {
 	}
 
 	fs.writeFileSync(__dirname + "/../json/levels.json", JSON.stringify(levels));
-	console.timeEnd("\x1b[35m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
+	console.timeEnd("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
 
 	return levels;
 }
