@@ -6,7 +6,14 @@ const https = require("https");
 const fs = require("fs");
 
 const express = require("express"); //* npm install express
-const compression = require("compression");
+const compression = require("compression"); //* npm install compression
+const morgan = require("morgan"); //* npm install morgan
+
+// @ts-ignore
+morgan.token("host", (req, res) => req.hostname);
+
+const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+
 const app = express();
 app.set("trust proxy", true);
 
@@ -53,9 +60,9 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use(compression());
-	app.use((req, res, next) => {
-		console.log("\x1b[36m" + "Request:" + "\x1b[35m", req.hostname + req.url, "\x1b[0m" + "|" + "\x1b[33m", req.ip + "\x1b[0m");
+	app.use(morgan(":date[web] | :host:url | :status | :response-time ms", { stream: logStream }));
 
+	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
 		if (req.hostname == "portobellomarina.com" || req.hostname == "portobellomarina.test") {
