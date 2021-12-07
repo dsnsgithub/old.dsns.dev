@@ -1,23 +1,24 @@
 // @ts-check
 require("dotenv").config();
 
-//? Requirements ----------------------------------------------------------------------------------
-const { HypixelAPI } = require("hypixel-api-v2"); //* npm install hypixel-api-v2
-const hypixel = new HypixelAPI(process.env.API_KEY, 2);
-
+//? Requirements
+const axios = require("axios").default;
 const fs = require("fs");
 
 function xpToLevel(xp) {
 	return Math.sqrt(2 * xp + 30625) / 50 - 2.5;
 }
 
-//? Hypixel Level Functions ------------------------------------------------------------------------------------------
 async function grabPlayerData() {
-	return Promise.all([
-		hypixel.player("557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		hypixel.player("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		hypixel.player("769f1d98aeef49cd934b4202e1c5537f") // jiebi
+	const baseURL = `https://api.hypixel.net/player?key=${process.env.API_KEY}&uuid=`;
+
+	const res = await Promise.all([
+		axios.get(baseURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
+		axios.get(baseURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
+		axios.get(baseURL + "769f1d98aeef49cd934b4202e1c5537f") // jiebi
 	]);
+
+	return res.map((response) => response.data["player"]);
 }
 
 async function getDifference(playerData) {
@@ -35,7 +36,16 @@ async function getDifference(playerData) {
 	return difference;
 }
 
-async function writeDifference(difference, levels) {
+async function writeDifference(difference) {
+	const currentDate = new Date().toLocaleDateString("en-US", {
+		hour: "numeric",
+		minute: "numeric",
+		hour12: true
+	});
+
+	console.time("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
+
+	const levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
 	const lastItemIndex = levels.length - 1;
 
 	if (lastItemIndex != -1) {
@@ -45,12 +55,6 @@ async function writeDifference(difference, levels) {
 			}
 		}
 	}
-
-	const currentDate = new Date().toLocaleDateString("en-US", {
-		hour: "numeric",
-		minute: "numeric",
-		hour12: true
-	});
 
 	const entry = {
 		date: currentDate,
@@ -65,7 +69,7 @@ async function writeDifference(difference, levels) {
 	}
 
 	fs.writeFileSync(__dirname + "/../json/levels.json", JSON.stringify(levels));
-	console.log("\x1b[36m" + "Database Update" + "\x1b[0m" + " | " + "\x1b[35m" + currentDate);
+	console.timeEnd("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
 
 	return levels;
 }

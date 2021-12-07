@@ -3,5 +3,5 @@
 DIRECTORY=$(cd `dirname $0` && pwd)
 
 while true; do
-    node . 2>&1 | tee -a $DIRECTORY/logs/server.log
+    node . 2>&1 | tee -a $DIRECTORY/logs/console.log
 done

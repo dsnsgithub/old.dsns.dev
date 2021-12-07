@@ -6,19 +6,24 @@ const https = require("https");
 const fs = require("fs");
 
 const express = require("express"); //* npm install express
-const compression = require("compression");
+const compression = require("compression"); //* npm install compression
 const app = express();
 app.set("trust proxy", true);
+
+const morgan = require("morgan"); //* npm install morgan
+const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+// @ts-ignore
+morgan.token("host", (req, res) => req.hostname);  
 
 async function runRoutes() {
 	const results = await Promise.allSettled([
 		require(__dirname + "/routes/differenceSSE.js")(app),
 		require(__dirname + "/routes/whois.js")(app),
 		app.get("/ipAPI", async (req, res) => res.json(req.headers))
-	])
+	]);
 
-	const failSafe = results.filter((result) => result.status === "rejected")
-	if (failSafe.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failSafe) + "\x1b[0m");
+	const failCheck = results.filter((result) => result.status === "rejected");
+	if (failCheck.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failCheck) + "\x1b[0m");
 }
 
 async function openPort() {
@@ -26,7 +31,7 @@ async function openPort() {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[33m", 80 + "\x1b[0m");
 	});
 
-	if (process.env["HTTPS"] == "true") useHTTPS();
+	if (process.env.HTTPS == "true") useHTTPS();
 	useMiddleware();
 }
 
@@ -53,30 +58,23 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use(compression());
-	app.use((req, res, next) => {
-		console.log("\x1b[36m" + "Request:" + "\x1b[35m", req.hostname + req.url, "\x1b[0m" + "|" + "\x1b[33m", req.ip + "\x1b[0m");
+	app.use(morgan(":date[web] | :host:url | :status | :response-time ms", { stream: logStream }));
 
+	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
-		if (req.hostname == "portobellomarina.com") {
+		if (req.hostname == "portobellomarina.com" || req.hostname == "portobellomarina.test") {
 			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
 
-			if (fs.existsSync(fullPath)) {
-				return res.sendFile(fullPath);
-			} else {
-				return res.redirect("https://portobellomarina.com/");
-			}
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://portobellomarina.com/");
 		}
 
-		if (req.hostname == "mseung.dev") {
+		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
 
-			if (fs.existsSync(fullPath)) {
-				return res.sendFile(fullPath);
-			} else {
-				return res.redirect("https://mseung.dev/");
-			}
-
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://mseung.dev/");
 		}
 
 		next();

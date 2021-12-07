@@ -52,7 +52,42 @@
 			"name": "Murder Mystery",
 			"id": 59
 		},
-		"ARCADE": { "databaseName": "Arcade", "name": "Arcade", "id": 14 },
+		"ARCADE": {
+			"databaseName": "Arcade",
+			"modeNames": {
+				"HOLE_IN_THE_WALL": "Hole in the Wall",
+				"SOCCER": "Football",
+				"ONEINTHEQUIVER": "Bounty Hunters",
+				"DRAW_THEIR_THING": "Pixel Painters",
+				"DRAGONWARS2": "Dragon Wars",
+				"ENDER": "Ender Spleef",
+				"STARWARS": "Galaxy Wars",
+				"THROW_OUT": "Throw Out",
+				"DEFENDER": "Creeper Attack",
+				"party_games": "Party Games",
+				"PARTY": "Party Games",
+				"PARTY_2": "Party Games",
+				"PARTY_3": "Party Games",
+				"FARM_HUNT": "Farm Hunt",
+				"hypixel_says": "Hypixel Says",
+				"SIMON_SAYS": "Hypixel Says",
+				"SANTA_SAYS": "Santa Says",
+				"GRINCH": "Grinch Simulator",
+				"MINI_WALLS": "Mini Walls",
+				"DAYONE": "Blocking Dead",
+				"ZOMBIES": "Zombies",
+				"ZOMBIES_BAD_BLOOD": "Zombies",
+				"ZOMBIES_DEAD_END": "Zombies",
+				"ZOMBIES_ALIEN_ARCADIUM": "Zombies",
+				"HIDE_AND_SEEK": "Hide and Seek",
+				"HIDE_AND_SEEK_PARTY_POOPER": "Party Pooper",
+				"HIDE_AND_SEEK_PROP_HUNT": "Prop Hunt",
+				"EASTER_SIMULATOR": "Easter Simulator",
+				"PVP_CTW": "Capture The Wool"
+			},
+			"name": "Arcade",
+			"id": 14
+		},
 		"ARENA": { "legacy": true, "databaseName": "Arena", "name": "Arena Brawl", "id": 17 },
 		"TNTGAMES": {
 			"modeNames": {
@@ -135,7 +170,17 @@
 		"REPLAY": { "databaseName": "Replay", "name": "Replay", "id": 65 },
 		"TRUE_COMBAT": { "databaseName": "TrueCombat", "name": "Crazy Walls", "retired": true, "id": 52 },
 		"PIT": { "databaseName": "Pit", "name": "Pit", "id": 64 },
-		"SPEED_UHC": { "databaseName": "SpeedUHC", "name": "Speed UHC", "id": 54 },
+		"SPEED_UHC": {
+			"databaseName": "SpeedUHC",
+			"modeNames": {
+				"solo_normal": "Solo Normal",
+				"solo_insane": "Solo Insane",
+				"teams_normal": "Teams Normal",
+				"teams_insane": "Teams Insane"
+			},
+			"name": "Speed UHC",
+			"id": 54
+		},
 		"DUELS": {
 			"modeNames": {
 				"DUELS_BOWSPLEEF_DUEL": "Bow Spleef",

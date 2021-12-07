@@ -1,45 +1,41 @@
 // @ts-check
 require("dotenv").config();
 
-//? Requirements ----------------------------------------------------------------------------------
-const { HypixelAPI } = require("hypixel-api-v2"); //* npm install hypixel-api-v2
-const hypixel = new HypixelAPI(process.env.API_KEY, 2);
+//? Requirements
+const axios = require("axios").default;
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-//? Hypixel Status / Recent Games Functions -------------------------------------------------------------------------
-
 async function grabStatus() {
-	const status = await Promise.all([
-		hypixel.status("557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		hypixel.status("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		hypixel.status("769f1d98aeef49cd934b4202e1c5537f") // jiebi
+	const statusURL = `https://api.hypixel.net/status?key=${process.env.API_KEY}&uuid=`;
+	const recentGamesURL = `https://api.hypixel.net/recentgames?key=${process.env.API_KEY}&uuid=`;
+
+	const res = await Promise.all([
+		axios.get(statusURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
+		axios.get(statusURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
+		axios.get(statusURL + "769f1d98aeef49cd934b4202e1c5537f"), // jiebi
+		axios.get(recentGamesURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
+		axios.get(recentGamesURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
+		axios.get(recentGamesURL + "769f1d98aeef49cd934b4202e1c5537f") // jiebi
 	]);
 
-	const recentGames = await Promise.all([
-		hypixel.recentGames("557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		hypixel.recentGames("9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		hypixel.recentGames("769f1d98aeef49cd934b4202e1c5537f") // jiebi
-	]);
-
-	if (status.some((t) => !t) || recentGames.some((t) => !t)) {
-		return Promise.reject(new Error("Status API is DOWN!"));
-	}
+	const queryResult = res.map((response) => response.data);
+	if (queryResult.some((t) => !t)) return Promise.reject(new Error("Status/Recent Games API is DOWN!"));
 
 	const result = {
 		DSNS: {
-			status: status[0],
-			recentGame: recentGames[0][0]
+			status: queryResult[0],
+			recentGame: queryResult[3]["games"][0]
 		},
 		AmKale: {
-			status: status[1],
-			recentGame: recentGames[1][0]
+			status: queryResult[1],
+			recentGame: queryResult[4]["games"][0]
 		},
 		jiebi: {
-			status: status[2],
-			recentGame: recentGames[2][0]
+			status: queryResult[2],
+			recentGame: queryResult[5]["games"][0]
 		}
 	};
 
@@ -92,7 +88,7 @@ async function parseRecentGames(recentGame, IGN) {
 	const game = recentGame["gameType"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
-	
+
 	if (!mode) return `${IGN} played ${capitalize(game)} at ${recentTime}.`;
 
 	//? Sanitize Hypixel API into a more readable format
@@ -102,15 +98,15 @@ async function parseRecentGames(recentGame, IGN) {
 
 async function sanitizeMode(game, mode) {
 	const gameList = require("../json/games.json")["games"];
-	
+
 	//? If the game doesn't exist in the games.json file
 	if (!gameList[game.toUpperCase()]) return [mode, game];
 	const sanitizedGame = gameList[game.toUpperCase()]["name"];
 
 	//? If the mode doesn't exist in the games.json file
-	if (!gameList[game.toUpperCase()]["modeNames"][mode]) return [sanitizedGame, mode];
+	if (!gameList[game.toUpperCase()]?.["modeNames"]?.[mode]) return [sanitizedGame, mode];
 	const sanitizedMode = gameList[game.toUpperCase()]["modeNames"][mode];
-	
+
 	return [sanitizedGame, sanitizedMode];
 }
 

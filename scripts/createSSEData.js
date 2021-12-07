@@ -5,27 +5,24 @@ require("dotenv").config();
 const diffJS = require("./difference.js");
 const statusJS = require("./status.js");
 
-const fs = require("fs");
-
 async function createSSEData() {
-	const newDate = new Date().toLocaleDateString("en-US", {
+	const currentDate = new Date().toLocaleDateString("en-US", {
 		hour: "numeric",
 		minute: "numeric",
 		hour12: true
 	});
 
 	try {
-		let levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
+		console.time("\x1b[33m[" + currentDate + "] \x1b[34m" + "SSE Data Update" + "\x1b[0m");
+
 		const statusData = await statusJS.grabStatus();
 		const status = await statusJS.parseData(statusData);
 
 		const playerData = await diffJS.grabPlayerData();
 		const difference = await diffJS.getDifference(playerData);
 
-		levels = await diffJS.writeDifference(difference, levels);
+		const levels = await diffJS.writeDifference(difference);
 		const graphArray = await diffJS.createGraphArray(levels);
-
-		console.log("\x1b[34m" + "SSE Data Update" + "\x1b[0m" + " | " + "\x1b[35m" + newDate + "\x1b[0m");
 
 		const result = {
 			status: status["status"],
@@ -34,9 +31,10 @@ async function createSSEData() {
 			differenceJiebi: difference["differenceJiebi"].toString(),
 			AmKaleGraphArray: graphArray["AmKaleGraphArray"],
 			jiebiGraphArray: graphArray["jiebiGraphArray"],
-			date: newDate
+			date: currentDate
 		};
 
+		console.timeEnd("\x1b[33m[" + currentDate + "] \x1b[34m" + "SSE Data Update" + "\x1b[0m");
 		return result;
 	} catch (error) {
 		console.error("\x1b[31m" + "SSE Error: " + (error.stack || error) + "\x1b[0m");

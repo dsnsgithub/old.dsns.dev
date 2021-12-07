@@ -5,7 +5,7 @@ module.exports = async function (app) {
 	let result = await hypixel.createSSEData();
 	setInterval(async () => {
 		result = await hypixel.createSSEData();
-	}, Number(process.env["RELOAD_TIME"]));
+	}, Number(process.env.RELOAD_TIME));
 
 	app.get("/differenceData", async (req, res) => {
 		res.set({
@@ -21,7 +21,7 @@ module.exports = async function (app) {
 
 		const sendEvent = setInterval(() => {
 			res.write(`data: ${JSON.stringify(result)} \n\n`);
-		}, Number(process.env["RELOAD_TIME"]));
+		}, Number(process.env.RELOAD_TIME));
 
 		//? If client closes connection, stop sending events
 		res.on("close", () => {
