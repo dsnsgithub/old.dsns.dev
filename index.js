@@ -7,25 +7,23 @@ const fs = require("fs");
 
 const express = require("express"); //* npm install express
 const compression = require("compression"); //* npm install compression
-const morgan = require("morgan"); //* npm install morgan
-
-// @ts-ignore
-morgan.token("host", (req, res) => req.hostname);
-
-const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
-
 const app = express();
 app.set("trust proxy", true);
+
+const morgan = require("morgan"); //* npm install morgan
+const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+// @ts-ignore
+morgan.token("host", (req, res) => req.hostname);  
 
 async function runRoutes() {
 	const results = await Promise.allSettled([
 		require(__dirname + "/routes/differenceSSE.js")(app),
 		require(__dirname + "/routes/whois.js")(app),
 		app.get("/ipAPI", async (req, res) => res.json(req.headers))
-	])
+	]);
 
-	const failSafe = results.filter((result) => result.status === "rejected")
-	if (failSafe.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failSafe) + "\x1b[0m");
+	const failCheck = results.filter((result) => result.status === "rejected");
+	if (failCheck.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failCheck) + "\x1b[0m");
 }
 
 async function openPort() {
@@ -33,7 +31,7 @@ async function openPort() {
 		console.log("\x1b[32m" + "Express (HTTP) opened Port" + "\x1b[33m", 80 + "\x1b[0m");
 	});
 
-	if (process.env["HTTPS"] == "true") useHTTPS();
+	if (process.env.HTTPS == "true") useHTTPS();
 	useMiddleware();
 }
 

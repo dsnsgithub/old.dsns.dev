@@ -104,7 +104,7 @@ async function sanitizeMode(game, mode) {
 	const sanitizedGame = gameList[game.toUpperCase()]["name"];
 
 	//? If the mode doesn't exist in the games.json file
-	if (!gameList[game.toUpperCase()]["modeNames"][mode]) return [sanitizedGame, mode];
+	if (!gameList[game.toUpperCase()]?.["modeNames"]?.[mode]) return [sanitizedGame, mode];
 	const sanitizedMode = gameList[game.toUpperCase()]["modeNames"][mode];
 
 	return [sanitizedGame, sanitizedMode];

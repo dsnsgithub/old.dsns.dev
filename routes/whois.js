@@ -1,4 +1,5 @@
-const whois = require("whois");
+const whois = require("whois"); //* npm install whois
+
 module.exports = function (app) {
 	app.get("/whoisAPI/:domain", function (req, res) {
 		whois.lookup(req.params.domain, function (err, data) {
