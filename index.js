@@ -58,7 +58,7 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use(compression());
-	app.use(morgan(":date[web] | :host:url | :status | :response-time ms", { stream: logStream }));
+	app.use(morgan(":date[web] | :host:url | :status | :remote-addr", { stream: logStream }));
 
 	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);

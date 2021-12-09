@@ -10,12 +10,12 @@ function xpToLevel(xp) {
 }
 
 async function grabPlayerData() {
-	const baseURL = `https://api.hypixel.net/player?key=${process.env.API_KEY}&uuid=`;
+	const playerURL = `https://api.hypixel.net/player?key=${process.env.API_KEY}&uuid=`;
 
 	const res = await Promise.all([
-		axios.get(baseURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		axios.get(baseURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		axios.get(baseURL + "769f1d98aeef49cd934b4202e1c5537f") // jiebi
+		axios.get(playerURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
+		axios.get(playerURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
+		axios.get(playerURL + "769f1d98aeef49cd934b4202e1c5537f") // jiebi
 	]);
 
 	return res.map((response) => response.data["player"]);
@@ -37,14 +37,6 @@ async function getDifference(playerData) {
 }
 
 async function writeDifference(difference) {
-	const currentDate = new Date().toLocaleDateString("en-US", {
-		hour: "numeric",
-		minute: "numeric",
-		hour12: true
-	});
-
-	console.time("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
-
 	const levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
 	const lastItemIndex = levels.length - 1;
 
@@ -55,6 +47,12 @@ async function writeDifference(difference) {
 			}
 		}
 	}
+
+	const currentDate = new Date().toLocaleDateString("en-US", {
+		hour: "numeric",
+		minute: "numeric",
+		hour12: true
+	});
 
 	const entry = {
 		date: currentDate,
@@ -69,7 +67,7 @@ async function writeDifference(difference) {
 	}
 
 	fs.writeFileSync(__dirname + "/../json/levels.json", JSON.stringify(levels));
-	console.timeEnd("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
+	console.log("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
 
 	return levels;
 }

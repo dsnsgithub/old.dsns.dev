@@ -3,52 +3,49 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>IP Address Finder</title>
+	<title>DSNS's Portfolio</title>
 
+	<link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<link rel="stylesheet" href="index.css">
 
-	<link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/static/favicon/site.webmanifest">
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="IP Address Finder" />
-	<meta property="og:description" content="Returns your current IP Address." />
-	<meta name="description" content="Returns your current IP Address." />
-	<meta property="og:url" content="https://dsns.dev/ip" />
+	<meta property="og:title" content="Internet Speedtest" />
+	<meta property="og:description" content="A bloat-free speedtest website." />
+	<meta name="description" content="A bloat-free speedtest website." />
+	<meta property="og:url" content="https://dsns.dev" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
-	<link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="https://dsns.dev/static/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="https://dsns.dev/static/favicon/favicon-16x16.png">
-	<link rel="manifest" href="https://dsns.dev/static/favicon/site.webmanifest">
-
+	<script src="speedtest.js"></script>
 </head>
 
 <body>
-	<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+	<nav class="navbar is-fixed-top" aria-label="main navigation">
 		<div class="navbar-brand">
 			<div class="navbar-item">
 				<a href="/">
 					<picture>
-						<source srcset="
-							/static/images/webp/kirby.webp 1x,
-							/static/images/webp/kirby.webp 2x" type="image/webp">
-						<source srcset="
-                        /static/images/png/kirby.png 1x, 
-                        /static/images/png/kirby.png 2x" type="image/png">
+						<source srcset="/static/images/webp/kirby.webp" type="image/webp">
 						<img src="/static/images/webp/kirby.webp" alt="DSNS icon">
 					</picture>
 				</a>
 			</div>
 
-			<a role="button" class="navbar-burger" href="/projects">
+			<a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 			</a>
 		</div>
+
 
 		<div class="navbar-menu">
 			<div class="navbar-end">
@@ -99,25 +96,52 @@
 	</nav>
 
 
-
 	<section class="hero is-fullheight-with-navbar">
 		<div class="hero-body">
 			<div class="container">
-				<h1>IP Address:</h1>
-				<h2 id="ip"></h2>
+				<div class="columns">
+					<div class="column">
+						<h1>Download Speed:</h1>
+						<h2 id="download"></h2>
+					</div>
+					<div class="column">
+						<h1>Upload Speed:</h1>
+						<h2 id="upload">
 
-				<br>
+					</div>
+				</div>
 
-				<h1>User Agent:</h1>
-				<h3 id="useragent"></h3>
+				<hr>
+
+				<div class="columns">
+					<div class="column">
+						<h1>Ping:</h1>
+						<h2 id="ping"></h2>
+					</div>
+					<div class="column">
+						<h1>Jitter:</h1>
+						<h2 id="jitter"></h2>
+
+					</div>
+				</div>
+
+				<hr>
+
+				<h1>
+					<button id="start">
+						<p style="font-size: xx-large;">Start Speedtest!</p>
+					</button>
+				</h1>
+
+				<h1>Status:</h1>
+				<h2 id="status"></h2>
+			
 			</div>
-
 		</div>
-	</section>
 
+	</section>
 
 	<script src="index.js"></script>
 </body>
-
 
 </html>
