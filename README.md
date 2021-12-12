@@ -28,11 +28,10 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
     HTTPS = false
     NODE_ENV = development
 
-### 4. Create logs and levels.json file:
+### 4. Create logs and `levels.json` file:
     mkdir logs
-    touch logs/console.log
-    touch logs/request.log
-    touch json/levels.json
+    touch logs/request.log && touch logs/console.log  
+    echo [] > json/levels.json
 
 ### 5. Start the express server:
     chmod +x repeat.sh

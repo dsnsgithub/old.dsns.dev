@@ -580,17 +580,7 @@ function ulTest(done) {
 			200
 		);
 	}.bind(this);
-	if (settings.mpot) {
-		tverb("Sending POST request before performing upload test");
-		xhr = [];
-		xhr[0] = new XMLHttpRequest();
-		xhr[0].onload = xhr[0].onerror = function () {
-			tverb("POST request sent, starting upload test");
-			testFunction();
-		}.bind(this);
-		xhr[0].open("POST", settings.url_ul);
-		xhr[0].send();
-	} else testFunction();
+	testFunction();
 }
 // ping+jitter test, function done is called when it's over
 var ptCalled = false; // used to prevent multiple accidental calls to pingTest

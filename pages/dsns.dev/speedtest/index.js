@@ -5,9 +5,12 @@ const statusDiv = document.getElementById("status");
 speedtest.onupdate = function (data) {
 	const downloadSpeedDiv = document.getElementById("download");
 	const uploadSpeedDiv = document.getElementById("upload");
+	const ispInfo = document.getElementById("ispinfo");
 
 	const pingDiv = document.getElementById("ping");
 	const jitter = document.getElementById("jitter");
+
+	ispInfo.innerHTML = data.clientIp;
 
 	if (data.testState == 0) {
 		statusDiv.innerHTML = "Connecting to Speedtest Server....";
