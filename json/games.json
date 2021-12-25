@@ -1,9 +1,24 @@
 {
 	"success": true,
-	"lastUpdated": 1637685763865,
+	"lastUpdated": 1639513102971,
 	"games": {
-		"QUAKECRAFT": { "modeNames": { "teams": "Teams", "solo": "Solo", "solo_tourney": "Solo (Tournament)" }, "legacy": true, "databaseName": "Quake", "name": "Quakecraft", "id": 2 },
-		"SKYCLASH": { "databaseName": "SkyClash", "name": "SkyClash", "retired": true, "id": 55 },
+		"QUAKECRAFT": {
+			"modeNames": {
+				"teams": "Teams",
+				"solo": "Solo",
+				"solo_tourney": "Solo (Tournament)"
+			},
+			"legacy": true,
+			"databaseName": "Quake",
+			"name": "Quakecraft",
+			"id": 2
+		},
+		"SKYCLASH": {
+			"databaseName": "SkyClash",
+			"name": "SkyClash",
+			"retired": true,
+			"id": 55
+		},
 		"BUILD_BATTLE": {
 			"modeNames": {
 				"BUILD_BATTLE_HALLOWEEN": "Halloween Hyper",
@@ -20,8 +35,16 @@
 			"name": "Build Battle",
 			"id": 60
 		},
-		"UHC": { "databaseName": "UHC", "name": "UHC Champions", "id": 20 },
-		"LEGACY": { "databaseName": "Legacy", "name": "Classic Games", "id": 56 },
+		"UHC": {
+			"databaseName": "UHC",
+			"name": "UHC Champions",
+			"id": 20
+		},
+		"LEGACY": {
+			"databaseName": "Legacy",
+			"name": "Classic Games",
+			"id": 56
+		},
 		"SKYBLOCK": {
 			"modeNames": {
 				"farming_1": "The Farming Islands",
@@ -42,12 +65,33 @@
 			"name": "SkyBlock",
 			"id": 63
 		},
-		"HOUSING": { "databaseName": "Housing", "name": "Housing", "id": 26 },
-		"MCGO": { "databaseName": "MCGO", "name": "Cops and Crims", "id": 21 },
-		"SURVIVAL_GAMES": { "databaseName": "HungerGames", "name": "Blitz Survival Games", "id": 5 },
-		"BATTLEGROUND": { "databaseName": "Battleground", "name": "Warlords", "id": 23 },
+		"HOUSING": {
+			"databaseName": "Housing",
+			"name": "Housing",
+			"id": 26
+		},
+		"MCGO": {
+			"databaseName": "MCGO",
+			"name": "Cops and Crims",
+			"id": 21
+		},
+		"SURVIVAL_GAMES": {
+			"databaseName": "HungerGames",
+			"name": "Blitz Survival Games",
+			"id": 5
+		},
+		"BATTLEGROUND": {
+			"databaseName": "Battleground",
+			"name": "Warlords",
+			"id": 23
+		},
 		"MURDER_MYSTERY": {
-			"modeNames": { "MURDER_DOUBLE_UP": "Double Up", "MURDER_INFECTION": "Infection", "MURDER_ASSASSINS": "Assassins", "MURDER_CLASSIC": "Classic" },
+			"modeNames": {
+				"MURDER_DOUBLE_UP": "Double Up",
+				"MURDER_INFECTION": "Infection",
+				"MURDER_ASSASSINS": "Assassins",
+				"MURDER_CLASSIC": "Classic"
+			},
 			"databaseName": "MurderMystery",
 			"name": "Murder Mystery",
 			"id": 59
@@ -88,7 +132,12 @@
 			"name": "Arcade",
 			"id": 14
 		},
-		"ARENA": { "legacy": true, "databaseName": "Arena", "name": "Arena Brawl", "id": 17 },
+		"ARENA": {
+			"legacy": true,
+			"databaseName": "Arena",
+			"name": "Arena Brawl",
+			"id": 17
+		},
 		"TNTGAMES": {
 			"modeNames": {
 				"TEAMS_NORMAL": "Teams Mode",
@@ -103,7 +152,12 @@
 			"name": "TNT Games",
 			"id": 6
 		},
-		"WALLS": { "legacy": true, "databaseName": "Walls", "name": "Walls", "id": 3 },
+		"WALLS": {
+			"legacy": true,
+			"databaseName": "Walls",
+			"name": "Walls",
+			"id": 3
+		},
 		"SKYWARS": {
 			"modeNames": {
 				"solo_insane_lucky": "Solo Lucky Block",
@@ -127,14 +181,28 @@
 			"name": "SkyWars",
 			"id": 51
 		},
-		"VAMPIREZ": { "legacy": true, "databaseName": "VampireZ", "name": "VampireZ", "id": 7 },
+		"VAMPIREZ": {
+			"legacy": true,
+			"databaseName": "VampireZ",
+			"name": "VampireZ",
+			"id": 7
+		},
 		"PROTOTYPE": {
-			"modeNames": { "PIXEL_PARTY": "Pixel Party", "TOWERWARS_SOLO": "TowerWars - Solo", "TOWERWARS_TEAM_OF_TWO": "TowerWars - Teams of Two" },
+			"modeNames": {
+				"PIXEL_PARTY": "Pixel Party",
+				"INVADERS": "Invaders",
+				"TOWERWARS_SOLO": "TowerWars - Solo",
+				"TOWERWARS_TEAM_OF_TWO": "TowerWars - Teams of Two"
+			},
 			"databaseName": "Prototype",
 			"name": "Prototype",
 			"id": 57
 		},
-		"WALLS3": { "databaseName": "Walls3", "name": "Mega Walls", "id": 13 },
+		"WALLS3": {
+			"databaseName": "Walls3",
+			"name": "Mega Walls",
+			"id": 13
+		},
 		"BEDWARS": {
 			"modeNames": {
 				"BEDWARS_TWO_FOUR": "4v4",
@@ -164,12 +232,38 @@
 			"name": "Bed Wars",
 			"id": 58
 		},
-		"PAINTBALL": { "legacy": true, "databaseName": "Paintball", "name": "Paintball", "id": 4 },
-		"SUPER_SMASH": { "databaseName": "SuperSmash", "name": "Smash Heroes", "id": 24 },
-		"SMP": { "databaseName": "SMP", "name": "SMP", "id": 67 },
-		"REPLAY": { "databaseName": "Replay", "name": "Replay", "id": 65 },
-		"TRUE_COMBAT": { "databaseName": "TrueCombat", "name": "Crazy Walls", "retired": true, "id": 52 },
-		"PIT": { "databaseName": "Pit", "name": "Pit", "id": 64 },
+		"PAINTBALL": {
+			"legacy": true,
+			"databaseName": "Paintball",
+			"name": "Paintball",
+			"id": 4
+		},
+		"SUPER_SMASH": {
+			"databaseName": "SuperSmash",
+			"name": "Smash Heroes",
+			"id": 24
+		},
+		"SMP": {
+			"databaseName": "SMP",
+			"name": "SMP",
+			"id": 67
+		},
+		"REPLAY": {
+			"databaseName": "Replay",
+			"name": "Replay",
+			"id": 65
+		},
+		"TRUE_COMBAT": {
+			"databaseName": "TrueCombat",
+			"name": "Crazy Walls",
+			"retired": true,
+			"id": 52
+		},
+		"PIT": {
+			"databaseName": "Pit",
+			"name": "Pit",
+			"id": 64
+		},
 		"SPEED_UHC": {
 			"databaseName": "SpeedUHC",
 			"modeNames": {
@@ -221,6 +315,10 @@
 			"name": "Duels",
 			"id": 61
 		},
-		"GINGERBREAD": { "databaseName": "GingerBread", "name": "Turbo Kart Racers", "id": 25 }
+		"GINGERBREAD": {
+			"databaseName": "GingerBread",
+			"name": "Turbo Kart Racers",
+			"id": 25
+		}
 	}
 }
