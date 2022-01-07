@@ -27,15 +27,15 @@ async function grabStatus() {
 	const result = {
 		DSNS: {
 			status: queryResult[0],
-			recentGame: queryResult[3]["games"][0]
+			recentGame: queryResult[3]["games"]
 		},
 		AmKale: {
 			status: queryResult[1],
-			recentGame: queryResult[4]["games"][0]
+			recentGame: queryResult[4]["games"]
 		},
 		jiebi: {
 			status: queryResult[2],
-			recentGame: queryResult[5]["games"][0]
+			recentGame: queryResult[5]["games"]
 		}
 	};
 
@@ -48,7 +48,7 @@ async function parseData(statusData) {
 
 	for (const IGN in statusData) {
 		const status = statusData[IGN]["status"];
-		const recentGame = statusData[IGN]["recentGame"];
+		const recentGame = statusData[IGN]["recentGame"][0];
 
 		statusArray.push(await parseStatus(status, IGN));
 		recentGamesArray.push(await parseRecentGames(recentGame, IGN));
