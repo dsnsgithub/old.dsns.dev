@@ -1,5 +1,5 @@
 // @ts-check
-const hypixel = require("../scripts/createRecentGamesSSE.js");
+const hypixel = require("../scripts/createSSEData.js");
 
 module.exports = async function (app) {
 	const recentData = await hypixel.createRecentGamesSSE();
@@ -7,6 +7,3 @@ module.exports = async function (app) {
 		res.json(recentData);
 	});
 };
-
-
-

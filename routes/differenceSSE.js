@@ -2,9 +2,9 @@
 const hypixel = require("../scripts/createSSEData.js");
 
 module.exports = async function (app) {
-	let result = await hypixel.createSSEData();
+	let result = await hypixel.createDifferenceSSE();
 	setInterval(async () => {
-		result = await hypixel.createSSEData();
+		result = await hypixel.createDifferenceSSE();
 	}, Number(process.env.RELOAD_TIME));
 
 	app.get("/differenceData", async (req, res) => {

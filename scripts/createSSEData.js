@@ -5,7 +5,7 @@ require("dotenv").config();
 const diffJS = require("./difference.js");
 const statusJS = require("./status.js");
 
-async function createSSEData() {
+async function createDifferenceSSE() {
 	const currentDate = new Date().toLocaleDateString("en-US", {
 		hour: "numeric",
 		minute: "numeric",
@@ -42,4 +42,16 @@ async function createSSEData() {
 	}
 }
 
-module.exports = { createSSEData };
+async function createRecentGamesSSE() {
+	const statusData = await statusJS.grabStatus();
+
+	const result = {
+		DSNS: statusData["DSNS"]["recentGame"],
+		AmKale: statusData["AmKale"]["recentGame"],
+		jiebi: statusData["jiebi"]["recentGame"]
+	};
+
+	return result;
+}
+
+module.exports = { createDifferenceSSE, createRecentGamesSSE };
