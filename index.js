@@ -12,8 +12,9 @@ app.set("trust proxy", true);
 
 const morgan = require("morgan"); //* npm install morgan
 const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+
 // @ts-ignore
-morgan.token("host", (req, res) => req.hostname);  
+morgan.token("host", (req, res) => req.hostname);
 
 async function runRoutes() {
 	const results = await Promise.allSettled([
