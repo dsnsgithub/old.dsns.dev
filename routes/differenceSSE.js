@@ -14,14 +14,12 @@ module.exports = async function (app) {
 		res.set({
 			"Cache-Control": "no-cache",
 			"Content-Type": "text/event-stream",
-			"Access-Control-Allow-Origin": "*",
 			Connection: "keep-alive"
 		});
+
 		res.flushHeaders();
 
-		//? Send data to client every minute
 		res.write(`data: ${JSON.stringify(result)} \n\n`);
-
 		const sendEvent = setInterval(() => {
 			res.write(`data: ${JSON.stringify(result)} \n\n`);
 		}, Number(process.env.RELOAD_TIME));

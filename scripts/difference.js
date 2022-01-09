@@ -14,7 +14,10 @@ async function grabPlayerData(UUIDs) {
 	const res = await Promise.all(UUIDs.map((UUID) => axios.get(statusURL + UUID)));
 
 	const queryResult = res.map((response) => response.data["player"]);
-	if (queryResult.some((t) => !t)) return Promise.reject(new Error("Player API is DOWN!"));
+
+	if (queryResult.some((t) => !t)) {
+		return Promise.reject(new Error("Player API is DOWN!"));
+	}
 
 	return queryResult;
 }

@@ -13,7 +13,10 @@ async function grabStatus(UUIDs) {
 	const res = await Promise.all(UUIDs.map((UUID) => axios.get(statusURL + UUID)));
 
 	const queryResult = res.map((response) => response.data);
-	if (queryResult.some((t) => !t)) return Promise.reject(new Error("Recent Games API is DOWN!"));
+
+	if (queryResult.some((t) => !t)) {
+		return Promise.reject(new Error("Status API is DOWN!"));
+	}
 
 	return queryResult;
 }
@@ -23,7 +26,10 @@ async function grabRecentGames(UUIDs) {
 	const res = await Promise.all(UUIDs.map((UUID) => axios.get(recentGamesURL + UUID)));
 
 	const queryResult = res.map((response) => response.data);
-	if (queryResult.some((t) => !t)) return Promise.reject(new Error("Recent Games API is DOWN!"));
+
+	if (queryResult.some((t) => !t)) {
+		return Promise.reject(new Error("Recent Games API is DOWN!"));
+	}
 
 	return queryResult;
 }
@@ -53,6 +59,7 @@ async function parseStatus(status, IGN) {
 	const mode = status["mode"];
 
 	if (mode == game) {
+		//? Avoid repeating the game name
 		return `${IGN} is online. They are playing ${capitalize(game)}.`;
 	} else {
 		if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${capitalize(game)} Lobby`;
