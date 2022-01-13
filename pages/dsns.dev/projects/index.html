@@ -5,12 +5,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>DSNS</title>
+	<title>DSNS Portofolio Projects</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<link rel="stylesheet" href="index.css">
-
-	<link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="/static/css/static.css">
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
@@ -21,7 +20,7 @@
 	<meta property="og:title" content="DSNS's Projects" />
 	<meta property="og:description" content="Explore some of my projects." />
 	<meta name="description" content="Explore some of my projects." />
-	<meta property="og:url" content="https://dsns.dev/projects" />
+	<meta property="og:url" content="https://dsns.dev/projects/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 </head>
@@ -39,7 +38,7 @@
 				</a>
 			</div>
 
-			<a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
+			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
@@ -49,44 +48,51 @@
 
 		<div class="navbar-menu">
 			<div class="navbar-end">
-				<a href="/" class="navbar-item">Home</a>
+				<a href="/" class="navbar-item">
+					<span class="icon-home"></span>
+					Home
+				</a>
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a href="/projects/" class="navbar-link">
+						<span class="icon-source"></span>
 						Projects
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference" class="navbar-item">
+						<a href="/difference/" class="navbar-item">
+							<span class="icon-stacked_line_chart"></span>
 							Hypixel Level Difference
 						</a>
-						<a href="/portal" class="navbar-item">
-							Nether Portal Calculator
-						</a>
-						<a href="/ppi" class="navbar-item">
+						<a href="/ppi/" class="navbar-item">
+							<span class="icon-calculate"></span>
 							PPI Calculator
 						</a>
-						<a href="/webcam" class="navbar-item">
+						<a href="/webcam/" class="navbar-item">
+							<span class="icon-videocam"></span>
 							Webcam Test
 						</a>
-						<a href="/quests" class="navbar-item">
-							Hypixel Quest Finder
-						</a>
-						<a href="/birthdays" class="navbar-item">
+						<a href="/birthdays/" class="navbar-item">
+							<span class="icon-cake"></span>
 							Birthday Countdown
 						</a>
-						<a href="/christmas" class="navbar-item">
+						<a href="/christmas/" class="navbar-item">
+							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames" class="navbar-item">
+						<a href="/recentgames/" class="navbar-item">
+							<span class="icon-person_search"></span>
 							Recent Games Finder
 						</a>
-						<a href="/ip" class="navbar-item">
+						<a href="/ip/" class="navbar-item">
+							<span class="icon-wifi_find"></span>
 							IP Address Finder
 						</a>
-						<a href="/whois" class="navbar-item">
+						<a href="/whois/" class="navbar-item">
+							<span class="icon-dns"></span>
 							WHOIS Domain Lookup
 						</a>
-						<a href="/speedtest" class="navbar-item">
+						<a href="/speedtest/" class="navbar-item">
+							<span class="icon-speed"></span>
 							Internet Speedtest
 						</a>
 					</div>
@@ -98,7 +104,7 @@
 	<div class="columns is-multiline is-centered is-desktop" style="text-align: center;">
 		<div class="column is-narrow">
 			<article class="tile is-child notification is-primary">
-				<a href="https://dsns.dev/difference">
+				<a href="/difference/">
 					<p class="title is-1">Hypixel Level Difference</p>
 					<p class="subtitle">Displays the difference between AmKale, DSNS, and jiebi's Hypixel Levels.</p>
 				</a>
@@ -108,26 +114,7 @@
 
 		<div class="column is-narrow">
 			<article class="tile is-child notification is-danger">
-				<a href="https://dsns.dev/quests">
-					<p class="title is-1">Hypixel Quests Finder</p>
-					<p class="subtitle">Displays all the quests done by AmKale, DSNS, and jiebi.</p>
-				</a>
-			</article>
-
-		</div>
-
-		<div class="column is-narrow">
-			<article class="tile is-child notification is-info">
-				<a href="https://dsns.dev/portal">
-					<p class="title is-1">Nether Portal Calculator</p>
-					<p class="subtitle">Calculates Nether Portal Coordinates.</p>
-				</a>
-			</article>
-		</div>
-
-		<div class="column is-narrow">
-			<article class="tile is-child notification is-warning">
-				<a href="https://dsns.dev/christmas">
+				<a href="/christmas/">
 					<p class="title is-1">Christmas Countdown</p>
 					<p class="subtitle">Countdown until Christmas.</p>
 				</a>
@@ -136,8 +123,8 @@
 		</div>
 
 		<div class="column is-narrow">
-			<article class="tile is-child notification is-primary">
-				<a href="https://dsns.dev/birthdays">
+			<article class="tile is-child notification is-info">
+				<a href="/birthdays/">
 					<p class="title is-1">Birthday Countdown</p>
 					<p class="subtitle">Countdown until people's birthdays!</p>
 				</a>
@@ -145,8 +132,8 @@
 		</div>
 
 		<div class="column is-narrow">
-			<article class="tile is-child notification is-danger">
-				<a href="https://dsns.dev/webcam">
+			<article class="tile is-child notification is-warning">
+				<a href="/webcam/">
 					<p class="title is-1">Webcam Test</p>
 					<p class="subtitle">Test your webcam here!</p>
 				</a>
@@ -154,8 +141,8 @@
 		</div>
 
 		<div class="column is-narrow">
-			<article class="tile is-child notification is-info">
-				<a href="https://dsns.dev/ppi">
+			<article class="tile is-child notification is-primary">
+				<a href="/ppi/">
 					<p class="title is-1">PPI Calculator</p>
 					<p class="subtitle">Calculates PPI.</p>
 				</a>
@@ -163,8 +150,8 @@
 		</div>
 
 		<div class="column is-narrow">
-			<article class="tile is-child notification is-warning">
-				<a href="https://dsns.dev/recentgames">
+			<article class="tile is-child notification is-danger">
+				<a href="/recentgames/">
 					<p class="title is-1">Recent Games Finder</p>
 					<p class="subtitle">Lists the recent games of Hypixel players.</p>
 				</a>
@@ -172,26 +159,17 @@
 		</div>
 
 		<div class="column is-narrow">
-			<article class="tile is-child notification is-primary">
-				<a href="https://dsns.dev/ip">
-					<p class="title is-1">IP Address Finder</p>
-					<p class="subtitle">Returns your current IP Address.</p>
-				</a>
-			</article>
-		</div>
-
-		<div class="column is-narrow">
-			<article class="tile is-child notification is-danger">
-				<a href="https://dsns.dev/ip">
-					<p class="title is-1">IP Address Finder</p>
-					<p class="subtitle">Returns your current IP Address.</p>
-				</a>
-			</article>
-		</div>
-
-		<div class="column is-narrow">
 			<article class="tile is-child notification is-info">
-				<a href="https://dsns.dev/whois">
+				<a href="/ip/">
+					<p class="title is-1">IP Address Finder</p>
+					<p class="subtitle">Returns your current IP Address.</p>
+				</a>
+			</article>
+		</div>
+
+		<div class="column is-narrow">
+			<article class="tile is-child notification is-warning">
+				<a href="/whois/">
 					<p class="title is-1">WHOIS Domain Lookup</p>
 					<p class="subtitle">Find out who owns a website.</p>
 				</a>
@@ -199,8 +177,8 @@
 		</div>
 
 		<div class="column is-narrow">
-			<article class="tile is-child notification is-info">
-				<a href="https://dsns.dev/speedtest">
+			<article class="tile is-child notification is-primary">
+				<a href="/speedtest/">
 					<p class="title is-1">Speedtest</p>
 					<p class="subtitle">A bloat-free speedtest website.</p>
 				</a>

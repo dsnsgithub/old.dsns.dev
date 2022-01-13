@@ -9,13 +9,13 @@
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<link rel="stylesheet" href="index.css">
-	<link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Recent Games of Hypixel Players" />
-	<meta property="og:description" content="Lists the recent games of Hypixel players." />
-	<meta name="description" content="Lists the recent games of Hypixel players." />
-	<meta property="og:url" content="https://dsns.dev/recentgames" />
+	<meta property="og:title" content="Recent Games Finder" />
+	<meta property="og:description" content="Lists the recent games of DSNS, AmKale, jiebi." />
+	<meta name="description" content="Lists the recent games of DSNS, AmKale, jiebi." />
+	<meta property="og:url" content="https://dsns.dev/recentgames/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
@@ -37,7 +37,7 @@
 				</a>
 			</div>
 
-			<a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
+			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
@@ -47,44 +47,51 @@
 
 		<div class="navbar-menu">
 			<div class="navbar-end">
-				<a href="/" class="navbar-item">Home</a>
+				<a href="/" class="navbar-item">
+					<span class="icon-home"></span>
+					Home
+				</a>
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a href="/projects/" class="navbar-link">
+						<span class="icon-source"></span>
 						Projects
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference" class="navbar-item">
+						<a href="/difference/" class="navbar-item">
+							<span class="icon-stacked_line_chart"></span>
 							Hypixel Level Difference
 						</a>
-						<a href="/portal" class="navbar-item">
-							Nether Portal Calculator
-						</a>
-						<a href="/ppi" class="navbar-item">
+						<a href="/ppi/" class="navbar-item">
+							<span class="icon-calculate"></span>
 							PPI Calculator
 						</a>
-						<a href="/webcam" class="navbar-item">
+						<a href="/webcam/" class="navbar-item">
+							<span class="icon-videocam"></span>
 							Webcam Test
 						</a>
-						<a href="/quests" class="navbar-item">
-							Hypixel Quest Finder
-						</a>
-						<a href="/birthdays" class="navbar-item">
+						<a href="/birthdays/" class="navbar-item">
+							<span class="icon-cake"></span>
 							Birthday Countdown
 						</a>
-						<a href="/christmas" class="navbar-item">
+						<a href="/christmas/" class="navbar-item">
+							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames" class="navbar-item">
+						<a href="/recentgames/" class="navbar-item">
+							<span class="icon-person_search"></span>
 							Recent Games Finder
 						</a>
-						<a href="/ip" class="navbar-item">
+						<a href="/ip/" class="navbar-item">
+							<span class="icon-wifi_find"></span>
 							IP Address Finder
 						</a>
-						<a href="/whois" class="navbar-item">
+						<a href="/whois/" class="navbar-item">
+							<span class="icon-dns"></span>
 							WHOIS Domain Lookup
 						</a>
-						<a href="/speedtest" class="navbar-item">
+						<a href="/speedtest/" class="navbar-item">
+							<span class="icon-speed"></span>
 							Internet Speedtest
 						</a>
 					</div>
@@ -93,17 +100,9 @@
 		</div>
 	</nav>
 
-
-
 	<center>
-		<div class="columns" id="gamesContainer">
-
-
-		</div>
+		<div class="columns" id="gamesContainer"></div>
 	</center>
-
-
-
 
 	<script src="index.js"></script>
 </body>

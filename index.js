@@ -12,12 +12,14 @@ app.set("trust proxy", true);
 
 const morgan = require("morgan"); //* npm install morgan
 const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+
 // @ts-ignore
-morgan.token("host", (req, res) => req.hostname);  
+morgan.token("host", (req, res) => req.hostname);
 
 async function runRoutes() {
 	const results = await Promise.allSettled([
 		require(__dirname + "/routes/differenceSSE.js")(app),
+		require(__dirname + "/routes/recentGamesSSE.js")(app),
 		require(__dirname + "/routes/whois.js")(app),
 		app.get("/ipAPI", async (req, res) => res.json(req.headers))
 	]);
@@ -67,14 +69,14 @@ async function useMiddleware() {
 			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://portobellomarina.com/");
+			else return res.redirect(404, "https://portobellomarina.com/");
 		}
 
 		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://mseung.dev/");
+			else return res.redirect(404, "https://mseung.dev/");
 		}
 
 		next();
@@ -84,6 +86,7 @@ async function useMiddleware() {
 
 	//? 404
 	app.use((req, res, next) => {
+		res.status(404);
 		return res.sendFile(__dirname + "/pages/private/rickroll.html");
 	});
 }

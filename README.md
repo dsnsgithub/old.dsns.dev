@@ -28,6 +28,9 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
     HTTPS = false
     NODE_ENV = development
 
+	UUIDs = 557bafa10aad40bbb67207a9cefa8220, 9e6cdbe98a744a33b53941cb0efd8113, 769f1d98aeef49cd934b4202e1c5537f
+	IGNs = DSNS, AmKale, jiebi
+
 ### 4. Create logs and `levels.json` file:
     mkdir logs
     touch logs/request.log && touch logs/console.log  

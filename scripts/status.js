@@ -8,50 +8,42 @@ function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-async function grabStatus() {
+async function grabStatus(UUIDs) {
 	const statusURL = `https://api.hypixel.net/status?key=${process.env.API_KEY}&uuid=`;
-	const recentGamesURL = `https://api.hypixel.net/recentgames?key=${process.env.API_KEY}&uuid=`;
-
-	const res = await Promise.all([
-		axios.get(statusURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		axios.get(statusURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		axios.get(statusURL + "769f1d98aeef49cd934b4202e1c5537f"), // jiebi
-		axios.get(recentGamesURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		axios.get(recentGamesURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		axios.get(recentGamesURL + "769f1d98aeef49cd934b4202e1c5537f") // jiebi
-	]);
+	const res = await Promise.all(UUIDs.map((UUID) => axios.get(statusURL + UUID)));
 
 	const queryResult = res.map((response) => response.data);
-	if (queryResult.some((t) => !t)) return Promise.reject(new Error("Status/Recent Games API is DOWN!"));
 
-	const result = {
-		DSNS: {
-			status: queryResult[0],
-			recentGame: queryResult[3]["games"][0]
-		},
-		AmKale: {
-			status: queryResult[1],
-			recentGame: queryResult[4]["games"][0]
-		},
-		jiebi: {
-			status: queryResult[2],
-			recentGame: queryResult[5]["games"][0]
-		}
-	};
+	if (queryResult.some((t) => !t)) {
+		return Promise.reject(new Error("Status API is DOWN!"));
+	}
 
-	return result;
+	return queryResult;
 }
 
-async function parseData(statusData) {
+async function grabRecentGames(UUIDs) {
+	const recentGamesURL = `https://api.hypixel.net/recentgames?key=${process.env.API_KEY}&uuid=`;
+	const res = await Promise.all(UUIDs.map((UUID) => axios.get(recentGamesURL + UUID)));
+
+	const queryResult = res.map((response) => response.data);
+
+	if (queryResult.some((t) => !t)) {
+		return Promise.reject(new Error("Recent Games API is DOWN!"));
+	}
+
+	return queryResult;
+}
+
+async function parseData(statusData, recentGamesData, IGNs) {
 	const statusArray = [];
 	const recentGamesArray = [];
 
-	for (const IGN in statusData) {
-		const status = statusData[IGN]["status"];
-		const recentGame = statusData[IGN]["recentGame"];
+	for (const i in IGNs) {
+		const status = statusData[i]["session"];
+		const recentGame = recentGamesData[i]["games"][0];
 
-		statusArray.push(await parseStatus(status, IGN));
-		recentGamesArray.push(await parseRecentGames(recentGame, IGN));
+		statusArray.push(await parseStatus(status, IGNs[i]));
+		recentGamesArray.push(await parseRecentGames(recentGame, IGNs[i]));
 	}
 
 	return {
@@ -67,6 +59,7 @@ async function parseStatus(status, IGN) {
 	const mode = status["mode"];
 
 	if (mode == game) {
+		//? Avoid repeating the game name
 		return `${IGN} is online. They are playing ${capitalize(game)}.`;
 	} else {
 		if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${capitalize(game)} Lobby`;
@@ -110,4 +103,4 @@ async function sanitizeMode(game, mode) {
 	return [sanitizedGame, sanitizedMode];
 }
 
-module.exports = { grabStatus, parseData };
+module.exports = { grabStatus, grabRecentGames, parseData };
