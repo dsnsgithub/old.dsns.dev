@@ -2,36 +2,18 @@
 require("dotenv").config();
 
 //? Requirements
-const axios = require("axios").default;
+const hypixel = require("./hypixel.js");
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 async function grabStatus(UUIDs) {
-	const statusURL = `https://api.hypixel.net/status?key=${process.env.API_KEY}&uuid=`;
-	const res = await Promise.all(UUIDs.map((UUID) => axios.get(statusURL + UUID)));
-
-	const queryResult = res.map((response) => response.data);
-
-	if (queryResult.some((t) => !t)) {
-		return Promise.reject(new Error("Status API is DOWN!"));
-	}
-
-	return queryResult;
+	return Promise.all(UUIDs.map((UUID) => hypixel.getStatus(UUID)));
 }
 
 async function grabRecentGames(UUIDs) {
-	const recentGamesURL = `https://api.hypixel.net/recentgames?key=${process.env.API_KEY}&uuid=`;
-	const res = await Promise.all(UUIDs.map((UUID) => axios.get(recentGamesURL + UUID)));
-
-	const queryResult = res.map((response) => response.data);
-
-	if (queryResult.some((t) => !t)) {
-		return Promise.reject(new Error("Recent Games API is DOWN!"));
-	}
-
-	return queryResult;
+	return Promise.all(UUIDs.map((UUID) => hypixel.getRecentGames(UUID)));
 }
 
 async function parseData(statusData, recentGamesData, IGNs) {
@@ -39,8 +21,8 @@ async function parseData(statusData, recentGamesData, IGNs) {
 	const recentGamesArray = [];
 
 	for (const i in IGNs) {
-		const status = statusData[i]["session"];
-		const recentGame = recentGamesData[i]["games"][0];
+		const status = statusData[i];
+		const recentGame = recentGamesData[i][0];
 
 		statusArray.push(await parseStatus(status, IGNs[i]));
 		recentGamesArray.push(await parseRecentGames(recentGame, IGNs[i]));
@@ -78,7 +60,7 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["gameType"];
+	const game = recentGame["code"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
 

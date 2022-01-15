@@ -19,7 +19,7 @@ morgan.token("host", (req, res) => req.hostname);
 async function runRoutes() {
 	const results = await Promise.allSettled([
 		require(__dirname + "/routes/differenceSSE.js")(app),
-		require(__dirname + "/routes/recentGamesSSE.js")(app),
+		require(__dirname + "/routes/recentGames.js")(app),
 		require(__dirname + "/routes/whois.js")(app),
 		app.get("/ipAPI", async (req, res) => res.json(req.headers))
 	]);

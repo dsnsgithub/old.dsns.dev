@@ -2,30 +2,22 @@
 require("dotenv").config();
 
 //? Requirements
-const axios = require("axios").default;
 const fs = require("fs");
+
+const hypixel = require("../scripts/hypixel.js");
 
 function xpToLevel(xp) {
 	return Math.sqrt(2 * xp + 30625) / 50 - 2.5;
 }
 
 async function grabPlayerData(UUIDs) {
-	const statusURL = `https://api.hypixel.net/player?key=${process.env.API_KEY}&uuid=`;
-	const res = await Promise.all(UUIDs.map((UUID) => axios.get(statusURL + UUID)));
-
-	const queryResult = res.map((response) => response.data["player"]);
-
-	if (queryResult.some((t) => !t)) {
-		return Promise.reject(new Error("Player API is DOWN!"));
-	}
-
-	return queryResult;
+	return Promise.all(UUIDs.map((UUID) => hypixel.getPlayer(UUID)));
 }
 
 async function getDifference(playerData) {
-	const DSNS = xpToLevel(Number(playerData[0]["networkExp"]));
-	const AmKale = xpToLevel(Number(playerData[1]["networkExp"]));
-	const jiebi = xpToLevel(Number(playerData[2]["networkExp"]));
+	const DSNS = xpToLevel(Number(playerData[0]["totalExperience"]));
+	const AmKale = xpToLevel(Number(playerData[1]["totalExperience"]));
+	const jiebi = xpToLevel(Number(playerData[2]["totalExperience"]));
 
 	const difference = {
 		differenceAmKale: Number((DSNS - AmKale).toFixed(3)),

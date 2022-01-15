@@ -43,21 +43,4 @@ async function createDifferenceSSE(UUIDs, IGNs) {
 	}
 }
 
-async function createRecentGamesSSE(UUIDs) {
-	try {
-		const recentGamesData = await statusJS.grabRecentGames(UUIDs);
-
-		const result = {
-			DSNS: recentGamesData[0]["games"],
-			AmKale: recentGamesData[1]["games"],
-			jiebi: recentGamesData[2]["games"]
-		};
-
-		return result;
-	} catch (error) {
-		console.error("\x1b[31m" + "Recent Games SSE Error: " + (error.stack || error) + "\x1b[0m");
-		return "failed";
-	}
-}
-
-module.exports = { createDifferenceSSE, createRecentGamesSSE };
+module.exports = { createDifferenceSSE };

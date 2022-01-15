@@ -323,36 +323,46 @@ const gameTypes = {
 	}
 };
 
+function capitalize(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 async function run() {
-	const container = document.getElementById("gamesContainer");
+	const IGN = document.getElementById("IGN").value;
+	const data = await fetch(`/recentAPI/${IGN}`).then((res) => res.json());
 
-	const recentGamesAPI = await fetch("/recentGamesData").then((response) => response.json());
+	const resultDiv = document.getElementById("result");
+	resultDiv.innerHTML = "";
 
-	for (const IGN in recentGamesAPI) {
-		const recentGames = recentGamesAPI[IGN];
+	const table = document.createElement("table");
+	// add table is-striped is-fullwidth is-hoverable css classes to the table
+	table.classList.add("table", "is-striped", "is-fullwidth", "is-hoverable");
 
-		const column = document.createElement("div");
-		column.classList = "column";
+	// Create a table that displays the parsed recent games data
+	table.createTHead();
+	table.createTBody();
 
-		const label = document.createElement("h1");
-		label.innerHTML = IGN;
+	const headRow = table.tHead.insertRow();
+	headRow.insertCell().innerHTML = "Game";
+	headRow.insertCell().innerHTML = "Mode";
+	headRow.insertCell().innerHTML = "Map";
+	headRow.insertCell().innerHTML = "Time";
 
-		column.appendChild(label);
+	for (const i in data) {
+		const [mode, game, time, map] = await parseRecentGames(data[i], IGN);
 
-		if (recentGames.length == 0) {
-			column.innerHTML = column.innerHTML + `${IGN} has no recent games.`;
-		}
-
-		for (const recentGame of recentGames) {
-			column.innerHTML = column.innerHTML + "<br>" + (await parseRecentGames(recentGame, IGN));
-		}
-
-		container.appendChild(column);
+		const row = table.insertRow();
+		row.insertCell().innerHTML = game;
+		row.insertCell().innerHTML = mode;
+		row.insertCell().innerHTML = map;
+		row.insertCell().innerHTML = time;
 	}
+
+	resultDiv.appendChild(table);
 }
 
 async function parseRecentGames(recentGame, IGN) {
-	if (!recentGame) return `${IGN} has no recent games.`;
+	if (!recentGame) return `No recent games.`;
 
 	const recentTime = new Date(recentGame["date"]).toLocaleDateString("en-US", {
 		hour: "numeric",
@@ -360,15 +370,15 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["gameType"];
+	const game = recentGame["code"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
 
-	if (!mode) return `${IGN} played ${capitalize(game)} at ${recentTime}.`;
+	if (!mode) return `${capitalize(game)} at ${recentTime}.`;
 
 	//? Sanitize Hypixel API into a more readable format
 	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
-	return `${IGN} played ${sanitizedMode} ${sanitizedGame} at ${recentTime} on ${map}.`;
+	return [sanitizedMode, sanitizedGame, recentTime, map];
 }
 
 async function sanitizeMode(game, mode) {
@@ -384,4 +394,9 @@ async function sanitizeMode(game, mode) {
 	return [sanitizedGame, sanitizedMode];
 }
 
-run();
+document.onkeyup = function (event) {
+	if (event.key == "Enter") {
+		event.preventDefault();
+		run();
+	}
+};

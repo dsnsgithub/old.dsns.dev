@@ -10,12 +10,9 @@ async function whoIs() {
 	whois.innerHTML = result;
 }
 
-const input = document.getElementById("domain");
-
-input.addEventListener("keyup", function (event) {
-	// Number 13 is the "Enter" key on the keyboard
-	if (event.keyCode === 13) {
+document.onkeyup = function (event) {
+	if (event.key == "Enter") {
 		event.preventDefault();
 		whoIs();
 	}
-});
+};

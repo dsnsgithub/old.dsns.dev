@@ -8,7 +8,6 @@
 	<title>Recent Games of Hypixel Players</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
@@ -100,11 +99,43 @@
 		</div>
 	</nav>
 
-	<center>
-		<div class="columns" id="gamesContainer"></div>
-	</center>
+	<!-- Create a search box to enter a minecraft username-->
+	<section class="section">
+		<div class="container">
+			<div class="columns">
+				<div class="column is-half is-offset-one-quarter">
+					<div class="box">
+						<h1 class="title">Recent Games Finder</h1>
+						<h2 class="subtitle">Find the recent games of a player.</h2>
+						<div>
+							<div class="field">
+								<label class="label">Minecraft Username</label>
+								<div class="control">
+									<input class="input" type="text" name="username" id="IGN" placeholder="Enter a Minecraft username" required>
+								</div>
+							</div>
+							<div class="field">
+								<div class="control">
+									<button class="button is-primary" onclick="run()">Submit</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Create a results section to display parsed recent games-->
+	<section class="section">
+		<div class="container">
+			<div id="result" style="text-align: center;"></div>
+		</div>
+	</section>
 
 	<script src="index.js"></script>
+
+
 </body>
 
 </html>
