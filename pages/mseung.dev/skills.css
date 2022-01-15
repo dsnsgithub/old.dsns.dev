@@ -1,15 +1,34 @@
 body {
-    background-color: lightblue;
+    background-image: url("backgroundpicture.jpg");
+    background-size: cover;
 }
 
 h2 {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 h1 {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 p {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Poppins', sans-serif;
 }
+
+.button {
+    width: 100px;
+    background-color: #ffffff;
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    margin: auto;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  .button:hover {
+    background-color: limegreen;
+    color: black;
+  }
