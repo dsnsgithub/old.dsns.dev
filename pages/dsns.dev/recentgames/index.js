@@ -370,7 +370,7 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["code"];
+	const game = recentGame["game"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
 

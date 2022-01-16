@@ -37,7 +37,7 @@ async function parseData(statusData, recentGamesData, IGNs) {
 async function parseStatus(status, IGN) {
 	if (!status["online"]) return `${IGN} is offline.`;
 
-	const game = status["gameType"];
+	const game = status["game"]["name"];
 	const mode = status["mode"];
 
 	if (mode == game) {
@@ -60,7 +60,7 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["code"];
+	const game = recentGame["game"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
 
@@ -72,6 +72,7 @@ async function parseRecentGames(recentGame, IGN) {
 }
 
 async function sanitizeMode(game, mode) {
+	console.log(game, mode);
 	const gameList = require("../json/games.json")["games"];
 
 	//? If the game doesn't exist in the games.json file
