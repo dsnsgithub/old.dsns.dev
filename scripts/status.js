@@ -40,15 +40,11 @@ async function parseStatus(status, IGN) {
 	const game = status["game"]["name"];
 	const mode = status["mode"];
 
-	if (mode == game) {
-		//? Avoid repeating the game name
-		return `${IGN} is online. They are playing ${capitalize(game)}.`;
-	} else {
-		if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${capitalize(game)} Lobby`;
+	if (mode == game || !mode) return `${IGN} is online. They are playing ${capitalize(game)}.`;
+	if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${capitalize(game)} Lobby`;
 
-		const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
-		return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
-	}
+	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+	return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
 }
 
 async function parseRecentGames(recentGame, IGN) {
