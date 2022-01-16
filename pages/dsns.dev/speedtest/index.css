@@ -1,12 +1,3 @@
-#demo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 9vw;
-	font-weight: bold;
-	color: black;
-}
-
 h1 {
 	text-align: center;
 	font-size: 60px;

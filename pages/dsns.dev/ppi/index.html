@@ -103,63 +103,67 @@
 		</div>
 	</nav>
 
-	<!-- Create a input field to calculate PPI -->
-	<div class="container">
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
-				<div class="box">
-					<h1 class="title">PPI Calculator</h1>
-					<p class="subtitle">
-						Calculates the PPI of your display.
-					</p>
+	<section class="section">
+		<!-- Create a input field to calculate PPI -->
+		<div class="container">
+			<div class="columns">
+				<div class="column is-half is-offset-one-quarter">
+					<div class="box">
+						<h1 class="title">PPI Calculator</h1>
+						<p class="subtitle">
+							Calculates the PPI of your display.
+						</p>
 
-					<div>
-						<div class="field">
-							<label class="label">Width</label>
-							<div class="control">
-								<input class="input" type="number" name="width" placeholder="Width" id="width" required>
+						<div>
+							<div class="field">
+								<label class="label">Width</label>
+								<div class="control">
+									<input class="input" type="number" name="width" placeholder="Width" id="width" required>
+								</div>
 							</div>
-						</div>
 
-						<div class="field">
-							<label class="label">Height</label>
-							<div class="control">
-								<input class="input" type="number" name="height" placeholder="Height" id="height" required>
+							<div class="field">
+								<label class="label">Height</label>
+								<div class="control">
+									<input class="input" type="number" name="height" placeholder="Height" id="height" required>
+								</div>
 							</div>
-						</div>
 
-						<div class="field">
-							<label class="label">Screen Size (Inches) </label>
-							<div class="control">
-								<input class="input" type="number" name="screenSize" placeholder="Screen Size" id="screenSize" required>
+							<div class="field">
+								<label class="label">Screen Size (Inches) </label>
+								<div class="control">
+									<input class="input" type="number" name="screenSize" placeholder="Screen Size" id="screenSize" required>
+								</div>
 							</div>
-						</div>
 
-						<div class="field">
-							<div class="control">
-								<button class="button is-primary" type="submit" onclick="calculatePPI()"><span class="icon-calculate"></span>Calculate</button>
+							<div class="field">
+								<div class="control">
+									<button class="button is-primary" type="submit" onclick="calculatePPI()"><span class="icon-calculate"></span>Calculate</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Create an output box -->
-	<div class="container">
-		<div class="columns">
-			<div class="column is-half is-offset-one-quarter">
-				<div class="box">
-					<h2 class="subtitle">
-						<div id="ppi"></div>
-					</h2>
+		<!-- Create an output box -->
+		<div class="container">
+			<div class="columns">
+				<div class="column is-half is-offset-one-quarter">
+					<div class="box">
+						<h2 class="subtitle">
+							<div id="ppi"></div>
+						</h2>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<script src="index.js"></script>
+		<script src="index.js"></script>
+		
+	</section>
+
 </body>
 
 </html>
