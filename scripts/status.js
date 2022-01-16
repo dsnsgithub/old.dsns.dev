@@ -72,7 +72,6 @@ async function parseRecentGames(recentGame, IGN) {
 }
 
 async function sanitizeMode(game, mode) {
-	console.log(game, mode);
 	const gameList = require("../json/games.json")["games"];
 
 	//? If the game doesn't exist in the games.json file
