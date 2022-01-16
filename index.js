@@ -69,14 +69,14 @@ async function useMiddleware() {
 			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect(404, "https://portobellomarina.com/");
+			else return res.redirect("https://portobellomarina.com");
 		}
 
 		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect(404, "https://mseung.dev/");
+			else return res.redirect("https://mseung.dev");
 		}
 
 		next();
