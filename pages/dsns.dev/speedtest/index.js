@@ -1,7 +1,6 @@
 const speedtest = new Speedtest();
 const statusDiv = document.getElementById("status");
 
-
 speedtest.onupdate = function (data) {
 	const downloadSpeedDiv = document.getElementById("download");
 	const uploadSpeedDiv = document.getElementById("upload");
@@ -88,12 +87,12 @@ startButton.addEventListener("click", function () {
 
 	const pingDiv = document.getElementById("ping");
 	const jitter = document.getElementById("jitter");
-	
-	downloadSpeedDiv.innerHTML = "..."
-	uploadSpeedDiv.innerHTML = "..."
-	pingDiv.innerHTML = "..."
-	jitter.innerHTML = "..."
-	ispInfo.innerHTML = "..."
+
+	downloadSpeedDiv.innerHTML = "...";
+	uploadSpeedDiv.innerHTML = "...";
+	pingDiv.innerHTML = "...";
+	jitter.innerHTML = "...";
+	ispInfo.innerHTML = "...";
 
 	speedtest.start();
 });

@@ -1,3 +1,4 @@
+// @ts-check
 const gameTypes = {
 	success: true,
 	lastUpdated: 1639513102971,
@@ -323,11 +324,8 @@ const gameTypes = {
 	}
 };
 
-function capitalize(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
-
 async function run() {
+	// @ts-ignore
 	const IGN = document.getElementById("IGN").value;
 	const data = await fetch(`/recentAPI/${IGN}`).then((res) => res.json());
 
@@ -370,14 +368,14 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["game"];
+	const game = recentGame["name"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
 
-	if (!mode) return `${capitalize(game)} at ${recentTime}.`;
+	if (!mode) return `${game} at ${recentTime}.`;
 
 	//? Sanitize Hypixel API into a more readable format
-	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["game"], mode);
 	return [sanitizedMode, sanitizedGame, recentTime, map];
 }
 

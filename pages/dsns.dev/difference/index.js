@@ -53,7 +53,7 @@ source.addEventListener("message", (message) => {
 
 	for (const i in status) {
 		const column = document.createElement("div");
-		column.classList = "column is-full mt-4";
+		column.className = "column is-full mt-4";
 		const statusSpan = document.createElement("h3");
 		const recentSpan = document.createElement("h3");
 		statusSpan.innerText = status[i];

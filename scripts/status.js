@@ -4,10 +4,6 @@ require("dotenv").config();
 //? Requirements
 const hypixel = require("./hypixel.js");
 
-function capitalize(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-}
-
 async function grabStatus(UUIDs) {
 	return Promise.all(UUIDs.map((UUID) => hypixel.getStatus(UUID)));
 }
@@ -40,8 +36,8 @@ async function parseStatus(status, IGN) {
 	const game = status["game"]["name"];
 	const mode = status["mode"];
 
-	if (mode == game || !mode) return `${IGN} is online. They are playing ${capitalize(game)}.`;
-	if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${capitalize(game)} Lobby`;
+	if (mode == game || !mode) return `${IGN} is online. They are playing ${game}.`;
+	if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${game} Lobby.`;
 
 	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
 	return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
@@ -56,14 +52,14 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["game"];
+	const game = recentGame["name"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"];
 
-	if (!mode) return `${IGN} played ${capitalize(game)} at ${recentTime}.`;
+	if (!mode) return `${IGN} played ${game} at ${recentTime}.`;
 
 	//? Sanitize Hypixel API into a more readable format
-	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["game"], mode);
 	return `${IGN} played ${sanitizedMode} ${sanitizedGame} at ${recentTime} on ${map}.`;
 }
 
