@@ -23,3 +23,6 @@ document.onkeyup = function (event) {
 		calculatePPI();
 	}
 };
+
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", calculatePPI);

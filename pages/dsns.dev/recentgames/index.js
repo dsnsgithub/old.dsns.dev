@@ -1,4 +1,3 @@
-// @ts-check
 const gameTypes = {
 	success: true,
 	lastUpdated: 1639513102971,
@@ -398,3 +397,6 @@ document.onkeyup = function (event) {
 		run();
 	}
 };
+
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", run);

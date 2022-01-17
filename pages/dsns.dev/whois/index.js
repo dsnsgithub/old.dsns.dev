@@ -16,3 +16,6 @@ document.onkeyup = function (event) {
 		whoIs();
 	}
 };
+
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", whoIs);
