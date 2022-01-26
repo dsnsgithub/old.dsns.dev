@@ -331,6 +331,11 @@ async function run() {
 	const resultDiv = document.getElementById("result");
 	resultDiv.innerHTML = "";
 
+	if (data.length === 0) {
+		resultDiv.innerHTML = `<h1 class="title">No recent games found.</h1>`;
+		return;
+	}
+
 	const table = document.createElement("table");
 	// add table is-striped is-fullwidth is-hoverable css classes to the table
 	table.classList.add("table", "is-striped", "is-fullwidth", "is-hoverable");
