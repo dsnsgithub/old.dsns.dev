@@ -130,7 +130,9 @@ const birthdays = [
 	{ id: "B0B643", date: "July 11, 2021" },
 	{ id: "Potato.png", date: "July 25, 2022" },
 	{ id: "euphoriials", date: "August 5, 2021" },
-	{ id: "doctor doom", date: "November 10, 2021" }
+	{ id: "doctor doom", date: "November 10, 2021" },
+	{ id: "goug", date: "March 7, 2022" },
+	{ id: "Fud", date: "February 11, 2022" }
 ];
 
 for (const singleBirthday of birthdays) {
