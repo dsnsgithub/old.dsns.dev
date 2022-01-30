@@ -2,7 +2,7 @@
 
 ![screenshot](https://github.com/dsnsgithub/dsns.dev/blob/main/portfolio.png?raw=true)
 
-An express server running [dsns.dev](https://dsns.dev), [mseung.dev](https://mseung.dev) and [portobellomarina.com](https://portobellomarina.com).
+An express server running [dsns.dev](https://dsns.dev), [mseung.dev](https://mseung.dev), and [portobellomarina.com](https://portobellomarina.com).
 
 Created with:
 - Bulma
@@ -24,7 +24,7 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 
 ### 3. Create a `.env` file and add these properties:
     API_KEY = [type /api new on mc.hypixel.net to get an API key]
-    RELOAD_TIME = 60000
+    RELOAD_TIME = 120000
     HTTPS = false
     NODE_ENV = development
 

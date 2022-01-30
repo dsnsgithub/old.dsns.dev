@@ -1,5 +1,4 @@
 // @ts-check
-require("dotenv").config();
 
 //? Requirements
 const hypixel = require("./hypixel.js");

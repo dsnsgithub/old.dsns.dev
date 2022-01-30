@@ -1,5 +1,4 @@
 // @ts-check
-require("dotenv").config();
 
 //? Requirements ----------------------------------------------------------------------------------
 const diffJS = require("./difference.js");
