@@ -79,6 +79,13 @@ async function useMiddleware() {
 			else return res.redirect("https://mseung.dev");
 		}
 
+		if (req.hostname == "orchardlakehouse.com" || req.hostname == "orchardlakehouse.test") {
+			const fullPath = __dirname + "/pages/orchardlakehouse.com" + req.url;
+
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://orchardlakehouse.com");
+		}
+
 		next();
 	});
 
