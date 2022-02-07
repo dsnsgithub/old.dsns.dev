@@ -3,16 +3,26 @@ body {
     background-size: cover;
 }
 
+.flex-container {
+    display: flex;
+        justify-content: center;
+        justify-content: space-evenly;
+  }
+
 h2 {
     font-family: 'Poppins', sans-serif;
 }
 
 h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 p {
     font-family: 'Poppins', sans-serif;
+}
+
+.logos {
+    font-size: 200px;
 }
 
 .button {
@@ -21,6 +31,7 @@ p {
     border: none;
     color: #000000;
     padding: 15px 32px;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     margin: auto;
     display: inline-block;
