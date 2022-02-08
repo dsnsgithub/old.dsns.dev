@@ -7,10 +7,10 @@
 	<title>Difference</title>
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Difference in Hypixel Levels" />
+	<meta property="og:title" content="Hypixel Level Difference" />
 	<meta property="og:description" content="Calculate the difference between AmKale, DSNS, and jiebi's Hypixel Levels." />
 	<meta name="description" content="Calculate the difference between AmKale, DSNS, and jiebi's Hypixel Levels." />
-	<meta property="og:url" content="https://dsns.dev/difference" />
+	<meta property="og:url" content="https://dsns.dev/difference/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -19,15 +19,25 @@
 	<link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="https://dsns.dev/static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="https://dsns.dev/static/favicon/favicon-16x16.png">
-	<link rel="manifest" href="https://dsns.dev/static/favicon/site.webmanifest">
 
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<link rel="stylesheet" href="/static/css/static.css">
 	<link rel="stylesheet" href="index.css">
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-VCKBLC2CHC');
+	</script>
 
 </head>
 
@@ -48,7 +58,7 @@
 				</a>
 			</div>
 
-			<a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
+			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
@@ -58,44 +68,51 @@
 
 		<div class="navbar-menu">
 			<div class="navbar-end">
-				<a href="/" class="navbar-item">Home</a>
+				<a href="/" class="navbar-item">
+					<span class="icon-home"></span>
+					Home
+				</a>
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a href="/projects/" class="navbar-link">
+						<span class="icon-source"></span>
 						Projects
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference" class="navbar-item">
+						<a href="/difference/" class="navbar-item">
+							<span class="icon-stacked_line_chart"></span>
 							Hypixel Level Difference
 						</a>
-						<a href="/portal" class="navbar-item">
-							Nether Portal Calculator
-						</a>
-						<a href="/ppi" class="navbar-item">
+						<a href="/ppi/" class="navbar-item">
+							<span class="icon-calculate"></span>
 							PPI Calculator
 						</a>
-						<a href="/webcam" class="navbar-item">
+						<a href="/webcam/" class="navbar-item">
+							<span class="icon-videocam"></span>
 							Webcam Test
 						</a>
-						<a href="/quests" class="navbar-item">
-							Hypixel Quest Finder
-						</a>
-						<a href="/birthdays" class="navbar-item">
+						<a href="/birthdays/" class="navbar-item">
+							<span class="icon-cake"></span>
 							Birthday Countdown
 						</a>
-						<a href="/christmas" class="navbar-item">
+						<a href="/christmas/" class="navbar-item">
+							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames" class="navbar-item">
+						<a href="/recentgames/" class="navbar-item">
+							<span class="icon-person_search"></span>
 							Recent Games Finder
 						</a>
-						<a href="/ip" class="navbar-item">
+						<a href="/ip/" class="navbar-item">
+							<span class="icon-wifi_find"></span>
 							IP Address Finder
 						</a>
-						<a href="/whois" class="navbar-item">
+						<a href="/whois/" class="navbar-item">
+							<span class="icon-dns"></span>
 							WHOIS Domain Lookup
 						</a>
-						<a href="/speedtest" class="navbar-item">
+						<a href="/speedtest/" class="navbar-item">
+							<span class="icon-speed"></span>
 							Internet Speedtest
 						</a>
 					</div>

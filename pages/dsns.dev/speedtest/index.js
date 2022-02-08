@@ -1,7 +1,6 @@
 const speedtest = new Speedtest();
 const statusDiv = document.getElementById("status");
 
-
 speedtest.onupdate = function (data) {
 	const downloadSpeedDiv = document.getElementById("download");
 	const uploadSpeedDiv = document.getElementById("upload");
@@ -22,7 +21,7 @@ speedtest.onupdate = function (data) {
 		if (data.dlStatus) {
 			downloadSpeedDiv.innerHTML = data.dlStatus + " mbps";
 		} else {
-			downloadSpeedDiv.innerHTML = "...";
+			downloadSpeedDiv.innerHTML = "⌛";
 		}
 	}
 
@@ -32,13 +31,13 @@ speedtest.onupdate = function (data) {
 		if (data.pingStatus) {
 			pingDiv.innerHTML = data.pingStatus + " ms";
 		} else {
-			pingDiv.innerHTML = "...";
+			pingDiv.innerHTML = "⌛";
 		}
 
 		if (data.jitterStatus) {
 			jitter.innerHTML = data.jitterStatus + " ms";
 		} else {
-			jitter.innerHTML = "...";
+			jitter.innerHTML = "⌛";
 		}
 	}
 
@@ -48,7 +47,7 @@ speedtest.onupdate = function (data) {
 		if (data.ulStatus) {
 			uploadSpeedDiv.innerHTML = data.ulStatus + " mbps";
 		} else {
-			uploadSpeedDiv.innerHTML = "...";
+			uploadSpeedDiv.innerHTML = "⌛";
 		}
 	}
 };
@@ -82,5 +81,18 @@ speedtest.setSelectedServer({
 const startButton = document.getElementById("start");
 
 startButton.addEventListener("click", function () {
+	const downloadSpeedDiv = document.getElementById("download");
+	const uploadSpeedDiv = document.getElementById("upload");
+	const ispInfo = document.getElementById("ispinfo");
+
+	const pingDiv = document.getElementById("ping");
+	const jitter = document.getElementById("jitter");
+
+	downloadSpeedDiv.innerHTML = "...";
+	uploadSpeedDiv.innerHTML = "...";
+	pingDiv.innerHTML = "...";
+	jitter.innerHTML = "...";
+	ispInfo.innerHTML = "...";
+
 	speedtest.start();
 });

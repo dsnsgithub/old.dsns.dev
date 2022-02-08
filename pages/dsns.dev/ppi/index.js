@@ -4,15 +4,25 @@ const round = (number, decimalPlaces) => {
 };
 
 function calculatePPI() {
-	height = document.getElementById("height").value;
-	width = document.getElementById("width").value;
-	screenSize = document.getElementById("screenSize").value;
-	ppiElement = document.getElementById("ppi");
+	const height = document.getElementById("height").value;
+	const width = document.getElementById("width").value;
+	const screenSize = document.getElementById("screenSize").value;
+	const ppiElement = document.getElementById("ppi");
 
 	//Calculate the diagonal length in pixels with the Pythagorean Theorem:
-	diagonal = Math.sqrt(Math.pow(height, 2) + Math.pow(width, 2));
+	const diagonal = Math.sqrt(Math.pow(height, 2) + Math.pow(width, 2));
 
-	ppi = diagonal / screenSize;
+	const ppi = diagonal / screenSize;
 
 	ppiElement.innerHTML = round(ppi, 2);
 }
+
+document.onkeyup = function (event) {
+	if (event.key == "Enter") {
+		event.preventDefault();
+		calculatePPI();
+	}
+};
+
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click", calculatePPI);

@@ -12,12 +12,14 @@ app.set("trust proxy", true);
 
 const morgan = require("morgan"); //* npm install morgan
 const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+
 // @ts-ignore
-morgan.token("host", (req, res) => req.hostname);  
+morgan.token("host", (req, res) => req.hostname);
 
 async function runRoutes() {
 	const results = await Promise.allSettled([
 		require(__dirname + "/routes/differenceSSE.js")(app),
+		require(__dirname + "/routes/recentGames.js")(app),
 		require(__dirname + "/routes/whois.js")(app),
 		app.get("/ipAPI", async (req, res) => res.json(req.headers))
 	]);
@@ -51,6 +53,11 @@ async function useHTTPS() {
 		cert: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.pem")
 	});
 
+	server.addContext("orchardlakehouse.com", {
+		key: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/cert.key"),
+		cert: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/cert.pem")
+	});
+
 	server.listen(443, () => {
 		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[33m", 443 + "\x1b[0m");
 	});
@@ -67,14 +74,21 @@ async function useMiddleware() {
 			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://portobellomarina.com/");
+			else return res.redirect("https://portobellomarina.com");
 		}
 
 		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://mseung.dev/");
+			else return res.redirect("https://mseung.dev");
+		}
+
+		if (req.hostname == "orchardlakehouse.com" || req.hostname == "orchardlakehouse.test") {
+			const fullPath = __dirname + "/pages/orchardlakehouse.com" + req.url;
+
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://orchardlakehouse.com");
 		}
 
 		next();
@@ -84,6 +98,7 @@ async function useMiddleware() {
 
 	//? 404
 	app.use((req, res, next) => {
+		res.status(404);
 		return res.sendFile(__dirname + "/pages/private/rickroll.html");
 	});
 }
