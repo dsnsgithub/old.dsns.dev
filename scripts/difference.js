@@ -1,32 +1,22 @@
 // @ts-check
-require("dotenv").config();
 
 //? Requirements
-const axios = require("axios").default;
 const fs = require("fs");
+
+const hypixel = require("../scripts/hypixel.js");
 
 function xpToLevel(xp) {
 	return Math.sqrt(2 * xp + 30625) / 50 - 2.5;
 }
 
-async function grabPlayerData() {
-	const playerURL = `https://api.hypixel.net/player?key=${process.env.API_KEY}&uuid=`;
-
-	const res = await Promise.all([
-		axios.get(playerURL + "557bafa10aad40bbb67207a9cefa8220"), // DSNS
-		axios.get(playerURL + "9e6cdbe98a744a33b53941cb0efd8113"), // AmKale
-		axios.get(playerURL + "769f1d98aeef49cd934b4202e1c5537f") // jiebi
-	]);
-
-	return res.map((response) => response.data["player"]);
+async function grabPlayerData(UUIDs) {
+	return Promise.all(UUIDs.map((UUID) => hypixel.getPlayer(UUID)));
 }
 
 async function getDifference(playerData) {
-	if (playerData.some((t) => !t)) return Promise.reject(new Error("Player API is DOWN!"));
-
-	const DSNS = xpToLevel(Number(playerData[0]["networkExp"]));
-	const AmKale = xpToLevel(Number(playerData[1]["networkExp"]));
-	const jiebi = xpToLevel(Number(playerData[2]["networkExp"]));
+	const DSNS = xpToLevel(Number(playerData[0]["totalExperience"]));
+	const AmKale = xpToLevel(Number(playerData[1]["totalExperience"]));
+	const jiebi = xpToLevel(Number(playerData[2]["totalExperience"]));
 
 	const difference = {
 		differenceAmKale: Number((DSNS - AmKale).toFixed(3)),

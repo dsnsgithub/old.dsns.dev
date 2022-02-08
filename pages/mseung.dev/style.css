@@ -1,5 +1,5 @@
 body {
-  background-color: lightblue;
+	background-color: lightblue;
 }
 
 h1 {
@@ -18,30 +18,30 @@ p {
 /*Directions*/
 
 .center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 .right {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-250%, -50%);
-  transform: translate(-250%, -50%);
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-250%, -50%);
+	transform: translate(-250%, -50%);
 }
 
 .left {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(150%, -50%);
-  transform: translate(150%, -50%);
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(150%, -50%);
+	transform: translate(150%, -50%);
 }
 
 .palign {
@@ -86,7 +86,6 @@ p {
 /*Image*/
 
 body {
-  background-image: url("backgroundpicture.jpg");
-  background-size: cover;
-
+	background-image: url("backgroundpicture.jpg");
+	background-size: cover;
 }

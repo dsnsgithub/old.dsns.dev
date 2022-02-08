@@ -7,15 +7,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>DSNS's Portfolio</title>
 
-	<link rel="preload" href="https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
-
-	<link rel="stylesheet" href="static/css/min.css">
+	<link rel="stylesheet" href="/static/css/min.css">
+	<link rel="stylesheet" href="/static/css/static.css">
 	<link rel="stylesheet" href="index.css">
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
-	<link rel="manifest" href="/static/favicon/site.webmanifest">
 
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="DSNS's Portfolio" />
@@ -23,6 +21,16 @@
 	<meta name="description" content="Check out what I do, and explore some of my projects." />
 	<meta property="og:url" content="https://dsns.dev" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-VCKBLC2CHC');
+	</script>
 
 </head>
 
@@ -39,7 +47,7 @@
 				</a>
 			</div>
 
-			<a role="button" class="navbar-burger" href="/projects" aria-label="navigation button">
+			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
@@ -49,44 +57,51 @@
 
 		<div class="navbar-menu">
 			<div class="navbar-end">
-				<a href="/" class="navbar-item">Home</a>
+				<a href="/" class="navbar-item">
+					<span class="icon-home"></span>
+					Home
+				</a>
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a href="/projects/" class="navbar-link">
+						<span class="icon-source"></span>
 						Projects
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference" class="navbar-item">
+						<a href="/difference/" class="navbar-item">
+							<span class="icon-stacked_line_chart"></span>
 							Hypixel Level Difference
 						</a>
-						<a href="/portal" class="navbar-item">
-							Nether Portal Calculator
-						</a>
-						<a href="/ppi" class="navbar-item">
+						<a href="/ppi/" class="navbar-item">
+							<span class="icon-calculate"></span>
 							PPI Calculator
 						</a>
-						<a href="/webcam" class="navbar-item">
+						<a href="/webcam/" class="navbar-item">
+							<span class="icon-videocam"></span>
 							Webcam Test
 						</a>
-						<a href="/quests" class="navbar-item">
-							Hypixel Quest Finder
-						</a>
-						<a href="/birthdays" class="navbar-item">
+						<a href="/birthdays/" class="navbar-item">
+							<span class="icon-cake"></span>
 							Birthday Countdown
 						</a>
-						<a href="/christmas" class="navbar-item">
+						<a href="/christmas/" class="navbar-item">
+							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames" class="navbar-item">
+						<a href="/recentgames/" class="navbar-item">
+							<span class="icon-person_search"></span>
 							Recent Games Finder
 						</a>
-						<a href="/ip" class="navbar-item">
+						<a href="/ip/" class="navbar-item">
+							<span class="icon-wifi_find"></span>
 							IP Address Finder
 						</a>
-						<a href="/whois" class="navbar-item">
+						<a href="/whois/" class="navbar-item">
+							<span class="icon-dns"></span>
 							WHOIS Domain Lookup
 						</a>
-						<a href="/speedtest" class="navbar-item">
+						<a href="/speedtest/" class="navbar-item">
+							<span class="icon-speed"></span>
 							Internet Speedtest
 						</a>
 					</div>
@@ -246,16 +261,8 @@
 
 			<div class="columns is-multiline is-variable is-7 skillsList is-mobile">
 				<div class="column is-2 is-one-third-mobile">
-					<h2>Bootstrap</h2>
-					<img src="static/images/svg/skills/bootstrap.svg" alt="bootstrap logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
 					<h2>Bulma</h2>
 					<img src="static/images/svg/skills/bulma.svg" alt="bulma logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>CentOS</h2>
-					<img src="static/images/svg/skills/centos.svg" alt="centos logo" loading="lazy">
 				</div>
 				<div class="column is-2 is-one-third-mobile">
 					<h2>Cloudflare</h2>
@@ -264,10 +271,6 @@
 				<div class="column is-2 is-one-third-mobile">
 					<h2>CSS</h2>
 					<img src="static/images/svg/skills/css3.svg" alt="css logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Discord API</h2>
-					<img src="static/images/svg/skills/discord.svg" alt="discord logo" loading="lazy">
 				</div>
 				<div class="column is-2 is-one-third-mobile">
 					<h2>Express.js</h2>
@@ -280,18 +283,6 @@
 				<div class="column is-2 is-one-third-mobile">
 					<h2>Github</h2>
 					<img src="static/images/svg/skills/github.svg" alt="github logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Github Pages</h2>
-					<img src="static/images/svg/skills/githubpages.svg" alt="github pages logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Google Domains</h2>
-					<img src="static/images/svg/skills/googledomains.svg" alt="google domains logo" style="margin-top: 70px;" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Google Fonts</h2>
-					<img src="static/images/svg/skills/googlefonts.svg" alt="google fonts logo" style="margin-top: 70px;" loading="lazy">
 				</div>
 				<div class="column is-2 is-one-third-mobile">
 					<h2>HTML</h2>
@@ -310,36 +301,12 @@
 					<img src="static/images/svg/skills/nodedotjs.svg" alt="nodejs logo" loading="lazy">
 				</div>
 				<div class="column is-2 is-one-third-mobile">
-					<h2>npm</h2>
-					<img src="static/images/svg/skills/npm.svg" alt="npm logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2 class="oversizedText">Lighthouse</h2>
-					<img src="static/images/svg/skills/lighthouse.svg" alt="lighthouse logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
 					<h2>Python</h2>
 					<img src="static/images/svg/skills/python.svg" alt="python logo" loading="lazy">
 				</div>
 				<div class="column is-2 is-one-third-mobile">
 					<h2 class="oversizedText">Raspberry Pi</h2>
 					<img src="static/images/svg/skills/raspberrypi.svg" alt="raspberry pi logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Unity</h2>
-					<img src="static/images/svg/skills/unity.svg" alt="unity logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>VS Code</h2>
-					<img src="static/images/svg/skills/visualstudiocode.svg" alt="visual studio code logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Windows</h2>
-					<img src="static/images/svg/skills/windows.svg" alt="windows logo" loading="lazy">
-				</div>
-				<div class="column is-2 is-one-third-mobile">
-					<h2>Windows Terminal</h2>
-					<img src="static/images/svg/skills/windowsterminal.svg" alt="windows terminal logo" loading="lazy">
 				</div>
 			</div>
 

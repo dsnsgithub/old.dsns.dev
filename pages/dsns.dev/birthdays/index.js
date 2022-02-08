@@ -115,12 +115,12 @@ let turnConfettiOn = false;
 
 const birthdays = [
 	{ id: "DSNS", date: "May 17, 2022" },
-	{ id: "jiebi", date: "Febuary 10 2022" },
-	{ id: "Retsed", date: "October 30 2021" },
-	{ id: "idot777", date: "May 3 2022" },
-	{ id: "Armster15", date: "January 15 2021" },
-	{ id: "LonelySouls", date: "January 29 2022" },
-	{ id: "jakeybakers", date: "April 18 2022" },
+	{ id: "jiebi", date: "February 10, 2022" },
+	{ id: "Retsed", date: "October 30, 2021" },
+	{ id: "idot777", date: "May 3, 2022" },
+	{ id: "Armster15", date: "January 15, 2021" },
+	{ id: "LonelySouls", date: "January 29, 2022" },
+	{ id: "jakeybakers", date: "April 18, 2022" },
 	{ id: "Node13", date: "September 24, 2021" },
 	{ id: "meh~", date: "January 7, 2022" },
 	{ id: "AmKale", date: "March 21, 2022" },
@@ -130,7 +130,9 @@ const birthdays = [
 	{ id: "B0B643", date: "July 11, 2021" },
 	{ id: "Potato.png", date: "July 25, 2022" },
 	{ id: "euphoriials", date: "August 5, 2021" },
-	{ id: "doctor doom", date: "November 10, 2021" }
+	{ id: "doctor doom", date: "November 10, 2021" },
+	{ id: "goug", date: "March 7, 2022" },
+	{ id: "Fud", date: "February 11, 2022" }
 ];
 
 for (const singleBirthday of birthdays) {
