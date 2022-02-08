@@ -1,0 +1,81 @@
+.navbar-item img {
+	max-height: 3rem;
+}
+
+@font-face {
+	font-family: poppins;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(/static/fonts/poppins.woff2) format("woff2");
+}
+
+* {
+	font-family: poppins, sans-serif !important;
+}
+
+body.has-navbar-fixed-top,
+html.has-navbar-fixed-top {
+	padding-top: 5rem;
+}
+
+.hero.is-fullheight-with-navbar {
+	min-height: calc(100vh - 5rem);
+}
+
+@media screen and (min-width: 1024px) {
+	@font-face {
+		font-family: "icomoon";
+		src: url("/static/fonts/icomoon.woff") format("woff");
+	}
+
+	[class^="icon-"],
+	[class*=" icon-"] {
+		font-family: "icomoon" !important;
+		font-weight: normal;
+		font-style: normal;
+		font-size: 24px;
+		line-height: 1;
+		letter-spacing: normal;
+		text-transform: none;
+		display: inline-block;
+		white-space: nowrap;
+		word-wrap: normal;
+		direction: ltr;
+		margin-right: 6px;
+	}
+
+	.icon-videocam:before {
+		content: "\e900";
+	}
+	.icon-cake:before {
+		content: "\e901";
+	}
+	.icon-dns:before {
+		content: "\e902";
+	}
+	.icon-home:before {
+		content: "\e903";
+	}
+	.icon-redeem:before {
+		content: "\e904";
+	}
+	.icon-speed:before {
+		content: "\e905";
+	}
+	.icon-calculate:before {
+		content: "\e906";
+	}
+	.icon-person_search:before {
+		content: "\e907";
+	}
+	.icon-wifi_find:before {
+		content: "\e908";
+	}
+	.icon-source:before {
+		content: "\e909";
+	}
+	.icon-stacked_line_chart:before {
+		content: "\e90a";
+	}
+}
