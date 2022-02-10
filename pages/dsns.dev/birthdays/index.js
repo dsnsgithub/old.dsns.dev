@@ -1,6 +1,6 @@
 const round = (number, decimalPlaces) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
-	return Math.round(number * factorOfTen) / factorOfTen;
+	return Math.floor(number * factorOfTen) / factorOfTen;
 };
 
 function ConfettiGenerator() {
@@ -111,8 +111,6 @@ function ConfettiGenerator() {
 	};
 }
 
-let turnConfettiOn = false;
-
 const birthdays = [
 	{ id: "DSNS", date: "May 17, 2022" },
 	{ id: "jiebi", date: "February 10, 2022" },
@@ -187,7 +185,7 @@ for (const eachBirthday of birthdays) {
 			countdownPercent.innerHTML = 100 + "%";
 			countdownBar.value = 31536000000;
 
-			turnConfettiOn = true;
+			turnConfettiOn();
 		} else {
 			// Time calculations for days, hours, minutes and seconds
 			const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -206,7 +204,8 @@ for (const eachBirthday of birthdays) {
 	setInterval(increaseCountdown, 1000);
 }
 
-if (turnConfettiOn) {
+function turnConfettiOn() {
+	turnConfettiOn = function () { };
 	const confetti = new ConfettiGenerator();
 	confetti.render();
 }
