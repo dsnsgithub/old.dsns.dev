@@ -3,16 +3,16 @@ body {
 }
 
 h1 {
-	font-family: "Courier New", Courier, monospace;
-	color: black;
-	text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
+  text-align: center;
 }
 
 p {
-	color: black;
-	font-family: "Courier New", Courier, monospace;
-	font-size: 20px;
-	text-align: center;
+  color: black;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  text-align: center;
 }
 
 /*Directions*/
@@ -45,41 +45,42 @@ p {
 }
 
 .palign {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -300%);
-	transform: translate(-50%, -300%);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -250%);
+  transform: translate(-50%, -250%);
 }
 
 .skill {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(400%, -550%);
-	transform: translate(400%, -550%);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(400%, -400%);
+  transform: translate(400%, -400%);
 }
 
 /*Button*/
 
 .button {
-	width: 100px;
-	background-color: #ffffff;
-	border: none;
-	color: #000000;
-	padding: 15px 32px;
-	text-align: center;
-	margin: auto;
-	display: inline-block;
-	font-size: 16px;
-	transition: 0.3s;
+  width: 100px;
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  padding: 15px 32px;
+  text-align: center;
+  margin: auto;
+  font-family: 'Poppins', sans-serif;
+  display: inline-block;
+  font-size: 16px;
+  transition: 0.3s;
 }
 
 .button:hover {
-	background-color: darkgreen;
-	color: white;
+  background-color: limegreen;
+  color: black;
 }
 
 /*Image*/
