@@ -16,50 +16,11 @@ p {
 }
 
 /*Directions*/
-
-.center {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-}
-
-.right {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(-250%, -50%);
-	transform: translate(-250%, -50%);
-}
-
-.left {
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-ms-transform: translate(150%, -50%);
-	transform: translate(150%, -50%);
-}
-
-.palign {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -250%);
-  transform: translate(-50%, -250%);
-}
-
-.skill {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(400%, -400%);
-  transform: translate(400%, -400%);
+.flex-container {
+  display: flex;
+  grid: auto auto auto auto;
+  justify-content: center;
+  justify-content: space-evenly;
 }
 
 /*Button*/
