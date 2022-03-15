@@ -14,7 +14,7 @@ async function downloadMP3() {
 			return;
 		}
 		
-		const blob = res.blob();
+		const blob = await res.blob();
 		const url = window.URL.createObjectURL(blob);
 
 		const a = document.createElement("a");
@@ -23,7 +23,7 @@ async function downloadMP3() {
 		document.body.appendChild(a);
 		a.click();
 		a.remove();
-		
+
 		window.URL.revokeObjectURL(url);
 		
 	} catch(e) {
@@ -33,3 +33,10 @@ async function downloadMP3() {
 
 const downloadButton = document.getElementById("downloadButton");
 downloadButton.addEventListener("click", downloadMP3);
+
+document.onkeyup = function (event) {
+	if (event.key == "Enter") {
+		event.preventDefault();
+		downloadMP3();
+	}
+};
