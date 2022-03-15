@@ -4,17 +4,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Birthdays</title>
+	<title>Youtube MP3 Downloader</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Birthday Countdown" />
-	<meta property="og:description" content="Countdown until our birthdays!" />
-	<meta property="description" content="Countdown until our birthdays!" />
-	<meta property="og:url" content="https://dsns.dev/birthdays/" />
+	<meta property="og:title" content="Youtube MP3 Downloader" />
+	<meta property="og:description" content="Download Youtube MP3s in High Quality." />
+	<meta name="description" content="Download Youtube MP3s in High Quality." />
+	<meta property="og:url" content="https://dsns.dev/mp3/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
@@ -32,7 +32,6 @@
 	</script>
 
 </head>
-
 
 <body>
 	<nav class="navbar is-fixed-top" aria-label="main navigation">
@@ -108,23 +107,45 @@
 							<span class="icon-queue_music"></span>
 							Youtube MP3 Downloader
 						</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</nav>
 
+	<!-- Create a form to enter a youtube link to download as an mp3 -->
+	<div class="container">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<div class="box">
+					<h1 class="title">
+						Youtube MP3 Downloader
+					</h1>
 
-	<canvas id="canvas">
+					<div class="field">
+						<label class="label">Youtube Link</label>
+						<div class="control">
+							<input id="downloadLink" class="input" type="text" name="link" placeholder="https://www.youtube.com/watch?v=02YqGCqY2qo">
+						</div>
+					</div>
+					
+					<!-- Download button-->
+					<div class="field is-grouped">
+						<div class="control">
+							<button class="button is-primary" id="downloadButton" type="submit">
+								<span class="icon-queue_music"></span>
+								Download MP3
+							</button>
+						</div>
+					</div>
 
-	</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
 
-
-	<center>
-		<div class="columns is-multiline is-mobile" id="birthdayContainer"></div>
-	</center>
-
-
-	<script src="safari.js"></script>
+	<script src="index.js"></script>
 </body>
+
 
 </html>

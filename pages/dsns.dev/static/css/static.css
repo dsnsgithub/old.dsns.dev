@@ -78,4 +78,7 @@ html.has-navbar-fixed-top {
 	.icon-stacked_line_chart:before {
 		content: "\e90a";
 	}
+	.icon-queue_music:before {
+  		content: "\e90b";
+	}
 }

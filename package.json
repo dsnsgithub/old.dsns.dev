@@ -9,6 +9,7 @@
 		"express": "^4.17.1",
 		"hypixel-api-reborn": "^10.0.0",
 		"morgan": "^1.10.0",
-		"whois": "^2.13.7"
+		"whois": "^2.13.7",
+		"ytdl-core": "^4.11.0"
 	}
 }
