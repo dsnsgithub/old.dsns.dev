@@ -1,7 +1,14 @@
 async function downloadMP3() {
 	try {
 		const downloadLink = document.getElementById("downloadLink");
-		const youtubeID = downloadLink.value.split("https://www.youtube.com/watch?v=")[1];
+		let youtubeID = "";
+
+		if (downloadLink.value.indexOf("youtu.be") > -1) { 
+			youtubeID = downloadLink.value.split("https://youtu.be/")[1];
+		}
+		else if (downloadLink.value.indexOf("youtube.com") > -1) { 
+			youtubeID = downloadLink.value.split("https://www.youtube.com/watch?v=")[1];
+		}
 
 		if (!youtubeID) {
 			alert("Invalid Youtube Link");
