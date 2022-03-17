@@ -1,13 +1,12 @@
 async function downloadMP3() {
 	try {
-		const downloadLink = document.getElementById("downloadLink");
+		const downloadLink = document.getElementById("downloadLink").value;
 		let youtubeID = "";
 
-		if (downloadLink.value.indexOf("youtu.be") > -1) { 
-			youtubeID = downloadLink.value.split("https://youtu.be/")[1];
-		}
-		else if (downloadLink.value.indexOf("youtube.com") > -1) { 
-			youtubeID = downloadLink.value.split("https://www.youtube.com/watch?v=")[1];
+		if (downloadLink.indexOf("youtu.be") > -1) {
+			youtubeID = downloadLink.split("https://youtu.be/")[1];
+		} else if (downloadLink.indexOf("youtube.com") > -1) {
+			youtubeID = downloadLink.split("https://www.youtube.com/watch?v=")[1] || downloadLink.split("https://youtube.com/watch?v=")[1];
 		}
 
 		if (!youtubeID) {
@@ -15,12 +14,12 @@ async function downloadMP3() {
 			return;
 		}
 
-		const res = await fetch(`/ytmp3/${youtubeID}`)
-		if (res.status !== 200) { 
+		const res = await fetch(`/ytmp3/${youtubeID}`);
+		if (res.status !== 200) {
 			alert("Invalid Youtube Link");
 			return;
 		}
-		
+
 		const blob = await res.blob();
 		const url = window.URL.createObjectURL(blob);
 
@@ -32,8 +31,7 @@ async function downloadMP3() {
 		a.remove();
 
 		window.URL.revokeObjectURL(url);
-		
-	} catch(e) {
+	} catch (e) {
 		console.log(e);
 	}
 }
