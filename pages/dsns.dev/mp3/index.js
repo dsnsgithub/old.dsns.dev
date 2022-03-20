@@ -4,9 +4,9 @@ async function downloadMP3() {
 		let youtubeID = "";
 
 		if (downloadLink.indexOf("youtu.be") > -1) {
-			youtubeID = downloadLink.split("https://youtu.be/")[1];
+			youtubeID = downloadLink.split("https://youtu.be/")[1].slice(0, 11);
 		} else if (downloadLink.indexOf("youtube.com") > -1) {
-			youtubeID = downloadLink.split("https://www.youtube.com/watch?v=")[1] || downloadLink.split("https://youtube.com/watch?v=")[1];
+			youtubeID = downloadLink.split("https://www.youtube.com/watch?v=")[1].slice(0, 11) || downloadLink.split("https://youtube.com/watch?v=")[1].slice(0, 11);
 		}
 
 		if (!youtubeID) {
