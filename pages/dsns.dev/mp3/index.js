@@ -16,7 +16,8 @@ async function downloadMP3() {
 
 		const res = await fetch(`/ytmp3/${youtubeID}`);
 		if (res.status !== 200) {
-			alert("Invalid Youtube Link");
+			const error = await res.json();
+			alert(error["reason"]);
 			return;
 		}
 
