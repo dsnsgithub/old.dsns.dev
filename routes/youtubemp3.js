@@ -7,7 +7,7 @@ module.exports = function (app) {
 	try {
 		app.get("/ytmp3/:id", async function (req, res) {
 			if (!req.params.id) {
-				return res.redirect("/mp3/?reason=invalid_youtube_link");
+				return res.redirect("/mp3/?error=invalid_youtube_link");
 			}
 
 			try {
@@ -28,14 +28,11 @@ module.exports = function (app) {
 					filter: "audioonly",
 					quality: "highestaudio"
 				}).pipe(res);
-
 			} catch (err) {
-				return res.redirect("/mp3/?reason=invalid_youtube_link");
+				return res.redirect("/mp3/?error=invalid_youtube_link");
 			}
 		});
 	} catch {
 		console.log("Error while trying to route /ytmp3");
 	}
-	
 };
-
