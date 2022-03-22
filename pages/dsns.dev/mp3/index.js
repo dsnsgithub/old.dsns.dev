@@ -14,24 +14,7 @@ async function downloadMP3() {
 			return;
 		}
 
-		const res = await fetch(`/ytmp3/${youtubeID}`);
-		if (res.status !== 200) {
-			const error = await res.json();
-			alert(error["reason"]);
-			return;
-		}
-
-		const blob = await res.blob();
-		const url = window.URL.createObjectURL(blob);
-
-		const a = document.createElement("a");
-		a.href = url;
-		a.download = `${youtubeID}.mp3`;
-		document.body.appendChild(a);
-		a.click();
-		a.remove();
-
-		window.URL.revokeObjectURL(url);
+		window.location.href = `/ytmp3/${youtubeID}`;
 	} catch (e) {
 		console.log(e);
 	}
@@ -46,3 +29,12 @@ document.onkeyup = function (event) {
 		downloadMP3();
 	}
 };
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+if (urlParams.get("error") == "invalid_youtube_link") {
+	alert("Invalid Youtube Link");
+} else if (urlParams.get("error") == "video_too_long") {
+	alert("Video over 10 minutes");
+}
