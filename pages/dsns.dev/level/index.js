@@ -11,6 +11,11 @@ if (window.DeviceOrientationEvent) {
 		function () {
 			console.log("Accelerometer: " + event.alpha, event.beta, event.gamma);
 
+			if (!event.beta) {
+				alert("Sorry, your browser doesn't support x-axis rotation sensor.");
+				return;
+			}
+
 			alphaElem.innerHTML = event.alpha;
 			betaElem.innerHTML = event.beta;
 			gammaElem.innerHTML = event.gamma;
