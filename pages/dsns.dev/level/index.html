@@ -4,17 +4,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>IP Address Finder</title>
+	<title>Smartphone Level</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="IP Address Finder" />
-	<meta property="og:description" content="Displays current IP Address and user agent." />
-	<meta name="description" content="Displays current IP Address and user agent." />
-	<meta property="og:url" content="https://dsns.dev/ip/" />
+	<meta property="og:title" content="Smartphone Level" />
+	<meta property="og:description" content="Use your phone as a level." />
+	<meta name="description" content="Use your phone as a level." />
+	<meta property="og:url" content="https://dsns.dev/level/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
@@ -34,7 +33,7 @@
 </head>
 
 <body>
-	<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+	<nav class="navbar is-fixed-top" aria-label="main navigation">
 		<div class="navbar-brand">
 			<div class="navbar-item">
 				<a href="/">
@@ -44,12 +43,13 @@
 				</a>
 			</div>
 
-			<a role="button" class="navbar-burger" href="/projects">
+			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 			</a>
 		</div>
+
 
 		<div class="navbar-menu">
 			<div class="navbar-end">
@@ -114,23 +114,41 @@
 		</div>
 	</nav>
 
+	<!-- Create a element to display the beta value from the gyro -->
+	<div class="container">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<div class="box" id="indicator">
+					<h1 class="title">
+						Smartphone Level
+					</h1>
+					<h2 class="subtitle">
+						Use your phone as a level.
+					</h2>
 
+					<h2>Alpha:</h2>
+					<p id="alpha">---</p>
 
-	<section class="hero is-fullheight-with-navbar">
-		<div class="hero-body">
-			<div class="container">
-				<h1>IP Address:</h1>
-				<h2 id="ip"></h2>
+					<h2>Beta:</h2>
+					<p id="beta">---</p>
 
-				<br>
-
-				<h1>User Agent:</h1>
-				<h3 id="useragent"></h3>
+					<h2>Gamma:</h2>
+					<p id="gamma">---</p>
+				</div>
 			</div>
-
 		</div>
-	</section>
+	</div>
 
+	<div class="container">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<div class="box">
+					<hr style="height: 6px; background-color: black;">
+					<img src="https://pngimg.com/uploads/ruler/ruler_PNG37.png" id="ruler">
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script src="index.js"></script>
 </body>
