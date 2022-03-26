@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="stockminingsim.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>STS</title>
+</head>
+<body>
+
+    <p style="position: relative; top: -40px;">Stock Mining Simulator</p>
+    <p style=" width: 1000px; position: relative; top: 400px; left: 660px;">Programmed by Max S.</p>
+
+    <div id="background">
+        <p id="stockPrice" style="width: 100px;"></p> 
+        <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock()">
+        <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock()">
+        <p id="boughtStocks" style="width: 100px;"></p>
+        <p id="bank" style="width: 100px;"></p>
+        <p style="position: relative; top: -280px; left: 230px;">Pear Stock</p>
+    </div>
+
+<script src="stockminingsim.js"></script>
+</body>
+</html>
