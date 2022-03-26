@@ -4,6 +4,7 @@ if (window.DeviceOrientationEvent) {
 	const gammaElem = document.getElementById("gamma");
 
 	const indicatorElem = document.getElementById("indicator");
+	const rulerImg = document.getElementById("ruler");
 
 	window.addEventListener(
 		"deviceorientation",
@@ -29,6 +30,8 @@ if (window.DeviceOrientationEvent) {
 			} else {
 				indicatorElem.style = "background-color: #FFFFFF";
 			}
+
+			rulerImg.style.transform = `rotate(${event.beta}deg)`;
 		},
 		true
 	);

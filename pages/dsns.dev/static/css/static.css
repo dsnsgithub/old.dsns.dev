@@ -45,40 +45,43 @@ html.has-navbar-fixed-top {
 		margin-right: 6px;
 	}
 
+	.icon-wifi_find:before {
+		content: "\e90e";
+	}
+	.icon-compass:before {
+		content: "\e910";
+	}
+	.icon-queue_music:before {
+		content: "\e90f";
+	}
 	.icon-videocam:before {
-		content: "\e900";
+		content: "\e905";
 	}
 	.icon-cake:before {
-		content: "\e901";
+		content: "\e907";
 	}
 	.icon-dns:before {
-		content: "\e902";
+		content: "\e90c";
 	}
 	.icon-home:before {
-		content: "\e903";
-	}
-	.icon-redeem:before {
 		content: "\e904";
 	}
+	.icon-redeem:before {
+		content: "\e908";
+	}
 	.icon-speed:before {
-		content: "\e905";
+		content: "\e90d";
 	}
 	.icon-calculate:before {
 		content: "\e906";
 	}
 	.icon-person_search:before {
-		content: "\e907";
-	}
-	.icon-wifi_find:before {
-		content: "\e908";
+		content: "\e90b";
 	}
 	.icon-source:before {
 		content: "\e909";
 	}
 	.icon-stacked_line_chart:before {
 		content: "\e90a";
-	}
-	.icon-queue_music:before {
-  		content: "\e90b";
 	}
 }
