@@ -1,7 +1,12 @@
 // @ts-check
 require("dotenv").config();
 
-const HypixelAPIReborn = require("hypixel-api-reborn");
-const hypixel = new HypixelAPIReborn.Client(process.env.API_KEY, { cache: true });
+try {
+    const HypixelAPIReborn = require("hypixel-api-reborn");
+    const hypixel = new HypixelAPIReborn.Client(process.env.API_KEY, { cache: true });
 
-module.exports = hypixel;
+    module.exports = hypixel;
+} catch {
+    console.log("No API Key")
+}
+

@@ -1,3 +1,5 @@
+/*-----------------------Pear Stock-------------------------*/
+
 const boughtStocksElem = document.getElementById("boughtStocks")
 boughtStocksElem.innerHTML = 0;
 
@@ -13,8 +15,10 @@ function setInterval() {
 
 setInterval()
 
+/*Bank Element*/
 const bankElem = document.getElementById("bank")
 bankElem.innerHTML = 500;
+/*Bank Element*/
 
 function buyStock() {
     if(Number(bankElem.innerHTML) >= Number(stockPriceElem.innerHTML)) {
@@ -31,3 +35,11 @@ function sellStock() {
         boughtStocksElem.innerHTML = 0;
     }
 }
+
+/*---------------------------------------------Orange Stock--------------------------------------------------*/
+const boughtStocks2Elem = document.getElementById("boughtStocks2")
+boughtStocks2Elem.innerHTML = 0;
+
+
+const stockPrice2Elem = document.getElementById("stockPrice2")
+stockPrice2Elem.innerHTML = Math.floor(Math.random() * 230) + 20;

@@ -7,13 +7,22 @@ body {
     height: 400px;
 }
 
-#background {
-    background-color: lightgray;
+#background_1 {
+    background-color: lightgreen;
     position: relative;
     width: 500px;
     height: 300px;
-    left: 700px;
+    left: 400px;
     top: -100px;
+}
+
+#background_2 {
+    background-color: orange;
+    position: relative;
+    width: 500px;
+    height: 300px;
+    left: 1000px;
+    top: -450px;
 }
 
 #boughtStocks {
@@ -21,6 +30,15 @@ body {
     position: relative;
     left: 300px;
     top: -270px;
+    width: 100px;
+}
+
+#boughtStocks2 {
+    color: maroon;
+    position: relative;
+    left: 300px;
+    top: -270px;
+    width: 100px;
 }
 
 #bank {

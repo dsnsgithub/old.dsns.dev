@@ -12,17 +12,26 @@
 </head>
 <body>
 
-    <p style="position: relative; top: -40px;">Stock Mining Simulator</p>
+    <p style="position: relative; top: -45px;">Stock Trading Simulator</p>
     <p style=" width: 1000px; position: relative; top: 400px; left: 660px;">Programmed by Max S.</p>
 
-    <div id="background">
-        <p id="stockPrice" style="width: 100px;"></p> 
-        <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock()">
-        <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock()">
-        <p id="boughtStocks" style="width: 100px;"></p>
-        <p id="bank" style="width: 100px;"></p>
-        <p style="position: relative; top: -280px; left: 230px;">Pear Stock</p>
-    </div>
+        <div id="background_1">
+            <p id="stockPrice" style="width: 100px;"></p> 
+            <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock()">
+            <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock()">
+            <p id="boughtStocks"></p>
+            <p style="position: relative; top: -280px; left: 370px;">Pear</p>
+        </div>
+    
+        <div id="background_2">
+            <p id="stockPrice2" style="width: 100px;"></p> 
+            <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock2()">
+            <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock2()">
+            <p id="boughtStocks2"></p>
+            <p style="position: relative; top: -280px; left: 370px;">Orange</p>
+        </div>
+
+    <p id="bank"></p>
 
 <script src="stockminingsim.js"></script>
 </body>
