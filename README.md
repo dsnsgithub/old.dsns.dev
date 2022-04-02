@@ -23,21 +23,21 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
     npm install
 
 ### 3. Create a `.env` file and add these properties:
-    API_KEY = [type /api new on mc.hypixel.net to get an API key]
-    RELOAD_TIME = 120000
-    HTTPS = false
-    NODE_ENV = development
+	HTTPS = false
+	NODE_ENV = development
+	LOGS = false
 
+	WHOIS = true
+	YOUTUBE = true
+	IP = true
+
+	LEVEL = false
+	RECENTGAMES = false
+
+	API_KEY = [only needed for /difference and /recentgames]
 	UUIDs = 557bafa10aad40bbb67207a9cefa8220, 9e6cdbe98a744a33b53941cb0efd8113, 769f1d98aeef49cd934b4202e1c5537f
 	IGNs = DSNS, AmKale, jiebi
-
-### 4. Create logs and `levels.json` file:
-    mkdir logs
-    touch logs/request.log && touch logs/console.log  
-    echo [] > json/levels.json
+	RELOAD_TIME = 120000
 
 ### 5. Start the express server:
-    chmod +x repeat.sh
-    ./repeat.sh
-
-`(Ctrl+C to exit)`
+    node .

@@ -10,21 +10,24 @@ const compression = require("compression"); //* npm install compression
 const app = express();
 app.set("trust proxy", true);
 
-const morgan = require("morgan"); //* npm install morgan
-const logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
+if (process.env["LOGS"] == "true") {
+	var morgan = require("morgan"); //* npm install morgan
+	var logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
 
-// @ts-ignore
-morgan.token("host", (req, res) => req.hostname);
+	// @ts-ignore
+	morgan.token("host", (req, res) => req.hostname);
+}
 
 async function runRoutes() {
-	const results = await Promise.allSettled([
-		require(__dirname + "/routes/differenceSSE.js")(app),
-		require(__dirname + "/routes/youtubemp3.js")(app),
-		require(__dirname + "/routes/recentGames.js")(app),
-		require(__dirname + "/routes/whois.js")(app),
-		app.get("/ipAPI", async (req, res) => res.json(req.headers))
-	]);
+	const routes = [];
 
+	if (process.env["LEVEL"] == "true") routes.push(require(__dirname + "/routes/differenceSSE.js")(app));
+	if (process.env["WHOIS"] == "true") routes.push(require(__dirname + "/routes/whois.js")(app));
+	if (process.env["YOUTUBE"] == "true") routes.push(require(__dirname + "/routes/youtubemp3.js")(app));
+	if (process.env["RECENTGAMES"] == "true") routes.push(require(__dirname + "/routes/recentGames.js")(app));
+	if (process.env["IP"] == "true") routes.push(app.get("/ipAPI", async (req, res) => res.json(req.headers)));
+
+	const results = await Promise.allSettled(routes);
 	const failCheck = results.filter((result) => result.status === "rejected");
 	if (failCheck.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failCheck) + "\x1b[0m");
 }
@@ -39,10 +42,13 @@ async function openPort() {
 }
 
 async function useHTTPS() {
-	const server = https.createServer({
-		key: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.key"),
-		cert: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.pem")
-	}, app);
+	const server = https.createServer(
+		{
+			key: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.key"),
+			cert: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.pem")
+		},
+		app
+	);
 
 	server.addContext("portobellomarina.com", {
 		key: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/cert.key"),
@@ -66,7 +72,10 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use(compression());
-	app.use(morgan(":date[web] | :host:url | :status | :remote-addr", { stream: logStream }));
+
+	if (process.env["LOGS"] == "true") {
+		app.use(morgan(":date[web] | :host:url | :status | :remote-addr", { stream: logStream }));
+	}
 
 	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
