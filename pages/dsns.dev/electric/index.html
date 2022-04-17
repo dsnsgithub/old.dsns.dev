@@ -3,23 +3,22 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>WHOIS Domain Lookup</title>
+	<title>Electricity Calculator</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 	<link rel="stylesheet" href="/static/css/static.css">
 
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Electricity Calculator" />
+	<meta property="og:description" content="Calculates the price of driving an EV and the equivalant gas cost." />
+	<meta name="description" content="Calculates the price of driving an EV and the equivalant gas cost." />
+	<meta property="og:url" content="https://dsns.dev/electric/" />
+	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
+
 	<link rel="apple-touch-icon" sizes="180x180" href="https://dsns.dev/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="https://dsns.dev/static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="https://dsns.dev/static/favicon/favicon-16x16.png">
-
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="WHOIS Domain Lookup" />
-	<meta property="og:description" content="An online WHOIS lookup without censorship." />
-	<meta name="description" content="An online WHOIS lookup without censorship." />
-	<meta property="og:url" content="https://dsns.dev/whois/" />
-	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
@@ -119,54 +118,74 @@
 		</div>
 	</nav>
 
-	<section class="section">
-		<!-- Create an input field for a domain name-->
-		<div class="container">
-			<div class="columns">
-				<div class="column is-half is-offset-one-quarter">
-					<div class="box">
-						<h1 class="title">WHOIS Domain Lookup</h1>
-
+	<!-- Using Wh/mi and price per kwh, calculate the price of gas -->
+	<div class="container">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
+				<div class="box">
+					<h1 class="title">Electricity Calculator</h1>
+					<p class="subtitle">
+						Calculates the equivalent $/gallon of gas and MPG of an electric car.
+					</p>
+				
+					<div>
 						<div class="field">
-							<label class="label">Domain Name</label>
+							<label class="label">Wh/mi (Electric Car)</label>
 							<div class="control">
-								<input class="input" type="text" placeholder="dsns.dev" id="domain" required>
+								<input class="input" type="number" name="Wh/mi" placeholder="300" id="wattsPerMile" required>
+							</div>
+						</div>
+				
+						<div class="field">
+							<label class="label">Price per Kwh (Electric Car)</label>
+							<div class="control">
+								<input class="input" type="number" name="Price per Kwh" placeholder="0.24" id="priceperKwh" required>
+							</div>
+						</div>
+				
+						<div class="field">
+							<label class="label">Miles per Gallon (Gas)</label>
+							<div class="control">
+								<input class="input" type="number" name="Miles per Gallon" placeholder="25" id="milesPerGallon" required>
 							</div>
 						</div>
 
 						<div class="field">
+							<label class="label">Price per Gallon (Gas)</label>
 							<div class="control">
-								<button class="button is-primary" id="searchButton">
-									<span class="icon-dns"></span>
-									Lookup
+								<input class="input" type="number" name="Miles per Gallon" placeholder="6.00" id="pricePerGallon" required>
+							</div>
+						</div>
+				
+						<div class="field">
+							<div class="control">
+								<button class="button is-primary" type="submit" id="calculate">
+									<span class="icon-calculate"></span>
+									Calculate
 								</button>
 							</div>
 						</div>
 					</div>
-
 				</div>
-			</div>
-		</div>
 
-		<!-- Create a div to display the results -->
-		<div class="container">
-			<div class="columns">
-				<div class="column is-half is-offset-one-quarter">
-					<div class="box">
-						<div class="field">
-							<div class="control">
-								<p id="whois"></p>
+				<div class="container">
+					<div class="columns">
+						<div class="column is-half is-offset-one-quarter">
+							<div class="box">
+								<h2 class="subtitle">
+									<div id="cost"></div>
+								</h2>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
+	</div>
 
-		<script src="index.js"></script>
-		
-	</section>
-
+	<script src="index.js"></script>
 </body>
+
 
 </html>

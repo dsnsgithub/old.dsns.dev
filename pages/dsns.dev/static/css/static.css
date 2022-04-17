@@ -75,6 +75,9 @@ html.has-navbar-fixed-top {
 	.icon-calculate:before {
 		content: "\e906";
 	}
+	.icon-electric_car:before {
+		content: "\e900";
+	}
 	.icon-person_search:before {
 		content: "\e90b";
 	}
