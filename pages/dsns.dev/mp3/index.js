@@ -10,7 +10,7 @@ async function downloadMP3() {
 		}
 
 		if (!youtubeID) {
-			alert("Invalid Youtube Link");
+			alert("Invalid YouTube Link");
 			return;
 		}
 
@@ -34,7 +34,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
 if (urlParams.get("error") == "invalid_youtube_link") {
-	alert("Invalid Youtube Link");
+	alert("Invalid YouTube Link");
 } else if (urlParams.get("error") == "video_too_long") {
 	alert("Video over 10 minutes");
 }
