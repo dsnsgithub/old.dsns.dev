@@ -46,6 +46,7 @@ body {
     background-color: lightslategray;
     width: 350px;
     height: 500px;
+    top: -500px;
     font-size: 25px;
     font-family: 'Poppins', sans-serif;
     display: inline-block;
