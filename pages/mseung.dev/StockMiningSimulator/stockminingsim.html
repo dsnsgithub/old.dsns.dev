@@ -13,14 +13,33 @@
 <body>
 
     <p style="position: relative; top: -45px;">Stock Trading Simulator</p>
-    <p style=" width: 1000px; position: relative; top: 400px; left: 660px;">Programmed by Max S.</p>
+
+    <div class="brokers">
+        <center style="font-size: 30px;">Brokers</center>
+        <div id="brokersection">
+            <div id="name"></div>
+            <div id="brokersstocks" class="bs"></div>
+            <div id="brokerprice" class="bp"></div>
+            <div id="interest" class="in"></div>
+        </div>
+
+        <div id="brokersection">
+            <div id="name2"></div>
+            <div id="brokersstocks2"></div>
+            <div id="brokerprice2"></div>
+            <div id="interest2"></div>
+        </div>
+    </div>
+
+    <div style="position: relative; top: -20px; height: 500px;">
+        <p style=" width: 1000px; position: relative; top: 470px; left: 660px;">Programmed by Max S.</p>
 
         <div id="background_1">
             <p id="stockPrice" style="width: 100px;"></p> 
             <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock()">
             <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock()">
             <p id="boughtStocks"></p>
-            <p style="position: relative; top: -280px; left: 370px;">Pear</p>
+            <p style="position: relative; top: -160px; left: 370px;">Pear</p>
         </div>
     
         <div id="background_2">
@@ -28,10 +47,13 @@
             <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock2()">
             <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock2()">
             <p id="boughtStocks2"></p>
-            <p style="position: relative; top: -280px; left: 370px;">Orange</p>
+            <p style="position: relative; top: -160px; left: 300px;">Orange</p>
+            <input type="text" >
         </div>
 
-    <p id="bank"></p>
+        <p id="bank"></p>   
+
+    </div>
 
 <script src="stockminingsim.js"></script>
 </body>

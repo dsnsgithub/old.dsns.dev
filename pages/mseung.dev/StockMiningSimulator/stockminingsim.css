@@ -4,7 +4,7 @@ p {
 }
 
 body {
-    height: 400px;
+    height: 800px;
 }
 
 #background_1 {
@@ -41,10 +41,30 @@ body {
     width: 100px;
 }
 
+.brokers {
+    position: relative;
+    background-color: lightslategray;
+    width: 350px;
+    height: 500px;
+    font-size: 25px;
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+}
+
+#brokersection {
+    display: flex;
+    overflow: auto auto auto auto;
+    justify-content: space-evenly;
+}
+
 #bank {
     color: green;
     position: relative;
-    left: 300px;
-    top: -270px;
+    left: 903px;
+    top: -450px;
     width: 100px;
 }
+
+.bs {color: maroon;}
+.bp {color: green;}
+.in {color: lightgreen;}
