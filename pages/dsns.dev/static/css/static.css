@@ -19,6 +19,10 @@ html.has-navbar-fixed-top {
 	padding-top: 5rem;
 }
 
+#kirbyicon {
+	border-radius: 100%;
+}
+
 .hero.is-fullheight-with-navbar {
 	min-height: calc(100vh - 5rem);
 }
