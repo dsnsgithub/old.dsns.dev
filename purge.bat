@@ -1,5 +1,5 @@
 CALL purgecss --css pages/dsns.dev/static/css/bulma.min.css --content pages/dsns.dev/index.html --output pages/dsns.dev/min.css
-CALL purgecss --css pages/dsns.dev/static/css/bulma.min.css --content pages/dsns.dev/birthdays/index.html --output pages/dsns.dev/birthdays/min.css
+::CALL purgecss --css pages/dsns.dev/static/css/bulma.min.css --content pages/dsns.dev/birthdays/index.html --output pages/dsns.dev/birthdays/min.css
 CALL purgecss --css pages/dsns.dev/static/css/bulma.min.css --content pages/dsns.dev/christmas/index.html --output pages/dsns.dev/christmas/min.css
 CALL purgecss --css pages/dsns.dev/static/css/bulma.min.css --content pages/dsns.dev/difference/index.html --output pages/dsns.dev/difference/min.css
 CALL purgecss --css pages/dsns.dev/static/css/bulma.min.css --content pages/dsns.dev/electric/index.html --output pages/dsns.dev/electric/min.css
