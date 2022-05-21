@@ -44,24 +44,24 @@ async function openPort() {
 async function useHTTPS() {
 	const server = https.createServer(
 		{
-			key: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.key"),
+			key: fs.readFileSync(__dirname + "/certificates/dsns.dev/key.pem"),
 			cert: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.pem")
 		},
 		app
 	);
 
 	server.addContext("portobellomarina.com", {
-		key: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/cert.key"),
+		key: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/key.pem"),
 		cert: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/cert.pem")
 	});
 
 	server.addContext("mseung.dev", {
-		key: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.key"),
+		key: fs.readFileSync(__dirname + "/certificates/mseung.dev/key.pem"),
 		cert: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.pem")
 	});
 
 	server.addContext("orchardlakehouse.com", {
-		key: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/cert.key"),
+		key: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/key.pem"),
 		cert: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/cert.pem")
 	});
 
