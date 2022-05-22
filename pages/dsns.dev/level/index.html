@@ -128,14 +128,33 @@
 						Using the gyroscope, the level will turn green when the phone is flat. This webpage will only work on mobile.
 					</h2>
 
-					<h2>Alpha:</h2>
-					<p id="alpha">---</p>
+					<div id="nodeviceorientation" style="display:none">
+						<button class="button is-warning" id="requestaccess">
+							<span class="icon">
+								🔄
+							</span>
+							<span>
+								Request Permission (iOS 13 only)
+							</span>
+							
+						</button> 
+						
+						<br>
 
-					<h2>Beta:</h2>
-					<p id="beta">---</p>
+						iOS 12: <img src="permission.png" alt="">
+					</div>
 
-					<h2>Gamma:</h2>
-					<p id="gamma">---</p>
+					<div id="deviceorientation" style="display:none">
+						<h2>Alpha:</h2>
+						<p id="alpha">---</p>
+
+						<h2>Beta:</h2>
+						<p id="beta">---</p>
+
+						<h2>Gamma:</h2>
+						<p id="gamma">---</p>
+					</div>
+
 				</div>
 			</div>
 		</div>
