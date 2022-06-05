@@ -23,7 +23,7 @@ module.exports = function (app) {
 				const fullLink = `https://youtube.com/watch?v=${req.params.id}`;
 
 				res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.webm"`);
-				res.setHeader("Content-Type", "audio/mpeg");
+				res.setHeader("Content-Type", "audio/webm");
 
 				ytdl(fullLink, {
 					filter: "audioonly",
