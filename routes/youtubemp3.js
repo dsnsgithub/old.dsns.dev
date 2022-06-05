@@ -2,6 +2,7 @@
 
 //? Requirements
 const ytdl = require("ytdl-core");
+const ffmpeg = require("fluent-ffmpeg");
 
 module.exports = function (app) {
 	try {
@@ -24,10 +25,18 @@ module.exports = function (app) {
 				res.setHeader("Content-Type", "audio/mpeg");
 
 				//? Using the link, download the audio and send it to the client
-				ytdl(fullLink, {
-					filter: "audioonly",
+				const stream = ytdl(fullLink, {
 					quality: "highestaudio"
-				}).pipe(res);
+				});
+
+				ffmpeg(stream)
+					.format("mp3")
+					.audioBitrate(196)
+					.output(res, { end: true })
+					.on("error", (err) => {
+						return res.redirect("/mp3/?error=invalid_youtube_link");
+					})
+					.run();
 			} catch (err) {
 				return res.redirect("/mp3/?error=invalid_youtube_link");
 			}
