@@ -14,7 +14,13 @@ async function downloadMP3() {
 			return;
 		}
 
-		window.location.href = `/ytmp3/${youtubeID}`;
+		const fileType = document.getElementById("fileType").value;
+		if (fileType == "mp3") { 
+			window.location.href = `/ytmp3/${youtubeID}`;
+		} 
+		else if (fileType == "webm") {
+			window.location.href = `/ytwebm/${youtubeID}`;
+		}
 	} catch (e) {
 		console.log(e);
 	}
