@@ -8,13 +8,59 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <title>STS</title>
+    <title>Stock Trading Simulator</title>
 </head>
 <body>
 
-    <p style="position: relative; top: -45px;">Stock Trading Simulator</p>
+    <p style="position: relative; top: -45px;">Stock Trading Simulator (Alpha)</p>
 
-    <div style="position: relative; top: -20px; height: 500px;">
+    <div class="brokers">
+
+        <center style="font-size: 30px;">Brokers</center>
+
+        <div id="brokersection">
+            <div id="name"></div>
+            <div id="brokersstocks" class="bs"></div>
+            <div id="brokerprice" class="bp"></div>
+            <div id="interest" class="in"></div>
+            <input type="button" value="Borrow" id="b1b" onclick="borrow()">
+        </div>
+
+        <div id="brokersection">
+            <div id="name2"></div>
+            <div id="brokersstocks2" class="bs"></div>
+            <div id="brokerprice2" class="bp"></div>
+            <div id="interest2" class="in"></div>
+            <input type="button" value="Borrow" id="b2b" onclick="borrow2()">
+        </div>
+
+        <div id="brokersection">
+            <div id="name3"></div>
+            <div id="brokersstocks3" class="bs"></div>
+            <div id="brokerprice3" class="bp"></div>
+            <div id="interest3" class="in"></div>
+            <input type="button" value="Borrow" id="b3b" onclick="borrow3()">
+        </div>
+
+        <div id="brokersection">
+            <div id="name4"></div>
+            <div id="brokersstocks4" class="bs"></div>
+            <div id="brokerprice4" class="bp"></div>
+            <div id="interest4" class="in"></div>
+            <input type="button" value="Borrow" id="b4b" onclick="borrow4()">
+        </div>
+
+        <div id="brokersection">
+            <div id="name5"></div>
+            <div id="brokersstocks5" class="bs"></div>
+            <div id="brokerprice5" class="bp"></div>
+            <div id="interest5" class="in"></div>
+            <input type="button" value="Borrow" id="b5b" onclick="borrow5()">
+        </div>
+
+    </div>
+
+    <div style="height: 500px; width: 100px; position: relative; top: -560px;">
         <p style=" width: 1000px; position: relative; top: 470px; left: 660px;">Programmed by Max S.</p>
 
         <div id="background_1">
@@ -23,6 +69,7 @@
             <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock()">
             <p id="boughtStocks"></p>
             <p style="position: relative; top: -160px; left: 370px;">Pear</p>
+            <input type="text" id="stockfield">
         </div>
     
         <div id="background_2">
@@ -31,30 +78,41 @@
             <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock2()">
             <p id="boughtStocks2"></p>
             <p style="position: relative; top: -160px; left: 300px;">Orange</p>
-            <input type="text" >
+            <input type="text" id="stockfield2">
         </div>
 
         <p id="bank"></p>   
-
-    </div>
-
-    <div class="brokers">
-        <center style="font-size: 30px;">Brokers</center>
-        <div id="brokersection">
-            <div id="name"></div>
-            <div id="brokersstocks" class="bs"></div>
-            <div id="brokerprice" class="bp"></div>
-            <div id="interest" class="in"></div>
-        </div>
-
-        <div id="brokersection">
-            <div id="name2"></div>
-            <div id="brokersstocks2"></div>
-            <div id="brokerprice2"></div>
-            <div id="interest2"></div>
-        </div>
     </div>
 
 <script src="stockminingsim.js"></script>
 </body>
 </html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="stockminingsim.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>STS</title>
+</head>
+<body>
+    <p style="position: relative; top: -40px;">Stock Mining Simulator</p>
+    <p style=" width: 1000px; position: relative; top: 400px; left: 660px;">Programmed by Max S.</p>
+    <div id="background">
+        <p id="stockPrice" style="width: 100px;"></p>
+        <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Buy" onclick="buyStock()">
+        <input type="button" style="font-size: 50px; font-family: 'Poppins', sans-serif;" value="Sell" onclick="sellStock()">
+        <p id="boughtStocks" style="width: 100px;"></p>
+        <p id="bank" style="width: 100px;"></p>
+        <p style="position: relative; top: -280px; left: 230px;">Pear Stock</p>
+    </div>
+<script src="stockminingsim.js"></script>
+</body>
+</html>
+-->

@@ -1,11 +1,6 @@
-p {
-    font-size: 50px;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    height: 800px;
-}
+* {font-family: 'Poppins', sans-serif;}
+p {font-size: 50px;}
+body {height: 800px;}
 
 #background_1 {
     background-color: lightgreen;
@@ -46,15 +41,13 @@ body {
     background-color: lightslategray;
     width: 350px;
     height: 500px;
-    top: -500px;
     font-size: 25px;
-    font-family: 'Poppins', sans-serif;
     display: inline-block;
 }
 
 #brokersection {
     display: flex;
-    overflow: auto auto auto auto;
+    overflow: auto auto auto auto auto;
     justify-content: space-evenly;
 }
 
@@ -66,6 +59,29 @@ body {
     width: 100px;
 }
 
+#stockfield {
+    font-size: 40px;
+    width: 200px;
+    position: relative;
+    top: -285px;
+    left: 10px;
+}
+#stockfield2 {
+    font-size: 40px;
+    width: 200px;
+    position: relative;
+    top: -285px;
+    left: 10px;
+}
+
 .bs {color: maroon;}
 .bp {color: green;}
 .in {color: lightgreen;}
+
+/*
+p{font-size:50px;font-family:poppins,sans-serif}
+body{height:400px}
+#background{background-color:#d3d3d3;position:relative;width:500px;height:300px;left:700px;top:-100px}
+#boughtStocks{color:maroon;position:relative;left:300px;top:-270px}
+#bank{color:green;position:relative;left:300px;top:-270px;width:100px}
+*/ 
