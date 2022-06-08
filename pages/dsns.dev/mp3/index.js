@@ -16,10 +16,10 @@ async function downloadMP3() {
 
 		const fileType = document.getElementById("fileType").value;
 		if (fileType == "mp3") { 
-			window.open(`/ytmp3/${youtubeID}?fileType=mp3`, "_blank");
+			window.open(`/ytdownload/${youtubeID}?fileType=mp3`, "_blank");
 		} 
 		else if (fileType == "webm") {
-			window.open(`/ytwebm/${youtubeID}?fileType=webm`, "_blank");
+			window.open(`/ytdownload/${youtubeID}?fileType=webm`, "_blank");
 		}
 	} catch (e) {
 		console.log(e);
@@ -43,4 +43,6 @@ if (urlParams.get("error") == "invalid_youtube_link") {
 	alert("Invalid YouTube Link");
 } else if (urlParams.get("error") == "video_too_long") {
 	alert("Video over 10 minutes");
+} else if (urlParams.get("error") == "invalid_file_type") { 
+	alert("Invalid File Type");
 }

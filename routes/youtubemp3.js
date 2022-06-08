@@ -7,12 +7,12 @@ const readline = require("readline");
 
 module.exports = function (app) {
 	try {
-		app.get("/ytwebm/:id", async function (req, res) {
-			if (!req.params.id) {
-				return res.redirect("/mp3/?error=invalid_youtube_link");
-			}
-
+		app.get("/ytdownload/:id", async function (req, res) {
 			try {
+				if (!req.params.id) {
+					return res.redirect("/mp3/?error=invalid_youtube_link");
+				}
+
 				const videoInfo = await ytdl.getBasicInfo(req.params.id);
 				const length = Number(videoInfo["videoDetails"]["lengthSeconds"]);
 
@@ -22,64 +22,40 @@ module.exports = function (app) {
 
 				const fullLink = `https://youtube.com/watch?v=${req.params.id}`;
 
-				res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.webm"`);
-				res.setHeader("Content-Type", "audio/webm");
+				
+				if (req.query["fileType"] == "mp3") {
+					res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.mp3"`);
+					res.setHeader("Content-Type", "audio/mpeg");
 
-				ytdl(fullLink, {
-					filter: "audioonly",
-					quality: "highestaudio",
-				}).pipe(res);
+					//? Using the link, download the audio and send it to the client
+					const stream = ytdl(fullLink, {
+						quality: "highestaudio"
+					});
 
-			} catch (err) {
-				return res.redirect("/mp3/?error=invalid_youtube_link");
-			}
-		});
-		app.get("/ytmp3/:id", async function (req, res) {
-			if (!req.params.id) {
-				return res.redirect("/mp3/?error=invalid_youtube_link");
-			}
+					ffmpeg(stream)
+						.format("mp3")
+						.audioBitrate(196)
+						.output(res, { end: true })
+						.on("error", (err) => {
+							console.error(err);
+						})
+						.run();
+				} else if (req.query["fileType"] == "webm") {
+					res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.webm"`);
+					res.setHeader("Content-Type", "audio/webm");
 
-			try {
-				const videoInfo = await ytdl.getBasicInfo(req.params.id);
-				const length = Number(videoInfo["videoDetails"]["lengthSeconds"]);
-
-				if (length > 600) {
-					return res.redirect("/mp3?error=video_too_long");
+					ytdl(fullLink, {
+						filter: "audioonly",
+						quality: "highestaudio"
+					}).pipe(res);
+				} else {
+					return res.redirect("/mp3/?error=invalid_file_type");
 				}
-
-				const fullLink = `https://youtube.com/watch?v=${req.params.id}`;
-
-				res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.mp3"`);
-				res.setHeader("Content-Type", "audio/mpeg");
-
-				//? Using the link, download the audio and send it to the client
-				const stream = ytdl(fullLink, {
-					quality: "highestaudio"
-				});
-
-				let start = Date.now();
-
-				ffmpeg(stream)
-					.format("mp3")
-					.audioBitrate(196)
-					.output(res, { end: true })
-					.on("progress", (p) => {
-						readline.cursorTo(process.stdout, 0);
-						process.stdout.write(`${p.targetSize}kb downloaded`);
-					})
-					.on("end", () => {
-						console.log(`\ndone, thanks - ${(Date.now() - start) / 1000}s`);
-					})
-					.on("error", (err) => {
-						console.log(err);
-					})
-					.run();
 			} catch (err) {
 				return res.redirect("/mp3/?error=invalid_youtube_link");
 			}
 		});
-
 	} catch {
-		console.log("Error while trying to route /ytmp3");
+		console.log("Error while trying to route /ytdownload");
 	}
 };
