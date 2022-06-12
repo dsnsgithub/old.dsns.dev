@@ -29,7 +29,6 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 
 	WHOIS = true
 	YOUTUBE = true
-	IP = true
 
 	LEVEL = false
 	RECENTGAMES = false

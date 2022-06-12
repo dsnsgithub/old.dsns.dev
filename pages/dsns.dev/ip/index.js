@@ -1,14 +1,15 @@
-// @ts-check
 async function run() {
 	const ipDIV = document.getElementById("ip");
 	const userAgentDIV = document.getElementById("useragent");
 	const screenResolutionDiv = document.getElementById("screenresolution");
 
-	const headers = await fetch("/ipAPI").then((response) => response.json());
+	const res = await fetch("https://dsns.dev/cdn-cgi/trace").then(res => res.text());
+	const trace = res.split("\n");
 
-	ipDIV.innerHTML = headers["x-forwarded-for"];
+	ipDIV.innerHTML = trace[2].split("=")[1];
 
-	const cleanUserAgent = headers["user-agent"].replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	const userAgent = trace[5].split("=")[1]
+	const cleanUserAgent = userAgent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 	userAgentDIV.innerHTML = cleanUserAgent;
 
 	screenResolutionDiv.innerHTML = `${screen.width}x${screen.height}`;
