@@ -16,10 +16,10 @@ async function downloadMP3() {
 
 		const fileType = document.getElementById("fileType").value;
 		if (fileType == "mp3") { 
-			window.open(`/ytdownload/${youtubeID}?fileType=mp3`, "_blank");
+			window.open(`/api/youtube/${youtubeID}?fileType=mp3`, "_blank");
 		} 
 		else if (fileType == "webm") {
-			window.open(`/ytdownload/${youtubeID}?fileType=webm`, "_blank");
+			window.open(`/api/youtube/${youtubeID}?fileType=webm`, "_blank");
 		}
 	} catch (e) {
 		console.log(e);

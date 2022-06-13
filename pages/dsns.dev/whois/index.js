@@ -5,7 +5,7 @@ async function whoIs() {
 	whois.innerHTML = "";
 
 	const domain = domainInput.value;
-	const result = await fetch("/whoisAPI/" + domain).then((res) => res.text());
+	const result = await fetch("/api/whois/" + domain).then((res) => res.text());
 
 	whois.innerHTML = result;
 }

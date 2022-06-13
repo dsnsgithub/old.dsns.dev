@@ -1,4 +1,4 @@
-const source = new EventSource("/differenceData");
+const source = new EventSource("/api/difference");
 
 source.addEventListener("message", (message) => {
 	// Parse SSE from server

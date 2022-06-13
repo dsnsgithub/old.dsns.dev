@@ -4,7 +4,9 @@
 const hypixel = require("../scripts/hypixel.js");
 
 module.exports = async function (app) {
-	app.get("/recentAPI/:IGN", async (req, res) => {
+	app.get("/api/recentgames/:IGN", async (req, res, next) => {
+		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+
 		try {
 			const IGN = req.params.IGN;
 			const response = await hypixel.getRecentGames(IGN);

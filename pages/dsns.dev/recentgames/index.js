@@ -326,13 +326,18 @@ const gameTypes = {
 async function run() {
 	// @ts-ignore
 	const IGN = document.getElementById("IGN").value;
-	const data = await fetch(`/recentAPI/${IGN}`).then((res) => res.json());
+	const data = await fetch(`/api/recentgames/${IGN}`).then((res) => res.json());
 
 	const resultDiv = document.getElementById("result");
 	resultDiv.innerHTML = "";
 
 	if (data.length === 0) {
 		resultDiv.innerHTML = `<h1 class="title">No recent games found.</h1>`;
+		return;
+	}
+
+	if (data["error"]) {
+		resultDiv.innerHTML = `<h1 class="title">${data["error"]}</h1>`;
 		return;
 	}
 
@@ -374,9 +379,9 @@ async function parseRecentGames(recentGame, IGN) {
 
 	const game = recentGame["name"];
 	const mode = recentGame["mode"];
-	const map = recentGame["map"];
+	const map = recentGame["map"] || "Unknown";
 
-	if (!mode) return `${game} at ${recentTime}.`;
+	if (!mode) return ["Unknown", game, recentTime, map];
 
 	//? Sanitize Hypixel API into a more readable format
 	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["game"], mode);
