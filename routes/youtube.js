@@ -22,36 +22,23 @@ module.exports = function (app) {
 
 			const fullLink = `https://youtube.com/watch?v=${req.params.id}`;
 
-			if (req.query["fileType"] == "mp3") {
-				res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.mp3"`);
-				res.setHeader("Content-Type", "audio/mpeg");
+			res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.webm"`);
+			res.setHeader("Content-Type", "audio/webm");
 
-				//? Using the link, download the audio and send it to the client
-				const stream = ytdl(fullLink, {
-					quality: "highestaudio"
-				});
-
-				ffmpeg(stream)
-					.format("mp3")
-					.audioBitrate(196)
-					.output(res, { end: true })
-					.on("error", (err) => {
-						console.error(err);
-					})
-					.run();
-			} else if (req.query["fileType"] == "webm") {
-				res.setHeader("Content-Disposition", `attachment; filename="${req.params.id}.webm"`);
-				res.setHeader("Content-Type", "audio/webm");
-
-				ytdl(fullLink, {
-					filter: "audioonly",
-					quality: "highestaudio"
-				}).pipe(res);
-			} else {
-				return res.redirect("/mp3/?error=invalid_file_type");
-			}
+			ytdl(fullLink, {
+				filter: "audioonly",
+				quality: "highestaudio"
+			}).pipe(res);
 		} catch (err) {
 			return res.redirect("/mp3/?error=invalid_youtube_link");
 		}
+	});
+
+	app.use((req, res, next) => {
+		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+
+		res.header("Cross-Origin-Opener-Policy", "same-origin");
+		res.header("Cross-Origin-Embedder-Policy", "require-corp");
+		next();
 	});
 };
