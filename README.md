@@ -25,8 +25,7 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 ### 3. Create a `.env` file and add these properties:
 	HTTPS = false
 	NODE_ENV = development
-	LOGS = false
-
+	
 	WHOIS = true
 	YOUTUBE = true
 

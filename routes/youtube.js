@@ -2,7 +2,6 @@
 
 //? Requirements
 const ytdl = require("ytdl-core");
-const ffmpeg = require("fluent-ffmpeg");
 
 module.exports = function (app) {
 	app.get("/api/youtube/:id", async function (req, res, next) {

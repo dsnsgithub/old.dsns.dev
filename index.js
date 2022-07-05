@@ -10,14 +10,6 @@ const compression = require("compression"); //* npm install compression
 const app = express();
 app.set("trust proxy", true);
 
-if (process.env["LOGS"] == "true") {
-	var morgan = require("morgan"); //* npm install morgan
-	var logStream = fs.createWriteStream(__dirname + "/logs/request.log", { flags: "a" });
-
-	// @ts-ignore
-	morgan.token("host", (req, res) => req.hostname);
-}
-
 async function runRoutes() {
 	const routes = [];
 
@@ -71,10 +63,6 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use(compression());
-
-	if (process.env["LOGS"] == "true") {
-		app.use(morgan(":date[web] | :host:url | :status | :remote-addr", { stream: logStream }));
-	}
 
 	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
