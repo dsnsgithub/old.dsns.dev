@@ -15,13 +15,13 @@ async function convertFileFormat(format, type, youtubeID) {
 	});
 
 	// write the WEBM to the FFmpeg file system
-	ffmpeg.FS("writeFile", `${youtubeID}.webm`, new Uint8Array(sourceBuffer, 0, sourceBuffer.byteLength));
+	ffmpeg.FS("writeFile", `audio.webm`, new Uint8Array(sourceBuffer, 0, sourceBuffer.byteLength));
 
 	// run the FFmpeg command-line tool, converting the WEBM into an MP3
-	await ffmpeg.run("-i", `${youtubeID}.webm`, `${youtubeID}.${format}`);
+	await ffmpeg.run("-i", `audio.webm`, `audio.${format}`);
 
 	// read the MP3 file back from the FFmpeg file system
-	const output = ffmpeg.FS("readFile", `${youtubeID}.${format}`);
+	const output = ffmpeg.FS("readFile", `audio.${format}`);
 
 	// download the MP3 file
 	const blob = new Blob([output], { type: type });
@@ -32,8 +32,8 @@ async function convertFileFormat(format, type, youtubeID) {
 	a.click();
 	URL.revokeObjectURL(url);
 
-	ffmpeg.FS("unlink", `${youtubeID}.webm`);
-	ffmpeg.FS("unlink", `${youtubeID}.${format}`);
+	ffmpeg.FS("unlink", `audio.webm`);
+	ffmpeg.FS("unlink", `audio.${format}`);
 }
 
 async function downloadMP3() {
