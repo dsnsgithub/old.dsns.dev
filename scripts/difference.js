@@ -57,7 +57,6 @@ async function writeDifference(difference) {
 	}
 
 	fs.writeFileSync(__dirname + "/../json/levels.json", JSON.stringify(levels));
-	console.log("\x1b[33m[" + currentDate + "] \x1b[36m" + "Database Update" + "\x1b[0m");
 
 	return levels;
 }

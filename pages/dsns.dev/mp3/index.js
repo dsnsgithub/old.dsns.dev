@@ -68,7 +68,7 @@ async function downloadMP3() {
 			window.open(`/api/youtube/${youtubeID}`, "_blank");
 		}
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 	}
 }
 

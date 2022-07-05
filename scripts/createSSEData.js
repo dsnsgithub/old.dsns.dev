@@ -12,8 +12,6 @@ async function createDifferenceSSE(UUIDs, IGNs) {
 	});
 
 	try {
-		console.time("\x1b[33m[" + currentDate + "] \x1b[34m" + "SSE Data Update" + "\x1b[0m");
-
 		const statusData = await statusJS.grabStatus(UUIDs);
 		const recentGamesData = await statusJS.grabRecentGames(UUIDs);
 		const parsedData = await statusJS.parseData(statusData, recentGamesData, IGNs);
@@ -34,7 +32,6 @@ async function createDifferenceSSE(UUIDs, IGNs) {
 			date: currentDate
 		};
 
-		console.timeEnd("\x1b[33m[" + currentDate + "] \x1b[34m" + "SSE Data Update" + "\x1b[0m");
 		return result;
 	} catch (error) {
 		console.error("\x1b[31m" + "Difference SSE Error: " + (error.stack || error) + "\x1b[0m");
