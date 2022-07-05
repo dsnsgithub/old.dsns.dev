@@ -16,7 +16,7 @@ module.exports = function (app) {
 			const videoInfo = await ytdl.getBasicInfo(req.params.id);
 			const length = Number(videoInfo["videoDetails"]["lengthSeconds"]);
 
-			if (length > 600) {
+			if (length > 1800) {
 				return res.redirect("/mp3?error=video_too_long");
 			}
 

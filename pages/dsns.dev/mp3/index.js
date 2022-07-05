@@ -75,5 +75,5 @@ const urlParams = new URLSearchParams(queryString);
 if (urlParams.get("error") == "invalid_youtube_link") {
 	alert("Invalid YouTube Link");
 } else if (urlParams.get("error") == "video_too_long") {
-	alert("Video over 10 minutes");
+	alert("Video over 30 minutes");
 }
