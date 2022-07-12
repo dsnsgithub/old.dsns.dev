@@ -1,9 +1,19 @@
 const { createFFmpeg } = FFmpeg;
 
+const round = (number, decimalPlaces) => {
+	const factorOfTen = Math.pow(10, decimalPlaces);
+	return Math.floor(number * factorOfTen) / factorOfTen;
+};
+
 async function convertFileFormat(format, type, youtubeID) {
 	// Use ffmpeg.wasm to convert the downloaded webm file to an mp3 file
 
+	const downloadStatus = document.getElementById("downloadStatus");	
+	downloadStatus.innerHTML = "Downloading...";
+
 	const sourceBuffer = await fetch(`/api/youtube/${youtubeID}`).then((r) => r.arrayBuffer());
+
+	downloadStatus.innerHTML = "Download Complete";
 
 	// create the FFmpeg instance and load it
 	const ffmpeg = createFFmpeg({ log: true });
@@ -11,7 +21,10 @@ async function convertFileFormat(format, type, youtubeID) {
 
 	// create a progress bar that displays the progress of the conversion
 	ffmpeg.setProgress(({ ratio }) => {
-		document.getElementById("progressBar").value = ratio;
+		const conversionStatus = document.getElementById("conversionStatus");
+		const percent = round(ratio * 100, 2);
+
+		conversionStatus.innerHTML = percent + "%";
 	});
 
 	// write the WEBM to the FFmpeg file system
