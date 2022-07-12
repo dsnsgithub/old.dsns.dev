@@ -1,2 +1,4 @@
 #!/bin/bash
-node .
+while true; do
+	node .
+done
