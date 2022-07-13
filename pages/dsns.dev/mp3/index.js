@@ -8,10 +8,17 @@ const round = (number, decimalPlaces) => {
 async function convertFileFormat(format, type, youtubeID) {
 	// Use ffmpeg.wasm to convert the downloaded webm file to an mp3 file
 
-	const downloadStatus = document.getElementById("downloadStatus");	
+	const downloadStatus = document.getElementById("downloadStatus");
 	downloadStatus.innerHTML = "Downloading...";
 
-	const sourceBuffer = await fetch(`/api/youtube/${youtubeID}`).then((r) => r.arrayBuffer());
+	const response = await fetch(`/api/youtube/${youtubeID}`);
+
+	if (response.status != 200) {
+		alert(await response.text());
+		downloadStatus.innerHTML = "Waiting for download to start...";
+	}
+
+	const sourceBuffer = await response.arrayBuffer();
 
 	downloadStatus.innerHTML = "Download Complete";
 
@@ -78,7 +85,20 @@ async function downloadMP3() {
 		} else if (fileType == "ogg") {
 			await convertFileFormat("ogg", "audio/ogg", youtubeID);
 		} else if (fileType == "webm") {
-			window.open(`/api/youtube/${youtubeID}`, "_blank");
+			// Download the webm file
+			const response = await fetch(`/api/youtube/${youtubeID}`);
+
+			if (response.status != 200) {
+				alert(await response.text());
+			}
+
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = `${youtubeID}.webm`;
+			a.click();
+			window.URL.revokeObjectURL(url);
 		}
 	} catch (e) {
 		console.error(e);
@@ -94,12 +114,3 @@ document.onkeyup = function (event) {
 		downloadMP3();
 	}
 };
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-
-if (urlParams.get("error") == "invalid_youtube_link") {
-	alert("Invalid YouTube Link");
-} else if (urlParams.get("error") == "video_too_long") {
-	alert("Video over 30 minutes");
-}
