@@ -133,7 +133,7 @@ const birthdays = [
 	{ id: "Fud", date: "February 11, 2022" },
 	{ id: "ploplo", date: "May 4, 2022" },
 	{ id: "Archer2305", date: "February 23, 2022" },
-	{ id: "zell", date: "January 2, 2023" },
+	{ id: "zell", date: "January 2, 2023" }
 ];
 
 for (const singleBirthday of birthdays) {
@@ -158,7 +158,7 @@ for (const eachBirthday of birthdays) {
 	const birthdayContainer = document.getElementById("birthdayContainer");
 
 	const columnDiv = document.createElement("div");
-	columnDiv.className = "column is-one-third mt-6";
+	columnDiv.className = "column is-one-third-desktop is-one-third-tablet is-half-mobile mt-6";
 	birthdayContainer.appendChild(columnDiv);
 
 	const countdownText = document.createElement("p");
@@ -196,7 +196,7 @@ for (const eachBirthday of birthdays) {
 			countdown.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 			countdownBar.setAttribute("value", 31536000000 - distance);
 			countdownPercent.innerHTML = round(((31536000000 - distance) / 31536000000) * 100, 2) + "%";
-			countdownText.innerHTML = `Until ${eachBirthday["id"]}'s Birthday`;
+			countdownText.innerHTML = `${eachBirthday["id"]}'s Birthday`;
 		}
 	}
 
@@ -205,7 +205,7 @@ for (const eachBirthday of birthdays) {
 }
 
 function turnConfettiOn() {
-	turnConfettiOn = function () { };
+	turnConfettiOn = function () {};
 	const confetti = new ConfettiGenerator();
 	confetti.render();
 }

@@ -1,11 +1,11 @@
 p {
-	font-size: 1.5vw;
+	font-size: 24px;
 	display: block;
 	color: black;
 }
 
 h1 {
-	font-size: 2vw;
+	font-size: 30px;
 	color: black;
 }
 
@@ -25,4 +25,20 @@ progress {
 progress {
 	width: 12vw !important;
 	text-align: left;
+}
+
+/* Create a media query to reduce the font size of h1 for mobile devices */
+@media screen and (max-width: 600px) {
+	h1 {
+		font-size: 5vw;
+		font-weight: bold;
+	}
+
+	p {
+		font-size: 18px;
+	}
+
+	.progress {
+		display: none;
+	}
 }
