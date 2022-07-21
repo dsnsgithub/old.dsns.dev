@@ -1,65 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-
-<url>
-  <loc>https://dsns.dev/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/projects/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/difference/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/ppi/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/webcam/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/birthdays/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/christmas/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/recentgames/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/ip/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/whois/</loc>
-  <lastmod>2021-11-23T07:04:02+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://dsns.dev/speedtest/</loc>
-  <lastmod>2021-12-10T03:29:07+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+	<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
+	<url>
+		<loc>https://dsns.dev/</loc>
+		<lastmod>2022-07-20T21:14:59+00:00</lastmod>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/projects/</loc>
+		<lastmod>2022-06-05T22:32:51+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/difference/</loc>
+		<lastmod>2022-07-05T05:13:28+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/ppi/</loc>
+		<lastmod>2022-07-05T05:13:29+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/webcam/</loc>
+		<lastmod>2022-07-05T05:13:29+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/birthdays/</loc>
+		<lastmod>2022-07-19T01:26:52+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/christmas/</loc>
+		<lastmod>2022-07-05T05:13:28+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/recentgames/</loc>
+		<lastmod>2022-07-05T05:13:29+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/ip/</loc>
+		<lastmod>2022-07-05T05:13:28+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/whois/</loc>
+		<lastmod>2022-07-05T05:13:29+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/speedtest/</loc>
+		<lastmod>2022-06-05T22:32:51+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/mp3/</loc>
+		<lastmod>2022-07-12T21:51:29+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/level/</loc>
+		<lastmod>2022-07-05T05:13:28+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://dsns.dev/electric/</loc>
+		<lastmod>2022-07-05T05:13:28+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
 </urlset>

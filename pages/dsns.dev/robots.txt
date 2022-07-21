@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /studentindex/
+Disallow: /api/*
 
 Sitemap: https://dsns.dev/sitemap.xml
