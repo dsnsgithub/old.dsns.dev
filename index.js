@@ -41,11 +41,6 @@ async function useHTTPS() {
 		app
 	);
 
-	server.addContext("portobellomarina.com", {
-		key: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/key.pem"),
-		cert: fs.readFileSync(__dirname + "/certificates/portobellomarina.com/cert.pem")
-	});
-
 	server.addContext("mseung.dev", {
 		key: fs.readFileSync(__dirname + "/certificates/mseung.dev/key.pem"),
 		cert: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.pem")
@@ -66,13 +61,6 @@ async function useMiddleware() {
 
 	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
-
-		if (req.hostname == "portobellomarina.com" || req.hostname == "portobellomarina.test") {
-			const fullPath = __dirname + "/pages/portobellomarina.com" + req.url;
-
-			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://portobellomarina.com");
-		}
 
 		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
