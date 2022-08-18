@@ -32,6 +32,11 @@
 		gtag('config', 'G-VCKBLC2CHC');
 	</script>
 
+	<!-- Discord Tag Popup-->
+	<script>
+		document.addEventListener("DOMContentLoaded",()=>{function e(e){e.classList.remove("is-active")}(document.querySelectorAll(".js-modal-trigger")||[]).forEach(e=>{const t=e.dataset.target,d=document.getElementById(t);e.addEventListener("click",()=>{!function(e){e.classList.add("is-active")}(d)})}),(document.querySelectorAll(".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button")||[]).forEach(t=>{const d=t.closest(".modal");t.addEventListener("click",()=>{e(d)})}),document.addEventListener("keydown",t=>{27===(t||window.event).keyCode&&(document.querySelectorAll(".modal")||[]).forEach(t=>{e(t)})})});
+	</script>
+
 </head>
 
 <body>
@@ -134,9 +139,9 @@
 								</a>
 							</div>
 							<div class="column is-2">
-								<a href="https://www.twitch.tv/dsnsosu" aria-label="DSNS twitch">
-									<img src="/static/images/svg/icons/twitch.svg" alt="DSNS twitch icon">
-								</a>
+								<button class="js-modal-trigger" style="background-color: white; border:none; cursor: pointer;" data-target="modal-js-example"  title="DSNS#5781">
+									<img src="/static/images/svg/icons/discord.svg" alt="Discord Tag: DSNS#5781" style="transform: scale(1.3); margin-top:15px;">
+								</button>
 							</div>
 							<div class="column is-2">
 								<a href="https://www.youtube.com/channel/UCvUkvYDaBdqFJA0THLPs0qQ" aria-label="DSNS youtube">
@@ -320,6 +325,17 @@
 		</div>
 	</section>
 
+	<div id="modal-js-example" class="modal">
+		<div class="modal-background"></div>
+	
+		<div class="modal-content">
+			<div class="box">
+				<h2 style="margin-top:0px; text-align: center;">Discord Tag: DSNS#5781</h2>
+			</div>
+		</div>
+	
+		<button class="modal-close is-large" aria-label="close"></button>
+	</div>
 </body>
 
 </html>
