@@ -5,7 +5,7 @@ const characters = [
 	["树", "tree"],
 	["撞", "to collide with, hit, strike"],
 	["坏", "bad"],
-	["呀", "used at the end of the sentence to soften the tone"],
+	["呀", "(used at the end of the sentence to soften the tone)"],
 	["小心", "careful, cautious"],
 	["镜子", "mirror"],
 	["破", "broken"],
