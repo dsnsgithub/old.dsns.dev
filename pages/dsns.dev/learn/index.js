@@ -33,7 +33,7 @@ const characters = [
 ];
 
 const pinyin = [
-	["dao3", "倒"],
+	["dao4", "倒"],
 	["bie2", "别"],
 	["fang2dong1", "房东"],
 	["shu4", "树"],
