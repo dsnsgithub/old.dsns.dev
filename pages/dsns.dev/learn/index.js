@@ -88,7 +88,7 @@ function run() {
 		alert("Correct!");
 
 		if (!wrong) data.splice(index, 1);
-		
+
 		index = showNewDefinition();
 		input.value = "";
 		wrong = false;
@@ -96,7 +96,6 @@ function run() {
 		alert("Wrong! The correct answer was " + data[index][0]);
 		input.value = "";
 		wrong = true;
-
 	}
 }
 

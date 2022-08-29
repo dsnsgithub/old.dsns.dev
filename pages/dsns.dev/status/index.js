@@ -6,7 +6,7 @@ async function scaled(domainsArray) {
 		const date = new Date(string.split(expiryString)[1]);
 		const today = new Date();
 		const difference = date.getTime() - today.getTime();
-		const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+		const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
 		return {
 			domain: domain,
 			date: date.toLocaleDateString("en-US", {
@@ -35,7 +35,8 @@ async function scaled(domainsArray) {
 		subtitle.style.fontWeight = "bold";
 
 		const domainDates = document.createElement("div");
-		domainDates.innerHTML = "Expiration Date: "+ results[domain].date + "<br>" + results[domain].days + " days remaining";
+
+		domainDates.innerHTML = "Expiration Date: " + results[domain].date + "<br>" + results[domain].days + ` day${results[domain].days == 1 ? "" : "s"} remaining`;
 
 		const days = results[domain].days;
 		const domainName = results[domain].domain;
@@ -58,7 +59,6 @@ async function scaled(domainsArray) {
 }
 
 scaled([
-	["seung.dev", "Registrar Registration Expiration Date: "],
 	["justeggrolls.com", "Registrar Registration Expiration Date: "],
 	["dominic.dev", "Registry Expiry Date: "],
 	["dominic.com", "Registrar Registration Expiration Date: "]
