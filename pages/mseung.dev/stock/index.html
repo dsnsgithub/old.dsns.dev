@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="index.css" rel="stylesheet" type="text/css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Stock Trading</title>
+</head>
+
+<body>
+    <p style="margin-top: 0px; margin-bottom: -76px;">Stock Trading Simulator (Alpha)</p>
+
+    <div class="flexbox-container">
+        <div id="brokercontainer">
+            <center style="font-size: 35px; margin: 0;">Brokers</center>
+    
+            <div id="broker">
+                <div style="font-size: 25px;" id="name1"></div>
+                <div class="bs" id="brokerstocks"></div>
+                <div class="bp" id="brokerprice"></div>
+                <div class="it" id="brokerInterest"></div>
+                <input type="button" id="borrow" onclick="borrowstocks(name1, brokerstocks, brokerInterest, brokerprice, borrow);" value="Borrow" style="font-size: 15px;">
+            </div>
+    
+            <div id="broker">
+                <div style="font-size: 25px;" id="name2"></div>
+                <div class="bs" id="brokerstocks2"></div>
+                <div class="bp" id="brokerprice2"></div>
+                <div class="it" id="brokerInterest2"></div>
+                <input type="button" id="borrow2" onclick="borrowstocks(name2, brokerstocks2, brokerInterest2, brokerprice2, borrow2);" value="Borrow" style="font-size: 15px;">
+            </div>
+    
+            <div id="broker">
+                <div style="font-size: 25px;" id="name3"></div>
+                <div class="bs" id="brokerstocks3"></div>
+                <div class="bp" id="brokerprice3"></div>
+                <div class="it" id="brokerInterest3"></div>
+                <input type="button" id="borrow3" onclick="borrowstocks(name3, brokerstocks3, brokerInterest3, brokerprice3, borrow3);" value="Borrow" style="font-size: 15px;">
+            </div>
+    
+            <div id="broker">
+                <div style="font-size: 25px;" id="name4"></div>
+                <div class="bs" id="brokerstocks4"></div>
+                <div class="bp" id="brokerprice4"></div>
+                <div class="it" id="brokerInterest4"></div>
+                <input type="button" id="borrow4" onclick="borrowstocks(name4, brokerstocks4, brokerInterest4, brokerprice4, borrow4);" value="Borrow" style="font-size: 15px;">
+            </div>
+    
+            <div id="broker">
+                <div style="font-size: 25px;" id="name5"></div>
+                <div class="bs" id="brokerstocks5"></div>
+                <div class="bp" id="brokerprice5"></div>
+                <div class="it" id="brokerInterest5"></div>
+                <input type="button" id="borrow5" onclick="borrowstocks(name5, brokerstocks5, brokerInterest5, brokerprice5, borrow5);" value="Borrow" style="font-size: 15px;">
+            </div>
+        </div>
+    
+        <div id="container">
+            <p id="stockPrice"></p>
+            <button onclick="buy()">Buy</button>
+            <button onclick="sell()">Sell</button>
+            <p id="inv"></p>
+            <p id="amountspent"></p>
+            <input type="text" placeholder="Amount" id="amountfield">
+        </div>
+    
+        <div id="container2">
+            <p id="stockPrice2"></p>
+            <button onclick="buy2()">Buy</button>
+            <button onclick="sell2()">Sell</button>
+            <p id="inv2"></p>
+            <p id="amountspent2"></p>
+            <input type="text" placeholder="Amount" id="amountfield2">
+        </div>
+    </div>
+
+
+
+    <p id="bank"></p>
+
+    <p style="text-align: center; margin-top: -32px;">Programmed by Max S.</p>
+
+    <script src="index.js"></script>
+
+
+</body>
+
+</html>

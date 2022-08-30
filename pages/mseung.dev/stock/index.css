@@ -1,0 +1,65 @@
+* {
+    font-family: "Poppins", sans-serif;
+    font-size: 50px;
+}   
+
+#brokercontainer { /*brokers*/
+    background-color: lightslategray;
+    width: 350px;
+    height: 500px;
+    margin-top: 168px;
+}
+
+#broker { /*each broker*/
+    display: flex;
+    overflow: auto auto auto auto auto;
+    justify-content: space-evenly;
+}
+
+.bs {font-size: 25px; color: maroon;}
+.bp {font-size: 25px; color: green;}
+.it {font-size: 25px; color: lightgreen;}
+
+#container { /*pear*/
+    display: inline-block;
+    background-color: lightgreen;
+    width: 500px;
+    height: 300px;
+    margin-top: 184px;
+    margin-left: 50px;
+}
+
+#container2 { /*orange*/
+    display: inline-block;
+    background-color: orange;
+    width: 500px;
+    height: 300px;
+    margin-top: 184px;
+    margin-left: 100px;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#inv, #inv2 { /*inventory*/
+    color: maroon;
+    margin-left: 300px;
+    margin-top: -220px;
+}
+
+#stockPrice, #stockPrice2 {margin-top: 0px;} /*price of stock*/
+
+#amountfield, #amountfield2 { /*field you put in the amount of shares you want*/
+    font-size: 40px;
+    width: 250px;
+}
+
+#amountspent, #amountspent2 { /*explains itself*/
+    color: darkolivegreen;
+    margin-left: 300px;
+    margin-bottom: 25px;
+}
+
+#bank {color: green; text-align: center; margin-top: -135px;} /*how much money you have*/
