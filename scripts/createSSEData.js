@@ -1,4 +1,5 @@
 // @ts-check
+require("dotenv").config();
 
 //? Requirements ----------------------------------------------------------------------------------
 const diffJS = require("./difference.js");
@@ -34,7 +35,9 @@ async function createDifferenceSSE(UUIDs, IGNs) {
 
 		return result;
 	} catch (error) {
-		console.error("\x1b[31m" + "Difference SSE Error: " + (error.stack || error) + "\x1b[0m");
+		if (process.env["NODE_ENV"] == "development") {
+			console.error("\x1b[31m" + "Difference SSE Error: " + (error.stack || error) + "\x1b[0m");
+		}
 		return "failed";
 	}
 }
