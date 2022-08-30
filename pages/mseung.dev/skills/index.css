@@ -5,8 +5,8 @@ body {
 
 .flex-container {
     display: flex;
-        justify-content: center;
-        justify-content: space-evenly;
+    justify-content: center;
+    justify-content: space-evenly;
   }
 
 h2 {
