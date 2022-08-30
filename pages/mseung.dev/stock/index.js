@@ -36,11 +36,11 @@ brokerprice4.innerHTML = Math.floor(Math.random() * 14600) + 400;
 brokerprice5.innerHTML = Math.floor(Math.random() * 14600) + 400;
 
 const [brokerInterest, brokerInterest2, brokerInterest3, brokerInterest4, brokerInterest5] = [document.getElementById("brokerInterest"), document.getElementById("brokerInterest2"), document.getElementById("brokerInterest3"), document.getElementById("brokerInterest4"), document.getElementById("brokerInterest5")];
-brokerInterest.innerHTML = Math.floor(Math.random() * 18) + 2;
-brokerInterest2.innerHTML = Math.floor(Math.random() * 18) + 2;
-brokerInterest3.innerHTML = Math.floor(Math.random() * 18) + 2;
-brokerInterest4.innerHTML = Math.floor(Math.random() * 18) + 2;
-brokerInterest5.innerHTML = Math.floor(Math.random() * 18) + 2;
+brokerInterest.innerHTML = Math.floor(Math.random() * 8) + 2;
+brokerInterest2.innerHTML = Math.floor(Math.random() * 8) + 2;
+brokerInterest3.innerHTML = Math.floor(Math.random() * 8) + 2;
+brokerInterest4.innerHTML = Math.floor(Math.random() * 8) + 2;
+brokerInterest5.innerHTML = Math.floor(Math.random() * 8) + 2;
 
 const bank = document.getElementById("bank") /*how much money you have */
 bank.innerHTML = 500;
@@ -51,6 +51,8 @@ let checkChange2 = setInterval(updateValue2, 1);
 var priceInterval, priceInterval2, priceInterval3, priceInterval4;
 
 var takeInterval, takeInterval2;
+
+var checkInterval = setInterval(checkBroke, 2000);
 
 /* functions */
 
@@ -209,20 +211,20 @@ function borrowstocks(name, stocks, interest, price, purpose) {
         if(price.innerHTML <= Number(bank.innerHTML)) {
             if(name.style.color == "lightgreen") {
                 purpose.value = "Give";
-                takeInterval = setInterval(takeInterest, 500);
+                takeInterval = setInterval(takeInterest, 2000);
                 inv.innerHTML = Number(inv.innerHTML) + Number(stocks.innerHTML);
                 bank.innerHTML = Number(bank.innerHTML) - price.innerHTML;
                 function takeInterest() {
-                    bank.innerHTML = Number(bank.innerHTML) - Number(stockPrice.innerHTML) * (interest.innerHTML / 100);
+                    bank.innerHTML = Number(bank.innerHTML) - (Number(stockPrice.innerHTML) * Number(stocks.innerHTML)) * (interest.innerHTML / 100);
                     bank.innerHTML = Math.round(bank.innerHTML);
                 }
             } else if(name.style.color == "orange") {
                 purpose.value = "Give";
-                takeInterval2 = setInterval(takeInterest2, 500);
+                takeInterval2 = setInterval(takeInterest2, 2000);
                 inv2.innerHTML = Number(inv2.innerHTML) + Number(stocks.innerHTML);
                 bank.innerHTML = Number(bank.innerHTML) - price.innerHTML;
                 function takeInterest2() {
-                    bank.innerHTML = Number(bank.innerHTML) - Number(stockPrice2.innerHTML) * (interest.innerHTML / 100);
+                    bank.innerHTML = Number(bank.innerHTML) - (Number(stockPrice2.innerHTML) * Number(stocks.innerHTML)) * (interest.innerHTML / 100);
                     bank.innerHTML = Math.round(bank.innerHTML);
                 }
             }
@@ -247,9 +249,9 @@ function borrowstocks(name, stocks, interest, price, purpose) {
 }
 
 function checkBroke(purpose, interest) {
-    setTimeout(checkBroke, 2000)
     if(Number(bank.innerHTML) <= 19 && Number(inv.innerHTML) + Number(inv2.innerHTML) == 0 || purpose == "Give" && (Number(bank.innerHTML) < Number(interest.innerHTML) && Number(inv.innerHTML) + Number(inv2.innerHTML) == 0)) {
         alert("You lost! How??? Refresh the page to restart the game.");
+        clearInterval(checkInterval);
     }
 }
 
