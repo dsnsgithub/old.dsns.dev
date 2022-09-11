@@ -110,13 +110,11 @@ a {
 	.icons {
 		transform: scale(0.55);
 	}
-	#discordIcon {
-		transform: scale(1.5) !important;
-		margin-top: 10px !important;
-	}
-
 	#experiences {
 		font-size: 15vw;
+	}
+	#discordIcon {
+		transform: scale(1.2) !important;
 	}
 }
 
@@ -128,7 +126,7 @@ a {
 		transform: scale(1) !important;
 	}
 	#discordIcon {
-		transform: scale(2.5) !important;
-		margin-top: 5px !important;
+		margin-top: 5px;
+		transform: scale(1.6) !important;
 	}
 }
