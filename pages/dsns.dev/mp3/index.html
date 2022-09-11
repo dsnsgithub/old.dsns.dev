@@ -4,9 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>YouTube Audio Downloader</title>
+	<title>YouTube Video Downloader</title>
 
-	<link rel="stylesheet" href="min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
@@ -100,7 +100,7 @@
 						</a>
 						<a href="/mp3/" class="navbar-item">
 							<span class="icon-queue_music"></span>
-							YouTube Audio Downloader
+							YouTube Video Downloader
 						</a>
 						<a href="/level/" class="navbar-item">
 							<span class="icon-compass"></span>
@@ -122,7 +122,7 @@
 			<div class="column is-half is-offset-one-quarter">
 				<div class="box">
 					<h1 class="title">
-						YouTube Audio Downloader
+						YouTube Video Downloader
 					</h1>
 
 					<div class="field">
@@ -137,8 +137,10 @@
 						<!-- Create a dropdown to choose file types between mp3 and webm-->
 						<div class="control">
 							<div class="select">
-								<select id="fileType">
+								<select class="select" id="fileType">
 									<option value="mp3">MP3</option>
+									<option value="mp4audio">MP4 with Audio (720p/360p)</option>
+									<option value="mp4high">MP4 (NO AUDIO/HIGH QUALITY)</option>
 									<option value="wav">WAV</option>
 									<option value="aac">AAC</option>
 									<option value="ogg">OGG</option>
