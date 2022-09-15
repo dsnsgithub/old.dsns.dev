@@ -27,10 +27,6 @@ a {
 	margin-top: -11vh;
 }
 
-.mt-8 {
-	margin-top: 8rem !important;
-}
-
 .bounce {
 	position: relative;
 	animation: bounce 3s ease-in-out;
@@ -79,15 +75,6 @@ a {
 	.skillsList h2 {
 		font-size: 22px;
 	}
-	.oversizedText {
-		font-size: 18px !important;
-	}
-}
-
-@media (max-width: 1200px) {
-	.oversizedText {
-		font-size: 2vw;
-	}
 }
 
 .icons {
@@ -107,6 +94,9 @@ a {
 	.icons div {
 		margin-right: 50px !important;
 	}
+	.icons div:last-child {
+		margin-right: 0px !important;
+	}
 	.icons {
 		transform: scale(0.55);
 	}
@@ -121,6 +111,9 @@ a {
 @media (max-width: 550px) {
 	.icons div {
 		margin-right: 15px !important;
+	}
+	.icons div:last-child {
+		margin-right: 0px !important;
 	}
 	.icons {
 		transform: scale(1) !important;

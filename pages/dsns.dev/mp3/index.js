@@ -103,7 +103,7 @@ async function downloadMP3() {
 			const req = await fetch(`https://dsnsdev.dsnsrepl.repl.co/${youtubeID}`);
 
 			if (req.status != 200) {
-				alert(await response.text());
+				alert(await req.text());
 			} else {
 				const response = await req.json();
 				if (fileType == "mp4audio") window.open(response["highest"]["url"], "_blank");
