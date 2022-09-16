@@ -29,18 +29,18 @@ brokerstocks4.innerHTML = Math.floor(Math.random() * 130) + 20;
 brokerstocks5.innerHTML = Math.floor(Math.random() * 130) + 20;
 
 const [brokerprice, brokerprice2, brokerprice3, brokerprice4, brokerprice5] = [document.getElementById("brokerprice"), document.getElementById("brokerprice2"), document.getElementById("brokerprice3"), document.getElementById("brokerprice4"), document.getElementById("brokerprice5")];
-brokerprice.innerHTML = Math.floor(Math.random() * 14600) + 400;
-brokerprice2.innerHTML = Math.floor(Math.random() * 14600) + 400;
-brokerprice3.innerHTML = Math.floor(Math.random() * 14600) + 400;
-brokerprice4.innerHTML = Math.floor(Math.random() * 14600) + 400;
-brokerprice5.innerHTML = Math.floor(Math.random() * 14600) + 400;
+brokerprice.innerHTML = Math.floor(Math.random() * 10000) + 10000;
+brokerprice2.innerHTML = Math.floor(Math.random() * 10000) + 10000;
+brokerprice3.innerHTML = Math.floor(Math.random() * 10000) + 10000;
+brokerprice4.innerHTML = Math.floor(Math.random() * 10000) + 10000;
+brokerprice5.innerHTML = Math.floor(Math.random() * 10000) + 10000;
 
 const [brokerInterest, brokerInterest2, brokerInterest3, brokerInterest4, brokerInterest5] = [document.getElementById("brokerInterest"), document.getElementById("brokerInterest2"), document.getElementById("brokerInterest3"), document.getElementById("brokerInterest4"), document.getElementById("brokerInterest5")];
-brokerInterest.innerHTML = Math.floor(Math.random() * 8) + 2;
-brokerInterest2.innerHTML = Math.floor(Math.random() * 8) + 2;
-brokerInterest3.innerHTML = Math.floor(Math.random() * 8) + 2;
-brokerInterest4.innerHTML = Math.floor(Math.random() * 8) + 2;
-brokerInterest5.innerHTML = Math.floor(Math.random() * 8) + 2;
+brokerInterest.innerHTML = Math.floor(Math.random() * 14) + 1;
+brokerInterest2.innerHTML = Math.floor(Math.random() * 14) + 1;
+brokerInterest3.innerHTML = Math.floor(Math.random() * 14) + 1;
+brokerInterest4.innerHTML = Math.floor(Math.random() * 14) + 1;
+brokerInterest5.innerHTML = Math.floor(Math.random() * 14) + 1;
 
 const bank = document.getElementById("bank") /*how much money you have */
 bank.innerHTML = 500;
@@ -52,7 +52,7 @@ var priceInterval, priceInterval2, priceInterval3, priceInterval4;
 
 var takeInterval, takeInterval2;
 
-var checkInterval = setInterval(checkBroke, 2000);
+var checkInterval = setInterval(checkBroke, 1);
 
 /* functions */
 
@@ -61,7 +61,7 @@ function priceSystem() {
     clearInterval(priceInterval2);
     if(Math.random() < 0.5) { /*50% chance price will go up*/
         if(Number(stockPrice.innerHTML) <= 500) {
-            priceInterval = setInterval(changePrice, 2000);
+            priceInterval = setInterval(changePrice, Math.floor(Math.random() * 2000) + 1000);
             stockPrice.innerHTML = Number(stockPrice.innerHTML) + Math.floor(Math.random() * 49) + 1;
             function changePrice() {
                 if(Math.random() < 0.8) { /*80% chance price will keep going up*/
@@ -83,7 +83,7 @@ function priceSystem() {
         }
     } else { /*50% chance price will go down*/
         if(Number(stockPrice.innerHTML) >= 150) {
-            priceInterval2 = setInterval(changePrice2, 2000);
+            priceInterval2 = setInterval(changePrice2, Math.floor(Math.random() * 2000) + 1000);
             stockPrice.innerHTML = Number(stockPrice.innerHTML) - Math.floor(Math.random() * 49) + 1;
             function changePrice2() {
                 if(Math.random() < 0.8) { /*80% chance price will keep going down*/
@@ -111,7 +111,7 @@ function priceSystem2() {
     clearInterval(priceInterval4);
     if(Math.random() < 0.5) { /*50% chance price will go up*/
         if(Number(stockPrice2.innerHTML) <= 500) {
-            priceInterval3 = setInterval(changePrice3, 1000);
+            priceInterval3 = setInterval(changePrice3, Math.floor(Math.random() * 2000) + 1000);
             stockPrice2.innerHTML = Number(stockPrice2.innerHTML) + Math.floor(Math.random() * 49) + 1;
             function changePrice3() {
                 if(Math.random() < 0.8) { /*80% chance price will keep going up*/
@@ -133,7 +133,7 @@ function priceSystem2() {
         }
     } else { /*50% chance price will go down*/
         if(Number(stockPrice2.innerHTML) >= 150) {
-            priceInterval4 = setInterval(changePrice4, 1000);
+            priceInterval4 = setInterval(changePrice4, Math.floor(Math.random() * 2000) + 1000);
             stockPrice2.innerHTML = Number(stockPrice2.innerHTML) - Math.floor(Math.random() * 49) + 1;
             function changePrice4() {
                 if(Math.random() < 0.8) { /*80% chance price will keep going down*/
@@ -211,7 +211,7 @@ function borrowstocks(name, stocks, interest, price, purpose) {
         if(price.innerHTML <= Number(bank.innerHTML)) {
             if(name.style.color == "lightgreen") {
                 purpose.value = "Give";
-                takeInterval = setInterval(takeInterest, 2000);
+                takeInterval = setInterval(takeInterest, 20000);
                 inv.innerHTML = Number(inv.innerHTML) + Number(stocks.innerHTML);
                 bank.innerHTML = Number(bank.innerHTML) - price.innerHTML;
                 function takeInterest() {
@@ -220,7 +220,7 @@ function borrowstocks(name, stocks, interest, price, purpose) {
                 }
             } else if(name.style.color == "orange") {
                 purpose.value = "Give";
-                takeInterval2 = setInterval(takeInterest2, 2000);
+                takeInterval2 = setInterval(takeInterest2, 20000);
                 inv2.innerHTML = Number(inv2.innerHTML) + Number(stocks.innerHTML);
                 bank.innerHTML = Number(bank.innerHTML) - price.innerHTML;
                 function takeInterest2() {
@@ -232,14 +232,12 @@ function borrowstocks(name, stocks, interest, price, purpose) {
     } else if (purpose.value == "Give") {
         if(name.style.color == "lightgreen") {
             if(Number(inv.innerHTML) >= Number(stocks.innerHTML)) {
-                console.log(Number(inv.innerHTML), Number(stocks.innerHTML), Number(price.innerHTML));
                 clearInterval(takeInterval);
                 inv.innerHTML = Number(inv.innerHTML) - Number(stocks.innerHTML);
                 purpose.value = "Borrow";
             }
         } else if(name.style.color == "orange") {
             if(Number(inv2.innerHTML) >= Number(stocks.innerHTML)) {
-                console.log(Number(inv2.innerHTML), Number(stocks.innerHTML), Number(price.innerHTML));
                 clearInterval(takeInterval2);
                 inv2.innerHTML = Number(inv2.innerHTML) - Number(stocks.innerHTML);
                 purpose.value = "Borrow";
@@ -248,15 +246,15 @@ function borrowstocks(name, stocks, interest, price, purpose) {
     }
 }
 
-function checkBroke(purpose, interest) {
-    if(Number(bank.innerHTML) <= 19 && Number(inv.innerHTML) + Number(inv2.innerHTML) == 0 || purpose == "Give" && (Number(bank.innerHTML) < Number(interest.innerHTML) && Number(inv.innerHTML) + Number(inv2.innerHTML) == 0)) {
-        alert("You lost! How??? Refresh the page to restart the game.");
+function checkBroke() {
+    if(Number(bank.innerHTML) <= 30) {
+        alert("You lost! Refresh the page to restart the game."); 
         clearInterval(checkInterval);
     }
 }
 
-checkBroke(document.getElementById("borrow"), brokerInterest);
-checkBroke(document.getElementById("borrow2"), brokerInterest2);
-checkBroke(document.getElementById("borrow3"), brokerInterest3);
-checkBroke(document.getElementById("borrow4"), brokerInterest4);
-checkBroke(document.getElementById("borrow5"), brokerInterest5);
+checkBroke(name1, brokerstocks, document.getElementById("borrow"), brokerInterest);
+checkBroke(name2, brokerstocks2, document.getElementById("borrow2"), brokerInterest2);
+checkBroke(name3, brokerstocks3, document.getElementById("borrow3"), brokerInterest3);
+checkBroke(name4, brokerstocks4, document.getElementById("borrow4"), brokerInterest4);
+checkBroke(name5, brokerstocks5, document.getElementById("borrow5"), brokerInterest5);
