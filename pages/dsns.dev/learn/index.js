@@ -221,7 +221,9 @@ function run() {
 		input.value = "";
 		wrong = false;
 	} else {
-		alert("Wrong! The correct answer was " + data[index][0]);
+		const pinyinIndex = characters.indexOf(data[index]);
+		
+		alert(`Wrong! The correct answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
 		input.value = "";
 		wrong = true;
 	}
