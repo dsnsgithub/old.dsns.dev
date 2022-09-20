@@ -221,9 +221,14 @@ function run() {
 		input.value = "";
 		wrong = false;
 	} else {
-		const pinyinIndex = characters.indexOf(data[index]);
+
+		if (type == "Chinese Characters (汉字)") {
+			const pinyinIndex = characters.indexOf(data[index]);
+			alert(`Wrong! The correct answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
+		} else {
+			alert(`Wrong! The correct answer was ${data[index][0]}.`);
+		}
 		
-		alert(`Wrong! The correct answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
 		input.value = "";
 		wrong = true;
 	}
