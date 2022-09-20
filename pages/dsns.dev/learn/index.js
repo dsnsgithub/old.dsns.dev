@@ -213,7 +213,13 @@ function run() {
 	const input = document.getElementById("chinese");
 
 	if (input.value == data[index][0]) {
-		alert("Correct!");
+
+		if (type == "Chinese Characters (汉字)") {
+			const pinyinIndex = characters.indexOf(data[index]);
+			alert(`Correct! The answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
+		} else {
+			alert(`Correct! The answer was ${data[index][0]}.`);
+		}
 
 		if (!wrong) data.splice(index, 1);
 
