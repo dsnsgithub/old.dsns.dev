@@ -214,7 +214,7 @@ function run() {
 
 	if (input.value == data[index][0]) {
 
-		if (type == "Chinese Characters (汉字)") {
+		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
 			alert(`Correct! The answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
 		} else {
@@ -228,7 +228,7 @@ function run() {
 		wrong = false;
 	} else {
 
-		if (type == "Chinese Characters (汉字)") {
+		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
 			alert(`Wrong! The correct answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
 		} else {
