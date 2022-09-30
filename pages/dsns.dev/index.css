@@ -23,8 +23,8 @@ a {
 }
 
 #minecraftAvatar {
-	margin-left: 11vw;
-	margin-top: -11vh;
+	margin-left: 300px;
+	margin-top: -120px;
 }
 
 .bounce {
@@ -109,6 +109,9 @@ a {
 }
 
 @media (max-width: 550px) {
+	#skillContainer {
+		max-width: 100% !important;
+	}
 	.icons div {
 		margin-right: 15px !important;
 	}
@@ -122,3 +125,25 @@ a {
 		transform: scale(1.6) !important;
 	}
 }
+
+@media screen and (max-width: 1500px) and (min-width: 800px) {
+	.column.is-one-quarter-desktop {
+		flex: none;
+		width: 50% !important;
+	}
+}
+
+
+@media screen and (max-height: 850px) and (min-width: 600px){
+	#heroContainer {
+		margin-top: 10% !important;
+	}
+}
+
+
+@media screen and (max-width: 940px) {
+	.is-hidden-mobile {
+		display: none !important;
+	}
+}
+	

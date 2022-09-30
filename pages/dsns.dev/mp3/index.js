@@ -62,9 +62,13 @@ async function downloadMP3() {
 		let youtubeID = "";
 
 		if (downloadLink.indexOf("youtu.be") > -1) {
-			youtubeID = downloadLink.split("youtu.be/")[1].slice(0, 11);
+			youtubeID = downloadLink.split("youtu.be/")[1]?.slice(0, 11);
 		} else if (downloadLink.indexOf("youtube.com") > -1) {
-			youtubeID = downloadLink.split("?v=")[1]?.slice(0, 11);
+			if (downloadLink.indexOf("shorts") > -1) {
+				youtubeID = downloadLink.split("shorts/")[1]?.slice(0, 11);
+			} else {
+				youtubeID = downloadLink.split("?v=")[1]?.slice(0, 11);
+			}
 		}
 
 		if (!youtubeID) {
