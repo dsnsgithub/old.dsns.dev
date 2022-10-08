@@ -1,6 +1,6 @@
-const raw = `往 - toward
+const raw = `往 - toward (casual)
 wǎng
-各位 - everyone (a term used to address people)
+各位 - everyone (announcements)
 gè wèi
 旅客 - traveler, passenger
 lǚkè
@@ -20,7 +20,7 @@ yòng pǐn
 dā chéng
 航空 - aviation, airline
 háng kōng
-出租 - to rent
+出租 - to rent (to someone else)
 chū zū
 旅館/旅馆 - hotel, hostel
 lǚ guǎn
@@ -28,11 +28,11 @@ lǚ guǎn
 lù rén
 棟/栋 - MW for buildings
 dòng
-交叉口 - intersection
+交叉口 - intersection (crossroad)
 jiāo chā kǒu
 左 - left side
 zuǒ
-拐 - to turn
+拐 - to turn (casual)
 guǎi
 一直 - straight
 yì zhí
@@ -48,7 +48,7 @@ gōng lǐ
 hòu chē xiāng
 發展/发展 - to develop, development
 fā zhǎn
-變化/变化 - to change, change
+變化/变化 - to change, change (Noun/Verb)
 biàn huà
 本來/本来 - originally
 běn lái
@@ -64,11 +64,11 @@ mǎ lù
 gōng chǐ
 紅綠燈/红绿灯 - traffic light
 hóng lǜ dēng
-向 - toward
+向 - toward (formal)
 xiàng
 右 - right side
 yòu
-轉/转 - to turn
+轉/转 - to turn (formal)
 zhuǎn
 小吃店 - snack bar
 xiǎo chī diàn
@@ -102,10 +102,10 @@ for (let i = 1; i < raw.length; i = i + 2) {
 
 	let completePinyin = "";
 	for (let char of cPinyin) {
-		let tone1 = Math.max(char.indexOf("ā"), char.indexOf("ē"), char.indexOf("ī"), char.indexOf("ō"), char.indexOf("ū"));
-		let tone2 = Math.max(char.indexOf("á"), char.indexOf("é"), char.indexOf("í"), char.indexOf("ó"), char.indexOf("ú"));
-		let tone3 = Math.max(char.indexOf("ǎ"), char.indexOf("ě"), char.indexOf("ǐ"), char.indexOf("ǒ"), char.indexOf("ǔ"));
-		let tone4 = Math.max(char.indexOf("à"), char.indexOf("è"), char.indexOf("ì"), char.indexOf("ò"), char.indexOf("ù"));
+		let tone1 = Math.max(char.indexOf("ā"), char.indexOf("ē"), char.indexOf("ī"), char.indexOf("ō"), char.indexOf("ū"), char.indexOf("ǖ"));
+		let tone2 = Math.max(char.indexOf("á"), char.indexOf("é"), char.indexOf("í"), char.indexOf("ó"), char.indexOf("ú"), char.indexOf("ǘ"));
+		let tone3 = Math.max(char.indexOf("ǎ"), char.indexOf("ě"), char.indexOf("ǐ"), char.indexOf("ǒ"), char.indexOf("ǔ"), char.indexOf("ǚ"));
+		let tone4 = Math.max(char.indexOf("à"), char.indexOf("è"), char.indexOf("ì"), char.indexOf("ò"), char.indexOf("ù"), char.indexOf("ǜ"));
 
 		char = char
 			.replace(/[āáǎà]/g, "a")
@@ -113,7 +113,7 @@ for (let i = 1; i < raw.length; i = i + 2) {
 			.replace(/[īíǐì]/g, "i")
 			.replace(/[ōóǒò]/g, "o")
 			.replace(/[ūúǔù]/g, "u")
-			.replace(/[ǜ]/g, "v");
+			.replace(/[ǖǘǚǜü]/g, "v");
 
 		if (tone1 > 0) {
 			char = char + "1";
