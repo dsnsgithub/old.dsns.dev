@@ -3,7 +3,7 @@ wǎng
 各位 - everyone (announcements)
 gè wèi
 旅客 - traveler, passenger
-lǚkè
+lǚ kè
 降落 - to land, descend
 jiàng luò
 安全帶/安全带 - seat belt, safety belt
@@ -265,6 +265,7 @@ function run() {
 
 		index = showNewDefinition();
 		input.value = "";
+		input.focus();
 		wrong = false;
 	} else {
 
@@ -276,6 +277,7 @@ function run() {
 		}
 		
 		input.value = "";
+		input.focus()
 		wrong = true;
 	}
 }
