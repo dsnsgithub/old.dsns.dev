@@ -79,7 +79,6 @@ chē fèi
 找 - to seek, look for, to give (change)
 zhǎo`.split("\n");
 
-
 //! Parse Characters ------------------------------------------------------
 let characters = [];
 for (let i = 0; i < raw.length; i = i + 2) {
@@ -93,7 +92,6 @@ for (let i = 0; i < raw.length; i = i + 2) {
 	}
 }
 
-
 //! Parse Pinyin ------------------------------------------------------
 let pinyin = [];
 let count = 0;
@@ -102,7 +100,6 @@ for (let i = 1; i < raw.length; i = i + 2) {
 
 	let completePinyin = "";
 	for (let char of cPinyin) {
-		console.log(char)
 		let tone1 = Math.max(char.indexOf("ā"), char.indexOf("ē"), char.indexOf("ī"), char.indexOf("ō"), char.indexOf("ū"), char.indexOf("ǖ"));
 		let tone2 = Math.max(char.indexOf("á"), char.indexOf("é"), char.indexOf("í"), char.indexOf("ó"), char.indexOf("ú"), char.indexOf("ǘ"));
 		let tone3 = Math.max(char.indexOf("ǎ"), char.indexOf("ě"), char.indexOf("ǐ"), char.indexOf("ǒ"), char.indexOf("ǔ"), char.indexOf("ǚ"));
@@ -132,7 +129,6 @@ for (let i = 1; i < raw.length; i = i + 2) {
 	pinyin.push([completePinyin, characters[count][0]]);
 	count = count + 1;
 }
-
 
 //! Sentence Patterns ----------------------------------------------------------------------------------
 
@@ -217,12 +213,10 @@ ______ 的时候，我没有时间出去玩。 - 假日
 這件衣服七塊錢，收您十塊錢，______ 您三塊錢。
 这件衣服七块钱，收您十块钱，______ 您三块钱。 - 找`.split("\n");
 
-
-let sentencePatterns = []
+let sentencePatterns = [];
 for (const line of sentenceRaw) {
 	if (line.indexOf("-") == -1) continue;
 
-	console.log(line);
 	let [sentence, answer] = line.split(" - ");
 
 	if (answer.indexOf("/") > -1) {
@@ -232,8 +226,6 @@ for (const line of sentenceRaw) {
 		sentencePatterns.push([answer, sentence]);
 	}
 }
-
-console.log(sentencePatterns);
 
 // ! MAIN ----------------------------------------------------------------------------------------------
 const showCharacter = document.getElementById("showCharacter");
@@ -254,7 +246,6 @@ function run() {
 	const input = document.getElementById("chinese");
 
 	if (input.value == data[index][0]) {
-
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
 			alert(`Correct! The answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
@@ -269,16 +260,15 @@ function run() {
 		input.focus();
 		wrong = false;
 	} else {
-
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
 			alert(`Wrong! The correct answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
 		} else {
 			alert(`Wrong! The correct answer was ${data[index][0]}.`);
 		}
-		
+
 		input.value = "";
-		input.focus()
+		input.focus();
 		wrong = true;
 	}
 }
@@ -314,8 +304,7 @@ selectElem.addEventListener("change", function () {
 		type = "chinese character(s)";
 
 		index = showNewDefinition();
-	}
-	else {
+	} else {
 		type = "chinese character";
 		data = [...characters];
 
