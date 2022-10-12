@@ -85,7 +85,7 @@ let characters = [];
 for (let i = 0; i < raw.length; i = i + 2) {
 	let character = raw[i];
 	let [char, def] = character.split(" - ");
-	if (char.indexOf("/") > 0) {
+	if (char.indexOf("/") > -1) {
 		let [traditional, simple] = char.split("/");
 		characters.push([simple, def]);
 	} else {
@@ -102,6 +102,7 @@ for (let i = 1; i < raw.length; i = i + 2) {
 
 	let completePinyin = "";
 	for (let char of cPinyin) {
+		console.log(char)
 		let tone1 = Math.max(char.indexOf("ā"), char.indexOf("ē"), char.indexOf("ī"), char.indexOf("ō"), char.indexOf("ū"), char.indexOf("ǖ"));
 		let tone2 = Math.max(char.indexOf("á"), char.indexOf("é"), char.indexOf("í"), char.indexOf("ó"), char.indexOf("ú"), char.indexOf("ǘ"));
 		let tone3 = Math.max(char.indexOf("ǎ"), char.indexOf("ě"), char.indexOf("ǐ"), char.indexOf("ǒ"), char.indexOf("ǔ"), char.indexOf("ǚ"));
@@ -115,13 +116,13 @@ for (let i = 1; i < raw.length; i = i + 2) {
 			.replace(/[ūúǔù]/g, "u")
 			.replace(/[ǖǘǚǜü]/g, "v");
 
-		if (tone1 > 0) {
+		if (tone1 > -1) {
 			char = char + "1";
-		} else if (tone2 > 0) {
+		} else if (tone2 > -1) {
 			char = char + "2";
-		} else if (tone3 > 0) {
+		} else if (tone3 > -1) {
 			char = char + "3";
-		} else if (tone4 > 0) {
+		} else if (tone4 > -1) {
 			char = char + "4";
 		}
 
@@ -222,7 +223,7 @@ for (const line of sentenceRaw) {
 	if (line.indexOf("-") == -1) continue;
 
 	console.log(line);
-	let [sentence, answer] = line.split("-");
+	let [sentence, answer] = line.split(" - ");
 
 	if (answer.indexOf("/") > -1) {
 		let [traditional, simplified] = answer.split("/");
