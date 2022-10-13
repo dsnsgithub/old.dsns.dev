@@ -93,19 +93,18 @@ for (let i = 0; i < raw.length; i = i + 2) {
 }
 
 //! Parse Pinyin ------------------------------------------------------
-let pinyin = [];
-let count = 0;
+const pinyinArray = [];
 for (let i = 1; i < raw.length; i = i + 2) {
-	let cPinyin = raw[i].split(" ");
+	const pinyin = raw[i].split(" ");
 
 	let completePinyin = "";
-	for (let char of cPinyin) {
-		let tone1 = Math.max(char.indexOf("ā"), char.indexOf("ē"), char.indexOf("ī"), char.indexOf("ō"), char.indexOf("ū"), char.indexOf("ǖ"));
-		let tone2 = Math.max(char.indexOf("á"), char.indexOf("é"), char.indexOf("í"), char.indexOf("ó"), char.indexOf("ú"), char.indexOf("ǘ"));
-		let tone3 = Math.max(char.indexOf("ǎ"), char.indexOf("ě"), char.indexOf("ǐ"), char.indexOf("ǒ"), char.indexOf("ǔ"), char.indexOf("ǚ"));
-		let tone4 = Math.max(char.indexOf("à"), char.indexOf("è"), char.indexOf("ì"), char.indexOf("ò"), char.indexOf("ù"), char.indexOf("ǜ"));
+	for (const char of pinyin) {
+		const tone1 = /[āēīōūǖ]/;
+		const tone2 = /[áéíóúǘ]/;
+		const tone3 = /[ǎěǐǒǔǚ]/;
+		const tone4 = /[àèìòùǜ]/;
 
-		char = char
+		let newCharacter = char
 			.replace(/[āáǎà]/g, "a")
 			.replace(/[ēéěè]/g, "e")
 			.replace(/[īíǐì]/g, "i")
@@ -113,21 +112,15 @@ for (let i = 1; i < raw.length; i = i + 2) {
 			.replace(/[ūúǔù]/g, "u")
 			.replace(/[ǖǘǚǜü]/g, "v");
 
-		if (tone1 > -1) {
-			char = char + "1";
-		} else if (tone2 > -1) {
-			char = char + "2";
-		} else if (tone3 > -1) {
-			char = char + "3";
-		} else if (tone4 > -1) {
-			char = char + "4";
-		}
+		if (tone1.test(char)) newCharacter += "1";
+		if (tone2.test(char)) newCharacter += "2";
+		if (tone3.test(char)) newCharacter += "3";
+		if (tone4.test(char)) newCharacter += "4";
 
-		completePinyin = completePinyin + char;
+		completePinyin += newCharacter;
 	}
 
-	pinyin.push([completePinyin, characters[count][0]]);
-	count = count + 1;
+	pinyinArray.push([completePinyin, characters[i - 1][0]]);
 }
 
 //! Sentence Patterns ----------------------------------------------------------------------------------
@@ -139,7 +132,7 @@ ______ 观众，请坐。 - 各位
 這位 ______，請把你的行李拿過來。
 这位 ______，请把你的行李拿过来。 - 旅客
 飛機快要 ______ 了，請不要用手機。
-飛机快要 ______ 了，请不要用手机。 - 降落
+飞机快要 ______ 了，请不要用手机。 - 降落
 坐車的時候，你得把 ______ 繫上。
 坐车的时候，你得把 ______ 系上。 - 安全帶/安全带
 你一定要把安全帶 ______ 才能開車。
@@ -248,7 +241,7 @@ function run() {
 	if (input.value == data[index][0]) {
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
-			alert(`Correct! The answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
+			alert(`Correct! The answer was ${data[index][0]} (${pinyinArray[pinyinIndex][0]}).`);
 		} else {
 			alert(`Correct! The answer was ${data[index][0]}.`);
 		}
@@ -262,7 +255,7 @@ function run() {
 	} else {
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
-			alert(`Wrong! The correct answer was ${data[index][0]} (${pinyin[pinyinIndex][0]}).`);
+			alert(`Wrong! The correct answer was ${data[index][0]} (${pinyinArray[pinyinIndex][0]}).`);
 		} else {
 			alert(`Wrong! The correct answer was ${data[index][0]}.`);
 		}
@@ -295,7 +288,7 @@ const selectElem = document.getElementById("select");
 
 selectElem.addEventListener("change", function () {
 	if (selectElem.value == "Pinyin") {
-		data = [...pinyin];
+		data = [...pinyinArray];
 		type = "pinyin";
 
 		index = showNewDefinition();
