@@ -51,6 +51,11 @@ async function useHTTPS() {
 		cert: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/cert.pem")
 	});
 
+	server.addContext("onlyeggrolls.com", {
+		key: fs.readFileSync(__dirname + "/certificates/onlyeggrolls.com/key.pem"),
+		cert: fs.readFileSync(__dirname + "/certificates/onlyeggrolls.com/cert.pem")
+	});
+
 	server.listen(443, () => {
 		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[33m", 443 + "\x1b[0m");
 	});
@@ -74,6 +79,13 @@ async function useMiddleware() {
 
 			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
 			else return res.redirect("https://orchardlakehouse.com");
+		}
+
+		if (req.hostname == "onlyeggrolls.com" || req.hostname == "onlyeggrolls.test") {
+			const fullPath = __dirname + "/pages/onlyeggrolls.com" + req.url;
+
+			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
+			else return res.redirect("https://onlyeggrolls.com");
 		}
 
 		next();
