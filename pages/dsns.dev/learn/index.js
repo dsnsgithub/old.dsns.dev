@@ -119,10 +119,10 @@ for (let i = 1; i < raw.length; i = i + 2) {
 		if (tone4.test(char)) newCharacter += "4";
 
 		completePinyin += newCharacter;
-		count += 1;
 	}
 
 	pinyinArray.push([completePinyin, characters[count][0]]);
+	count += 1;
 }
 
 //! Sentence Patterns ----------------------------------------------------------------------------------
