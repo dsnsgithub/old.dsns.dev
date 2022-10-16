@@ -94,6 +94,7 @@ for (let i = 0; i < raw.length; i = i + 2) {
 
 //! Parse Pinyin ------------------------------------------------------
 const pinyinArray = [];
+let count = 0;
 for (let i = 1; i < raw.length; i = i + 2) {
 	const pinyin = raw[i].split(" ");
 
@@ -118,6 +119,7 @@ for (let i = 1; i < raw.length; i = i + 2) {
 		if (tone4.test(char)) newCharacter += "4";
 
 		completePinyin += newCharacter;
+		count += 1;
 	}
 
 	pinyinArray.push([completePinyin, characters[i - 1][0]]);
