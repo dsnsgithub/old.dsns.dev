@@ -1,4 +1,5 @@
 const { createFFmpeg } = FFmpeg;
+const downloadStatus = document.getElementById("downloadStatus");
 
 const round = (number, decimalPlaces) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
@@ -7,18 +8,43 @@ const round = (number, decimalPlaces) => {
 
 async function convertFileFormat(format, type, youtubeID) {
 	// Use ffmpeg.wasm to convert the downloaded webm file to an mp3 file
+	let timer = 0;
+	const clock = setInterval(() => {
+		timer += 1;
+		downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
+	}, 10);
 
-	const downloadStatus = document.getElementById("downloadStatus");
-	downloadStatus.innerHTML = "Downloading...";
+	downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
 
 	const response = await fetch(`/api/youtube/${youtubeID}`);
+	clearInterval(clock);
 
 	if (response.status != 200) {
 		alert(await response.text());
 		downloadStatus.innerHTML = "Waiting for download to start...";
 	}
 
-	const sourceBuffer = await response.arrayBuffer();
+	const reader = response.body.getReader();
+
+	let receivedLength = 0;
+	let chunks = [];
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done) break;
+
+		chunks.push(value);
+		receivedLength += value.length;
+
+		downloadStatus.innerText = "Downloaded " + round(receivedLength / 1000000, 2) + "MB";
+	}
+
+	// Step 4: concatenate chunks into single Uint8Array
+	let chunksAll = new Uint8Array(receivedLength);
+	let position = 0;
+	for (let chunk of chunks) {
+		chunksAll.set(chunk, position);
+		position += chunk.length;
+	}
 
 	downloadStatus.innerHTML = "Download Complete";
 
@@ -35,7 +61,8 @@ async function convertFileFormat(format, type, youtubeID) {
 	});
 
 	// write the WEBM to the FFmpeg file system
-	ffmpeg.FS("writeFile", `audio.webm`, new Uint8Array(sourceBuffer, 0, sourceBuffer.byteLength));
+	// ffmpeg.FS("writeFile", `audio.webm`, new Uint8Array(sourceBuffer, 0, sourceBuffer.byteLength));
+	ffmpeg.FS("writeFile", `audio.webm`, chunksAll);
 
 	// run the FFmpeg command-line tool, converting the WEBM into an MP3
 	await ffmpeg.run("-i", `audio.webm`, `audio.${format}`);
@@ -89,14 +116,32 @@ async function downloadMP3() {
 		} else if (fileType == "ogg") {
 			await convertFileFormat("ogg", "audio/ogg", youtubeID);
 		} else if (fileType == "webm") {
-			// Download the webm file
-			const response = await fetch(`/api/youtube/${youtubeID}`);
+			let timer = 0;
+			const clock = setInterval(() => {
+				timer += 1;
+				downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
+			}, 10);
 
-			if (response.status != 200) {
-				alert(await response.text());
+			downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
+			const response = await fetch(`/api/youtube/${youtubeID}`);
+			if (response.status != 200) alert(await response.text());
+			clearInterval(clock);
+
+			const reader = response.body.getReader();
+
+			let receivedLength = 0;
+			let chunks = [];
+			while (true) {
+				const { done, value } = await reader.read();
+				if (done) break;
+
+				chunks.push(value);
+				receivedLength += value.length;
+
+				downloadStatus.innerText = "Downloaded " + round(receivedLength / 1000000, 2) + "MB";
 			}
 
-			const blob = await response.blob();
+			const blob = new Blob(chunks);
 			const url = window.URL.createObjectURL(blob);
 			const a = document.createElement("a");
 			a.href = url;
@@ -104,7 +149,15 @@ async function downloadMP3() {
 			a.click();
 			window.URL.revokeObjectURL(url);
 		} else {
+			let timer = 0;
+			const clock = setInterval(() => {
+				timer += 1;
+				downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
+			}, 10);
+
+			downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
 			const req = await fetch(`https://dsnsdev.dsnsrepl.repl.co/${youtubeID}`);
+			clearInterval(clock);
 
 			if (req.status != 200) {
 				alert(await req.text());
