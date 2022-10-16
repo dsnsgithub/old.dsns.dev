@@ -122,7 +122,7 @@ for (let i = 1; i < raw.length; i = i + 2) {
 		count += 1;
 	}
 
-	pinyinArray.push([completePinyin, characters[i - 1][0]]);
+	pinyinArray.push([completePinyin, characters[count][0]]);
 }
 
 //! Sentence Patterns ----------------------------------------------------------------------------------
