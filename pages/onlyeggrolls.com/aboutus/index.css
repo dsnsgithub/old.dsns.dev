@@ -3,6 +3,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+h1 {
+    font-size: 3rem;
+}
+
 a {color: lightslategray;}
 a:link {text-decoration: none;}
 
@@ -55,6 +59,31 @@ a:link {text-decoration: none;}
     opacity: 0;
     animation-fill-mode: both;
     animation-duration: 1.9s;
+}
+
+@media screen and (max-width: 1500px) {
+    #menubar {
+        width: 25vw;
+    }
+
+    #menubutton {
+        width: 7.5vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #menubar {
+        width: 100vw;
+    }
+
+    #menubutton {
+        width: 25vw;
+    }
+}
+
+#logo {
+    width: 60vw;
+    text-align: center;
 }
 
 #container {
