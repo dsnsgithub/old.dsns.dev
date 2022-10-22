@@ -56,6 +56,7 @@ a:link {text-decoration: none;}
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    visibility: hidden;
     opacity: 0;
     animation-fill-mode: both;
     animation-duration: 1.9s;
@@ -63,14 +64,31 @@ a:link {text-decoration: none;}
 
 #container {
     height: 80vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-#bottom {
-    height: 10vh;
-    display: flex;
-    align-items: flex-end;
+@media screen and (max-width: 1500px) {
+    #menubar {
+        width: 25vw;
+    }
+
+    #menubutton {
+        width: 7.5vw;
+        height: 7.5vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #menubar {
+        width: 100vw;
+    }
+
+    #menubutton {
+        width: 25vw;
+        height: 25vw;
+    }
 }

@@ -3,13 +3,16 @@
     font-family: "Poppins", sans-serif;
 }
 
+h1 {
+    font-size: 3rem;
+}
+
 a {color: lightslategray;}
 a:link {text-decoration: none;}
 
 #menu {
     height: 10vh;
     display: flex;
-    flex-direction: row;
     align-items: center;
 }
 
@@ -55,6 +58,41 @@ a:link {text-decoration: none;}
     opacity: 0;
     animation-fill-mode: both;
     animation-duration: 1.9s;
+}
+
+#logo {
+    display: none;
+}
+
+@media screen and (min-width: 900px) {
+    #logo {
+        display: block;
+        width: 60vw;
+        text-align: center;
+    }
+}
+
+
+@media screen and (max-width: 1500px) {
+    #menubar {
+        width: 25vw;
+    }
+
+    #menubutton {
+        width: 7.5vw;
+        height: 7.5vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #menubar {
+        width: 100vw;
+    }
+
+    #menubutton {
+        width: 25vw;
+        height: 25vw;
+    }
 }
 
 #container {

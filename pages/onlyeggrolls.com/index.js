@@ -7,10 +7,16 @@ function openMenu() {
     if(isToggled == false) {
         menu.style.animationName = "open";
         menuBar.style.animationName = "slide";
-        isToggled = true;
+        menuBar.style.visibility = "visible";
+        setTimeout(function unsheath() {
+            isToggled = true;
+        }, 2000)
     } else {
         menu.style.animationName = "close";
         menuBar.style.animationName = "sheathing";
-        isToggled = false;
+        setTimeout(function sheath() {
+            menuBar.style.visibility = "hidden";
+            isToggled = false;
+        }, 2000)
     }
 }
