@@ -133,17 +133,14 @@ a {
 	}
 }
 
-
-@media screen and (max-height: 850px) and (min-width: 600px){
+@media screen and (max-height: 850px) and (min-width: 600px) {
 	#heroContainer {
 		margin-top: 10% !important;
 	}
 }
-
 
 @media screen and (max-width: 940px) {
 	.is-hidden-mobile {
 		display: none !important;
 	}
 }
-	

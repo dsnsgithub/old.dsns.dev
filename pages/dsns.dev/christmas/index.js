@@ -1,5 +1,3 @@
-// @ts-check
-
 let turnFireworksOn = false;
 const christmasDate = new Date("December 25, 2021");
 let christmasDifference = christmasDate.getTime() - new Date().getTime();

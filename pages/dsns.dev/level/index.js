@@ -57,7 +57,7 @@ document.getElementById("requestaccess").addEventListener("click", async (e) => 
 		return false;
 	}
 
-	await DeviceOrientationEvent.requestPermission(e)
+	await DeviceOrientationEvent.requestPermission(e);
 	await init();
 	location.reload();
 });
