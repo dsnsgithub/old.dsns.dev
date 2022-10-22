@@ -64,17 +64,11 @@ a:link {text-decoration: none;}
 
 #container {
     height: 80vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-#bottom {
-    height: 10vh;
-    display: flex;
-    align-items: flex-end;
-    font-size: 1.5rem;
 }
 
 @media screen and (max-width: 1500px) {
@@ -84,6 +78,7 @@ a:link {text-decoration: none;}
 
     #menubutton {
         width: 7.5vw;
+        height: 7.5vw;
     }
 }
 
@@ -94,5 +89,6 @@ a:link {text-decoration: none;}
 
     #menubutton {
         width: 25vw;
+        height: 25vw;
     }
 }
