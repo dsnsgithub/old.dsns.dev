@@ -68,6 +68,7 @@ a:link {text-decoration: none;}
 
     #menubutton {
         width: 7.5vw;
+        height: 7.5vw;
     }
 }
 
@@ -78,12 +79,20 @@ a:link {text-decoration: none;}
 
     #menubutton {
         width: 25vw;
+        height: 25vw;
     }
 }
 
 #logo {
-    width: 60vw;
-    text-align: center;
+    display: none;
+}
+
+@media screen and (min-width: 900px) {
+    #logo {
+        display: block;
+        width: 60vw;
+        text-align: center;
+    }
 }
 
 #container {
