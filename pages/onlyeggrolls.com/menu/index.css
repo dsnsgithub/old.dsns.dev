@@ -1,7 +1,7 @@
 * {
 	margin: 0;
 	font-family: "Poppins", sans-serif;
-	color: black ;
+	color: black;
 }
 
 h1 {
@@ -12,6 +12,7 @@ h1 {
 a {
 	color: lightslategray !important;
 }
+
 a:link {
 	text-decoration: none;
 }
@@ -44,6 +45,7 @@ a:link {
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(720deg);
 	}
@@ -53,6 +55,7 @@ a:link {
 	0% {
 		transform: rotate(720deg);
 	}
+
 	100% {
 		transform: rotate(0deg);
 	}
@@ -62,6 +65,7 @@ a:link {
 	0% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 1;
 	}
@@ -71,6 +75,7 @@ a:link {
 	0% {
 		opacity: 1;
 	}
+
 	100% {
 		opacity: 0;
 	}
@@ -164,6 +169,7 @@ button {
 	background-color: #a09d9c;
 }
 
-.subtitle, .title {
+.subtitle,
+.title {
 	color: black;
 }

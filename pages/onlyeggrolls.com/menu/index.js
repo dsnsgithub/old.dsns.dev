@@ -16,19 +16,19 @@ function addToShoppingCart(item, cost) {
 	const newItem = document.createElement("li");
 	newItem.innerHTML = item;
 
-	if(item == "Pork Eggrolls ($5)") {
+	if (item == "Pork Eggrolls ($5)") {
 		newItem.style.color = "pink";
 	}
-	if(item == `Vegetable Eggrolls ($4)`) {
+	if (item == `Vegetable Eggrolls ($4)`) {
 		newItem.style.color = "yellowgreen";
 	}
-	if(item == `Beef Eggrolls ($5)`) {
+	if (item == `Beef Eggrolls ($5)`) {
 		newItem.style.color = "#693D3D";
 	}
-	if(item == `Shrimp Eggrolls ($6)`) {
+	if (item == `Shrimp Eggrolls ($6)`) {
 		newItem.style.color = "#f7c7a9";
 	}
-	if(item == `Fountain Drink ($2)`) {
+	if (item == `Fountain Drink ($2)`) {
 		newItem.style.color = "lightblue";
 	}
 

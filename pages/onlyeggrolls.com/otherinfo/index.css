@@ -7,8 +7,13 @@ h1 {
     font-size: 3rem;
 }
 
-a {color: lightslategray;}
-a:link {text-decoration: none;}
+a {
+    color: lightslategray;
+}
+
+a:link {
+    text-decoration: none;
+}
 
 #menu {
     height: 10vh;
@@ -31,23 +36,43 @@ a:link {text-decoration: none;}
 }
 
 @keyframes open {
-    0% {transform: rotate(0deg)}
-    100% {transform: rotate(720deg)}
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(720deg)
+    }
 }
 
 @keyframes close {
-    0% {transform: rotate(720deg)}
-    100% {transform: rotate(0deg)}
+    0% {
+        transform: rotate(720deg)
+    }
+
+    100% {
+        transform: rotate(0deg)
+    }
 }
 
 @keyframes slide {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes sheathing {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 #menubar {

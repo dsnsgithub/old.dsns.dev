@@ -4,7 +4,7 @@ const menu = document.getElementById("menubutton");
 const menuBar = document.getElementById("menubar");
 
 function openMenu() {
-    if(isToggled == false) {
+    if (isToggled == false) {
         menu.style.animationName = "open";
         menuBar.style.animationName = "slide";
         menuBar.style.visibility = "visible";
