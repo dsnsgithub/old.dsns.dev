@@ -1,116 +1,160 @@
 * {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
+	margin: 0;
+	font-family: "Poppins", sans-serif;
+	color: black !important;
 }
 
 h1 {
-    font-size: 3rem;
+	font-size: 3rem;
 }
 
-a {color: lightslategray;}
-a:link {text-decoration: none;}
+a {
+	color: lightslategray;
+}
+a:link {
+	text-decoration: none;
+}
 
 #menu {
-    height: 10vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	height: 10vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 #menubutton {
-    height: 5vw;
-    width: 5vw;
-    font-size: 3rem;
-    background-color: white;
-    border: none;
-    transition: 0.3s;
-    animation-duration: 2s;
+	height: 5vw;
+	width: 5vw;
+	font-size: 3rem;
+	background-color: white;
+	border: none;
+	transition: 0.3s;
+	animation-duration: 2s;
 }
 
 #menubutton:hover {
-    color: gold;
+	color: gold;
 }
 
 @keyframes open {
-    0% {transform: rotate(0deg)}
-    100% {transform: rotate(720deg)}
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(720deg);
+	}
 }
 
 @keyframes close {
-    0% {transform: rotate(720deg)}
-    100% {transform: rotate(0deg)}
+	0% {
+		transform: rotate(720deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
 }
 
 @keyframes slide {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 @keyframes sheathing {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
 }
 
 #menubar {
-    width: 15vw;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    opacity: 0;
-    animation-fill-mode: both;
-    animation-duration: 1.9s;
+	width: 15vw;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	opacity: 0;
+	animation-fill-mode: both;
+	animation-duration: 1.9s;
 }
 
 #logo {
-    display: none;
+	display: none;
 }
 
 @media screen and (min-width: 900px) {
-    #logo {
-        display: block;
-        width: 60vw;
-        text-align: center;
-    }
+	#logo {
+		display: block;
+		width: 60vw;
+		text-align: center;
+	}
 }
 
 @media screen and (max-width: 1500px) {
-    #menubar {
-        width: 25vw;
-    }
+	#menubar {
+		width: 25vw;
+	}
 
-    #menubutton {
-        width: 7.5vw;
-        height: 7.5vw;
-    }
+	#menubutton {
+		width: 7.5vw;
+		height: 7.5vw;
+	}
 }
 
 @media screen and (max-width: 900px) {
-    #menubar {
-        width: 100vw;
-    }
+	#menubar {
+		width: 100vw;
+	}
 
-    #menubutton {
-        width: 25vw;
-        height: 25vw;
-    }
+	#menubutton {
+		width: 25vw;
+		height: 25vw;
+	}
 
-    .itemrow {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+	.itemrow {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }
 
 #container {
-    height: 90vh;
+	height: 90vh;
 }
 
 .itemrow {
-    display: flex;
-    justify-content: space-evenly;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 #item {
-    width: fit-content;
-    text-align: center;
+	width: fit-content;
+	text-align: center;
+}
+
+
+button {
+	background-color: transparent;
+	border: transparent;
+}
+
+.card {
+	box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06), 1px 3px 8px rgba(39, 44, 49, 0.03);
+	transition: all 0.5s ease;
+}
+
+.card:hover {
+	box-shadow: 8px 28px 50px rgba(39, 44, 49, 0.07), 1px 6px 12px rgba(39, 44, 49, 0.04);
+	transition: all 0.4s ease;
+	transform: translate3D(0, -1px, 0) scale(1.03);
+}
+
+.card-container {
+	padding:50px;
+	border-radius: 5px;
+	background-color: #ded9d7;
 }
