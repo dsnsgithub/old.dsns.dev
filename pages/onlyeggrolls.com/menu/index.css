@@ -1,15 +1,16 @@
 * {
 	margin: 0;
 	font-family: "Poppins", sans-serif;
-	color: black !important;
+	color: black ;
 }
 
 h1 {
 	font-size: 3rem;
+	font-weight: bold !important;
 }
 
 a {
-	color: lightslategray;
+	color: lightslategray !important;
 }
 a:link {
 	text-decoration: none;
@@ -28,12 +29,15 @@ a:link {
 	font-size: 3rem;
 	background-color: white;
 	border: none;
-	transition: 0.3s;
 	animation-duration: 2s;
 }
 
-#menubutton:hover {
-	color: gold;
+.fas {
+	transition: 0.3s;
+}
+
+.fas:hover {
+	color: gold !important;
 }
 
 @keyframes open {
@@ -139,6 +143,8 @@ a:link {
 button {
 	background-color: transparent;
 	border: transparent;
+	font-family: "Poppins", sans-serif !important;
+	color: black !important;
 }
 
 .card {
@@ -155,5 +161,9 @@ button {
 .card-container {
 	padding: 30px;
 	border-radius: 5px;
-	background-color: #ded9d7;
+	background-color: #a09d9c;
+}
+
+.subtitle, .title {
+	color: black;
 }
