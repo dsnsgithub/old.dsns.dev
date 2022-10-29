@@ -13,7 +13,7 @@ function calculateTotalCost() {
 }
 
 async function displayCart() {
-	const response = await fetch("/api/addCart", {
+	fetch("/api/addCart", {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
