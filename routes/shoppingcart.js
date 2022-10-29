@@ -159,7 +159,7 @@ module.exports = async function (app) {
 					totalPrice += 6;
 					boughtItems.push(item["name"]);
 				}
-				if (item["name"] == "Fountain Eggrolls") {
+				if (item["name"] == "Fountain Drink") {
 					totalPrice += 2;
 					boughtItems.push(item["name"]);
 				}
