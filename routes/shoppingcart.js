@@ -73,7 +73,7 @@ module.exports = async function (app) {
 			const cookies = getCookie(req, res);
 
 			if (cookies.length <= 0) {
-				createUUID();
+				createUUID(res);
 			} else {
 				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/cart.json"), "utf8"));
 				const uuid = cookies["uuid"];
