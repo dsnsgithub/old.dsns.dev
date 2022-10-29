@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const bcrypt = require("bcrypt");
 
 module.exports = async function (app) {
 	function getCookie(req, res) {
@@ -55,13 +56,12 @@ module.exports = async function (app) {
 				if (!database?.[uuid]) {
 					createUUID(res);
 					return [];
-				} 
-				
-				return res.json(database[uuid]);
+				}
 
+				return res.json(database[uuid]);
 			}
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 			return res.status(500).send("Invalid.");
 		}
 	});
@@ -90,7 +90,7 @@ module.exports = async function (app) {
 			}
 		} catch (e) {
 			console.log(e);
-			
+
 			return res.status(500).send("Invalid.");
 		}
 	});
@@ -170,24 +170,30 @@ module.exports = async function (app) {
 					return res.status(400).send("INVALID CREDIT CARD");
 				}
 
-				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
-				const uuid = crypto.randomBytes(20).toString("hex");
+				const cookies = getCookie(req, res);
 
-				const transaction = {
-					uuid: uuid,
+				if (cookies.length <= 0 || !cookies["uuid"]) {
+					return res.status(400).send("Can't order without valid cookie.");
+				}
+
+				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
+
+				if (!database[cookies["uuid"]]) {
+					database[cookies["uuid"]] = [];
+				}
+
+				database[cookies["uuid"]].push({
 					totalPrice: totalPrice,
 					boughtItems: boughtItems,
 					ccn: CCN
-				};
-
-				database.push(transaction);
+				});
 
 				fs.writeFileSync(path.resolve(__dirname + "/../json/orders.json"), JSON.stringify(database));
 
 				return res
 					.status(200)
 					.send(
-						`Thank you for shopping at OnlyEggrolls\nThe total cost of this purchase was $${totalPrice}.\nTransaction ID: ${uuid}\nCredit Card: ${CCN}\nBought Items: ${JSON.stringify(
+						`Thank you for shopping at OnlyEggrolls\nThe total cost of this purchase was $${totalPrice}.\nCookie: ${cookies["uuid"]}\nCredit Card: ${CCN}\nBought Items: ${JSON.stringify(
 							boughtItems
 						)}`
 					);
@@ -195,8 +201,96 @@ module.exports = async function (app) {
 				return res.status(400).send("No cart.");
 			}
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 			return res.status(500).send("Invalid.");
+		}
+	});
+
+	app.get("/api/fetchOrders", async (req, res, next) => {
+		try {
+			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+
+			const cookies = getCookie(req, res);
+
+			if (cookies.length <= 0) {
+				createUUID(res);
+				return res.json([]);
+			} else {
+				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
+
+				const uuid = cookies["uuid"];
+
+				if (!database?.[uuid]) {
+					createUUID(res);
+					return res.json([]);
+				}
+
+				return res.json(database[uuid]);
+			}
+		} catch (e) {
+			console.log(e);
+			return res.status(500).send("Invalid");
+		}
+	});
+
+	app.post("/api/login", async (req, res, next) => {
+		if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+
+		const cookies = getCookie(req, res);
+
+		if (cookies.length <= 0 || !cookies["uuid"]) {
+			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+
+			if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
+
+			if (!database[req.body["email"]]) {
+				// Sign up - creates new UUID and assigns the UUID to the email submitted
+				const saltedPassword = await bcrypt.hash(req.body["password"], 10);
+
+				const uuid = createUUID(res);
+				database[req.body["email"]] = {
+					uuid: uuid,
+					password: saltedPassword
+				};
+			} else {
+				// Login - if they already have an account, and they enter the correct password, they recieve the cookie uuid
+
+				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
+				if (!compare) {
+					return res.status(400).send("Incorrect password.");
+				}
+
+				res.cookie("uuid", database[req.body["email"]]["uuid"]);
+			}
+
+			fs.writeFileSync(path.resolve(__dirname + "/../json/login.json"), JSON.stringify(database));
+			return res.status(200).send("Updated UUID:" + database[req.body["email"]]["uuid"]);
+		} else {
+			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+			if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
+
+			if (!database[req.body["email"]]) {
+				// Sign up - creates new UUID and assigns the UUID to the email submitted
+				const saltedPassword = await bcrypt.hash(req.body["password"], 10);
+
+				const uuid = cookies["uuid"];
+				database[req.body["email"]] = {
+					uuid: uuid,
+					password: saltedPassword
+				};
+
+				fs.writeFileSync(path.resolve(__dirname + "/../json/login.json"), JSON.stringify(database));
+
+				return res.status(200).send("Created account linked to UUID:" + JSON.stringify(database[req.body["email"]]["uuid"]) + "\nCreated email: " + req.body["email"]);
+			} else {
+				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
+				if (!compare) {
+					return res.status(400).send("Incorrect password.");
+				}
+
+				res.cookie("uuid", database[req.body["email"]]["uuid"]);
+				return res.status(200).send("Logged in as: " + req.body["email"]);
+			}
 		}
 	});
 };

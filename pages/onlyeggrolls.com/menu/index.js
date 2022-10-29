@@ -75,17 +75,25 @@ async function completeTransaction() {
 	const CCN = prompt("Enter a credit card number: ");
 	shoppingCart.push({ name: "CCN", number: CCN });
 
-	const response = await fetch("/api/purchase", {
+	const res = await fetch("/api/purchase", {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify(shoppingCart)
-	}).then((res) => res.text());
+	});
+
+	const response = await res.text();
 
 	alert(response);
-	shoppingCart = [];
+
+	if (res.status == 200) {
+		shoppingCart = [];
+	} else {
+		shoppingCart.pop();
+	}
+
 	displayCart();
 }
 
