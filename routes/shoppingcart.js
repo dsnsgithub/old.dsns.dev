@@ -80,6 +80,7 @@ module.exports = async function (app) {
 
 				if (!database?.[uuid]) {
 					createUUID(res);
+					return res.status(200).send("Completed.");
 				} else {
 					database[uuid] = req.body;
 
