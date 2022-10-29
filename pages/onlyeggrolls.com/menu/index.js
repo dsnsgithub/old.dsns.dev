@@ -1,12 +1,38 @@
 const totalCostElem = document.getElementById("totalCost");
 const shoppingCartElem = document.getElementById("cart");
 
-let shoppingCart = [];
+let shoppingCart = {
+	porkEggroll: {
+		name: "Pork Eggrolls",
+		quantity: 0,
+		cost: 5
+	},
+	vegetableEggroll: {
+		name: "Vegetable Eggrolls",
+		quantity: 0,
+		cost: 4
+	},
+	beefEggroll: {
+		name: "Beef Eggrolls",
+		quantity: 0,
+		cost: 5
+	},
+	shrimpEggroll: {
+		name: "Shrimp Eggrolls",
+		quantity: 0,
+		cost: 6
+	},
+	fountainDrink: {
+		name: "Fountain Drink",
+		quantity: 0,
+		cost: 2
+	}
+};
 
 function calculateTotalCost() {
 	let cost = 0;
 	for (const item in shoppingCart) {
-		cost += shoppingCart[item].cost;
+		cost += shoppingCart[item].cost * shoppingCart[item].quantity;
 	}
 
 	return cost;
@@ -24,44 +50,29 @@ async function displayCart() {
 
 	shoppingCartElem.innerHTML = "";
 
-	for (const item of shoppingCart) {
-		const newItem = document.createElement("li");
-		newItem.innerHTML = item["name"] + ` ($${item["cost"]})`;
+	for (const item in shoppingCart) {
+		if (shoppingCart[item]["quantity"] > 0) {
+			const newItem = document.createElement("li");
+			newItem.innerHTML = `${shoppingCart[item]["name"]} - (x${shoppingCart[item]["quantity"]})`;
+			newItem.innerHTML += `<button onclick="removeItem('${item}')" class="button is-danger is-small">-</button>`;
 
-		if (item["name"] == "Pork Eggrolls") {
-			newItem.style.color = "pink";
-		}
-		if (item["name"] == `Vegetable Eggrolls`) {
-			newItem.style.color = "yellowgreen";
-		}
-		if (item["name"] == `Beef Eggrolls`) {
-			newItem.style.color = "#693D3D";
-		}
-		if (item["name"] == `Shrimp Eggrolls`) {
-			newItem.style.color = "#f7c7a9";
-		}
-		if (item["name"] == `Fountain Drink`) {
-			newItem.style.color = "lightblue";
-		}
-
-		shoppingCartElem.appendChild(newItem);
+			shoppingCartElem.appendChild(newItem);
+		} 
 	}
 
 	totalCostElem.textContent = `Total Cost: $${calculateTotalCost()}`;
 }
 
 function addToShoppingCart(item, cost) {
-	shoppingCart.push({
-		name: item,
-		cost: cost
-	});
+	shoppingCart[item]["quantity"] += 1;
 
 	displayCart();
 }
 
-function removeItem() {
-	if (shoppingCart.length <= 0) return;
-	shoppingCart.pop();
+function removeItem(name) {
+	if (shoppingCart[name]["quantity"] > 0) {
+		shoppingCart[name]["quantity"] -= 1;
+	}
 
 	displayCart();
 }

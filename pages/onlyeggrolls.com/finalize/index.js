@@ -1,7 +1,7 @@
 function calculateTotalCost(shoppingCart) {
 	let cost = 0;
 	for (const item in shoppingCart) {
-		cost += shoppingCart[item].cost;
+		cost += shoppingCart[item].cost * shoppingCart[item].quantity;
 	}
 
 	return cost;
@@ -12,30 +12,15 @@ const totalCostElem = document.getElementById("totalCost");
 
 async function displayCart() {
 	const shoppingCart = await fetch("/api/fetchCart").then((res) => res.json());
-
 	shoppingCartElem.innerHTML = "";
 
-	for (const item of shoppingCart) {
-		const newItem = document.createElement("li");
-		newItem.innerHTML = item["name"] + ` ($${item["cost"]})`;
+	for (const item in shoppingCart) {
+		if (shoppingCart[item]["quantity"] > 0) {
+			const newItem = document.createElement("li");
+			newItem.innerHTML = `${shoppingCart[item]["name"]} - (x${shoppingCart[item]["quantity"]})`;
 
-		if (item["name"] == "Pork Eggrolls") {
-			newItem.style.color = "pink";
+			shoppingCartElem.appendChild(newItem);
 		}
-		if (item["name"] == `Vegetable Eggrolls`) {
-			newItem.style.color = "yellowgreen";
-		}
-		if (item["name"] == `Beef Eggrolls`) {
-			newItem.style.color = "#693D3D";
-		}
-		if (item["name"] == `Shrimp Eggrolls`) {
-			newItem.style.color = "#f7c7a9";
-		}
-		if (item["name"] == `Fountain Drink`) {
-			newItem.style.color = "lightblue";
-		}
-
-		shoppingCartElem.appendChild(newItem);
 	}
 
 	totalCostElem.textContent = `Total Cost: $${calculateTotalCost(shoppingCart)}`;
@@ -45,17 +30,14 @@ async function completeTransaction() {
 	const response = await fetch("/api/accountInfo").then((res) => res.json());
 	const fetchedCart = await fetch("/api/fetchCart").then((res) => res.json());
 
-	fetchedCart.push({
-		name: "Billing",
-		payment: {
-			uuid: response["uuid"],
-			CCN: response["CCN"],
-			CVV: response["CVV"],
-			address: response["address"],
-			zipCode: response["zipCode"],
-			fullName: response["fullName"]
-		}
-	});
+	fetchedCart["Billing"] = {
+		uuid: response["uuid"],
+		CCN: response["CCN"],
+		CVV: response["CVV"],
+		address: response["address"],
+		zipCode: response["zipCode"],
+		fullName: response["fullName"]
+	};
 
 	const shoppingResponse = await fetch("/api/purchase", {
 		method: "POST",
@@ -75,7 +57,33 @@ async function completeTransaction() {
 				Accept: "application/json",
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify([])
+			body: JSON.stringify({
+				porkEggroll: {
+					name: "Pork Eggrolls",
+					quantity: 0,
+					cost: 5
+				},
+				vegetableEggroll: {
+					name: "Vegetable Eggrolls",
+					quantity: 0,
+					cost: 4
+				},
+				beefEggroll: {
+					name: "Beef Eggrolls",
+					quantity: 0,
+					cost: 5
+				},
+				shrimpEggroll: {
+					name: "Shrimp Eggrolls",
+					quantity: 0,
+					cost: 6
+				},
+				fountainDrink: {
+					name: "Fountain Drink",
+					quantity: 0,
+					cost: 2
+				}
+			})
 		});
 
 		window.location.href = "/menu/";

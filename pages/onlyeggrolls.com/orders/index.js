@@ -20,7 +20,7 @@ async function grabOrders() {
 	for (const order of response) {
 		const row = resultTable.insertRow();
 		row.insertCell().innerHTML = "$" + order["totalPrice"];
-		row.insertCell().innerHTML = order["boughtItems"].join(", ");
+		row.insertCell().innerHTML = order["boughtItems"];
 		row.insertCell().innerHTML = order["ccn"];
 	}
 }

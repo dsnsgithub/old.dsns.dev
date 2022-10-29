@@ -48,14 +48,66 @@ module.exports = async function (app) {
 
 			if (cookies.length <= 0) {
 				createUUID(res);
-				return res.json([]);
+				return res.json({
+					porkEggroll: {
+						name: "Pork Eggrolls",
+						quantity: 0,
+						cost: 5
+					},
+					vegetableEggroll: {
+						name: "Vegetable Eggrolls",
+						quantity: 0,
+						cost: 4
+					},
+					beefEggroll: {
+						name: "Beef Eggrolls",
+						quantity: 0,
+						cost: 5
+					},
+					shrimpEggroll: {
+						name: "Shrimp Eggrolls",
+						quantity: 0,
+						cost: 6
+					},
+					fountainDrink: {
+						name: "Fountain Drink",
+						quantity: 0,
+						cost: 2
+					}
+				});
 			} else {
 				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/cart.json"), "utf8"));
 				const uuid = cookies["uuid"];
 
 				if (!database?.[uuid]) {
 					createUUID(res);
-					return [];
+					return res.json({
+						porkEggroll: {
+							name: "Pork Eggrolls",
+							quantity: 0,
+							cost: 5
+						},
+						vegetableEggroll: {
+							name: "Vegetable Eggrolls",
+							quantity: 0,
+							cost: 4
+						},
+						beefEggroll: {
+							name: "Beef Eggrolls",
+							quantity: 0,
+							cost: 5
+						},
+						shrimpEggroll: {
+							name: "Shrimp Eggrolls",
+							quantity: 0,
+							cost: 6
+						},
+						fountainDrink: {
+							name: "Fountain Drink",
+							quantity: 0,
+							cost: 2
+						}
+					});
 				}
 
 				return res.json(database[uuid]);
@@ -133,37 +185,41 @@ module.exports = async function (app) {
 			if (!req.body) return res.status(400).send("No cart.");
 
 			const cart = req.body;
-			const boughtItems = [];
+			let boughtItems = "";
 			let totalPrice = 0;
 
-			let paymentInformation = {};
+			let paymentInformation = cart["Billing"];
 
-			for (const item of cart) {
-				if (item["name"] == "Billing") {
-					paymentInformation = item["payment"];
-					break;
+			const priceList = {
+				porkEggroll: {
+					name: "Pork Eggrolls",
+					cost: 5
+				},
+				vegetableEggroll: {
+					name: "Vegetable Eggrolls",
+					cost: 4
+				},
+				beefEggroll: {
+					name: "Beef Eggrolls",
+					cost: 5
+				},
+				shrimpEggroll: {
+					name: "Shrimp Eggrolls",
+					cost: 6
+				},
+				fountainDrink: {
+					name: "Fountain Drink",
+					cost: 2
 				}
-				if (item["name"] == "Pork Eggrolls") {
-					totalPrice += 5;
-					boughtItems.push(item["name"]);
-				}
-				if (item["name"] == "Vegetable Eggrolls") {
-					totalPrice += 4;
-					boughtItems.push(item["name"]);
-				}
-				if (item["name"] == "Beef Eggrolls") {
-					totalPrice += 5;
-					boughtItems.push(item["name"]);
-				}
-				if (item["name"] == "Shrimp Eggrolls") {
-					totalPrice += 6;
-					boughtItems.push(item["name"]);
-				}
-				if (item["name"] == "Fountain Drink") {
-					totalPrice += 2;
-					boughtItems.push(item["name"]);
-				}
+			};
+
+			for (const item in cart) {
+				if (item == "Billing") continue;
+				totalPrice += priceList[item].cost * cart[item].quantity;
+				boughtItems += `${priceList[item]["name"]} (${cart[item].quantity}), `;
 			}
+
+			boughtItems = boughtItems.slice(0, -2);
 
 			if (totalPrice > 0 && boughtItems.length > 0) {
 				const cookies = getCookie(req, res);
