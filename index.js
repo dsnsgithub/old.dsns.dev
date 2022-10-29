@@ -7,16 +7,22 @@ const fs = require("fs");
 
 const express = require("express"); //* npm install express
 const compression = require("compression"); //* npm install compression
+
 const app = express();
 app.set("trust proxy", true);
 
 async function runRoutes() {
+	app.use(compression());
+	app.use(express.urlencoded({ extended: true }));
+	app.use(express.json());  
+
 	const routes = [];
 
 	if (process.env["LEVEL"] == "true") routes.push(require(__dirname + "/routes/difference.js")(app));
 	if (process.env["WHOIS"] == "true") routes.push(require(__dirname + "/routes/whois.js")(app));
 	if (process.env["YOUTUBE"] == "true") routes.push(require(__dirname + "/routes/youtube.js")(app));
 	if (process.env["RECENTGAMES"] == "true") routes.push(require(__dirname + "/routes/recentGames.js")(app));
+	routes.push(require(__dirname + "/routes/shoppingcart.js")(app));
 
 	const results = await Promise.allSettled(routes);
 	const failCheck = results.filter((result) => result.status === "rejected");
@@ -62,8 +68,6 @@ async function useHTTPS() {
 }
 
 async function useMiddleware() {
-	app.use(compression());
-
 	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 

@@ -1,59 +1,99 @@
 const totalCostElem = document.getElementById("totalCost");
 const shoppingCartElem = document.getElementById("cart");
 
-let shoppingCartList = [];
-let costList = [];
+let shoppingCart = [];
 
-let totalCost = 0;
+function calculateTotalCost() {
+	let cost = 0;
+	for (const item in shoppingCart) {
+		cost += shoppingCart[item].cost;
+	}
+
+	return cost;
+}
+
+async function displayCart() {
+	const response = await fetch("/api/addCart", {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(shoppingCart)
+	});
+
+	shoppingCartElem.innerHTML = "";
+
+	for (const item of shoppingCart) {
+		const newItem = document.createElement("li");
+		newItem.innerHTML = item["name"] + ` ($${item["cost"]})`;
+
+		if (item["name"] == "Pork Eggrolls") {
+			newItem.style.color = "pink";
+		}
+		if (item["name"] == `Vegetable Eggrolls`) {
+			newItem.style.color = "yellowgreen";
+		}
+		if (item["name"] == `Beef Eggrolls`) {
+			newItem.style.color = "#693D3D";
+		}
+		if (item["name"] == `Shrimp Eggrolls`) {
+			newItem.style.color = "#f7c7a9";
+		}
+		if (item["name"] == `Fountain Drink`) {
+			newItem.style.color = "lightblue";
+		}
+
+		shoppingCartElem.appendChild(newItem);
+	}
+
+	totalCostElem.textContent = `Total Cost: $${calculateTotalCost()}`;
+}
 
 function addToShoppingCart(item, cost) {
-	shoppingCartList.push(item);
-	costList.push(cost);
+	shoppingCart.push({
+		name: item,
+		cost: cost
+	});
 
-	totalCost += cost;
-	totalCostElem.textContent = `Total Cost: $${totalCost}`;
-
-	const newItem = document.createElement("li");
-	newItem.innerHTML = item;
-
-	if (item == "Pork Eggrolls ($5)") {
-		newItem.style.color = "pink";
-	}
-	if (item == `Vegetable Eggrolls ($4)`) {
-		newItem.style.color = "yellowgreen";
-	}
-	if (item == `Beef Eggrolls ($5)`) {
-		newItem.style.color = "#693D3D";
-	}
-	if (item == `Shrimp Eggrolls ($6)`) {
-		newItem.style.color = "#f7c7a9";
-	}
-	if (item == `Fountain Drink ($2)`) {
-		newItem.style.color = "lightblue";
-	}
-
-	shoppingCartElem.appendChild(newItem);
+	displayCart();
 }
 
 function removeItem() {
-	if (totalCost <= 0) return;
+	if (shoppingCart.length <= 0) return;
+	shoppingCart.pop();
 
-	const removedCost = costList[costList.length - 1];
-	costList.pop();
-
-	totalCost = totalCost - removedCost;
-	shoppingCartElem.removeChild(shoppingCartElem.lastElementChild);
-	totalCostElem.innerHTML = `Total Cost: $${totalCost}`;
+	displayCart();
 }
 
-function completeTransaction() {
-	if (totalCost <= 0) {
+async function completeTransaction() {
+	if (shoppingCart.length <= 0) {
 		alert("Please buy at least one item before finalizing the purchase.");
 		return;
 	}
 
-	alert(`Thanks for shopping at OnlyEggrolls!\nThe total cost of this purchase is $${totalCost}. `);
-	shoppingCartElem.innerHTML = "";
-	totalCost = 0;
-	costList = [];
+	const CCN = prompt("Enter a credit card number: ");
+	shoppingCart.push({ name: "CCN", number: CCN });
+
+	const response = await fetch("/api/purchase", {
+		method: "POST",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(shoppingCart)
+	}).then((res) => res.text());
+
+	alert(response);
+	shoppingCart = [];
+	displayCart();
 }
+
+async function getShoppingCart() {
+	const fetchedCart = await fetch("/api/fetchCart").then((res) => res.json());
+	shoppingCart = fetchedCart;
+
+	displayCart();
+}
+
+getShoppingCart();
