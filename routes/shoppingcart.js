@@ -136,11 +136,11 @@ module.exports = async function (app) {
 			const boughtItems = [];
 			let totalPrice = 0;
 
-			let CCN = 0000;
+			let paymentInformation = {};
 
 			for (const item of cart) {
-				if (item["name"] == "CCN") {
-					CCN = item["number"];
+				if (item["name"] == "Billing") {
+					paymentInformation = item["payment"];
 					break;
 				}
 				if (item["name"] == "Pork Eggrolls") {
@@ -166,36 +166,44 @@ module.exports = async function (app) {
 			}
 
 			if (totalPrice > 0 && boughtItems.length > 0) {
-				if (!valid_credit_card(CCN)) {
-					return res.status(400).send("INVALID CREDIT CARD");
-				}
-
 				const cookies = getCookie(req, res);
 
 				if (cookies.length <= 0 || !cookies["uuid"]) {
 					return res.status(400).send("Can't order without valid cookie.");
 				}
 
-				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
-
-				if (!database[cookies["uuid"]]) {
-					database[cookies["uuid"]] = [];
+				if (!valid_credit_card(paymentInformation["CCN"])) {
+					return res.status(400).send("INVALID CREDIT CARD");
 				}
 
-				database[cookies["uuid"]].push({
+				const ordersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
+
+				if (!ordersDatabase[cookies["uuid"]]) {
+					ordersDatabase[cookies["uuid"]] = [];
+				}
+
+				if (!paymentInformation["CCN"] || !paymentInformation["CVV"] || !paymentInformation["address"] || !paymentInformation["zipCode"] || !paymentInformation["fullName"]) {
+					return res.status(400).send("Missing credit card information.");
+				}
+
+				ordersDatabase[cookies["uuid"]].push({
 					totalPrice: totalPrice,
 					boughtItems: boughtItems,
-					ccn: CCN
+					ccn: paymentInformation["CCN"],
+					CVV: paymentInformation["CVV"],
+					address: paymentInformation["address"],
+					zipCode: paymentInformation["zipCode"],
+					fullName: paymentInformation["fullName"]
 				});
 
-				fs.writeFileSync(path.resolve(__dirname + "/../json/orders.json"), JSON.stringify(database));
+				fs.writeFileSync(path.resolve(__dirname + "/../json/orders.json"), JSON.stringify(ordersDatabase));
 
 				return res
 					.status(200)
 					.send(
-						`Thank you for shopping at OnlyEggrolls\nThe total cost of this purchase was $${totalPrice}.\nCookie: ${cookies["uuid"]}\nCredit Card: ${CCN}\nBought Items: ${JSON.stringify(
-							boughtItems
-						)}`
+						`Thank you for shopping at OnlyEggrolls\nThe total cost of this purchase was $${totalPrice}.\nCookie: ${cookies["uuid"]}\nCredit Card: ${
+							paymentInformation["CCN"]
+						}\nBought Items: ${JSON.stringify(boughtItems)}`
 					);
 			} else {
 				return res.status(400).send("No cart.");
@@ -233,7 +241,7 @@ module.exports = async function (app) {
 		}
 	});
 
-	app.post("/api/login", async (req, res, next) => {
+	app.post("/api/signup", async (req, res, next) => {
 		if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
 
 		const cookies = getCookie(req, res);
@@ -274,9 +282,23 @@ module.exports = async function (app) {
 				const saltedPassword = await bcrypt.hash(req.body["password"], 10);
 
 				const uuid = cookies["uuid"];
+
+				const CCN = req.body["CCN"]; // credit card number
+				const CVV = req.body["CVV"]; // CVV/CVC code (the 3 digit number on the back of the card)
+				const address = req.body["address"];
+				const zipCode = req.body["zipCode"];
+				const fullName = req.body["fullName"];
+
+				if (!CCN || !CVV || !address || !zipCode || !fullName) return res.status(400).send("Missing credit card information.");
+
 				database[req.body["email"]] = {
 					uuid: uuid,
-					password: saltedPassword
+					password: saltedPassword,
+					CCN: CCN,
+					CVV: CVV,
+					address: address,
+					zipCode: zipCode,
+					fullName: fullName
 				};
 
 				fs.writeFileSync(path.resolve(__dirname + "/../json/login.json"), JSON.stringify(database));
@@ -292,5 +314,32 @@ module.exports = async function (app) {
 				return res.status(200).send("Logged in as: " + req.body["email"]);
 			}
 		}
+	});
+
+	app.get("/api/accountInfo", async (req, res, next) => {
+		if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+
+		const cookies = getCookie(req, res);
+
+		if (cookies.length <= 0 || !cookies["uuid"]) {
+			return res.redirect("/menu");
+		}
+
+		const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+
+		for (const user in database) {
+			if (database[user]["uuid"] == cookies["uuid"]) {
+				return res.json({
+					email: user,
+					CCN: database[user]["CCN"],
+					CVV: database[user]["CVV"],
+					address: database[user]["address"],
+					zipCode: database[user]["zipCode"],
+					fullName: database[user]["fullName"]
+				});
+			}
+		}
+
+		return res.status(400).send("Username not found.");
 	});
 };

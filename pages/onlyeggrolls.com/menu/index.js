@@ -72,29 +72,7 @@ async function completeTransaction() {
 		return;
 	}
 
-	const CCN = prompt("Enter a credit card number: ");
-	shoppingCart.push({ name: "CCN", number: CCN });
-
-	const res = await fetch("/api/purchase", {
-		method: "POST",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify(shoppingCart)
-	});
-
-	const response = await res.text();
-
-	alert(response);
-
-	if (res.status == 200) {
-		shoppingCart = [];
-	} else {
-		shoppingCart.pop();
-	}
-
-	displayCart();
+	window.location.href = "/finalize/";
 }
 
 async function getShoppingCart() {

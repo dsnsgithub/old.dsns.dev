@@ -77,7 +77,7 @@ a:link {
 }
 
 #menubar {
-    width: 15vw;
+    width: 25vw;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

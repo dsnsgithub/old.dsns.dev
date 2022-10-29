@@ -27,16 +27,23 @@
 			<a href="/aboutus/">About Us</a>
 			<a href="/otherinfo/">Contact Us</a>
 			<a href="/orders/">Orders</a>
-			<a href="/login/">Login</a>
+			<a href="/signup/">Sign Up</a>
 		</div>
 		<div id="logo">
-			<h1>OnlyEggrolls Login</h1>
+			<h1>OnlyEggrolls Signup</h1>
 		</div>
 	</div>
 
 
 	<div class="container">
 		<div class="box">
+
+			<!-- Rounded switch -->
+			<input style="zoom: 2; margin-right: 10px;" id="loginBox" type="checkbox" value="Login" onclick="switchBox()">
+			<label for="loginBox" style="font-size: 30px;">Sign Up</label><br>
+
+			<hr>
+
 			<div class="field">
 				<div class="control">
 					<input class="input is-large" type="email" placeholder="Email" autofocus="" id="email">
@@ -48,7 +55,43 @@
 				</div>
 			</div>
 
-			<button class="button is-block is-danger is-large" onclick="submit();">Login</button>
+			<div id="signup-field" style="display: none;">
+				<hr>
+				<div class="field">
+					<div class="control">
+						<input class="input is-large" type="number" placeholder="Credit Card Number" id="CCN">
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<input class="input is-large" type="number" placeholder="CVV" id="CVV">
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="control">
+						<input class="input is-large" type="text" placeholder="Address" id="address">
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="control">
+						<input class="input is-large" type="number" placeholder="Zip Code" id="zipCode">
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="control">
+						<input class="input is-large" type="text" placeholder="Full Name" id="fullName">
+					</div>
+				</div>
+
+				<br>
+
+			</div>
+
+
+			<button class="button is-block is-danger is-large" onclick="submit();">Sign Up/Login</button>
 
 		</div>
 
