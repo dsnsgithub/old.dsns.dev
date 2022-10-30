@@ -27,13 +27,12 @@ async function submit() {
 		},
 		body: JSON.stringify(request)
 	});
-	
+
 	alert(await response.text());
 
 	if (response.status === 200) {
-		window.location.href = "/finalize/"
+		window.location.href = "/finalize/";
 	}
-	
 }
 
 async function switchBox() {

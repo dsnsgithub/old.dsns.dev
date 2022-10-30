@@ -82,7 +82,7 @@ a:link {
 }
 
 #menubar {
-    width: 25vw;
+	width: 25vw;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -93,7 +93,7 @@ a:link {
 
 #logo {
 	position: absolute;
-	left: 40%
+	left: 40%;
 }
 
 @media screen and (min-width: 900px) {

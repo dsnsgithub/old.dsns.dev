@@ -2,8 +2,40 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 module.exports = async function (app) {
+	//? Useful Constants -----------------------------------------------
+	const defaultCart = {
+		porkEggroll: {
+			name: "Pork Eggrolls",
+			quantity: 0,
+			cost: 5
+		},
+		vegetableEggroll: {
+			name: "Vegetable Eggrolls",
+			quantity: 0,
+			cost: 4
+		},
+		beefEggroll: {
+			name: "Beef Eggrolls",
+			quantity: 0,
+			cost: 5
+		},
+		shrimpEggroll: {
+			name: "Shrimp Eggrolls",
+			quantity: 0,
+			cost: 6
+		},
+		fountainDrink: {
+			name: "Fountain Drink",
+			quantity: 0,
+			cost: 2
+		}
+	};
+
+	//? Helper Functions -----------------------------------------------
 	function getCookie(req, res) {
 		try {
 			const cookieRaw = req.headers.cookie;
@@ -17,9 +49,9 @@ module.exports = async function (app) {
 			}
 
 			return cookieList;
-		} catch (e) {
-			console.log(e);
-			return [];
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken getCookie(): " + (error.stack || error) + "\x1b[0m");
+			return null;
 		}
 	}
 
@@ -33,11 +65,59 @@ module.exports = async function (app) {
 
 			fs.writeFileSync(path.resolve(__dirname + "/../json/cart.json"), JSON.stringify(database));
 			return uuid;
-		} catch (e) {
-			console.log("Broken UUID.");
-			console.log(e);
-			return;
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken createUUID(): " + (error.stack || error) + "\x1b[0m");
+			return null;
 		}
+	}
+
+	function validateCreditCard(value) {
+		try {
+			if (value.length < 1) return false;
+			if (/[^0-9-\s]+/.test(value)) return false;
+
+			let nCheck = 0;
+			let nDigit = 0;
+			let bEven = false;
+			value = value.replace(/\D/g, "");
+
+			for (let i = value.length - 1; i >= 0; i--) {
+				const cDigit = value.charAt(i);
+				let nDigit = parseInt(cDigit, 10);
+
+				if (bEven) {
+					if ((nDigit *= 2) > 9) nDigit -= 9;
+				}
+
+				nCheck += nDigit;
+				bEven = !bEven;
+			}
+
+			return nCheck % 10 == 0;
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken validateCreditCard(): " + (error.stack || error) + "\x1b[0m");
+			return false;
+		}
+	}
+
+	async function createAccount(req, uuid, database) {
+		//? Sign up - creates new UUID and assigns the UUID to the email submitted
+		const saltedPassword = await bcrypt.hash(req.body["password"], 10);
+
+		if (!req.body["CCN"] || !req.body["CVV"] || !req.body["address"] || !req.body["zipCode"] || !req.body["fullName"]) return res.status(400).send("Missing credit card information.");
+
+		database[req.body["email"]] = {
+			uuid: uuid,
+			password: saltedPassword,
+			CCN: req.body["CCN"], // credit card number
+			CVV: req.body["CVV"], // CVV/CVC code (the 3 digit number on the back of the card)
+			address: req.body["address"],
+			zipCode: req.body["zipCode"],
+			fullName: req.body["fullName"]
+		};
+
+		fs.writeFileSync(path.resolve(__dirname + "/../json/login.json"), JSON.stringify(database));
+		return res.status(200).send("Created New Account & UUID: " + database[req.body["email"]]["uuid"]);
 	}
 
 	app.get("/api/fetchCart", async (req, res, next) => {
@@ -45,75 +125,22 @@ module.exports = async function (app) {
 			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
 
 			const cookies = getCookie(req, res);
-
 			if (cookies.length <= 0) {
 				createUUID(res);
-				return res.json({
-					porkEggroll: {
-						name: "Pork Eggrolls",
-						quantity: 0,
-						cost: 5
-					},
-					vegetableEggroll: {
-						name: "Vegetable Eggrolls",
-						quantity: 0,
-						cost: 4
-					},
-					beefEggroll: {
-						name: "Beef Eggrolls",
-						quantity: 0,
-						cost: 5
-					},
-					shrimpEggroll: {
-						name: "Shrimp Eggrolls",
-						quantity: 0,
-						cost: 6
-					},
-					fountainDrink: {
-						name: "Fountain Drink",
-						quantity: 0,
-						cost: 2
-					}
-				});
+				return res.json(defaultCart);
 			} else {
 				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/cart.json"), "utf8"));
 				const uuid = cookies["uuid"];
 
 				if (!database?.[uuid]) {
 					createUUID(res);
-					return res.json({
-						porkEggroll: {
-							name: "Pork Eggrolls",
-							quantity: 0,
-							cost: 5
-						},
-						vegetableEggroll: {
-							name: "Vegetable Eggrolls",
-							quantity: 0,
-							cost: 4
-						},
-						beefEggroll: {
-							name: "Beef Eggrolls",
-							quantity: 0,
-							cost: 5
-						},
-						shrimpEggroll: {
-							name: "Shrimp Eggrolls",
-							quantity: 0,
-							cost: 6
-						},
-						fountainDrink: {
-							name: "Fountain Drink",
-							quantity: 0,
-							cost: 2
-						}
-					});
+					return res.json(defaultCart);
 				}
 
 				return res.json(database[uuid]);
 			}
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken (GET) /api/fetchCart: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send("Invalid.");
 		}
 	});
@@ -140,132 +167,94 @@ module.exports = async function (app) {
 					return res.status(200).send("Completed.");
 				}
 			}
-		} catch (e) {
-			console.log(e);
-
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken (POST) /api/addCart: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send("Invalid.");
 		}
 	});
 
-	// takes the form field value and returns true on valid number
-	function valid_credit_card(value) {
-		try {
-			// accept only digits, dashes or spaces
-			if (value.length < 1) return false;
-			if (/[^0-9-\s]+/.test(value)) return false;
-
-			// The Luhn Algorithm. It's so pretty.
-			var nCheck = 0,
-				nDigit = 0,
-				bEven = false;
-			value = value.replace(/\D/g, "");
-
-			for (var n = value.length - 1; n >= 0; n--) {
-				var cDigit = value.charAt(n),
-					nDigit = parseInt(cDigit, 10);
-
-				if (bEven) {
-					if ((nDigit *= 2) > 9) nDigit -= 9;
-				}
-
-				nCheck += nDigit;
-				bEven = !bEven;
-			}
-
-			return nCheck % 10 == 0;
-		} catch {
-			return false;
-		}
-	}
-
 	app.post("/api/purchase", async (req, res, next) => {
 		try {
 			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+			if (!req.body) return res.status(400).send("No cart."); //? Shopping cart is sent through POST body
 
-			if (!req.body) return res.status(400).send("No cart.");
-
-			const cart = req.body;
-			let boughtItems = "";
+			const shoppingCart = req.body;
+			let boughtItems = ""; //? string that lists everything the user bought
 			let totalPrice = 0;
 
-			let paymentInformation = cart["Billing"];
-
-			const priceList = {
-				porkEggroll: {
-					name: "Pork Eggrolls",
-					cost: 5
-				},
-				vegetableEggroll: {
-					name: "Vegetable Eggrolls",
-					cost: 4
-				},
-				beefEggroll: {
-					name: "Beef Eggrolls",
-					cost: 5
-				},
-				shrimpEggroll: {
-					name: "Shrimp Eggrolls",
-					cost: 6
-				},
-				fountainDrink: {
-					name: "Fountain Drink",
-					cost: 2
-				}
-			};
-
-			for (const item in cart) {
-				if (item == "Billing") continue;
-				totalPrice += priceList[item].cost * cart[item].quantity;
-				boughtItems += `${priceList[item]["name"]} (${cart[item].quantity}), `;
+			for (const item in shoppingCart) {
+				if (item == "Billing") continue; //? payment information is attached as an item in the shopping cart at the end
+				totalPrice += defaultCart[item].cost * shoppingCart[item].quantity;
+				boughtItems += `${defaultCart[item]["name"]} (${shoppingCart[item].quantity}), `;
 			}
 
-			boughtItems = boughtItems.slice(0, -2);
+			boughtItems = boughtItems.slice(0, -2); //? removes the ", " at the end of the last item
 
-			if (totalPrice > 0 && boughtItems.length > 0) {
-				const cookies = getCookie(req, res);
+			if (totalPrice <= 0 || boughtItems.length <= 0) return res.status(400).send("No cart.");
 
-				if (cookies.length <= 0 || !cookies["uuid"]) {
-					return res.status(400).send("Can't order without valid cookie.");
-				}
+			const cookies = getCookie(req, res);
+			let paymentInfo = shoppingCart["Billing"];
 
-				if (!valid_credit_card(paymentInformation["CCN"])) {
-					return res.status(400).send("INVALID CREDIT CARD");
-				}
+			if (cookies.length <= 0 || !cookies["uuid"]) return res.status(400).send("Invalid Cookie");
+			if (!validateCreditCard(paymentInfo["CCN"])) return res.status(400).send("Invalid Credit Card");
 
-				const ordersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
+			const ordersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
 
-				if (!ordersDatabase[cookies["uuid"]]) {
-					ordersDatabase[cookies["uuid"]] = [];
-				}
-
-				if (!paymentInformation["CCN"] || !paymentInformation["CVV"] || !paymentInformation["address"] || !paymentInformation["zipCode"] || !paymentInformation["fullName"]) {
-					return res.status(400).send("Missing credit card information.");
-				}
-
-				ordersDatabase[cookies["uuid"]].push({
-					totalPrice: totalPrice,
-					boughtItems: boughtItems,
-					ccn: paymentInformation["CCN"],
-					CVV: paymentInformation["CVV"],
-					address: paymentInformation["address"],
-					zipCode: paymentInformation["zipCode"],
-					fullName: paymentInformation["fullName"]
-				});
-
-				fs.writeFileSync(path.resolve(__dirname + "/../json/orders.json"), JSON.stringify(ordersDatabase));
-
-				return res
-					.status(200)
-					.send(
-						`Thank you for shopping at OnlyEggrolls\nThe total cost of this purchase was $${totalPrice}.\nCookie: ${cookies["uuid"]}\nCredit Card: ${
-							paymentInformation["CCN"]
-						}\nBought Items: ${JSON.stringify(boughtItems)}`
-					);
-			} else {
-				return res.status(400).send("No cart.");
+			if (!ordersDatabase[cookies["uuid"]]) ordersDatabase[cookies["uuid"]] = [];
+			if (!paymentInfo["CCN"] || !paymentInfo["CVV"] || !paymentInfo["address"] || !paymentInfo["zipCode"] || !paymentInfo["fullName"]) {
+				return res.status(400).send("Missing credit card information.");
 			}
-		} catch (e) {
-			console.log(e);
+
+			ordersDatabase[cookies["uuid"]].push({
+				totalPrice: totalPrice,
+				boughtItems: boughtItems,
+				ccn: paymentInfo["CCN"],
+				CVV: paymentInfo["CVV"],
+				address: paymentInfo["address"],
+				zipCode: paymentInfo["zipCode"],
+				fullName: paymentInfo["fullName"]
+			});
+
+			fs.writeFileSync(path.resolve(__dirname + "/../json/orders.json"), JSON.stringify(ordersDatabase));
+
+			const message =
+				`Thank you for shopping at OnlyEggrolls\n` +
+				`The total cost of this purchase was $${totalPrice}\n` +
+				`Cookie: ${cookies["uuid"]}\n` +
+				`Credit Card: ${paymentInfo["CCN"]}\n` +
+				`Bought Items: ${JSON.stringify(boughtItems)}`;
+
+			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+
+			let email = "";
+			for (const user in database) {
+				if (database[user]["uuid"] == cookies["uuid"]) {
+					email = user;
+					break;
+				}
+			}
+
+			// create transporter object with smtp server details
+			const transporter = nodemailer.createTransport({
+				host: "smtp.gmail.com",
+				port: 587,
+				auth: {
+					user: process.env["googleEmail"],
+					pass: process.env["googlePass"]
+				}
+			});
+
+			// send email
+			await transporter.sendMail({
+				from: "dsns@dsns.dev",
+				to: email,
+				subject: "OnlyEggrolls Order",
+				text: message
+			});
+
+			return res.status(200).send(message);
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken (POST) /api/purchase: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send("Invalid.");
 		}
 	});
@@ -273,7 +262,6 @@ module.exports = async function (app) {
 	app.get("/api/fetchOrders", async (req, res, next) => {
 		try {
 			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
-
 			const cookies = getCookie(req, res);
 
 			if (cookies.length <= 0) {
@@ -281,7 +269,6 @@ module.exports = async function (app) {
 				return res.json([]);
 			} else {
 				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
-
 				const uuid = cookies["uuid"];
 
 				if (!database?.[uuid]) {
@@ -291,84 +278,51 @@ module.exports = async function (app) {
 
 				return res.json(database[uuid]);
 			}
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken (GET) /api/fetchOrders: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send("Invalid");
 		}
 	});
 
 	app.post("/api/signup", async (req, res, next) => {
-		if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+		try {
+			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+			const cookies = getCookie(req, res);
 
-		const cookies = getCookie(req, res);
+			if (cookies.length <= 0 || !cookies["uuid"]) {
+				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
 
-		if (cookies.length <= 0 || !cookies["uuid"]) {
-			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+				if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
 
-			if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
-
-			if (!database[req.body["email"]]) {
-				// Sign up - creates new UUID and assigns the UUID to the email submitted
-				const saltedPassword = await bcrypt.hash(req.body["password"], 10);
-
-				const uuid = createUUID(res);
-				database[req.body["email"]] = {
-					uuid: uuid,
-					password: saltedPassword
-				};
-			} else {
-				// Login - if they already have an account, and they enter the correct password, they recieve the cookie uuid
-
-				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
-				if (!compare) {
-					return res.status(400).send("Incorrect password.");
+				//? Sign up - creates new UUID and assigns the UUID to the email submitted
+				if (!database[req.body["email"]]) {
+					return await createAccount(req, createUUID(res), database);
 				}
+
+				//? Login - if they already have an account, and they enter the correct password, they recieve the cookie UUID
+				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
+				if (!compare) return res.status(400).send("Incorrect password.");
 
 				res.cookie("uuid", database[req.body["email"]]["uuid"]);
-			}
-
-			fs.writeFileSync(path.resolve(__dirname + "/../json/login.json"), JSON.stringify(database));
-			return res.status(200).send("Updated UUID:" + database[req.body["email"]]["uuid"]);
-		} else {
-			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
-			if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
-
-			if (!database[req.body["email"]]) {
-				// Sign up - creates new UUID and assigns the UUID to the email submitted
-				const saltedPassword = await bcrypt.hash(req.body["password"], 10);
-
-				const uuid = cookies["uuid"];
-
-				const CCN = req.body["CCN"]; // credit card number
-				const CVV = req.body["CVV"]; // CVV/CVC code (the 3 digit number on the back of the card)
-				const address = req.body["address"];
-				const zipCode = req.body["zipCode"];
-				const fullName = req.body["fullName"];
-
-				if (!CCN || !CVV || !address || !zipCode || !fullName) return res.status(400).send("Missing credit card information.");
-
-				database[req.body["email"]] = {
-					uuid: uuid,
-					password: saltedPassword,
-					CCN: CCN,
-					CVV: CVV,
-					address: address,
-					zipCode: zipCode,
-					fullName: fullName
-				};
-
-				fs.writeFileSync(path.resolve(__dirname + "/../json/login.json"), JSON.stringify(database));
-
-				return res.status(200).send("Created account linked to UUID:" + JSON.stringify(database[req.body["email"]]["uuid"]) + "\nCreated email: " + req.body["email"]);
+				return res.status(200).send("Logged into: " + req.body["email"]["uuid"]);
 			} else {
-				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
-				if (!compare) {
-					return res.status(400).send("Incorrect password.");
+				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+				if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
+
+				//? Sign up - creates new UUID and assigns the UUID to the email submitted
+				if (!database[req.body["email"]]) {
+					return await createAccount(req, cookies["uuid"], database);
 				}
+
+				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
+				if (!compare) return res.status(400).send("Incorrect password.");
 
 				res.cookie("uuid", database[req.body["email"]]["uuid"]);
 				return res.status(200).send("Logged in as: " + req.body["email"]);
 			}
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken (POST) /api/signup: " + (error.stack || error) + "\x1b[0m");
+			return res.status(500).send("Invalid");
 		}
 	});
 
@@ -376,13 +330,9 @@ module.exports = async function (app) {
 		if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
 
 		const cookies = getCookie(req, res);
-
-		if (cookies.length <= 0 || !cookies["uuid"]) {
-			return res.redirect("/menu");
-		}
+		if (cookies.length <= 0 || !cookies["uuid"]) return res.redirect("/menu");
 
 		const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
-
 		for (const user in database) {
 			if (database[user]["uuid"] == cookies["uuid"]) {
 				return res.json({

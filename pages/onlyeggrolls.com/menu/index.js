@@ -57,7 +57,7 @@ async function displayCart() {
 			newItem.innerHTML += `<button onclick="removeItem('${item}')" class="button is-danger is-small">-</button>`;
 
 			shoppingCartElem.appendChild(newItem);
-		} 
+		}
 	}
 
 	totalCostElem.textContent = `Total Cost: $${calculateTotalCost()}`;

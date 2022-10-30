@@ -1,119 +1,119 @@
 * {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
+	margin: 0;
+	font-family: "Poppins", sans-serif;
 }
 
 h1 {
-    font-size: 3rem;
+	font-size: 3rem;
 }
 
 a {
-    color: lightslategray;
+	color: lightslategray;
 }
 
 a:link {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 #menu {
-    height: 10vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	height: 10vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 #menubutton {
-    height: 5vw;
-    width: 5vw;
-    font-size: 3rem;
-    background-color: white;
-    border: none;
-    transition: 0.3s;
-    animation-duration: 2s;
+	height: 5vw;
+	width: 5vw;
+	font-size: 3rem;
+	background-color: white;
+	border: none;
+	transition: 0.3s;
+	animation-duration: 2s;
 }
 
 #menubutton:hover {
-    color: gold;
+	color: gold;
 }
 
 @keyframes open {
-    0% {
-        transform: rotate(0deg)
-    }
+	0% {
+		transform: rotate(0deg);
+	}
 
-    100% {
-        transform: rotate(720deg)
-    }
+	100% {
+		transform: rotate(720deg);
+	}
 }
 
 @keyframes close {
-    0% {
-        transform: rotate(720deg)
-    }
+	0% {
+		transform: rotate(720deg);
+	}
 
-    100% {
-        transform: rotate(0deg)
-    }
+	100% {
+		transform: rotate(0deg);
+	}
 }
 
 @keyframes slide {
-    0% {
-        opacity: 0;
-    }
+	0% {
+		opacity: 0;
+	}
 
-    100% {
-        opacity: 1;
-    }
+	100% {
+		opacity: 1;
+	}
 }
 
 @keyframes sheathing {
-    0% {
-        opacity: 1;
-    }
+	0% {
+		opacity: 1;
+	}
 
-    100% {
-        opacity: 0;
-    }
+	100% {
+		opacity: 0;
+	}
 }
 
 #menubar {
-    width: 25vw;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    animation-fill-mode: both;
-    animation-duration: 1.9s;
+	width: 25vw;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	visibility: hidden;
+	opacity: 0;
+	animation-fill-mode: both;
+	animation-duration: 1.9s;
 }
 
 #container {
-    height: 80vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	height: 80vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 @media screen and (max-width: 1500px) {
-    #menubar {
-        width: 25vw;
-    }
+	#menubar {
+		width: 25vw;
+	}
 
-    #menubutton {
-        width: 7.5vw;
-        height: 7.5vw;
-    }
+	#menubutton {
+		width: 7.5vw;
+		height: 7.5vw;
+	}
 }
 
 @media screen and (max-width: 900px) {
-    #menubar {
-        width: 100vw;
-    }
+	#menubar {
+		width: 100vw;
+	}
 
-    #menubutton {
-        width: 25vw;
-        height: 25vw;
-    }
+	#menubutton {
+		width: 25vw;
+		height: 25vw;
+	}
 }
