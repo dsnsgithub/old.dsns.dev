@@ -37,5 +37,10 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 	IGNs = DSNS, AmKale, jiebi
 	RELOAD_TIME = 120000
 
+	ONLYEGGROLLS = false
+	googleEmail = [only used for onlyeggrolls.com]
+	googlePass = [only used for onlyeggrolls.com]
+	smtpEmail = [only used for onlyeggrolls.com]
+
 ### 5. Start the express server:
     node .

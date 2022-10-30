@@ -246,7 +246,7 @@ module.exports = async function (app) {
 
 			// send email
 			await transporter.sendMail({
-				from: "dsns@dsns.dev",
+				from: process.env["smtpEmail"],
 				to: email,
 				subject: "OnlyEggrolls Order",
 				text: message
