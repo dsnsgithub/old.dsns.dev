@@ -100,7 +100,7 @@ module.exports = async function (app) {
 		}
 	}
 
-	async function createAccount(req, uuid, database) {
+	async function createAccount(req, res, uuid, database) {
 		//? Sign up - creates new UUID and assigns the UUID to the email submitted
 		const saltedPassword = await bcrypt.hash(req.body["password"], 10);
 
@@ -296,7 +296,7 @@ module.exports = async function (app) {
 
 				//? Sign up - creates new UUID and assigns the UUID to the email submitted
 				if (!database[req.body["email"]]) {
-					return await createAccount(req, createUUID(res), database);
+					return await createAccount(req, res, createUUID(res), database);
 				}
 
 				//? Login - if they already have an account, and they enter the correct password, they recieve the cookie UUID
@@ -311,7 +311,7 @@ module.exports = async function (app) {
 
 				//? Sign up - creates new UUID and assigns the UUID to the email submitted
 				if (!database[req.body["email"]]) {
-					return await createAccount(req, cookies["uuid"], database);
+					return await createAccount(req, res, cookies["uuid"], database);
 				}
 
 				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
