@@ -18,17 +18,6 @@ module.exports = async function (app) {
 			Connection: "keep-alive"
 		});
 
-		res.flushHeaders();
-
-		res.write(`data: ${JSON.stringify(result)} \n\n`);
-		const sendEvent = setInterval(() => {
-			res.write(`data: ${JSON.stringify(result)} \n\n`);
-		}, Number(process.env.RELOAD_TIME));
-
-		//? If client closes connection, stop sending events
-		res.on("close", () => {
-			clearInterval(sendEvent);
-			res.end();
-		});
+		res.send(`data: ${JSON.stringify(result)} \n\n`);
 	});
 };
