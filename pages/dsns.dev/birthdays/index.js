@@ -6,7 +6,7 @@ const round = (number, decimalPlaces) => {
 function ConfettiGenerator() {
 	var e = {
 			target: "canvas",
-			max: "300",
+			max: document.body.clientWidth / 10,
 			size: "1",
 			animate: !0,
 			props: ["circle", "square", "triangle", "line"],
