@@ -137,7 +137,7 @@ const birthdays = [
 	{ id: "SyntaxError", date: "August 23, 2022" },
 	{ id: "Lion Mountain", date: "December 30, 2022" },
 	{ id: "useryz351", date: "September 22, 2022" },
-	{ id: "UnEntity8", date: "March 8, 2023"}
+	{ id: "UnEntity8", date: "March 8, 2023" }
 ];
 
 for (const singleBirthday of birthdays) {
@@ -213,3 +213,10 @@ function turnConfettiOn() {
 	const confetti = new ConfettiGenerator();
 	confetti.render();
 }
+
+const canvasElem = document.getElementById("canvas");
+
+const body = document.body;
+const html = document.documentElement;
+const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+canvasElem.style.height = height + "px";

@@ -108,16 +108,22 @@ a:link {
 	}
 }
 
-#logo {
+/* #logo {
 	display: none;
-}
+} */
 
 @media screen and (min-width: 900px) {
-	#logo {
+	/* #logo {
 		display: block;
 		width: 60vw;
 		text-align: center;
-	}
+	} */
+}
+
+
+#logo {
+	position: absolute;
+	left: 44%;
 }
 
 #container {
