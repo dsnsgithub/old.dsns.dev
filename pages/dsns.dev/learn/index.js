@@ -2,8 +2,8 @@ async function parseData() {
 	const charRes = await fetch("characters.txt").then((res) => res.text());
 	const sentenceRes = await fetch("sentencepatterns.txt").then((res) => res.text());
 
-	const charactersRaw = charRes.split("\r\n");
-	const sentenceRaw = sentenceRes.split("\r\n");
+	const charactersRaw = charRes.split("\n");
+	const sentenceRaw = sentenceRes.split("\n");
 
 	// Parse Characters
 	const characters = [];
