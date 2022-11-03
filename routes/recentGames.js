@@ -1,7 +1,7 @@
 // @ts-check
 
 //? Requirements
-const hypixel = require("../scripts/hypixel.js");
+const hypixel = require("./difference/hypixel.js");
 
 module.exports = async function (app) {
 	app.get("/api/recentgames/:IGN", async (req, res, next) => {

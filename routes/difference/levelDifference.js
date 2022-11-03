@@ -2,8 +2,8 @@
 
 //? Requirements
 const fs = require("fs");
-
-const hypixel = require("../scripts/hypixel.js");
+const path = require("path");
+const hypixel = require("./hypixel.js");
 
 function xpToLevel(xp) {
 	return Math.sqrt(2 * xp + 30625) / 50 - 2.5;
@@ -27,7 +27,7 @@ async function getDifference(playerData) {
 }
 
 async function writeDifference(difference) {
-	const levels = JSON.parse(fs.readFileSync("./json/levels.json", "utf8"));
+	const levels = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../../json/levels.json"), "utf8"));
 	const lastItemIndex = levels.length - 1;
 
 	if (lastItemIndex != -1) {
@@ -56,7 +56,7 @@ async function writeDifference(difference) {
 		levels.shift();
 	}
 
-	fs.writeFileSync(__dirname + "/../json/levels.json", JSON.stringify(levels));
+	fs.writeFileSync(path.resolve(__dirname + "/../../json/levels.json"), JSON.stringify(levels));
 
 	return levels;
 }

@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 //? Requirements ----------------------------------------------------------------------------------
-const diffJS = require("./difference.js");
+const diffJS = require("./levelDifference.js");
 const statusJS = require("./status.js");
 
 async function createDifferenceSSE(UUIDs, IGNs) {

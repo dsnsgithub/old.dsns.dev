@@ -1,4 +1,4 @@
-const hypixel = require("../scripts/createSSEData.js");
+const hypixel = require("./createSSEData.js");
 
 module.exports = async function (app) {
 	const UUIDs = process.env["UUIDs"].split(", ");

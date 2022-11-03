@@ -187,18 +187,16 @@ module.exports = async function (app) {
 				boughtItems += `${defaultCart[item]["name"]} (${shoppingCart[item].quantity}), `;
 			}
 
+			if (totalPrice <= 0 || boughtItems.length <= 0) return res.status(400).send("No cart.");
 			boughtItems = boughtItems.slice(0, -2); //? removes the ", " at the end of the last item
 
-			if (totalPrice <= 0 || boughtItems.length <= 0) return res.status(400).send("No cart.");
-
 			const cookies = getCookie(req, res);
-			let paymentInfo = shoppingCart["Billing"];
-
 			if (cookies.length <= 0 || !cookies["uuid"]) return res.status(400).send("Invalid Cookie");
+
+			let paymentInfo = shoppingCart["Billing"];
 			if (!validateCreditCard(paymentInfo["CCN"])) return res.status(400).send("Invalid Credit Card");
 
 			const ordersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/orders.json"), "utf8"));
-
 			if (!ordersDatabase[cookies["uuid"]]) ordersDatabase[cookies["uuid"]] = [];
 			if (!paymentInfo["CCN"] || !paymentInfo["CVV"] || !paymentInfo["address"] || !paymentInfo["zipCode"] || !paymentInfo["fullName"]) {
 				return res.status(400).send("Missing credit card information.");
@@ -288,37 +286,23 @@ module.exports = async function (app) {
 			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
 			const cookies = getCookie(req, res);
 
-			if (cookies.length <= 0 || !cookies["uuid"]) {
-				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+			if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
 
-				if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
-
-				//? Sign up - creates new UUID and assigns the UUID to the email submitted
-				if (!database[req.body["email"]]) {
+			//? Sign up - creates new UUID and assigns the UUID to the email submitted
+			if (!database[req.body["email"]]) {
+				if (cookies.length <= 0 || !cookies["uuid"]) {
 					return await createAccount(req, res, createUUID(res), database);
-				}
-
-				//? Login - if they already have an account, and they enter the correct password, they recieve the cookie UUID
-				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
-				if (!compare) return res.status(400).send("Incorrect password.");
-
-				res.cookie("uuid", database[req.body["email"]]["uuid"]);
-				return res.status(200).send("Logged into: " + req.body["email"]["uuid"]);
-			} else {
-				const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
-				if (!req.body["email"] || !req.body["password"]) return res.status(400).send("Please enter both a username and password.");
-
-				//? Sign up - creates new UUID and assigns the UUID to the email submitted
-				if (!database[req.body["email"]]) {
+				} else {
 					return await createAccount(req, res, cookies["uuid"], database);
 				}
-
-				const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
-				if (!compare) return res.status(400).send("Incorrect password.");
-
-				res.cookie("uuid", database[req.body["email"]]["uuid"]);
-				return res.status(200).send("Logged in as: " + req.body["email"]);
 			}
+
+			const compare = await bcrypt.compare(req.body["password"], database[req.body["email"]]["password"]);
+			if (!compare) return res.status(400).send("Incorrect password.");
+
+			res.cookie("uuid", database[req.body["email"]]["uuid"]);
+			return res.status(200).send("Logged in as: " + req.body["email"]);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (POST) /api/signup: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send("Invalid");
