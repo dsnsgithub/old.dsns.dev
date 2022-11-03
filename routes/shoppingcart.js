@@ -77,7 +77,6 @@ module.exports = async function (app) {
 			if (/[^0-9-\s]+/.test(value)) return false;
 
 			let nCheck = 0;
-			let nDigit = 0;
 			let bEven = false;
 			value = value.replace(/\D/g, "");
 

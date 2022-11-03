@@ -106,7 +106,7 @@ async function downloadMP3() {
 		const fileType = document.getElementById("fileType").value;
 
 		if (fileType.includes("mp4")) {
-			const [chunks, receivedLength] = await downloadAPI(`https://dsnsdev.dsnsrepl.repl.co/${youtubeID}`);
+			const [chunks, receivedLength] = await downloadAPI(`/api/youtubeVideo/${youtubeID}`);
 			const chunksAll = await convertChunkToArray(chunks, receivedLength);
 			const result = JSON.parse(new TextDecoder("utf-8").decode(chunksAll));
 

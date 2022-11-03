@@ -33,6 +33,33 @@ module.exports = function (app) {
 		}
 	});
 
+	app.get("/api/youtubeVideo/:id", async function (req, res, next) {
+		try {
+			if (!req.params.id) {
+				return res.status(400).send("Invalid YouTube Link");
+			}
+
+			const info = await ytdl.getInfo(`https://youtube.com/watch?v=${req.params.id}`);
+
+			let highest;
+			try {
+				highest = ytdl.chooseFormat(info.formats, { quality: 22 });
+			} catch {
+				highest = ytdl.chooseFormat(info.formats, { quality: "highest" });
+			}
+
+			return res.json({
+				highestvideo: ytdl.chooseFormat(info.formats, { quality: "highestvideo" }),
+				highest: highest,
+				highestaudio: ytdl.chooseFormat(info.formats, { filter: "audioonly", quality: "highestaudio" }),
+				formats: info.formats
+			});
+		} catch (err) {
+			console.log(err);
+			return res.status(400).send(err);
+		}
+	});
+
 	app.use((req, res, next) => {
 		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
