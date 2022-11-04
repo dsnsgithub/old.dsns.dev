@@ -140,7 +140,7 @@ module.exports = async function (app) {
 			}
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/fetchCart: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send("Invalid.");
+			return res.status(500).send(error);
 		}
 	});
 
@@ -168,7 +168,7 @@ module.exports = async function (app) {
 			}
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (POST) /api/addCart: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send("Invalid.");
+			return res.status(500).send(error);
 		}
 	});
 
@@ -252,7 +252,7 @@ module.exports = async function (app) {
 			return res.status(200).send(message);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (POST) /api/purchase: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send("Invalid.");
+			return res.status(500).send(error);
 		}
 	});
 
@@ -277,7 +277,7 @@ module.exports = async function (app) {
 			}
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/fetchOrders: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send("Invalid");
+			return res.status(500).send(error);
 		}
 	});
 
@@ -305,30 +305,35 @@ module.exports = async function (app) {
 			return res.status(200).send("Logged in as: " + req.body["email"]);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (POST) /api/signup: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send("Invalid");
+			return res.status(500).send(error);
 		}
 	});
 
 	app.get("/api/accountInfo", async (req, res, next) => {
-		if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
+		try {
+			if (req.hostname != "onlyeggrolls.com" && req.hostname != "onlyeggrolls.test") return next();
 
-		const cookies = getCookie(req, res);
-		if (cookies.length <= 0 || !cookies["uuid"]) return res.redirect("/menu");
+			const cookies = getCookie(req, res);
+			if (cookies.length <= 0 || !cookies["uuid"]) return res.redirect("/menu");
 
-		const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
-		for (const user in database) {
-			if (database[user]["uuid"] == cookies["uuid"]) {
-				return res.json({
-					email: user,
-					CCN: database[user]["CCN"],
-					CVV: database[user]["CVV"],
-					address: database[user]["address"],
-					zipCode: database[user]["zipCode"],
-					fullName: database[user]["fullName"]
-				});
+			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+			for (const user in database) {
+				if (database[user]["uuid"] == cookies["uuid"]) {
+					return res.json({
+						email: user,
+						CCN: database[user]["CCN"],
+						CVV: database[user]["CVV"],
+						address: database[user]["address"],
+						zipCode: database[user]["zipCode"],
+						fullName: database[user]["fullName"]
+					});
+				}
 			}
-		}
 
-		return res.status(400).send("Username not found.");
+			return res.status(400).send("Username not found.");
+		} catch (error) {
+			console.error("\x1b[31m" + "Error: Broken (GET) /api/accountInfo: " + (error.stack || error) + "\x1b[0m");
+			return res.status(500).send(error);
+		}
 	});
 };
