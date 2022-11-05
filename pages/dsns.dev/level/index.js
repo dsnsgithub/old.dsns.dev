@@ -27,9 +27,9 @@ const updateDeviceOrientationData = (event) => {
 		return;
 	}
 
-	alphaElem.innerHTML = event.alpha;
-	betaElem.innerHTML = event.beta;
-	gammaElem.innerHTML = event.gamma;
+	alphaElem.innerText = event.alpha;
+	betaElem.innerText = event.beta;
+	gammaElem.innerText = event.gamma;
 
 	if (event.beta <= 1 && event.beta >= -1) {
 		//? Landscape Left

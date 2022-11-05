@@ -13,15 +13,15 @@ async function grabOrders() {
 	resultTable.createTBody();
 
 	const headRow = resultTable.tHead.insertRow();
-	headRow.insertCell().innerHTML = "Total Cost";
-	headRow.insertCell().innerHTML = "Bought Items";
-	headRow.insertCell().innerHTML = "CCN";
+	headRow.insertCell().innerText = "Total Cost";
+	headRow.insertCell().innerText = "Bought Items";
+	headRow.insertCell().innerText = "CCN";
 
 	for (const order of response) {
 		const row = resultTable.insertRow();
-		row.insertCell().innerHTML = "$" + order["totalPrice"];
-		row.insertCell().innerHTML = order["boughtItems"];
-		row.insertCell().innerHTML = order["ccn"];
+		row.insertCell().innerText = "$" + order["totalPrice"];
+		row.insertCell().innerText = order["boughtItems"];
+		row.insertCell().innerText = order["ccn"];
 	}
 }
 

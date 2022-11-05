@@ -49,7 +49,7 @@ source.addEventListener("message", (message) => {
 
 	const statusDiv = document.getElementById("statusColumns");
 
-	statusDiv.innerHTML = "";
+	statusDiv.innerText = "";
 
 	for (const i in status) {
 		const column = document.createElement("div");

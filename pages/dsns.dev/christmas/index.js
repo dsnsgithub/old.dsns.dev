@@ -13,11 +13,11 @@ function countdown() {
 	const seconds = Math.floor(distance / 1000);
 
 	const dateCount = document.getElementById("dateCount");
-	dateCount.innerHTML = seconds.toLocaleString("en-US");
+	dateCount.innerText = seconds.toLocaleString("en-US");
 
 	if (distance < 0) {
 		dateCount.innerText = `Merry Christmas ${new Date().getFullYear()}!`;
-		document.getElementById("support").innerHTML = "";
+		document.getElementById("support").innerText = "";
 
 		turnFireworksOn = true;
 	}

@@ -2,7 +2,7 @@ async function whoIs() {
 	const domainInput = document.getElementById("domain");
 	const whois = document.getElementById("whois");
 
-	whois.innerHTML = "";
+	whois.innerText = "";
 
 	const domain = domainInput.value;
 	const result = await fetch("/api/whois/" + domain).then((res) => res.text());

@@ -15,8 +15,9 @@ function calculate() {
 	const kWhperGallon = kWhperMile * milesPerGallon;
 	const cost = kWhperGallon * priceperKwh;
 
-	costElem.innerHTML = `$${round(cost, 2)} per gallon equivalent`;
-	costElem.innerHTML += `<br>${round(pricePerGallon / priceperKwh / kWhperMile, 2)} mpg equivalent`;
+	costElem.innerText = `$${round(cost, 2)} per gallon equivalent`;
+	costElem.innerHTML += "<br>";
+	costElem.innerText += `${round(pricePerGallon / priceperKwh / kWhperMile, 2)} mpg equivalent`;
 }
 
 const calculateElem = document.getElementById("calculate");

@@ -14,7 +14,7 @@ function calculatePPI() {
 
 	const ppi = diagonal / screenSize;
 
-	ppiElement.innerHTML = round(ppi, 2);
+	ppiElement.innerText = round(ppi, 2);
 }
 
 document.onkeyup = function (event) {

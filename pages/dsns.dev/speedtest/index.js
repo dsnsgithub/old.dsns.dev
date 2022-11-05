@@ -9,52 +9,52 @@ speedtest.onupdate = function (data) {
 	const pingDiv = document.getElementById("ping");
 	const jitter = document.getElementById("jitter");
 
-	ispInfo.innerHTML = data.clientIp;
+	ispInfo.innerText = data.clientIp;
 
 	if (data.testState == 0) {
-		statusDiv.innerHTML = "Connecting to Speedtest Server....";
+		statusDiv.innerText = "Connecting to Speedtest Server....";
 	}
 
 	if (data.testState == 1) {
-		statusDiv.innerHTML = "Download Transfer in Progress....";
+		statusDiv.innerText = "Download Transfer in Progress....";
 
 		if (data.dlStatus) {
-			downloadSpeedDiv.innerHTML = data.dlStatus + " mbps";
+			downloadSpeedDiv.innerText = data.dlStatus + " mbps";
 		} else {
-			downloadSpeedDiv.innerHTML = "⌛";
+			downloadSpeedDiv.innerText = "⌛";
 		}
 	}
 
 	if (data.testState == 2) {
-		statusDiv.innerHTML = "Pinging Speedtest server....";
+		statusDiv.innerText = "Pinging Speedtest server....";
 
 		if (data.pingStatus) {
-			pingDiv.innerHTML = data.pingStatus + " ms";
+			pingDiv.innerText = data.pingStatus + " ms";
 		} else {
-			pingDiv.innerHTML = "⌛";
+			pingDiv.innerText = "⌛";
 		}
 
 		if (data.jitterStatus) {
-			jitter.innerHTML = data.jitterStatus + " ms";
+			jitter.innerText = data.jitterStatus + " ms";
 		} else {
-			jitter.innerHTML = "⌛";
+			jitter.innerText = "⌛";
 		}
 	}
 
 	if (data.testState == 3) {
-		statusDiv.innerHTML = "Upload Transfer in Progress....";
+		statusDiv.innerText = "Upload Transfer in Progress....";
 
 		if (data.ulStatus) {
-			uploadSpeedDiv.innerHTML = data.ulStatus + " mbps";
+			uploadSpeedDiv.innerText = data.ulStatus + " mbps";
 		} else {
-			uploadSpeedDiv.innerHTML = "⌛";
+			uploadSpeedDiv.innerText = "⌛";
 		}
 	}
 };
 
 speedtest.onend = function (aborted) {
 	if (!aborted) {
-		statusDiv.innerHTML = "Speedtest Completed";
+		statusDiv.innerText = "Speedtest Completed";
 	}
 };
 
@@ -88,11 +88,11 @@ startButton.addEventListener("click", function () {
 	const pingDiv = document.getElementById("ping");
 	const jitter = document.getElementById("jitter");
 
-	downloadSpeedDiv.innerHTML = "...";
-	uploadSpeedDiv.innerHTML = "...";
-	pingDiv.innerHTML = "...";
-	jitter.innerHTML = "...";
-	ispInfo.innerHTML = "...";
+	downloadSpeedDiv.innerText = "...";
+	uploadSpeedDiv.innerText = "...";
+	pingDiv.innerText = "...";
+	jitter.innerText = "...";
+	ispInfo.innerText = "...";
 
 	speedtest.start();
 });

@@ -48,12 +48,12 @@ async function displayCart() {
 		body: JSON.stringify(shoppingCart)
 	});
 
-	shoppingCartElem.innerHTML = "";
+	shoppingCartElem.innerText = "";
 
 	for (const item in shoppingCart) {
 		if (shoppingCart[item]["quantity"] > 0) {
 			const newItem = document.createElement("li");
-			newItem.innerHTML = `${shoppingCart[item]["name"]} - (x${shoppingCart[item]["quantity"]})`;
+			newItem.innerText = `${shoppingCart[item]["name"]} - (x${shoppingCart[item]["quantity"]})`;
 			newItem.innerHTML += `<button onclick="removeItem('${item}')" class="button is-danger is-small">-</button>`;
 
 			shoppingCartElem.appendChild(newItem);

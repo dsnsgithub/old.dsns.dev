@@ -13,7 +13,7 @@ async function downloadAPI(url) {
 	let timer = 0;
 	const clock = setInterval(() => {
 		timer += 1;
-		downloadStatus.innerHTML = "Downloading..." + ` (${timer / 100} seconds)`;
+		downloadStatus.innerText = "Downloading..." + ` (${timer / 100} seconds)`;
 	}, 10);
 
 	const response = await fetch(url);
@@ -21,7 +21,7 @@ async function downloadAPI(url) {
 
 	if (response.status != 200) {
 		alert(await response.text());
-		downloadStatus.innerHTML = "Waiting for download to start...";
+		downloadStatus.innerText = "Waiting for download to start...";
 	}
 
 	const reader = response.body.getReader();
@@ -36,7 +36,7 @@ async function downloadAPI(url) {
 		downloadStatus.innerText = "Downloaded " + round(receivedLength / 1000000, 2) + "MB";
 	}
 
-	downloadStatus.innerHTML = "Download Complete";
+	downloadStatus.innerText = "Download Complete";
 	return [chunks, receivedLength];
 }
 
@@ -69,7 +69,7 @@ async function convertFileFormat(format, type, youtubeID) {
 
 	ffmpeg.setProgress(({ ratio }) => {
 		const percent = round(ratio * 100, 2);
-		conversionStatus.innerHTML = percent + "%";
+		conversionStatus.innerText = percent + "%";
 	});
 
 	ffmpeg.FS("writeFile", `audio.webm`, chunksAll);

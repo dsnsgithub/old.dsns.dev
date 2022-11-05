@@ -12,12 +12,12 @@ const totalCostElem = document.getElementById("totalCost");
 
 async function displayCart() {
 	const shoppingCart = await fetch("/api/fetchCart").then((res) => res.json());
-	shoppingCartElem.innerHTML = "";
+	shoppingCartElem.innerText = "";
 
 	for (const item in shoppingCart) {
 		if (shoppingCart[item]["quantity"] > 0) {
 			const newItem = document.createElement("li");
-			newItem.innerHTML = `${shoppingCart[item]["name"]} - (x${shoppingCart[item]["quantity"]})`;
+			newItem.innerText = `${shoppingCart[item]["name"]} - (x${shoppingCart[item]["quantity"]})`;
 
 			shoppingCartElem.appendChild(newItem);
 		}

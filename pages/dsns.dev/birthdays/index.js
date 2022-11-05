@@ -185,8 +185,8 @@ for (const eachBirthday of birthdays) {
 		const distance = countDownDate - now;
 
 		if (distance > -86400000 && distance < 0) {
-			countdown.innerHTML = `Happy Birthday ${eachBirthday["id"]}!`;
-			countdownPercent.innerHTML = 100 + "%";
+			countdown.innerText = `Happy Birthday ${eachBirthday["id"]}!`;
+			countdownPercent.innerText = 100 + "%";
 			countdownBar.value = 31536000000;
 
 			turnConfettiOn();
@@ -197,10 +197,10 @@ for (const eachBirthday of birthdays) {
 			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-			countdown.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+			countdown.innerText = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 			countdownBar.setAttribute("value", 31536000000 - distance);
-			countdownPercent.innerHTML = round(((31536000000 - distance) / 31536000000) * 100, 2) + "%";
-			countdownText.innerHTML = `${eachBirthday["id"]}'s Birthday`;
+			countdownPercent.innerText = round(((31536000000 - distance) / 31536000000) * 100, 2) + "%";
+			countdownText.innerText = `${eachBirthday["id"]}'s Birthday`;
 		}
 	}
 

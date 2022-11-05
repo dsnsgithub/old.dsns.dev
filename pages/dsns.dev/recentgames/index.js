@@ -329,7 +329,7 @@ async function run() {
 	const data = await fetch(`/api/recentgames/${IGN}`).then((res) => res.json());
 
 	const resultDiv = document.getElementById("result");
-	resultDiv.innerHTML = "";
+	resultDiv.innerText = "";
 
 	if (data.length === 0) {
 		resultDiv.innerHTML = `<h1 class="title">No recent games found.</h1>`;
@@ -350,19 +350,19 @@ async function run() {
 	table.createTBody();
 
 	const headRow = table.tHead.insertRow();
-	headRow.insertCell().innerHTML = "Game";
-	headRow.insertCell().innerHTML = "Mode";
-	headRow.insertCell().innerHTML = "Map";
-	headRow.insertCell().innerHTML = "Time";
+	headRow.insertCell().innerText = "Game";
+	headRow.insertCell().innerText = "Mode";
+	headRow.insertCell().innerText = "Map";
+	headRow.insertCell().innerText = "Time";
 
 	for (const i in data) {
 		const [mode, game, time, map] = await parseRecentGames(data[i], IGN);
 
 		const row = table.insertRow();
-		row.insertCell().innerHTML = game;
-		row.insertCell().innerHTML = mode;
-		row.insertCell().innerHTML = map;
-		row.insertCell().innerHTML = time;
+		row.insertCell().innerText = game;
+		row.insertCell().innerText = mode;
+		row.insertCell().innerText = map;
+		row.insertCell().innerText = time;
 	}
 
 	resultDiv.appendChild(table);
