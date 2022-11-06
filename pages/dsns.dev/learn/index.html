@@ -25,6 +25,8 @@
 	<script defer src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
 	<script defer src="/static/ga.js"></script>
 
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
@@ -135,6 +137,22 @@
 							</select>
 						</div>
 					</div>
+
+					<div class="box">
+						<div class="columns">
+							<div class="column">
+								<canvas style="border: 2px solid gray;" class="js-paper-canvas" height="280" width="280"></canvas>
+
+								<br>
+								
+								<button class="button is-danger js-canvas-clear">Clear</button>
+							</div>
+							<div class="column">
+								<div class="js-result-area"></div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 
@@ -143,6 +161,7 @@
 
 	</section>
 
+	<script src="handwriting.js"></script>
 	<script src="index.js"></script>
 </body>
 

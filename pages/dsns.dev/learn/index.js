@@ -12,9 +12,9 @@ async function parseData() {
 		let [char, def] = character.split(" - ");
 		if (char.indexOf("/") > -1) {
 			let [traditional, simple] = char.split("/");
-			characters.push([simple, def]);
+			characters.push([simple.replace(/[\r\n]/gm, ""), def.replace(/[\r\n]/gm, "")]);
 		} else {
-			characters.push([char, def]);
+			characters.push([char.replace(/[\r\n]/gm, ""), def.replace(/[\r\n]/gm, "")]);
 		}
 	}
 
@@ -27,9 +27,9 @@ async function parseData() {
 
 		if (answer.indexOf("/") > -1) {
 			let [traditional, simplified] = answer.split("/");
-			sentencePatterns.push([simplified, sentence]);
+			sentencePatterns.push([simplified.replace(/[\r\n]/gm, ""), sentence.replace(/[\r\n]/gm, "")]);
 		} else {
-			sentencePatterns.push([answer, sentence]);
+			sentencePatterns.push([answer.replace(/[\r\n]/gm, ""), sentence.replace(/[\r\n]/gm, "")]);
 		}
 	}
 
@@ -52,7 +52,8 @@ async function parseData() {
 				.replace(/[īíǐì]/g, "i")
 				.replace(/[ōóǒò]/g, "o")
 				.replace(/[ūúǔù]/g, "u")
-				.replace(/[ǖǘǚǜü]/g, "v");
+				.replace(/[ǖǘǚǜü]/g, "v")
+				.replace(/[\r\n]/gm, "");
 
 			if (tone1.test(char)) newCharacter += "1";
 			if (tone2.test(char)) newCharacter += "2";
