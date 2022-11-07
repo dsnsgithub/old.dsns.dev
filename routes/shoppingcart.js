@@ -2,7 +2,9 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
+
+//! NO EMAIL RESPONSE due to spam concerns
+// const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 module.exports = async function (app) {
@@ -221,7 +223,7 @@ module.exports = async function (app) {
 				`Credit Card: ${paymentInfo["CCN"]}\n` +
 				`Bought Items: ${JSON.stringify(boughtItems)}`;
 
-			//!!!!!!!!!!!!!!!! NO EMAIL RESPONSE due to spam concerns !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//! NO EMAIL RESPONSE due to spam concerns
 
 			// const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
 
