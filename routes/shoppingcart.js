@@ -221,33 +221,33 @@ module.exports = async function (app) {
 				`Credit Card: ${paymentInfo["CCN"]}\n` +
 				`Bought Items: ${JSON.stringify(boughtItems)}`;
 
-			const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
+			//!!!!!!!!!!!!!!!! NO EMAIL RESPONSE due to spam concerns !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-			let email = "";
-			for (const user in database) {
-				if (database[user]["uuid"] == cookies["uuid"]) {
-					email = user;
-					break;
-				}
-			}
+			// const database = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/login.json"), "utf8"));
 
-			// create transporter object with smtp server details
-			const transporter = nodemailer.createTransport({
-				host: "smtp.gmail.com",
-				port: 587,
-				auth: {
-					user: process.env["googleEmail"],
-					pass: process.env["googlePass"]
-				}
-			});
+			// let email = "";
+			// for (const user in database) {
+			// 	if (database[user]["uuid"] == cookies["uuid"]) {
+			// 		email = user;
+			// 		break;
+			// 	}
+			// }
 
-			// send email
-			await transporter.sendMail({
-				from: process.env["smtpEmail"],
-				to: email,
-				subject: "OnlyEggrolls Order",
-				text: message
-			});
+			// const transporter = nodemailer.createTransport({
+			// 	host: "smtp.gmail.com",
+			// 	port: 587,
+			// 	auth: {
+			// 		user: process.env["googleEmail"],
+			// 		pass: process.env["googlePass"]
+			// 	}
+			// });
+
+			// await transporter.sendMail({
+			// 	from: process.env["smtpEmail"],
+			// 	to: email,
+			// 	subject: "OnlyEggrolls Order",
+			// 	text: message
+			// });
 
 			return res.status(200).send(message);
 		} catch (error) {
