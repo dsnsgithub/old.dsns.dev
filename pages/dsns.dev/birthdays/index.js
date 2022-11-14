@@ -137,7 +137,9 @@ const birthdays = [
 	{ id: "SyntaxError", date: "August 23, 2022" },
 	{ id: "Lion Mountain", date: "December 30, 2022" },
 	{ id: "useryz351", date: "September 22, 2022" },
-	{ id: "UnEntity8", date: "March 8, 2023" }
+	{ id: "UnEntity8", date: "March 8, 2023" },
+	{ id: "Mub", date: "November 16, 2022" },
+	{ id: "TempoSolos", date: "May 2, 2023"}
 ];
 
 for (const singleBirthday of birthdays) {
