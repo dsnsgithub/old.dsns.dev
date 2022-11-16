@@ -37,6 +37,7 @@ const birthdays = [
 const currentYear = new Date().getFullYear();
 const oneDay = 1000 * 60 * 60 * 24;
 const oneYear = oneDay * 365;
+let turnConfettiOn = false;
 
 for (const birthday of birthdays) {
 	birthday["date"] = new Date(`${birthday["date"]} ${currentYear}`);
@@ -64,7 +65,7 @@ function increaseCountdown(birthday, countdown, countdownPercent, countdownBar, 
 		countdownPercent.innerText = "100%";
 		countdownBar.value = oneYear;
 
-		turnConfettiOn();
+		turnConfettiOn = true;
 	} else {
 		// Time calculations for days, hours, minutes and seconds
 		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -106,8 +107,7 @@ for (const birthday of birthdays) {
 	}, 1000);
 }
 
-function turnConfettiOn() {
-	turnConfettiOn = function () {};
+if (turnConfettiOn) {
 
 	const body = document.body;
 	const html = document.documentElement;
