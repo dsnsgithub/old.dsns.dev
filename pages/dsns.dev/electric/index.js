@@ -1,6 +1,6 @@
 const round = (number, decimalPlaces) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
-	return Math.floor(number * factorOfTen) / factorOfTen;
+	return Math.round(number * factorOfTen) / factorOfTen;
 };
 
 function calculate() {

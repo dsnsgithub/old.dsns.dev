@@ -5,7 +5,7 @@ const conversionStatus = document.getElementById("conversionStatus");
 
 const round = (number, decimalPlaces) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
-	return Math.floor(number * factorOfTen) / factorOfTen;
+	return Math.round(number * factorOfTen) / factorOfTen;
 };
 
 // Downloads file with progress bar, splits into chunks
