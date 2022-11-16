@@ -1,9 +1,11 @@
 async function parseData() {
 	const charRes = await fetch("characters.txt").then((res) => res.text());
 	const sentenceRes = await fetch("sentencepatterns.txt").then((res) => res.text());
+	const polyRes = await fetch("polyatomic.txt").then((res) => res.text());
 
 	const charactersRaw = charRes.split("\n");
 	const sentenceRaw = sentenceRes.split("\n");
+	const polyRaw = polyRes.split("\n");
 
 	// Parse Characters
 	const characters = [];
@@ -67,7 +69,14 @@ async function parseData() {
 		count += 1;
 	}
 
-	return [characters, sentencePatterns, pinyinArray];
+	const polyAtomic = [];
+	for (const line of polyRaw) {
+		let [name, formula] = line.split(" - ");
+		polyAtomic.push([name.replace(/[\r\n]/gm, ""), formula.replace(/[\r\n]/gm, "")]);
+		polyAtomic.push([formula.replace(/[\r\n]/gm, ""), name.replace(/[\r\n]/gm, "")]);
+	}
+
+	return [characters, sentencePatterns, pinyinArray, polyAtomic];
 }
 
 function showNewDefinition() {
@@ -122,9 +131,14 @@ function selectOption() {
 		type = "chinese character(s)";
 
 		index = showNewDefinition();
-	} else {
+	} else if (selectElem.value == "Chinese Characters (汉字)") {
 		type = "chinese character";
 		data = [...characters];
+
+		index = showNewDefinition();
+	} else if (selectElem.value == "Polyatomic Ions") {
+		type = "name/formula";
+		data = [...polyAtomic];
 
 		index = showNewDefinition();
 	}
@@ -141,7 +155,7 @@ let index = 0;
 let characters, sentencePatterns, pinyinArray;
 
 async function run() {
-	[characters, sentencePatterns, pinyinArray] = await parseData();
+	[characters, sentencePatterns, pinyinArray, polyAtomic] = await parseData();
 	data = [...characters];
 
 	index = showNewDefinition();

@@ -1,0 +1,16 @@
+Ammonium - (NH4)1+
+Silver - Ag1+
+Cadmium - Cd2+
+Zinc - Zn2+
+Hydride - H1-
+Hydroxide - (OH)1-
+Chlorate - (ClO3)1-
+Chlorite - (ClO2)1-
+Nitrate - (NO3)1-
+Nitrite - (NO2)1-
+Carbonate - (CO3)2-
+Peroxide - (O2)2-
+Sulfate - (SO4)2-
+Sulfite - (SO3)2-
+Phosphate - (PO4)3-
+Phosphite - (PO3)3-
