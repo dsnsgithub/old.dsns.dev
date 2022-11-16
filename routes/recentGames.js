@@ -5,7 +5,7 @@ const hypixel = require("./difference/hypixel.js");
 
 module.exports = async function (app) {
 	app.get("/api/recentgames/:IGN", async (req, res, next) => {
-		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
 
 		try {
 			const IGN = req.params.IGN;

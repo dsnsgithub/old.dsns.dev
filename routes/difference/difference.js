@@ -10,7 +10,7 @@ module.exports = async function (app) {
 	}, Number(process.env.RELOAD_TIME));
 
 	app.get("/api/difference", async (req, res, next) => {
-		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
 
 		res.set({
 			"Cache-Control": "no-cache",
