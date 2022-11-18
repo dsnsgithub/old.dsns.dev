@@ -31,7 +31,8 @@ const birthdays = [
 	{ name: "useryz351", date: "September 22" },
 	{ name: "UnEntity8", date: "March 8" },
 	{ name: "Mub", date: "November 16" },
-	{ name: "TempoSolos", date: "May 2" }
+	{ name: "TempoSolos", date: "May 2" },
+	{ name: "agedfish", date: "May 1" }
 ];
 
 const currentYear = new Date().getFullYear();
