@@ -280,6 +280,7 @@ const InputHandwrite = handwritingCanvas(".js-paper-canvas");
 InputHandwrite.init();
 
 const resultAreaElem = document.querySelector(".js-result-area");
+const canvasArea = document.querySelector(".js-paper-canvas");
 
 /* Clear Canvas */
 document.querySelector(".js-canvas-clear").addEventListener("click", () => {
@@ -295,7 +296,14 @@ const displayResult = (result) => {
 	}
 };
 
-document.querySelector(".js-paper-canvas").addEventListener("mouseup", () => {
+canvasArea.addEventListener("mouseup", () => {
+	resultAreaElem.innerHTML = "";
+	const strokeData = InputHandwrite.getStrokes();
+	const canvasSize = InputHandwrite.getCanvasSize();
+	recognizeHandwriting(canvasSize, strokeData, 10, displayResult);
+});
+
+canvasArea.addEventListener("touchend", () => {
 	resultAreaElem.innerHTML = "";
 	const strokeData = InputHandwrite.getStrokes();
 	const canvasSize = InputHandwrite.getCanvasSize();
