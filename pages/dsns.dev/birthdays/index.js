@@ -1,8 +1,3 @@
-const round = (number, decimalPlaces) => {
-	const factorOfTen = Math.pow(10, decimalPlaces);
-	return Math.floor(number * factorOfTen) / factorOfTen;
-};
-
 const birthdays = [
 	{ name: "DSNS", date: "May 17" },
 	{ name: "jiebi", date: "February 10" },
@@ -35,6 +30,11 @@ const birthdays = [
 	{ name: "agedfish", date: "May 1" }
 ];
 
+const round = (number, decimalPlaces) => {
+	const factorOfTen = Math.pow(10, decimalPlaces);
+	return Math.floor(number * factorOfTen) / factorOfTen;
+};
+
 const currentYear = new Date().getFullYear();
 const oneDay = 1000 * 60 * 60 * 24;
 const oneYear = oneDay * 365;
@@ -51,7 +51,7 @@ for (const birthday of birthdays) {
 	}
 }
 
-// Create a function that sorts the array of birthdays by date
+// sorts the array of birthdays by date
 birthdays.sort(function (a, b) {
 	return a["date"] - b["date"];
 });
@@ -61,14 +61,13 @@ function increaseCountdown(birthday, countdown, countdownPercent, countdownBar, 
 	const now = new Date().getTime();
 
 	const distance = countDownDate - now;
-	if (distance > -86400000 && distance < 0) {
+	if (distance < 0) {
 		countdown.innerText = `Happy Birthday ${birthday["name"]}!`;
 		countdownPercent.innerText = "100%";
 		countdownBar.value = oneYear;
 
 		turnConfettiOn = true;
 	} else {
-		// Time calculations for days, hours, minutes and seconds
 		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
 		const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -109,7 +108,6 @@ for (const birthday of birthdays) {
 }
 
 if (turnConfettiOn) {
-
 	const body = document.body;
 	const html = document.documentElement;
 
@@ -119,5 +117,6 @@ if (turnConfettiOn) {
 		rotate: true,
 		height: Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
 	});
+	
 	confetti.render();
 }
