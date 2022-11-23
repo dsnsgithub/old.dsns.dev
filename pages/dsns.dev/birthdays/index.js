@@ -95,7 +95,7 @@ for (const birthday of birthdays) {
 
 	const countdownBar = document.createElement("progress");
 	countdownBar.className = "progress is-normal is-info";
-	countdownBar.setAttribute("max", 31536000000);
+	countdownBar.setAttribute("max", oneYear);
 	columnDiv.appendChild(countdownBar);
 
 	const countdownPercent = document.createElement("p");

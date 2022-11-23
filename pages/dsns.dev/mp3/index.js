@@ -24,6 +24,14 @@ async function downloadAPI(url) {
 		downloadStatus.innerText = "Waiting for download to start...";
 	}
 
+	let fileName = "";
+	for (const pair of response.headers.entries()) {
+		if (pair[0].toLowerCase() == "content-disposition") {
+			fileName = pair[1].split(`filename="`)[1].split(`.`)[0];
+			break;
+		}
+	}
+
 	const reader = response.body.getReader();
 	let receivedLength = 0;
 	let chunks = [];
@@ -37,7 +45,7 @@ async function downloadAPI(url) {
 	}
 
 	downloadStatus.innerText = "Download Complete";
-	return [chunks, receivedLength];
+	return [chunks, receivedLength, fileName];
 }
 
 async function convertChunkToArray(chunks, receivedLength) {
@@ -61,7 +69,7 @@ async function downloadFile(blob, fileName) {
 }
 
 async function convertFileFormat(format, type, youtubeID) {
-	const [chunks, receivedLength] = await downloadAPI(`/api/youtube/${youtubeID}`);
+	const [chunks, receivedLength, fileName] = await downloadAPI(`/api/youtube/${youtubeID}`);
 	const chunksAll = await convertChunkToArray(chunks, receivedLength);
 
 	const ffmpeg = createFFmpeg({ log: true });
@@ -77,7 +85,7 @@ async function convertFileFormat(format, type, youtubeID) {
 	const output = ffmpeg.FS("readFile", `audio.${format}`);
 
 	const blob = new Blob([output], { type: type });
-	await downloadFile(blob, `${youtubeID}.${format}`);
+	await downloadFile(blob, `${fileName}.${format}`);
 
 	ffmpeg.FS("unlink", `audio.webm`);
 	ffmpeg.FS("unlink", `audio.${format}`);
@@ -106,17 +114,17 @@ async function downloadMP3() {
 		const fileType = document.getElementById("fileType").value;
 
 		if (fileType.includes("mp4")) {
-			const [chunks, receivedLength] = await downloadAPI(`/api/youtubeVideo/${youtubeID}`);
+			const [chunks, receivedLength, fileName] = await downloadAPI(`/api/youtubeVideo/${youtubeID}`);
 			const chunksAll = await convertChunkToArray(chunks, receivedLength);
 			const result = JSON.parse(new TextDecoder("utf-8").decode(chunksAll));
 
 			if (fileType == "mp4audio") window.open(result["highest"]["url"], "_blank");
 			if (fileType == "mp4high") window.open(result["highestvideo"]["url"], "_blank");
 		} else if (fileType == "webm") {
-			const res = await downloadAPI(`/api/youtube/${youtubeID}`);
-			const blob = new Blob(res[0]);
+			const [chunks, receivedLength, fileName] = await downloadAPI(`/api/youtube/${youtubeID}`);
+			const blob = new Blob(chunks);
 
-			await downloadFile(blob, `${youtubeID}.webm`);
+			await downloadFile(blob, `${fileName}.webm`);
 		} else {
 			await convertFileFormat(fileType, `audio/${fileType}`, youtubeID);
 		}
