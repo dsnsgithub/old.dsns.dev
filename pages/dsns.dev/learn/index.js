@@ -92,7 +92,16 @@ function showNewDefinition() {
 function checkAnswer() {
 	const input = document.getElementById("chinese");
 
-	if (input.value.replace(/[？?，,！!。.]/g, "").trim() == data[index][0].replace(/[？?，,！!。.]/g, "").trim()) {
+	if (
+		input.value
+			.replace(/[？?，,！!。.]/g, "")
+			.trim()
+			.toLowerCase() ==
+		data[index][0]
+			.replace(/[？?，,！!。.]/g, "")
+			.trim()
+			.toLowerCase()
+	) {
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
 			alert(`Correct! The answer was ${data[index][0]} (${pinyinArray[pinyinIndex][0]}).`);
