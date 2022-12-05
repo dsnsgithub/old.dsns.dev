@@ -77,8 +77,8 @@ async function parseData() {
 	const polyAtomic = [];
 	for (const line of polyRaw) {
 		let [name, formula] = line.split(" - ");
-		polyAtomic.push([[format(name)], format(formula)]);
-		polyAtomic.push([[format(formula)], format(name)]);
+		polyAtomic.push([[format(name)], formula]);
+		polyAtomic.push([[format(formula)], name]);
 	}
 
 	return [characterList, sentencePatternsList, pinyinArray, polyAtomic];
