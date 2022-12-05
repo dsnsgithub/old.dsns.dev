@@ -1,3 +1,10 @@
+function format(string) {
+	return string
+		.replace(/[\r\n？?，,！!。.]/gm, "")
+		.trim()
+		.toLowerCase();
+}
+
 async function parseData() {
 	const charRes = await fetch("characters.txt").then((res) => res.text());
 	const sentenceRes = await fetch("sentencepatterns.txt").then((res) => res.text());
@@ -8,30 +15,28 @@ async function parseData() {
 	const polyRaw = polyRes.split("\n");
 
 	// Parse Characters
-	const characters = [];
+	const characterList = [];
 	for (let i = 0; i < charactersRaw.length; i = i + 2) {
-		let character = charactersRaw[i];
-		let [char, def] = character.split(" - ");
-		if (char.indexOf("/") > -1) {
-			let [traditional, simple] = char.split("/");
-			characters.push([simple.replace(/[\r\n]/gm, ""), def.replace(/[\r\n]/gm, "")]);
+		const [character, definition] = charactersRaw[i].split(" - ");
+		if (character.indexOf("/") > -1) {
+			const [traditional, simplified] = character.split("/");
+			characterList.push([[format(simplified), format(traditional)], definition]);
 		} else {
-			characters.push([char.replace(/[\r\n]/gm, ""), def.replace(/[\r\n]/gm, "")]);
+			characterList.push([[format(character)], definition]);
 		}
 	}
 
 	// Parse Sentence Patterns
-	const sentencePatterns = [];
+	const sentencePatternsList = [];
 	for (const line of sentenceRaw) {
 		if (line.indexOf("-") == -1) continue;
-
-		let [sentence, answer] = line.split(" - ");
+		const [sentence, answer] = line.split(" - ");
 
 		if (answer.indexOf("/") > -1) {
-			let [traditional, simplified] = answer.split("/");
-			sentencePatterns.push([simplified.replace(/[\r\n]/gm, ""), sentence.replace(/[\r\n]/gm, "")]);
+			const [traditional, simplified] = answer.split("/");
+			sentencePatternsList.push([[format(simplified), format(traditional)], format(sentence)]);
 		} else {
-			sentencePatterns.push([answer.replace(/[\r\n]/gm, ""), sentence.replace(/[\r\n]/gm, "")]);
+			sentencePatternsList.push([[format(answer)], format(sentence)]);
 		}
 	}
 
@@ -65,18 +70,18 @@ async function parseData() {
 			completePinyin += newCharacter;
 		}
 
-		pinyinArray.push([completePinyin, characters[count][0]]);
+		pinyinArray.push([[format(completePinyin)], characterList[count][0].join("/")]);
 		count += 1;
 	}
 
 	const polyAtomic = [];
 	for (const line of polyRaw) {
 		let [name, formula] = line.split(" - ");
-		polyAtomic.push([name.replace(/[\r\n]/gm, ""), formula.replace(/[\r\n]/gm, "")]);
-		polyAtomic.push([formula.replace(/[\r\n]/gm, ""), name.replace(/[\r\n]/gm, "")]);
+		polyAtomic.push([[format(name)], format(formula)]);
+		polyAtomic.push([[format(formula)], format(name)]);
 	}
 
-	return [characters, sentencePatterns, pinyinArray, polyAtomic];
+	return [characterList, sentencePatternsList, pinyinArray, polyAtomic];
 }
 
 function showNewDefinition() {
@@ -91,22 +96,15 @@ function showNewDefinition() {
 
 function checkAnswer() {
 	const input = document.getElementById("chinese");
+	const cleanInput = format(input.value);
 
-	if (
-		input.value
-			.replace(/[？?，,！!。.]/g, "")
-			.trim()
-			.toLowerCase() ==
-		data[index][0]
-			.replace(/[？?，,！!。.]/g, "")
-			.trim()
-			.toLowerCase()
-	) {
+	const answers = data[index][0];
+	if (answers.includes(cleanInput)) {
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
-			alert(`Correct! The answer was ${data[index][0]} (${pinyinArray[pinyinIndex][0]}).`);
+			alert(`Correct! The answer was ${data[index][0][0]} (${pinyinArray[pinyinIndex][0]}).`);
 		} else {
-			alert(`Correct! The answer was ${data[index][0]}.`);
+			alert(`Correct! The answer was ${data[index][0][0]}.`);
 		}
 
 		if (!wrong) data.splice(index, 1);
@@ -118,9 +116,9 @@ function checkAnswer() {
 	} else {
 		if (selectElem.value == "Chinese Characters (汉字)") {
 			const pinyinIndex = characters.indexOf(data[index]);
-			alert(`Wrong! The correct answer was ${data[index][0]} (${pinyinArray[pinyinIndex][0]}).`);
+			alert(`Wrong! The correct answer was ${data[index][0][0]} (${pinyinArray[pinyinIndex][0]}).`);
 		} else {
-			alert(`Wrong! The correct answer was ${data[index][0]}.`);
+			alert(`Wrong! The correct answer was ${data[index][0][0]}.`);
 		}
 
 		input.value = "";
