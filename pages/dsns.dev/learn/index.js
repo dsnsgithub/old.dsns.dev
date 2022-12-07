@@ -34,9 +34,9 @@ async function parseData() {
 
 		if (answer.indexOf("/") > -1) {
 			const [traditional, simplified] = answer.split("/");
-			sentencePatternsList.push([[format(simplified), format(traditional)], format(sentence)]);
+			sentencePatternsList.push([[format(simplified), format(traditional)], sentence]);
 		} else {
-			sentencePatternsList.push([[format(answer)], format(sentence)]);
+			sentencePatternsList.push([[format(answer)], sentence]);
 		}
 	}
 
