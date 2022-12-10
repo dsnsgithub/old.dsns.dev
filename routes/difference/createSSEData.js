@@ -24,6 +24,7 @@ async function createDifferenceSSE(UUIDs, IGNs) {
 		const graphArray = await diffJS.createGraphArray(levels);
 
 		const result = {
+			code: "success",
 			status: parsedData["status"],
 			recentGames: parsedData["recentGames"],
 			differenceAmKale: difference["differenceAmKale"].toString(),
@@ -38,7 +39,7 @@ async function createDifferenceSSE(UUIDs, IGNs) {
 		if (process.env["NODE_ENV"] == "development") {
 			console.error("\x1b[31m" + "Difference SSE Error: " + (error.stack || error) + "\x1b[0m");
 		}
-		return "failed";
+		return { code: "failed" };
 	}
 }
 

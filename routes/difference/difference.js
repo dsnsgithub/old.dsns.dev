@@ -12,12 +12,6 @@ module.exports = async function (app) {
 	app.get("/api/difference", async (req, res, next) => {
 		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
 
-		res.set({
-			"Cache-Control": "no-cache",
-			"Content-Type": "text/event-stream",
-			Connection: "keep-alive"
-		});
-
-		res.send(`data: ${JSON.stringify(result)} \n\n`);
+		res.json(result);
 	});
 };

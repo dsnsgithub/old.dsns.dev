@@ -1,16 +1,13 @@
-const source = new EventSource("/api/difference");
+load();
+setInterval(load, 30000);
 
-source.addEventListener("message", (message) => {
-	// Parse SSE from server
-	const serverData = JSON.parse(message.data);
+async function load() {
+	const serverData = await fetch("/api/difference").then(res => res.json());
 
-	// If SSE failed
-	if (serverData == "failed") {
+	if (serverData.code == "failed") {
 		window.location.href = "/difference/error.html";
 	}
-	console.log(serverData);
 
-	//Load Google Charts JS
 	google.charts.load("current", { packages: ["corechart"] });
 	google.charts.setOnLoadCallback(createCharts);
 
@@ -28,7 +25,6 @@ source.addEventListener("message", (message) => {
 			hAxis: { textPosition: "none" }
 		};
 
-		// Draw the charts
 		amkaleChart.draw(amkaleData, options);
 		jiebiChart.draw(jiebiData, options);
 
@@ -69,4 +65,4 @@ source.addEventListener("message", (message) => {
 	document.getElementById("differenceJiebi").innerText = serverData.differenceJiebi;
 	document.getElementById("jiebiAmkale").innerText = Math.abs(Number(serverData.differenceJiebi - serverData.differenceAmKale).toFixed(3));
 	document.getElementById("date").innerText = "Last Updated: " + serverData.date;
-});
+};
