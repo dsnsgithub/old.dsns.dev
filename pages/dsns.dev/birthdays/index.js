@@ -5,6 +5,7 @@ const birthdays = [
 	{ name: "idot777", date: "May 3" },
 	{ name: "Armster15", date: "January 15" },
 	{ name: "LonelySouls", date: "January 29" },
+	{ name: "Awkward Silence", date: "January 29" },
 	{ name: "jakeybakers", date: "April 18" },
 	{ name: "Node13", date: "September 24" },
 	{ name: "meh~", date: "January 7" },
