@@ -9,6 +9,7 @@ async function parseData() {
 	const charRes = await fetch("characters.txt").then((res) => res.text());
 	const sentenceRes = await fetch("sentencepatterns.txt").then((res) => res.text());
 	const polyRes = await fetch("polyatomic.txt").then((res) => res.text());
+	const idiomsRes = await fetch("idioms.json").then((res) => res.json());
 
 	const charactersRaw = charRes.split("\n");
 	const sentenceRaw = sentenceRes.split("\n");
@@ -81,7 +82,12 @@ async function parseData() {
 		polyAtomic.push([[format(formula)], name]);
 	}
 
-	return [characterList, sentencePatternsList, pinyinArray, polyAtomic];
+	const idioms = [];
+	for (const line of idiomsRes) {
+		idioms.push([[format(line.answer)], line.question]);
+	}
+
+	return [characterList, sentencePatternsList, pinyinArray, polyAtomic, idioms];
 }
 
 function showNewDefinition() {
@@ -148,6 +154,11 @@ function selectOption() {
 		data = [...polyAtomic];
 
 		index = showNewDefinition();
+	} else if (selectElem.value == "中文三成语复习") {
+		type = "answer";
+		data = [...idioms];
+
+		index = showNewDefinition();
 	}
 }
 
@@ -162,7 +173,7 @@ let index = 0;
 let characters, sentencePatterns, pinyinArray;
 
 async function run() {
-	[characters, sentencePatterns, pinyinArray, polyAtomic] = await parseData();
+	[characters, sentencePatterns, pinyinArray, polyAtomic, idioms] = await parseData();
 	data = [...characters];
 
 	index = showNewDefinition();
