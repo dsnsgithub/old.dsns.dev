@@ -97,7 +97,7 @@ async function parseData() {
 			} else {
 				completeCharacter = line.question + line.answer;
 			}
-			
+
 			idioms.push([[format(line.pinyin)], completeCharacter]);
 		}
 	}
@@ -105,13 +105,22 @@ async function parseData() {
 	return [characterList, sentencePatternsList, pinyinArray, polyAtomic, idioms];
 }
 
+let lastQuestion = "";
 function showNewDefinition() {
 	if (data.length == 0) {
 		alert("You have finished the game!");
 		return;
 	}
-	const randomIndex = Math.floor(Math.random() * data.length);
+
+	let randomIndex = 0;
+
+	do {
+		randomIndex = Math.floor(Math.random() * data.length);
+	} while (data[randomIndex] == lastQuestion && data.length > 1)
+
 	characterElem.innerHTML = `Type the ${type} for <b>${data[randomIndex][1]}</b>`;
+
+	lastQuestion = data[randomIndex];
 	return randomIndex;
 }
 
@@ -132,7 +141,6 @@ function checkAnswer() {
 
 		index = showNewDefinition();
 		input.value = "";
-		input.focus();
 		wrong = false;
 	} else {
 		if (selectElem.value == "Chinese Characters (汉字)") {
@@ -143,7 +151,6 @@ function checkAnswer() {
 		}
 
 		input.value = "";
-		input.focus();
 		wrong = true;
 	}
 }
