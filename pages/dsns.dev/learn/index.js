@@ -85,6 +85,21 @@ async function parseData() {
 	const idioms = [];
 	for (const line of idiomsRes) {
 		idioms.push([[format(line.answer)], line.question]);
+
+		if (line.question.includes("-")) {
+			const [character, _] = line.question.split(" - ");
+			idioms.push([[format(line.pinyin)], character]);
+		} else {
+
+			let completeCharacter = "";
+			if (line.question.includes("/")) {
+				completeCharacter = line.question.split("/")[1] + line.answer;
+			} else {
+				completeCharacter = line.question + line.answer;
+			}
+			
+			idioms.push([[format(line.pinyin)], completeCharacter]);
+		}
 	}
 
 	return [characterList, sentencePatternsList, pinyinArray, polyAtomic, idioms];

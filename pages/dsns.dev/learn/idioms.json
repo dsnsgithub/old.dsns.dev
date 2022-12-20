@@ -1,42 +1,52 @@
 [
 	{
 		"question": "喬遷/乔迁",
-		"answer": "之喜"
+		"answer": "之喜",
+		"pinyin": "qiao2qian1zhi1xi3"
 	},
 	{
 		"question": "隔牆/隔墙",
-		"answer": "有耳"
+		"answer": "有耳",
+		"pinyin": "ge2qian2you3er3"
 	},
 	{
 		"question": "拐彎/拐弯",
-		"answer": "抹角"
+		"answer": "抹角",
+		"pinyin": "guai3wan1mo4jiao3"
 	},
 	{
 		"question": "人逢喜事",
-		"answer": "精神爽"
+		"answer": "精神爽",
+		"pinyin": "ren2feng2xi3shi4jing1shen2shuang3"
 	},
 	{
 		"question": "趕鴨子/赶鸭子",
-		"answer": "上架"
+		"answer": "上架",
+		"pinyin": "gan3ya1zishang4jia4"
 	},
 	{
 		"question": "守株待兔 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Indicates that someone is stupid and unimaginative about doing things or that someone puts their faith in chance and windfalls. <br><br>2. This implies that a determined effort can help accomplish things. <br><br>3. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.</div>",
-		"answer": "1"
+		"answer": "1",
+		"pinyin": "shou1zhu1dai4tu4"
 	}, 
 	{
 		"question": "東施效顰/东施效颦 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.<br><br>2. This implies that a determined effort can help accomplish things.<br><br>3. Someone who imitates poorly, making the imitator appear even more awkward and unpleasant.</div>",
-		"answer": "3"
+		"answer": "3",
+		"pinyin": "dong1shi1xiao4pin2"
 	},
 	{
 		"question": "狐假虎威 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Indicates that someone is stupid and unimaginative about doing things or that someone puts their faith in chance and windfalls.<br><br>2. This implies that a determined effort can help accomplish things. <br><br>3. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.</div>",
-		"answer": "3"
+		"answer": "3",
+		"pinyin": "hu2jia3hu3wei1"
 	},
 	{
 		"question": "愚公移山 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Someone who imitates poorly, making the imitator appear even more awkward and unpleasant.<br><br>2. This implies that a determined effort can help accomplish things.<br><br>3. Someone's words or behavior are contradictory.</div>",
-		"answer": "2"
+		"answer": "2",
+		"pinyin": "yu2gong1yi2shan1"
 	},
 	{
 		"question": "自相矛盾 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Someone's words or behavior are contradictory.<br><br>2. This implies that a determined effort can help accomplish things.<br><br>3. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.</div>",
-		"answer": "1"
+		"answer": "1",
+		"pinyin": "zi4xiang1mao2dun4"
 	}
 ]
