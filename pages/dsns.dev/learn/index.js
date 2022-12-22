@@ -5,15 +5,13 @@ function format(string) {
 		.toLowerCase();
 }
 
-async function parseData() {
-	const charRes = await fetch("characters.txt").then((res) => res.text());
-	const sentenceRes = await fetch("sentencepatterns.txt").then((res) => res.text());
-	const polyRes = await fetch("polyatomic.txt").then((res) => res.text());
-	const idiomsRes = await fetch("idioms.json").then((res) => res.json());
-
-	const charactersRaw = charRes.split("\n");
-	const sentenceRaw = sentenceRes.split("\n");
-	const polyRaw = polyRes.split("\n");
+async function parseLesson(lesson) {
+	const charactersRaw = await fetch(`${lesson}/characters.txt`)
+		.then((res) => res.text())
+		.then((data) => data.split("\n"));
+	const sentenceRaw = await fetch(`${lesson}/sentencepatterns.txt`)
+		.then((res) => res.text())
+		.then((data) => data.split("\n"));
 
 	// Parse Characters
 	const characterList = [];
@@ -75,6 +73,15 @@ async function parseData() {
 		count += 1;
 	}
 
+	return [characterList, sentencePatternsList, pinyinArray];
+}
+
+async function parseData() {
+	const polyRaw = await fetch("polyatomic.txt")
+		.then((res) => res.text())
+		.then((data) => data.split("\n"));
+	const idiomsRaw = await fetch("idioms.json").then((res) => res.json());
+
 	const polyAtomic = [];
 	for (const line of polyRaw) {
 		let [name, formula] = line.split(" - ");
@@ -83,14 +90,13 @@ async function parseData() {
 	}
 
 	const idioms = [];
-	for (const line of idiomsRes) {
+	for (const line of idiomsRaw) {
 		idioms.push([[format(line.answer)], line.question]);
 
 		if (line.question.includes("-")) {
 			const [character, _] = line.question.split(" - ");
 			idioms.push([[format(line.pinyin)], character]);
 		} else {
-
 			let completeCharacter = "";
 			if (line.question.includes("/")) {
 				completeCharacter = line.question.split("/")[1] + line.answer;
@@ -102,7 +108,7 @@ async function parseData() {
 		}
 	}
 
-	return [characterList, sentencePatternsList, pinyinArray, polyAtomic, idioms];
+	return [polyAtomic, idioms];
 }
 
 let lastQuestion = "";
@@ -116,7 +122,7 @@ function showNewDefinition() {
 
 	do {
 		randomIndex = Math.floor(Math.random() * data.length);
-	} while (data[randomIndex] == lastQuestion && data.length > 1)
+	} while (data[randomIndex] == lastQuestion && data.length > 1);
 
 	characterElem.innerHTML = `Type the ${type} for <b>${data[randomIndex][1]}</b>`;
 
@@ -159,26 +165,31 @@ function selectOption() {
 	if (selectElem.value == "Pinyin") {
 		data = [...pinyinArray];
 		type = "pinyin";
+		lessonSelect.style.display = "inline-block";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "Sentence Patterns") {
 		data = [...sentencePatterns];
 		type = "chinese character(s)";
+		lessonSelect.style.display = "inline-block";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "Chinese Characters (汉字)") {
 		type = "chinese character";
 		data = [...characters];
+		lessonSelect.style.display = "inline-block";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "Polyatomic Ions") {
 		type = "name/formula";
 		data = [...polyAtomic];
+		lessonSelect.style.display = "none";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "中文三成语复习") {
 		type = "answer";
 		data = [...idioms];
+		lessonSelect.style.display = "none";
 
 		index = showNewDefinition();
 	}
@@ -187,20 +198,27 @@ function selectOption() {
 const characterElem = document.getElementById("showCharacter");
 const selectElem = document.getElementById("select");
 const submitButton = document.getElementById("submit");
+const lessonSelect = document.getElementById("lesson");
 
 let wrong = false;
 let data = [];
 let type = "chinese character";
 let index = 0;
+let currentLesson = "L6";
 let characters, sentencePatterns, pinyinArray;
 
 async function run() {
-	[characters, sentencePatterns, pinyinArray, polyAtomic, idioms] = await parseData();
+	[characters, sentencePatterns, pinyinArray] = await parseLesson(currentLesson);
+	[polyAtomic, idioms] = await parseData();
 	data = [...characters];
 
 	index = showNewDefinition();
 	selectElem.addEventListener("change", selectOption);
 	submitButton.addEventListener("click", checkAnswer);
+	lessonSelect.addEventListener("change", async () => {
+		[characters, sentencePatterns, pinyinArray] = await parseLesson(lessonSelect.value);
+		selectOption();
+	});
 
 	document.onkeyup = function (event) {
 		if (event.key == "Enter") {
