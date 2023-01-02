@@ -113,10 +113,15 @@ async function downloadMP3() {
 
 		const fileType = document.getElementById("fileType").value;
 
+		const mp4play = document.getElementById("mp4play");
+
 		if (fileType.includes("mp4")) {
 			const [chunks, receivedLength, fileName] = await downloadAPI(`/api/youtubeVideo/${youtubeID}`);
 			const chunksAll = await convertChunkToArray(chunks, receivedLength);
 			const result = JSON.parse(new TextDecoder("utf-8").decode(chunksAll));
+
+			mp4play.src = result["highest"]["url"];
+			mp4play.style.display = "block";
 
 			if (fileType == "mp4audio") window.open(result["highest"]["url"], "_blank");
 			if (fileType == "mp4high") window.open(result["highestvideo"]["url"], "_blank");
