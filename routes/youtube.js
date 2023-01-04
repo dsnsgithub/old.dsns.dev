@@ -1,5 +1,3 @@
-// @ts-check
-
 //? Requirements
 const ytdl = require("ytdl-core");
 
@@ -40,19 +38,19 @@ module.exports = function (app) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
 			if (!req.params.id) return res.status(400).send("Invalid YouTube Link");
-			
+
 			const info = await ytdl.getInfo(`https://youtube.com/watch?v=${req.params.id}`);
 
-			let highest;
-			try {
-				highest = ytdl.chooseFormat(info.formats, { quality: 22 });
-			} catch {
-				highest = ytdl.chooseFormat(info.formats, { quality: "highest" });
-			}
+			let formats = info.formats;
+			formats.sort((a, b) => {
+				return b.bitrate - a.bitrate;
+			});
+
+			formats = formats.filter((video) => video.mimeType.includes("video/mp4"));
 
 			return res.json({
-				highestvideo: ytdl.chooseFormat(info.formats, { quality: "highestvideo" }),
-				highest: highest,
+				highestvideo: formats[0],
+				highest: formats.filter((video) => video.hasAudio == true)[0]
 			});
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/youtubeVideo: " + (error.stack || error) + "\x1b[0m");

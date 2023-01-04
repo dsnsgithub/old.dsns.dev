@@ -114,6 +114,7 @@ async function downloadMP3() {
 		const fileType = document.getElementById("fileType").value;
 
 		const mp4play = document.getElementById("mp4play");
+		const mp3play = document.getElementById("mp3play");
 
 		if (fileType.includes("mp4")) {
 			const [chunks, receivedLength, fileName] = await downloadAPI(`/api/youtubeVideo/${youtubeID}`);
@@ -122,6 +123,8 @@ async function downloadMP3() {
 
 			mp4play.src = result["highest"]["url"];
 			mp4play.style.display = "block";
+			mp3play.style.display = "none";
+			mp3play.pause();
 
 			if (fileType == "mp4audio") window.open(result["highest"]["url"], "_blank");
 			if (fileType == "mp4high") window.open(result["highestvideo"]["url"], "_blank");
@@ -129,8 +132,18 @@ async function downloadMP3() {
 			const [chunks, receivedLength, fileName] = await downloadAPI(`/api/youtube/${youtubeID}`);
 			const blob = new Blob(chunks);
 
+			mp3play.src = `/api/youtube/${youtubeID}`;
+			mp3play.style.display = "block";
+			mp4play.style.display = "none";
+			mp4play.pause();
+
 			await downloadFile(blob, `${fileName}.webm`);
 		} else {
+			mp3play.src = `/api/youtube/${youtubeID}`;
+			mp3play.style.display = "block";
+			mp4play.style.display = "none";
+			mp4play.pause();
+
 			await convertFileFormat(fileType, `audio/${fileType}`, youtubeID);
 		}
 	} catch (e) {
