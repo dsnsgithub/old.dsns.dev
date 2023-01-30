@@ -147,6 +147,9 @@ function checkAnswer() {
 
 		index = showNewDefinition();
 		input.value = "";
+		input.placeholder = "汉字";
+		input.style.border = "";
+		input.style.borderStyle = "";
 		wrong = false;
 	} else {
 		if (selectElem.value == "Chinese Characters (汉字)") {
@@ -157,6 +160,9 @@ function checkAnswer() {
 		}
 
 		input.value = "";
+		input.placeholder = data[index][0][0];
+		input.style.border = "#ff786e";
+		input.style.borderStyle = "solid";
 		wrong = true;
 	}
 }
