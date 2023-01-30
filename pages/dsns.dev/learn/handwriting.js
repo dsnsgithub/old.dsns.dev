@@ -288,11 +288,20 @@ document.querySelector(".js-canvas-clear").addEventListener("click", () => {
 	resultAreaElem.innerText = "";
 });
 
+function insert(character) {
+	const input = document.getElementById("chinese");
+	const str = input.value;
+	const pos = input.selectionStart;
+
+	input.value = `${str.slice(0, pos)}${character}${str.slice(pos)}`;
+	document.querySelector(".js-canvas-clear").click();
+}
+
 
 /* Recognize text draw on canvas */
 const displayResult = (result) => {
 	for (const character of result) {
-		resultAreaElem.innerHTML += `<button class="button" onclick="document.getElementById('chinese').value += '${character}'; document.querySelector('.js-canvas-clear').click();">${character}</button>`;
+		resultAreaElem.innerHTML += `<button class="button" onclick="insert('${character}')">${character}</button>`;
 	}
 };
 
