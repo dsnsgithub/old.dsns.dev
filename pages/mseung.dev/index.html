@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
@@ -8,6 +7,7 @@
 	<link href="style.css" rel="stylesheet" type="text/css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script src="https://kit.fontawesome.com/d7bc5eb110.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -20,49 +20,27 @@
 		gtag('config', 'G-ETL119JD39');
 	</script>
 </head>
-
-<body>
-		
-		<h1>Hello! This is a bio for MSEUNG.dev, also known as Max</h1>
-
-		<div class="flex-container" style="position: relative; top: 240px;">
-
-			<div>
-				<a href="https://maxas10.github.io/" class="button">My Old Site</a>
+	<body>
+		<div id="menu">
+			<div class="far fa-folder" id="menubutton" onclick="openMenu()"></div>
+			<div id="list">
+				<a href="https://maxas10.github.io/">My Old Site</a>
+				<a href="https://dsns.dev/">DSNS.dev</a>
+				<a href="/skills/">My Skills</a>
+				<a href="/dinosaur/">Dinosaur Game</a>
+				<a href="/stock/">Stock Trading Simulator</a>
 			</div>
-
-			<div>
-				<a href="https://www.youtube.com/channel/UCuPCBjJS4Q4bUXnvkYSBFdw/" class="button">YouTube</a>
-			</div>
-
-			<div>
-				<a href="https://dsns.dev/" class="button">DSNS.dev</a>
-			</div>
-
 		</div>
-
-		
-
-		<div class="flex-container" style="position: relative; top: 290px;">
-
-			<div>
-				<a href="/skills/" class="button">Skills</a>
+		<div id="main">
+			<div id="left">
+				<p>Max Seung</p>
+				<p id="quote">"Welcome to your final test. I'm Mr. Beast."</p>
+				<div id="iconlist">
+					<a href="https://www.youtube.com/channel/UCuPCBjJS4Q4bUXnvkYSBFdw/" style="width: 50px; height: 30px; margin-top: 2vh;"><img src="/icons/youtube.png" alt="youtube" style="width: 60px;"></a>
+				</div>
 			</div>
-
-			<div>
-				<a href="/dinosaur/" class="button">JS Dinosaur Game</a>
-			</div>
-			
-			<div>
-				<a href="/stock/" class="button">Stock Simulator</a>
-			</div>
-			
-		</div>	
-
-
-
+			<img src="cat.jpg" alt="cat" style="width: 17.5vw;">
+		</div>
 		<script src="script.js"></script>
-
 	</body>
-
 </html>

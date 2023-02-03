@@ -1,45 +1,28 @@
 body {
-    background-image: url("../backgroundpicture.jpg");
-    background-size: cover;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 50px;
 }
 
 .flex-container {
     display: flex;
-    justify-content: center;
     justify-content: space-evenly;
-  }
-
-h2 {
-    font-family: 'Poppins', sans-serif;
-}
-
-h1 {
-    font-family: 'Courier New', Courier, monospace;
-}
-
-p {
-    font-family: 'Poppins', sans-serif;
 }
 
 .logos {
-    font-size: 200px;
+    font-size: 7.5vw;
+    display: flex;
+    flex-direction: row;
+    gap: 10vw;
 }
-
-.button {
-    width: 100px;
-    background-color: #ffffff;
-    border: none;
-    color: #000000;
-    padding: 15px 32px;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    margin: auto;
-    display: inline-block;
-    font-size: 16px;
-    transition: 0.3s;
-  }
   
-  .button:hover {
+.button:hover {
     background-color: limegreen;
     color: black;
-  }
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
