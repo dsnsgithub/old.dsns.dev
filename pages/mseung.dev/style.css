@@ -32,7 +32,7 @@ body {
 }
 
 #main {
-  font-size: 50px;
+  font-size: 3.25rem;
   height: 100vh;
   width: 75vw;
   display: flex;
@@ -130,5 +130,16 @@ body {
     width: 12.5vw;
     height: 12.5vw;
     font-size: 10vw;
+  }
+}
+
+@media only screen and (max-height: 530px) {
+  #main {
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+
+  #mainimg {
+    width: 25vw;
   }
 }
