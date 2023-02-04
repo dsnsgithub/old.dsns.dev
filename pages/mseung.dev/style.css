@@ -46,7 +46,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 5vh;
+  font-size: 2.5vw;
 }
 
 #list {
@@ -66,4 +66,69 @@ body {
 #iconlist {
   display: flex;
   flex-direction: row;
+}
+
+#mainimg {
+  width: 17.5vw;
+}
+
+@media only screen and (max-width: 1599px) {
+  #menu {
+    width: 20vw;
+  }
+
+  #main {
+    width: 60vw;
+  }
+
+  #menubutton {
+    width: 7.5vw;
+    height: 7.5vw;
+    font-size: 5vw;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  a {
+    font-size: 0.85rem;
+  }
+
+  #menu {
+    width: 20vw;
+  }
+
+  #main {
+    width: 60vw;
+  }
+
+  #mainimg {
+    width: 20vw;
+  }
+
+  #menubutton {
+    width: 10vw;
+    height: 10vw;
+    font-size: 7.5vw;
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  a {
+    font-size: 0.7rem;
+  }
+
+  #main {
+    justify-content: none;
+    flex-direction: column;
+  }
+
+  #mainimg {
+    width: 50vw;
+  }
+
+  #menubutton {
+    width: 12.5vw;
+    height: 12.5vw;
+    font-size: 10vw;
+  }
 }
