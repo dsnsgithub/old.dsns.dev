@@ -57,7 +57,7 @@ function moveBall() {
     }
 
     function moveLeft() {
-        ballXPos = ballXPos - 4;
+        ballXPos = ballXPos - 5.75;
         ballYPos = ballYPos - angle;
         ball.style.marginLeft = (ballXPos + "px");
         ball.style.marginTop = (ballYPos + "px");
@@ -65,7 +65,7 @@ function moveBall() {
     }
 
     function moveRight() {
-        ballXPos = ballXPos + 4;
+        ballXPos = ballXPos + 5.75;
         ballYPos = ballYPos + angle;
         ball.style.marginLeft = (ballXPos + "px");
         ball.style.marginTop = (ballYPos + "px");
