@@ -45,7 +45,7 @@ function makeCards() {
 makeCards();
 
 /*----------------------------------------*/
-let y = Math.floor(Math.random() * 999) + 1;
+let y = Math.floor(Math.random() * Number(chip2.innerHTML)) + 1;
 
 function addBet() {
     if(Number(betfield.value) >= 1 && Number(betfield.value) <= Number(chip1.innerHTML)) {
@@ -116,7 +116,7 @@ function showCards() {
         } else if(one == 3 || two == 3 || three == 3 || four == 3 || five == 3 || six == 3 || seven == 3 || eight == 3 || nine == 3 || ten == 3 || eleven == 3 || twelve == 3 || thirteen == 3) {
             /*3 of a penguin */
             value = value + 3;
-        } else if(eleven == 1 && five == 1 || seven == 1 && thirteen == 1 || four == 1 && eight == 1 || three == 1 && two == 1 || six == 1 && two == 1) {
+        } else if( (eleven == 1 && five == 1)|| (seven == 1 && thirteen == 1) || (four == 1 && eight == 1) || (three == 1 && two == 1) || (six == 1 && two == 1) || (thirteen == 1 && one == 1) ) {
             /*saturation duo*/
             value = value + 2;
         } else if (one == 2 || two == 2 || three == 2 || four == 2 || five == 2 || six == 2 || seven == 2 || eight == 2 || nine == 2 || ten == 2 || eleven == 2 || twelve == 2 || thirteen == 2) {
@@ -124,6 +124,7 @@ function showCards() {
             value = value + 1;
         }
 
+        console.log(value);
         one = two = three = four = five = six = seven = eight = nine = ten = eleven = twelve = thirteen = 0;
         if(value == playervalue) {
             playervalue1 = value;
@@ -182,7 +183,7 @@ function showCards() {
                 alert("You win!")
             }
 
-            y = Math.floor(Math.random() * 999) + 1;
+            y = Math.floor(Math.random() * Number(chip2.innerHTML)) + 1;
             betfield.value = "";
             makeCards();
         }
