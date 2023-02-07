@@ -104,7 +104,7 @@ function showCards() {
                 thirteen = thirteen + 1;
             }
         }
-        if(one == 1 || two == 1 || three == 1 || four == 1 || thirteen == 1) {
+        if(one == 1 && two == 1 && three == 1 && four == 1 && thirteen == 1) {
             /*the igloo graph*/
             value = value + 6;
         } else if(one == 5 || two == 5 || three == 5 || four == 5 || five == 5 || six == 5 || seven == 5 || eight == 5 || nine == 5 || ten == 5 || eleven == 5 || twelve == 5 || thirteen == 5) {
