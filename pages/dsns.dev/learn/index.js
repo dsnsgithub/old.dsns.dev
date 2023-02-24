@@ -210,9 +210,11 @@ let wrong = false;
 let data = [];
 let type = "chinese character";
 let index = 0;
-let currentLesson = "L7";
-let characters, sentencePatterns, pinyinArray;
 
+let currentLesson = "L8";
+lessonSelect.value = currentLesson;
+
+let characters, sentencePatterns, pinyinArray;
 async function run() {
 	[characters, sentencePatterns, pinyinArray] = await parseLesson(currentLesson);
 	[polyAtomic, idioms] = await parseData();
