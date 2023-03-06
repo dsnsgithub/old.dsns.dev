@@ -291,9 +291,9 @@ document.querySelector(".js-canvas-clear").addEventListener("click", () => {
 function insert(character) {
 	const input = document.getElementById("chinese");
 	const str = input.value;
-	const pos = input.selectionStart;
+	// const pos = input.selectionStart;
 
-	input.value = `${str.slice(0, pos)}${character}${str.slice(pos)}`;
+	input.value = str + character;
 	document.querySelector(".js-canvas-clear").click();
 }
 
