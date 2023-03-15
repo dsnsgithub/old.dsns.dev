@@ -57,7 +57,6 @@ function addBet() {
         compaddBet();
     }
 }
-
 function compaddBet() {
     chip2value = chip2value - y;
     bet.innerHTML = Number(bet.innerHTML) + y;
@@ -150,13 +149,11 @@ function showCards() {
             }
 
             if(playerprice > compprice) {
-                chip1.innerHTML = Number(chip1.innerHTML) + (Number(bet.innerHTML) + (Number(bet.innerHTML) * 0.30));
-                chip2.innerHTML = Number(chip2.innerHTML) - (Number(bet.innerHTML) * 0.30);
+                chip1.innerHTML = Number(chip1.innerHTML) + (Number(bet.innerHTML));
                 bet.innerHTML = 0;
                 chip1.style.backgroundColor = "limegreen";
             } else if(playerprice < compprice) {
-                chip2.innerHTML = Number(chip2.innerHTML) + (Number(bet.innerHTML) + (Number(bet.innerHTML) * 0.30));
-                chip1.innerHTML = Number(chip1.innerHTML) - (Number(bet.innerHTML) * 0.30);
+                chip2.innerHTML = Number(chip2.innerHTML) + (Number(bet.innerHTML));
                 bet.innerHTML = 0;
                 chip2.style.backgroundColor = "limegreen";
             } else {

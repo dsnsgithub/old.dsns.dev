@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#field {
+    width: 10vw;
+}
+
+#laughingpointing {
+    position: absolute;
+    width: 25vw;
+    animation-fill-mode: both;
+    animation-duration: 0.75s;
+    animation-iteration-count: 2;
+}
+
+@keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg)}
+}
+
+@keyframes move {
+    from {left: 0;}
+    to {left: 75vw;}
+}
+
+#pilevalue {
+    color: maroon;
+}
+
+#compvalue {
+    color: green;
+}
+
+#playervalue {
+    color: indigo;
+}
