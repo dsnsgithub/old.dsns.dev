@@ -25,10 +25,13 @@ const sounds6 = document.getElementById("ambatublou");
 const sounds7 = document.getElementById("quandale");
 const picture = document.getElementById("laughingpointing");
 
+const bMusic = document.getElementById("mrbeast")
+
 var wait;
 var wait2;
 var restartTimeout;
 var closepic;
+var replaybMusic;
 
 var playerbetted = 0;
 var compbetted = 0;
@@ -37,57 +40,67 @@ var whowon;
 addbutton.style.display = "none";
 removebutton.style.display = "none";
 
-function submit() {
-    player.innerHTML = Number(player.innerHTML) - Number(field.value);
-    playerbetted = Number(playerbetted) + Number(field.value);
-    pile.innerHTML = Number(pile.innerHTML) + Number(field.value);
-    counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
-    
-    announcement.innerHTML = ("Player betted " + Number(field.value));
-    
-    submitbutton.style.display = "none";
-    field.disabled = true;
-    
-    wait = setTimeout(compplay, Math.floor(Math.random() * 3000) + 800);
-    function compplay() {
-        clearTimeout(wait);
-        var compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-    
-        comp.innerHTML = Number(comp.innerHTML) - Number(compnumber);
-        compbetted = Number(compbetted) + Number(compnumber);
-        pile.innerHTML = Number(pile.innerHTML) + Number(compnumber);
-        counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
+replaybMusic = setInterval(backgroundMusic, 100);
+function backgroundMusic() {
+    bMusic.volume = 0.1;
+    bMusic.play()
+}
 
-        announcement.innerHTML = ("Computer betted " + Number(compnumber));
+function submit() {
+    if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML)) {
+        player.innerHTML = Number(player.innerHTML) - Number(field.value);
+        playerbetted = Number(playerbetted) + Number(field.value);
+        pile.innerHTML = Number(pile.innerHTML) + Number(field.value);
+        counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
+        
+        announcement.innerHTML = ("Player betted " + Number(field.value));
+        
+        submitbutton.style.display = "none";
+        field.disabled = true;
+        
+        wait = setTimeout(compplay, Math.floor(Math.random() * 3000) + 800);
+        function compplay() {
+            clearTimeout(wait);
+            var compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
+        
+            comp.innerHTML = Number(comp.innerHTML) - Number(compnumber);
+            compbetted = Number(compbetted) + Number(compnumber);
+            pile.innerHTML = Number(pile.innerHTML) + Number(compnumber);
+            counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
     
-        addbutton.style.display = "";
-        removebutton.style.display = "";
-        field.disabled = false;
-    
-        wait = setTimeout(go, 5000);
+            announcement.innerHTML = ("Computer betted " + Number(compnumber));
+        
+            addbutton.style.display = "";
+            removebutton.style.display = "";
+            field.disabled = false;
+        
+            wait = setTimeout(go, 5000);
+        }
     }
 }
 
 function add() {
-    player.innerHTML = Number(player.innerHTML) - Number(field.value);
-    playerbetted = Number(playerbetted) + Number(field.value);
-    pile.innerHTML = Number(pile.innerHTML) + Number(field.value);
-    counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
-    addbutton.style.display = "none";
-    removebutton.style.display = "none";
-    field.disabled = true;
-    clearTimeout(wait);
-    wait = setTimeout(go, 5000);
-    announcement.innerHTML = ("Player added " + Number(field.value));
-    
-    
-    if(Math.random() < 0.6) { 
-        if(Math.random() <= 0.5) {
-            compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-            wait2 = setTimeout(compAdd, Math.floor(Math.random() * 3000) + 800); 
-        } else {
-            compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-            wait2 = setTimeout(compRemove, Math.floor(Math.random() * 3000) + 800); 
+    if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML)) {
+        player.innerHTML = Number(player.innerHTML) - Number(field.value);
+        playerbetted = Number(playerbetted) + Number(field.value);
+        pile.innerHTML = Number(pile.innerHTML) + Number(field.value);
+        counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
+        addbutton.style.display = "none";
+        removebutton.style.display = "none";
+        field.disabled = true;
+        clearTimeout(wait);
+        wait = setTimeout(go, 5000);
+        announcement.innerHTML = ("Player added " + Number(field.value));
+        
+        
+        if(Math.random() < 0.6) { 
+            if(Math.random() <= 0.5) {
+                compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
+                wait2 = setTimeout(compAdd, Math.floor(Math.random() * 3000) + 800); 
+            } else {
+                compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
+                wait2 = setTimeout(compRemove, Math.floor(Math.random() * 3000) + 800); 
+            }
         }
     }
 }
