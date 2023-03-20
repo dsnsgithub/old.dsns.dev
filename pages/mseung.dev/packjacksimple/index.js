@@ -23,6 +23,7 @@ const sounds4 = document.getElementById("goofylaugh");
 const sounds5 = document.getElementById("alarm");
 const sounds6 = document.getElementById("ambatublou");
 const sounds7 = document.getElementById("quandale");
+const sounds8 = document.getElementById("packgod");
 const picture = document.getElementById("laughingpointing");
 
 const bMusic = document.getElementById("mrbeast")
@@ -47,7 +48,7 @@ function backgroundMusic() {
 }
 
 function submit() {
-    if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML)) {
+    if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML) && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) - Number(field.value);
         playerbetted = Number(playerbetted) + Number(field.value);
         pile.innerHTML = Number(pile.innerHTML) + Number(field.value);
@@ -80,7 +81,7 @@ function submit() {
 }
 
 function add() {
-    if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML)) {
+    if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML) && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) - Number(field.value);
         playerbetted = Number(playerbetted) + Number(field.value);
         pile.innerHTML = Number(pile.innerHTML) + Number(field.value);
@@ -106,7 +107,7 @@ function add() {
 }
 
 function remove() {
-    if(Number(field.value) <= Number(playerbetted) && Number(field.value) > 0) {
+    if(Number(field.value) <= Number(playerbetted) && Number(field.value) > 0 && Number(playerbetted) - Number(field.value) > 0 && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) + Number(field.value);
         playerbetted = Number(playerbetted) - Number(field.value);
         pile.innerHTML = Number(pile.innerHTML) - Number(field.value);
@@ -147,7 +148,7 @@ function compAdd() {
 }
 
 function compRemove() {
-    if(Number(compnumber) <= Number(compbetted) && Number(compnumber) > 0) {
+    if(Number(compnumber) <= Number(compbetted) && Number(compnumber) > 0 && Number(comp.innerHTML) - Number(compnumber) > 0) {
         clearTimeout(wait2);
         clearTimeout(wait);
         wait = setTimeout(go, 5000);
@@ -297,7 +298,7 @@ function go() {
 
             } else {
                 picture.style.display = "";
-                picture.src = "lightskin.jpg";
+                picture.src = "kyler.png";
                 closepic = setTimeout(choose, 1500);
 
                 function choose() {
@@ -318,6 +319,7 @@ function go() {
                     picture.style.display = "none";
                 }
 
+                sounds8.play();
             }
         }
 

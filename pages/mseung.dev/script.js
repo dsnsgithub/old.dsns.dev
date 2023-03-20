@@ -18,7 +18,7 @@ function openMenu() {
 }
 
 function startup() {
-    letterInterval = setInterval(addletter, 100);
+    letterInterval = setInterval(addletter, 125);
     function addletter() {
         text.innerHTML = text.innerHTML + words.charAt(x); /*Adds letter to textbox*/
         x++;
