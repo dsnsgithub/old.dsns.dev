@@ -27,7 +27,9 @@ a {
 }
 
 #minecraftAvatar {
-	margin-left: 300px;
+	position: relative;
+	/* margin-left: 300px; */
+	margin-left: 35%;
 	margin-top: -120px;
 }
 
