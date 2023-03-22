@@ -47,6 +47,11 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 2.5vw;
+  transition: 0.3s;
+}
+
+#menubutton:hover {
+  color: limegreen;
 }
 
 #list {

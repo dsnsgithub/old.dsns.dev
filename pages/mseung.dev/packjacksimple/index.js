@@ -168,7 +168,7 @@ function go() {
     random.innerHTML = Math.floor(Math.random() * 9) + 1;
     clearTimeout(wait);
 
-    if(random.innerHTML > 5) {
+    if(random.innerHTML > 4) {
         if(playerbetted > compbetted) {
             announcement.innerHTML = "Player won with the highest!"
             whowon = "player";
@@ -188,7 +188,7 @@ function go() {
                 playSounds();
             }
         }
-    } else if (random.innerHTML <= 5) {
+    } else if (random.innerHTML <= 4) {
         if(playerbetted < compbetted) {
             announcement.innerHTML = "Player won with the lowest!"
             whowon = "player";
