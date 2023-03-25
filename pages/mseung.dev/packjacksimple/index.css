@@ -37,3 +37,8 @@
 #playervalue {
     color: indigo;
 }
+
+#shut {
+    position: absolute;
+    font-size: 1rem;
+}

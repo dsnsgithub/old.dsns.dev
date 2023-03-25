@@ -47,6 +47,20 @@ function backgroundMusic() {
     bMusic.play()
 }
 
+function stopMusic() {
+    sounds1.volume = 0;
+    sounds2.volume = 0;
+    sounds3.volume = 0;
+    sounds4.volume = 0;
+    sounds5.volume = 0;
+    sounds6.volume = 0;
+    sounds7.volume = 0;
+    sounds8.volume = 0;
+    bMusic.volume = 0;
+    clearInterval(replaybMusic);
+    document.getElementById("shut").style.visibility = "hidden";
+}
+
 function submit() {
     if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML) && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) - Number(field.value);
@@ -168,7 +182,7 @@ function go() {
     random.innerHTML = Math.floor(Math.random() * 9) + 1;
     clearTimeout(wait);
 
-    if(random.innerHTML > 4) {
+    if(random.innerHTML > 3) {
         if(playerbetted > compbetted) {
             announcement.innerHTML = "Player won with the highest!"
             whowon = "player";
@@ -188,7 +202,7 @@ function go() {
                 playSounds();
             }
         }
-    } else if (random.innerHTML <= 4) {
+    } else if (random.innerHTML <= 3) {
         if(playerbetted < compbetted) {
             announcement.innerHTML = "Player won with the lowest!"
             whowon = "player";
