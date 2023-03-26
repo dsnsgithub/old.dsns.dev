@@ -37,6 +37,7 @@ var replaybMusic;
 var playerbetted = 0;
 var compbetted = 0;
 var whowon;
+var compnumber;
 
 addbutton.style.display = "none";
 removebutton.style.display = "none";
@@ -61,7 +62,7 @@ function stopMusic() {
     document.getElementById("shut").style.visibility = "hidden";
 }
 
-function submit() {
+function submit() { /* PLAYER FIRST ROUND */
     if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML) && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) - Number(field.value);
         playerbetted = Number(playerbetted) + Number(field.value);
@@ -74,27 +75,39 @@ function submit() {
         field.disabled = true;
         
         wait = setTimeout(compplay, Math.floor(Math.random() * 3000) + 800);
-        function compplay() {
-            clearTimeout(wait);
-            var compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-        
-            comp.innerHTML = Number(comp.innerHTML) - Number(compnumber);
-            compbetted = Number(compbetted) + Number(compnumber);
-            pile.innerHTML = Number(pile.innerHTML) + Number(compnumber);
-            counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
-    
-            announcement.innerHTML = ("Computer betted " + Number(compnumber));
-        
-            addbutton.style.display = "";
-            removebutton.style.display = "";
-            field.disabled = false;
-        
-            wait = setTimeout(go, 5000);
-        }
     }
 }
 
-function add() {
+function compplay() { /* COMPUTER FIRST ROUND */
+    clearTimeout(wait);
+
+    /* computer ai */
+
+    if(playerbetted < Math.round(Number(player.innerHTML) / 2)) {
+        compnumber = Math.round(Number(comp.innerHTML) / 2);
+    } else if(playerbetted >= Math.round(Number(player.innerHTML) / 2) && playerbetted < (playerbetted + Number(player.innerHTML)) && playerbetted < (Number(comp.innerHTML) + compbetted)) {
+        compnumber = (playerbetted - compbetted) + 1;
+    } else {
+        compnumber = Math.round(Number(comp.innerHTML) / 2);
+    }
+
+    /* computer ai */
+
+    comp.innerHTML = Number(comp.innerHTML) - Number(compnumber);
+    compbetted = Number(compbetted) + Number(compnumber);
+    pile.innerHTML = Number(pile.innerHTML) + Number(compnumber);
+    counters.innerHTML = (("Player: " + playerbetted) + " Computer: " + compbetted);
+
+    announcement.innerHTML = ("Computer betted " + Number(compnumber));
+
+    addbutton.style.display = "";
+    removebutton.style.display = "";
+    field.disabled = false;
+
+    wait = setTimeout(go, 5000);
+}
+
+function add() { /* PLAYER NEXT ROUNDS */
     if(Number(field.value) > 0 && Number(field.value) <= Number(player.innerHTML) && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) - Number(field.value);
         playerbetted = Number(playerbetted) + Number(field.value);
@@ -106,21 +119,12 @@ function add() {
         clearTimeout(wait);
         wait = setTimeout(go, 5000);
         announcement.innerHTML = ("Player added " + Number(field.value));
-        
-        
-        if(Math.random() < 0.6) { 
-            if(Math.random() <= 0.5) {
-                compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-                wait2 = setTimeout(compAdd, Math.floor(Math.random() * 3000) + 800); 
-            } else {
-                compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-                wait2 = setTimeout(compRemove, Math.floor(Math.random() * 3000) + 800); 
-            }
-        }
+
+        compChoose()
     }
 }
 
-function remove() {
+function remove() { /* PLAYER NEXT ROUNDS */
     if(Number(field.value) <= Number(playerbetted) && Number(field.value) > 0 && Number(playerbetted) - Number(field.value) > 0 && Number(field.value) % 1 == 0) {
         player.innerHTML = Number(player.innerHTML) + Number(field.value);
         playerbetted = Number(playerbetted) - Number(field.value);
@@ -132,21 +136,29 @@ function remove() {
         clearTimeout(wait);
         wait = setTimeout(go, 5000);
         announcement.innerHTML = ("Player removed " + Number(field.value));
-    
-    
-        if(Math.random() < 0.6) { 
-            if(Math.random() <= 0.5) {
-                compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-                wait2 = setTimeout(compAdd, Math.floor(Math.random() * 3000) + 800); 
-            } else {
-                compnumber = Math.floor(Math.random() * Number(comp.innerHTML)) + 1;
-                wait2 = setTimeout(compRemove, Math.floor(Math.random() * 3000) + 800); 
-            }
-        }
+
+        compChoose()
     }
 }
 
-function compAdd() {
+function compChoose() {
+    /* computer ai */
+    compnumber = 0;
+
+    if(playerbetted >= compbetted && playerbetted < (Number(comp.innerHTML) + compbetted)) { /*if the playerbetted is higher or equal than the compbetted but the comp can stack it*/
+        compnumber = (playerbetted - compbetted) + 1;
+        wait2 = setTimeout(compAdd, Math.floor(Math.random() * 3000) + 1000);
+    } else if(playerbetted >= compbetted && playerbetted > (Number(comp.innerHTML) + compbetted)) { /*if the playerbetted is higher than the compbetted but the comp CAN't stack it */
+        compnumber = ((Number(comp.innerHTML) + compbetted) / 2);
+        wait2 = setTimeout(compRemove, Math.floor(Math.random() * 3000) + 1000);
+    } else {
+        compnumber = (playerbetted - compbetted);
+    }
+
+    /* computer ai */
+}
+
+function compAdd() { /* COMPUTER NEXT ROUNDS */
     clearTimeout(wait2);
     clearTimeout(wait);
     wait = setTimeout(go, 5000);
@@ -161,7 +173,7 @@ function compAdd() {
     field.disabled = false;
 }
 
-function compRemove() {
+function compRemove() { /* COMPUTER NEXT ROUNDS */
     if(Number(compnumber) <= Number(compbetted) && Number(compnumber) > 0 && Number(comp.innerHTML) - Number(compnumber) > 0) {
         clearTimeout(wait2);
         clearTimeout(wait);
@@ -182,23 +194,31 @@ function go() {
     random.innerHTML = Math.floor(Math.random() * 9) + 1;
     clearTimeout(wait);
 
+    addbutton.style.display = "none";
+    removebutton.style.display = "none";
+    field.disabled = true;
+
     if(random.innerHTML > 3) {
         if(playerbetted > compbetted) {
             announcement.innerHTML = "Player won with the highest!"
             whowon = "player";
+            checkComputer()
             playSounds();
         } else if (playerbetted < compbetted) {
             announcement.innerHTML = "Computer won with the highest!"
             whowon = "computer";
+            checkPlayer();
             playSounds();
         } else {
             if(Math.random() > 0.5) {
                 announcement.innerHTML = "Tiebreaker! Player won with the highest!"
                 whowon = "player";
+                checkComputer()
                 playSounds()
             } else {
                 announcement.innerHTML = "Tiebreaker! Computer won with the highest!"
                 whowon = "computer";
+                checkPlayer();
                 playSounds();
             }
         }
@@ -206,24 +226,45 @@ function go() {
         if(playerbetted < compbetted) {
             announcement.innerHTML = "Player won with the lowest!"
             whowon = "player";
+            checkComputer()
             playSounds();
         } else if (playerbetted > compbetted) {
             announcement.innerHTML = "Computer won with the lowest!"
             whowon = "computer";
+            checkPlayer();
             playSounds();
         } else {
             if(Math.random() > 0.5) {
                 announcement.innerHTML = "Tiebreaker! Player won with the lowest!"
                 whowon = "player";
+                checkComputer()
                 playSounds();
             } else {
                 announcement.innerHTML = "Tiebreaker! Computer won with the lowest!"
                 whowon = "computer";
+                checkPlayer();
                 playSounds();
             }
         }
     }
 
+    function checkPlayer() {
+        if(playerbetted < (Number(player.innerHTML) / 2)) {
+            comp.innerHTML = Number(comp.innerHTML) + Math.round(Number(player.innerHTML) / 2);
+            player.innerHTML = Number(player.innerHTML) - Math.round(Number(player.innerHTML) / 2);
+
+            announcement.innerHTML = "Player's cards have been divided in two!";
+        }
+    }
+
+    function checkComputer() {
+        if(compbetted < (Number(comp.innerHTML) / 2)) {
+            player.innerHTML = Number(player.innerHTML) + Math.round(Number(comp.innerHTML) / 2);
+            comp.innerHTML = Number(comp.innerHTML) - Math.round(Number(comp.innerHTML) / 2);
+
+            announcement.innerHTML = "Computer's cards have been divided in two!";
+        }
+    }
 
     function playSounds() {
         if(whowon == "computer") {
