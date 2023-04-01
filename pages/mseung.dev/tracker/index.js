@@ -3,8 +3,9 @@ var locationX;
 var locationY;
 
 var penDown = false;
+var pointerDown = false;
 
-function enable() {
+function enableTrail() {
     if(penDown == true) {
         penDown = false;
         document.removeEventListener("mousemove", createTrail);
@@ -14,7 +15,7 @@ function enable() {
     }
 }
 
-document.addEventListener("click", enable);
+document.addEventListener("click", enableTrail);
 
 function tracker(event) {
     var x = event.clientX;

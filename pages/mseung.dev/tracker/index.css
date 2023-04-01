@@ -3,7 +3,11 @@
     position: absolute;
 }
 
-.trail {
+body {
+    overflow: hidden;
+}
+
+.trail{
     width: 1vw;
     height: 1vw;
     border-radius: 1vw;
