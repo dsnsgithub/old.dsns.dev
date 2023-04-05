@@ -67,7 +67,7 @@ function start(time, size) {
     set = time;
     wait = setInterval(function() {stopWatch(set)}, 1);
     createApple(dimensions);
-
+    document.addEventListener("mousemove", tracker);
     document.getElementById("choices").style.display = "none";
     document.getElementById("other").style.display = "";
 }
