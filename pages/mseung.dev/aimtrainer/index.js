@@ -36,17 +36,21 @@ function createApple(size) {
     trail.style.height = (size + "vw");
     trail.style.borderRadius = (size + "vw");
 
-    trail.addEventListener("click", checkCollision);
     trail.style.marginLeft = (Math.floor(Math.random() * (box.offsetWidth - 20)) + 10) + "px";
     trail.style.marginTop = (Math.floor(Math.random() * (box.offsetHeight - 20)) + 10) + "px";
     document.body.appendChild(trail);
 }
 
-function checkCollision() { 
-    time.innerHTML = 0;
-    trail.remove();
-    createApple(dimensions)
-    score.innerHTML++;
+function checkCollision(event) { 
+    if(event.target === trail || trail.contains(event.target)) {
+        time.innerHTML = 0;
+        trail.remove();
+        createApple(dimensions)
+        score.innerHTML++;
+    } else {
+        alert("gg! you lost. refresh");
+        clearInterval(wait);
+    }
 }
 
 function stopWatch(limit) {
@@ -67,13 +71,12 @@ function start(time, size) {
     dimensions = size;
     set = time;
     wait = setInterval(function() {stopWatch(set)}, 10);
-    createApple(dimensions);
     document.addEventListener("mousemove", tracker);
     document.getElementById("choices").style.display = "none";
     document.getElementById("other").style.display = "";
     wait2 = setTimeout(function() {
-        document.addEventListener("click", function() {
-            alert("gg! you lost. refresh");
-        });
+        document.addEventListener("click", checkCollision);
     }, 1)
+
+    createApple(dimensions);
 }
