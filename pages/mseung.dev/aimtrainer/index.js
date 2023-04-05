@@ -5,7 +5,7 @@ const score = document.getElementById("score");
 score.innerHTML = 0;
 
 const time = document.getElementById("stopwatch")
-time.innerHTML = 0 + " milliseconds";
+time.innerHTML = 0;
 
 document.getElementById("other").style.display = "none";
 
@@ -13,6 +13,7 @@ var dimensions;
 var set;
 
 var wait;
+var wait2;
 var trail;
 var locationX;
 var locationY;
@@ -49,7 +50,7 @@ function checkCollision() {
 }
 
 function stopWatch(limit) {
-    time.innerHTML = (parseInt(time.innerHTML) + 1) + " milliseconds";
+    time.innerHTML++;
 
     if(time.innerHTML == limit) {
         alert("gg! you lost. refresh");
@@ -65,9 +66,14 @@ function stopWatch(limit) {
 function start(time, size) {
     dimensions = size;
     set = time;
-    wait = setInterval(function() {stopWatch(set)}, 1);
+    wait = setInterval(function() {stopWatch(set)}, 10);
     createApple(dimensions);
     document.addEventListener("mousemove", tracker);
     document.getElementById("choices").style.display = "none";
     document.getElementById("other").style.display = "";
+    wait2 = setTimeout(function() {
+        document.addEventListener("click", function() {
+            alert("gg! you lost. refresh");
+        });
+    }, 1)
 }
