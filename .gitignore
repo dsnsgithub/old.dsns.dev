@@ -5,8 +5,6 @@ package-lock.json
 json/
 !json/games.json
 
-pages/private/
-
 archive/
 certificates/
 

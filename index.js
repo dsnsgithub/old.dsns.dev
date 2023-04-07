@@ -4,6 +4,7 @@ require("dotenv").config(); //* npm install dotenv
 //? Requirements ----------------------------------------------------------------------------------
 const https = require("https");
 const fs = require("fs");
+const path = require("path");
 
 const express = require("express"); //* npm install express
 const compression = require("compression"); //* npm install compression
@@ -74,22 +75,43 @@ async function useMiddleware() {
 		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
 			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
 
-			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://mseung.dev");
+			if (fs.existsSync(fullPath)) {
+				if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
+					return res.redirect(req.path + "/")
+				}
+
+				return res.sendFile(fullPath);
+			} 
+
+			return res.redirect("https://mseung.dev");
 		}
 
 		if (req.hostname == "orchardlakehouse.com" || req.hostname == "orchardlakehouse.test") {
 			const fullPath = __dirname + "/pages/orchardlakehouse.com" + req.url;
 
-			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://orchardlakehouse.com");
+			if (fs.existsSync(fullPath)) {
+				if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
+					return res.redirect(req.path + "/");
+				}
+
+				return res.sendFile(fullPath);
+			} 
+
+			return res.redirect("https://orchardlakehouse.com");
 		}
 
 		if (req.hostname == "onlyeggrolls.com" || req.hostname == "onlyeggrolls.test") {
 			const fullPath = __dirname + "/pages/onlyeggrolls.com" + req.url;
 
-			if (fs.existsSync(fullPath)) return res.sendFile(fullPath);
-			else return res.redirect("https://onlyeggrolls.com");
+			if (fs.existsSync(fullPath)) {
+				if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
+					return res.redirect(req.path + "/");
+				}
+
+				return res.sendFile(fullPath);
+			} 
+			
+			return res.redirect("https://onlyeggrolls.com");
 		}
 
 		next();
