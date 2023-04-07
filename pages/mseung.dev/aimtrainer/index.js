@@ -1,4 +1,6 @@
 const circle = document.getElementById("circle");
+circle.style.display = "none";
+
 const box = document.getElementById("box");
 
 const score = document.getElementById("score");
@@ -48,8 +50,9 @@ function checkCollision(event) {
         createApple(dimensions)
         score.innerHTML++;
     } else {
-        alert("gg! you lost. refresh");
+        alert("gg! you missed.");
         clearInterval(wait);
+        end();
     }
 }
 
@@ -57,17 +60,20 @@ function stopWatch(limit) {
     time.innerHTML++;
 
     if(time.innerHTML == limit) {
-        alert("gg! you lost. refresh");
+        alert("gg! you lost.");
         clearInterval(wait);
+        end();
     }
     
     if(score.innerHTML == 10) {
-        alert("gg! you won. refresh");
+        alert("gg! you won.");
         clearInterval(wait);
+        end();
     }
 }
 
 function start(time, size) {
+    circle.style.display = "";
     dimensions = size;
     set = time;
     wait = setInterval(function() {stopWatch(set)}, 10);
@@ -79,4 +85,15 @@ function start(time, size) {
     }, 1)
 
     createApple(dimensions);
+}
+
+function end() {
+    score.innerHTML = 0;
+    time.innerHTML = 0;
+    document.getElementById("choices").style.display = "";
+    document.getElementById("other").style.display = "none";
+    document.removeEventListener("mousemove", tracker);
+    document.removeEventListener("click", checkCollision);
+    trail.remove();
+    circle.style.display = "none";
 }

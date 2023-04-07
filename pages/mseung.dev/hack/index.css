@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    font-size: 1.25rem;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 10vw;
+}
+
+#box {
+    background-color: lightgray;
+    padding: 1vw;
+    border-radius: 1vw;
+}
+
