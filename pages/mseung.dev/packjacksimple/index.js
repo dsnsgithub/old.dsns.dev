@@ -319,7 +319,6 @@ function go() {
                 }
             }
 
-            sounds5.volume = 0.2;
             sounds5.play();
             setTimeout(function() {
                 sounds6.play();

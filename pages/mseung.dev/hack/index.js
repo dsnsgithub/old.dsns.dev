@@ -1,4 +1,5 @@
 const box = document.getElementById("box");
+const scare = document.getElementById("scare")
 var wait;
 
 function jumpscare() {
@@ -6,8 +7,8 @@ function jumpscare() {
 
     wait = setInterval(epilepsy, 10);
 
-    document.getElementById("scare").currentTime += 6.0;
-    document.getElementById("scare").play();
+    scare.currentTime += 6.0;
+    scare.play();
 }
 
 function epilepsy() {
