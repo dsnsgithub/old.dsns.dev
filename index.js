@@ -15,7 +15,7 @@ app.set("trust proxy", true);
 async function runRoutes() {
 	app.use(compression());
 	app.use(express.urlencoded({ extended: true }));
-	app.use(express.json());  
+	app.use(express.json());
 
 	const routes = [];
 
@@ -40,28 +40,17 @@ async function openPort() {
 }
 
 async function useHTTPS() {
-	const server = https.createServer(
-		{
-			key: fs.readFileSync(__dirname + "/certificates/dsns.dev/key.pem"),
-			cert: fs.readFileSync(__dirname + "/certificates/dsns.dev/cert.pem")
-		},
-		app
-	);
+	function keyPair(domain) {
+		return {
+			key: fs.readFileSync(`${__dirname}/certificates/${domain}/key.pem`),
+			cert: fs.readFileSync(`${__dirname}/certificates/${domain}/cert.pem`)
+		};
+	}
 
-	server.addContext("mseung.dev", {
-		key: fs.readFileSync(__dirname + "/certificates/mseung.dev/key.pem"),
-		cert: fs.readFileSync(__dirname + "/certificates/mseung.dev/cert.pem")
-	});
-
-	server.addContext("orchardlakehouse.com", {
-		key: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/key.pem"),
-		cert: fs.readFileSync(__dirname + "/certificates/orchardlakehouse.com/cert.pem")
-	});
-
-	server.addContext("onlyeggrolls.com", {
-		key: fs.readFileSync(__dirname + "/certificates/onlyeggrolls.com/key.pem"),
-		cert: fs.readFileSync(__dirname + "/certificates/onlyeggrolls.com/cert.pem")
-	});
+	const server = https.createServer(keyPair("dsns.dev"), app);
+	server.addContext("mseung.dev", keyPair("mseung.dev"));
+	server.addContext("orchardlakehouse.com", keyPair("orchardlakehouse.com"));
+	server.addContext("onlyeggrolls.com", keyPair("onlyeggrolls.com"));
 
 	server.listen(443, () => {
 		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[33m", 443 + "\x1b[0m");
@@ -72,57 +61,24 @@ async function useMiddleware() {
 	app.use((req, res, next) => {
 		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
 
-		if (req.hostname == "mseung.dev" || req.hostname == "mseung.test") {
-			const fullPath = __dirname + "/pages/mseung.dev" + req.url;
+		let domain = "";
+		if (req.hostname.startsWith("dsns")) domain = "dsns.dev";
+		else if (req.hostname.startsWith("mseung")) domain = "mseung.dev";
+		else if (req.hostname.startsWith("orchardlakehouse")) domain = "orchardlakehouse.com";
+		else if (req.hostname.startsWith("onlyeggrolls")) domain = "onlyeggrolls.com";
 
-			if (fs.existsSync(fullPath)) {
-				if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
-					return res.redirect(req.path + "/")
-				}
+		const fullPath = `${__dirname}/pages/${domain}${req.url}`;
+		if (fs.existsSync(fullPath)) {
+			if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
+				return res.redirect(req.path + "/");
+			}
 
-				return res.sendFile(fullPath);
-			} 
-
-			return res.redirect("https://mseung.dev");
+			return res.sendFile(fullPath);
 		}
 
-		if (req.hostname == "orchardlakehouse.com" || req.hostname == "orchardlakehouse.test") {
-			const fullPath = __dirname + "/pages/orchardlakehouse.com" + req.url;
-
-			if (fs.existsSync(fullPath)) {
-				if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
-					return res.redirect(req.path + "/");
-				}
-
-				return res.sendFile(fullPath);
-			} 
-
-			return res.redirect("https://orchardlakehouse.com");
-		}
-
-		if (req.hostname == "onlyeggrolls.com" || req.hostname == "onlyeggrolls.test") {
-			const fullPath = __dirname + "/pages/onlyeggrolls.com" + req.url;
-
-			if (fs.existsSync(fullPath)) {
-				if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
-					return res.redirect(req.path + "/");
-				}
-
-				return res.sendFile(fullPath);
-			} 
-			
-			return res.redirect("https://onlyeggrolls.com");
-		}
-
-		next();
-	});
-
-	app.use(express.static(__dirname + "/pages/dsns.dev"));
-
-	//? 404
-	app.use((req, res, next) => {
+		//? 404
 		res.status(404);
-		return res.sendFile(__dirname + "/pages/private/rickroll.html");
+		return res.redirect(`https://${req.hostname}/404.html`);
 	});
 }
 
