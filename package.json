@@ -6,6 +6,6 @@
 		"express": "^4.18.2",
 		"hypixel-api-reborn": "^10.0.0",
 		"whois": "^2.14.0",
-		"ytdl-core": "^4.11.2"
+		"ytdl-core": "^4.11.3"
 	}
 }
