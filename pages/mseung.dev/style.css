@@ -151,6 +151,15 @@ body {
 }
 
 .flower {
-  position: absolute;
   content: url("flower.png");
+}
+
+#flowers {
+  display: flex;
+  justify-content: space-around;
+  height: 110vh;
+  width: 100vw;
+  position: absolute;
+  align-items: flex-end;
+  z-index: -1;
 }
