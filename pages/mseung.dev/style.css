@@ -1,6 +1,7 @@
 * {
   margin: 0;
   font-family: "Poppins", sans-serif;
+  overflow: hidden;
 }
 
 a {
@@ -147,4 +148,9 @@ body {
   #mainimg {
     width: 25vw;
   }
+}
+
+.flower {
+  position: absolute;
+  content: url("flower.png");
 }
