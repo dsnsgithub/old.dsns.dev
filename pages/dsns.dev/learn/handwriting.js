@@ -267,7 +267,7 @@ const recognizeHandwriting = (size, strokes, maxResult = 10, callback) => {
 					callback(possibleResult);
 				}
 			} else {
-				console.log(error)
+				console.log(error);
 			}
 		})
 		.catch((error) => {
@@ -297,11 +297,10 @@ function insert(character) {
 	document.querySelector(".js-canvas-clear").click();
 }
 
-
 /* Recognize text draw on canvas */
 const displayResult = (result) => {
 	for (const character of result) {
-		resultAreaElem.innerHTML += `<button class="button" onclick="insert('${character}')">${character}</button>`;
+		resultAreaElem.innerHTML += `<button class="button is-medium" style="margin:5px;" onclick="insert('${character}')">${character}</button>`;
 	}
 };
 

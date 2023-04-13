@@ -151,23 +151,26 @@
 								<option>L10</option>
 							</select>
 						</div>
+
+						<button id="pencil" class="button" style="margin-top:20px; background-color: lightcoral;">
+							✏️
+						</button>
 					</div>
+				</div>
+			</div>
 
-					<div class="box">
-						<div class="columns">
-							<div class="column">
-								<canvas style="border: 2px solid gray;" class="js-paper-canvas" height="280" width="280"></canvas>
+			<div class="box" id="pencilArea" style="display: none;">
+				<div class="columns">
+					<div class="column">
+						<canvas style="border: 2px solid gray;" class="js-paper-canvas" height="600%" width="700%"></canvas>
 
-								<br>
+						<br>
 
-								<button class="button is-danger js-canvas-clear">Clear</button>
-							</div>
-							<div class="column">
-								<div class="js-result-area"></div>
-							</div>
-						</div>
+						<button class="button is-danger js-canvas-clear is-medium">Clear</button>
 					</div>
-
+					<div class="column">
+						<div class="js-result-area"></div>
+					</div>
 				</div>
 			</div>
 

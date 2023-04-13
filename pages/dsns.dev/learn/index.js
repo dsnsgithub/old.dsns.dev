@@ -236,4 +236,16 @@ async function run() {
 	};
 }
 
+const pencilToggle = document.getElementById("pencil");
+const pencilArea = document.getElementById("pencilArea");
+pencilToggle.addEventListener("click", () => {
+	if (pencilArea.style.display == "none") {
+		pencilArea.style.display = "block";
+		pencilToggle.style.backgroundColor = "lightgreen";
+	} else {
+		pencilArea.style.display = "none";
+		pencilToggle.style.backgroundColor = "lightcoral";
+	}
+})
+
 run();
