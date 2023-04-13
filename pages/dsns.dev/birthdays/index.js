@@ -29,7 +29,8 @@ const birthdays = [
 	{ name: "Mub", date: "November 16" },
 	{ name: "TempoSolos", date: "May 2" },
 	{ name: "agedfish", date: "May 1" },
-	{ name: "sleepypanda", date: "February 5" }
+	{ name: "sleepypanda", date: "February 5" },
+	{ name: "SirupyMonkey", date: "October 1"}
 ];
 
 const round = (number, decimalPlaces) => {
