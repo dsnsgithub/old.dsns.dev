@@ -1,6 +1,7 @@
 const box = document.getElementById("box");
 const scare = document.getElementById("scare");
-const picture = document.getElementById("picture");
+
+var colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 var wait;
 var wait2;
 
@@ -15,17 +16,10 @@ function jumpscare() {
 }
 
 function epilepsy() {
-    if(document.body.style.backgroundColor == "") {
-        document.body.style.backgroundColor = "black";
-        picture.style.display = "";
-    } else if(document.body.style.backgroundColor == "black") {
-        document.body.style.backgroundColor = "";
-        picture.style.display = "none";
-    }
+    document.body.style.backgroundColor = colors[Math.floor(Math.random() * 6) + 0];
 }
 
 function replay() {
     scare.currentTime = 6.0;
     scare.play();
-    console.log("hello")
 }
