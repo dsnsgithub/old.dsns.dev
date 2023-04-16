@@ -30,7 +30,7 @@ const birthdays = [
 	{ name: "TempoSolos", date: "May 2" },
 	{ name: "agedfish", date: "May 1" },
 	{ name: "sleepypanda", date: "February 5" },
-	{ name: "SirupyMonkey", date: "October 1"}
+	{ name: "SirupyMonkey", date: "October 1" }
 ];
 
 const round = (number, decimalPlaces) => {
@@ -84,6 +84,12 @@ function increaseCountdown(birthday, countdown, countdownPercent, countdownBar, 
 }
 
 for (const birthday of birthdays) {
+	const birthdayString = birthday["date"].toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "long",
+		day: "numeric"
+	});
+
 	const birthdayContainer = document.getElementById("birthdayContainer");
 
 	const columnDiv = document.createElement("div");
@@ -91,9 +97,11 @@ for (const birthday of birthdays) {
 	birthdayContainer.appendChild(columnDiv);
 
 	const countdownText = document.createElement("p");
+	countdownText.title = birthdayString;
 	columnDiv.appendChild(countdownText);
 
 	const countdown = document.createElement("h1");
+	countdown.title = birthdayString;
 	columnDiv.appendChild(countdown);
 
 	const countdownBar = document.createElement("progress");
@@ -120,6 +128,6 @@ if (turnConfettiOn) {
 		rotate: true,
 		height: Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
 	});
-	
+
 	confetti.render();
 }
