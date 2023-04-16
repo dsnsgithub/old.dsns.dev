@@ -297,7 +297,7 @@ function go() {
                 }, 5000);
             } else {
                 picture.style.display = "";
-                picture.src = "patrick.jpg"
+                picture.src = "/pictures/patrick.jpg"
                 closepic = setTimeout(choose, 1500);
     
                 function choose() {
@@ -327,7 +327,7 @@ function go() {
 
             if(Math.random() > 0.5) {
                 picture.style.display = "";
-                picture.src = "lightskin.jpg";
+                picture.src = "/pictures/lightskin.jpg";
                 closepic = setTimeout(choose, 1500);
 
                 function choose() {
@@ -352,7 +352,7 @@ function go() {
 
             } else {
                 picture.style.display = "";
-                picture.src = "kyler.png";
+                picture.src = "/pictures/kyler.png";
                 closepic = setTimeout(choose, 1500);
 
                 function choose() {

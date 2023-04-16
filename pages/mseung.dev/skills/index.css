@@ -24,3 +24,15 @@ i {
     flex-direction: column;
     text-align: center;
 }
+
+@media only screen and (max-width: 680px) {
+    .logos {
+        flex-direction: column;
+    }
+
+    #penguin {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+}

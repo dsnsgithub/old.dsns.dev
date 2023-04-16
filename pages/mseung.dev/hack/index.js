@@ -7,9 +7,9 @@ var wait2;
 
 function jumpscare() {
     box.style.display = "none";
+    document.documentElement.requestFullscreen();
 
     wait = setInterval(epilepsy, 10);
-
     scare.currentTime = 6.0;
     scare.play();
     wait2 = setInterval(replay, 5000);
