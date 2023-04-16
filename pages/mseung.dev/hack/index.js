@@ -23,3 +23,8 @@ function replay() {
     scare.currentTime = 6.0;
     scare.play();
 }
+
+window.addEventListener("beforeunload", function (e) {
+	e.preventDefault();
+	e.returnValue = "";
+});
