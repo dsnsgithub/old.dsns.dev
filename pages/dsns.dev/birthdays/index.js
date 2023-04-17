@@ -97,11 +97,11 @@ for (const birthday of birthdays) {
 	birthdayContainer.appendChild(columnDiv);
 
 	const countdownText = document.createElement("p");
-	countdownText.title = birthdayString;
+	countdownText.className = "has-tooltip-arrow";
+	countdownText.setAttribute("data-tooltip", birthdayString);
 	columnDiv.appendChild(countdownText);
 
 	const countdown = document.createElement("h1");
-	countdown.title = birthdayString;
 	columnDiv.appendChild(countdown);
 
 	const countdownBar = document.createElement("progress");
