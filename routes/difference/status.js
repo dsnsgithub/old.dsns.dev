@@ -59,6 +59,7 @@ async function parseRecentGames(recentGame, IGN) {
 
 	//? Sanitize Hypixel API into a more readable format
 	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["game"], mode);
+	if (!map) return `${IGN} played ${sanitizedMode} ${sanitizedGame} at ${recentTime}.`;
 	return `${IGN} played ${sanitizedMode} ${sanitizedGame} at ${recentTime} on ${map}.`;
 }
 
