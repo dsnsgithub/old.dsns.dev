@@ -18,12 +18,9 @@ async function runRoutes() {
 	app.use(express.json());
 
 	const routes = [];
-
-	if (process.env["LEVEL"] == "true") routes.push(require(__dirname + "/routes/difference/difference.js")(app));
+	if (process.env["LEVEL"] == "true") routes.push(require(__dirname + "/routes/difference.js")(app));
 	if (process.env["WHOIS"] == "true") routes.push(require(__dirname + "/routes/whois.js")(app));
 	if (process.env["YOUTUBE"] == "true") routes.push(require(__dirname + "/routes/youtube.js")(app));
-	if (process.env["RECENTGAMES"] == "true") routes.push(require(__dirname + "/routes/recentGames.js")(app));
-	if (process.env["ONLYEGGROLLS"] == "true") routes.push(require(__dirname + "/routes/shoppingcart.js")(app));
 
 	const results = await Promise.allSettled(routes);
 	const failCheck = results.filter((result) => result.status === "rejected");

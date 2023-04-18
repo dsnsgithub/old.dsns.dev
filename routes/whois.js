@@ -3,7 +3,7 @@ const whois = require("whois"); //* npm install whois
 module.exports = function (app) {
 	app.get("/api/whois/:domain", function (req, res, next) {
 		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
+			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
 			whois.lookup(req.params.domain, function (err, data) {
 				data = data.replace(/\n/g, "<br>");

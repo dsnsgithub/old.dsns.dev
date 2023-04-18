@@ -4,7 +4,7 @@ const ytdl = require("ytdl-core");
 module.exports = function (app) {
 	app.get("/api/youtube/:id", async function (req, res, next) {
 		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
+			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 			if (!req.params.id) return res.status(400).send("Invalid YouTube Link");
 
 			const videoInfo = await ytdl.getBasicInfo(req.params.id);
@@ -36,7 +36,7 @@ module.exports = function (app) {
 
 	app.get("/api/youtubeVideo/:id", async function (req, res, next) {
 		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
+			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 			if (!req.params.id) return res.status(400).send("Invalid YouTube Link");
 
 			const info = await ytdl.getInfo(`https://youtube.com/watch?v=${req.params.id}`);
@@ -59,7 +59,9 @@ module.exports = function (app) {
 	});
 
 	app.use((req, res, next) => {
-		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test" && !req.hostname.match(/(^10\.)|(^192\.168\.)/)) return next();
+		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+
+		if (!req.url.includes("/mp3")) return next();
 
 		res.header("Cross-Origin-Opener-Policy", "same-origin");
 		res.header("Cross-Origin-Embedder-Policy", "require-corp");
