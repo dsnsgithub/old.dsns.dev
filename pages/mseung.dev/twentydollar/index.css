@@ -3,8 +3,8 @@
 }
 
 #box {
-    border: 2px solid black;
-    min-height: 5vh;
+    background-color: aliceblue;
+    min-height: 2.5vw;
     margin-top: 5vh;
     display: flex;
     flex-wrap: wrap;
@@ -19,8 +19,8 @@
 
 .block {
     font-size: 1.5rem;
-    width: 5vh;
-    height: 5vh;
+    width: 2.5vw;
+    height: 2.5vw;
     color: white;
     display: flex;
     justify-content: center;
@@ -54,4 +54,27 @@
 
 .pause::after {
     content: "#";
+}
+
+@media only screen and (max-width: 1400px) {
+    .block {
+        width: 5vw;
+        height: 5vw;
+    }
+
+    #box {
+        min-height: 5vw;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .block {
+        width: 10vw;
+        height: 10vw;
+    }
+
+    #box {
+        min-height: 10vw;
+        margin-top: 10vh;
+    }
 }

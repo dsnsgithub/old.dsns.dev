@@ -14,6 +14,12 @@ var blocklist = [];
 var x = -1;
 /*-------*/
 
+
+// why are you looking in this script?
+// why are you looking in this script?
+// why are you looking in this script?
+
+
 /* add stuff */
 function createNote() {
     var newNote = document.createElement("div");
