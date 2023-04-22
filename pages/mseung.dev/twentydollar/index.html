@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Music Creator</title>
+</head>
+<body>
+
+    <div id="options">
+        <input type="number" placeholder="Pitch, Speed, or Time" id="setnumber">
+        <button onclick="createNote()">Add Note</button>
+        <button onclick="createDrum()">Add Drum</button>
+        <button onclick="createConnect()">Add Connector</button>
+        <button onclick="createPause()">Add Pause</button>
+        <button onclick="createTempo()">Add Speed</button>
+        <button onclick="remove()" style="background-color: red">Remove Last</button>
+        <button style="background-color: green;" onclick="play()" id="play">Play</button>
+        <button style="background-color: red; position: absolute; right: 0;" onclick="clearAll()">Clear All</button>
+        Programmed by Max S.
+        <a href="/htptwenty/">Instructions</a>
+    </div>
+
+    <div style="display: flex; justify-content: center;">
+        <div id="box"></div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

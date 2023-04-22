@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+}
+
+#box {
+    border: 2px solid black;
+    min-height: 5vh;
+    margin-top: 5vh;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+}
+
+#options {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+}
+
+.block {
+    font-size: 1.5rem;
+    width: 5vh;
+    height: 5vh;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.note {
+    background-color: blue;
+}
+
+.drum {
+    background-color: red;
+}
+
+.connect {
+    background-color: green;
+}
+
+.tempo {
+    background-color: pink;
+}
+
+.tempo::after {
+    content: ">";
+}
+
+.pause {
+    background-color: purple;
+}
+
+.pause::after {
+    content: "#";
+}
