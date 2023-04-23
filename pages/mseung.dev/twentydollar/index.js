@@ -131,14 +131,16 @@ function check() {
     }
 }
 
-function checkinFront(item) {
-    if(item !== undefined) {
-        switch(item.className) {
+function checkinFront() {
+    if(blocklist[x] !== undefined) {
+        switch(blocklist[x].className) {
             case "block connect":
                 x--;
                 check();
                 x += 2;
                 check();
+                x++;
+                checkinFront();
                 break;
             default:
                 x--;
