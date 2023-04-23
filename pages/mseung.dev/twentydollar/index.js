@@ -90,42 +90,65 @@ function remove() {
 function play() {
     wait = setInterval(read, speed)
 
-    function read() {
-        x++;
-        if(blocklist[x] !== undefined) {
-            for(let i=0; i<blocklist.length; i++) {
-                blocklist[i].style.border = "none";
-            }
-    
-            blocklist[x].style.border = "2px solid gold";
-    
-            switch(blocklist[x].className) {
-                case "block note":
-                    playAudio("middlec.mp3", 0.75);
-                    break;
-                case "block drum":
-                    playAudio("bassdrum.mp3", 2.25);
-                    break;
-                case "block connect":
-                    read();
-                    read();
-                    break;
-                case "block pause":
-                    break;
-                case "block tempo":
-                    speed = parseInt(blocklist[x].innerHTML);
-                    read();
-                    clearInterval(wait);
-                    wait = setInterval(read, speed);
-                    break;
-            }
-        } else {
-            stopInterval();
-        }
-    }
-
     document.getElementById("play").innerHTML = "Stop";
     document.getElementById("play").onclick = stopInterval;
+}
+
+function read() {
+    x++;
+    if(blocklist[x] !== undefined) {
+        x++;
+        for(let i=0; i<blocklist.length; i++) {
+            blocklist[i].style.border = "none";
+        }
+
+        checkinFront(blocklist[x]);
+
+    } else {
+        stopInterval();
+    }
+}
+
+function check() {
+    blocklist[x].style.border = "2px solid gold";
+    switch(blocklist[x].className) {
+        case "block note":
+            playAudio("middlec.mp3", 0.75);
+            break;
+        case "block drum":
+            playAudio("bassdrum.mp3", 2.25);
+            break;
+        case "block connect":
+            break;
+        case "block pause":
+            break;
+        case "block tempo":
+            speed = parseInt(blocklist[x].innerHTML);
+            read();
+            clearInterval(wait);
+            wait = setInterval(read, speed);
+            break;
+    }
+}
+
+function checkinFront(item) {
+    if(item !== undefined) {
+        switch(item.className) {
+            case "block connect":
+                x--;
+                check();
+                x += 2;
+                check();
+                break;
+            default:
+                x--;
+                check();
+                break;
+        }
+    } else {
+        x--;
+        check();
+    }
 }
 
 function playAudio(source, time) {

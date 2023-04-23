@@ -9,12 +9,22 @@
 <body>
     <div style="width: 15px; height: 15px; background-color: blue;"></div> : Piano Note (Middle C)
     <div style="width: 15px; height: 15px; background-color: red;"></div> : Drum Hit (Bass)
-    <div style="width: 15px; height: 15px; background-color: green"></div> : Connector (The next two blocks will be connected.)
+    <div style="width: 15px; height: 15px; background-color: green"></div> : Connector (The block behind the connector and the next block will be connected.)
     <div style="width: 15px; height: 15px; background-color: pink;"></div> : Speed (The milliseconds in between blocks)
     <div style="width: 15px; height: 15px; background-color: purple;"></div> : Pause (Beats according to speed)
     <br><br><hr><br>
     <div><input type="number" max="14" style="background-image: linear-gradient(to right, red, blue);"> Pitch (0-14)</div>
     <div><input type="number" style="background-color: pink;"> Speed (0-∞) (Higher is slower) (Default is 200ms)</div>
     <div><input type="number" style="background-color: purple;"> Pause (0-∞) (In beats according to speed)</div>
+
+    <br><hr><br>
+
+    <h2>Ideas</h2>
+
+    <h3>Ballin</h3>
+
+    <video src="newballin.mp4" style="width: 50vw; border: 2px solid black; cursor: pointer;" id="ballin" onclick="play()"></video>
+
+
 </body>
 </html>
