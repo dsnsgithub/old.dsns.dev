@@ -116,7 +116,7 @@ function check() {
             playAudio("middlec.mp3", 0.75);
             break;
         case "block drum":
-            playAudio("bassdrum.mp3", 2.25);
+            playAudio("bassdrum.mp3", 1.3);
             break;
         case "block connect":
             break;
@@ -166,12 +166,6 @@ function playAudio(source, time) {
         newSound.playbackRate = Number(blocklist[x].innerHTML) + 1;
     }
     newSound.preservesPitch = false;
-    if(soundsrc.getAttribute("src") === "bassdrum.mp3") {
-        setTimeout(function() {
-            newSound.currentTime = 0;
-            newSound.pause();
-        }, 500)
-    }
     newSound.play();
 }
 
