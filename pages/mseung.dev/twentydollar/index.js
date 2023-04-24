@@ -28,6 +28,21 @@ function createNote() {
     addtoBox(newNote);
 }
 
+function createTrumpet() {
+    var newTrumpet = document.createElement("div");
+    newTrumpet.classList.add("block");
+    newTrumpet.classList.add("trumpet");
+    addtoBox(newTrumpet);
+}
+
+function createGuitar() {
+    var newGuitar = document.createElement("div");
+    newGuitar.classList.add("block");
+    newGuitar.classList.add("guitar");
+    addtoBox(newGuitar);
+}
+
+
 function createDrum() {
     var newDrum = document.createElement("div");
     newDrum.classList.add("block");
@@ -115,6 +130,12 @@ function check() {
         case "block note":
             playAudio("middlec.mp3", 0.75);
             break;
+        case "block trumpet":
+            playAudio("trumpetc.mp3", 0);
+            break;
+        case "block guitar":
+            playAudio("guitarg.mp3", 1);
+            break;
         case "block drum":
             playAudio("bassdrum.mp3", 1.3);
             break;
@@ -165,6 +186,15 @@ function playAudio(source, time) {
     } else {
         newSound.playbackRate = Number(blocklist[x].innerHTML) + 1;
     }
+
+    if(soundsrc.getAttribute("src") === "trumpetc.mp3") {
+        newSound.volume = 0.05;
+    } else if(soundsrc.getAttribute("src") === "bassdrum.mp3") {
+        newSound.volume = 0.5;
+    } else if(soundsrc.getAttribute("src") === "guitarg.mp3") {
+        newSound.volume = 0.25;
+    } 
+
     newSound.preservesPitch = false;
     newSound.play();
 }
