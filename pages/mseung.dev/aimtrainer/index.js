@@ -97,3 +97,25 @@ function end() {
     trail.remove();
     circle.style.display = "none";
 }
+
+var darkColor = window.matchMedia("(prefers-color-scheme: dark)");
+var lightColor = window.matchMedia("(prefers-color-scheme: light)");
+
+function turnDark() {
+    if(darkColor.matches) {
+        document.body.style.backgroundColor = "#070620";
+        document.body.style.color = "white";
+    }
+}
+
+function turnBright() {
+    if(lightColor.matches) {
+        document.body.style.backgroundColor = "white";
+        document.body.style.color = "black";
+    }
+}
+
+turnDark(darkColor);
+turnBright(lightColor);
+darkColor.addListener(turnDark);
+lightColor.addListener(turnBright);

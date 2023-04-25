@@ -34,6 +34,8 @@ function startup() {
 startup();
 
 var aList = document.querySelectorAll("a");
+var darkColor = window.matchMedia("(prefers-color-scheme: dark)");
+var lightColor = window.matchMedia("(prefers-color-scheme: light)");
 
 function switchmode() {
     if(document.getElementById("mode").className == "fas fa-moon") {
@@ -60,3 +62,22 @@ function switchmode() {
         document.getElementById("sun").style.display = "";
     }
 }
+
+function changeSun() {
+    if(darkColor.matches) {
+        document.getElementById("mode").className = ("fas fa-moon");
+        switchmode();
+    }
+}
+changeSun(darkColor);
+
+function changeMoon() {
+    if(lightColor.matches) {
+        document.getElementById("mode").className = ("fas fa-sun");
+        switchmode();
+    }
+}
+changeSun(lightColor);
+
+darkColor.addListener(changeSun);
+lightColor.addListener(changeMoon);

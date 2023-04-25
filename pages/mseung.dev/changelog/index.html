@@ -39,5 +39,30 @@
     <p>March 14: Added Packjack</p>
     <p>March 31: Added Doodle Board</p>
     <p>April 3: Added Aim Trainer</p>
+    <p>April 22: Added Twenty Dollar Website</p>
+    <p>April 24: Made the whole site adjustable to dark mode!</p>
+
+    <script>
+        var darkColor = window.matchMedia("(prefers-color-scheme: dark)");
+        var lightColor = window.matchMedia("(prefers-color-scheme: light)");
+        
+        function turnDark() {
+            if(darkColor.matches) {
+                document.body.style.backgroundColor = "#070620";
+                document.body.style.color = "white";
+            }
+        }
+        
+        function turnBright() {
+            if(lightColor.matches) {
+                document.body.style.backgroundColor = "white";
+                document.body.style.color = "black";
+            }
+        }
+        
+        turnDark(darkColor);
+        turnBright(lightColor);
+        darkColor.addListener(turnDark);
+        lightColor.addListener(turnBright);</script>
 </body>
 </html>

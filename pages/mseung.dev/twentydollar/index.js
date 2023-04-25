@@ -35,11 +35,11 @@ function createTrumpet() {
     addtoBox(newTrumpet);
 }
 
-function createGuitar() {
-    var newGuitar = document.createElement("div");
-    newGuitar.classList.add("block");
-    newGuitar.classList.add("guitar");
-    addtoBox(newGuitar);
+function createViolin() {
+    var newViolin = document.createElement("div");
+    newViolin.classList.add("block");
+    newViolin.classList.add("violin");
+    addtoBox(newViolin);
 }
 
 
@@ -133,8 +133,8 @@ function check() {
         case "block trumpet":
             playAudio("trumpetc.mp3", 0);
             break;
-        case "block guitar":
-            playAudio("guitarg.mp3", 1);
+        case "block violin":
+            playViolinAudio();
             break;
         case "block drum":
             playAudio("bassdrum.mp3", 1.3);
@@ -191,12 +191,24 @@ function playAudio(source, time) {
         newSound.volume = 0.05;
     } else if(soundsrc.getAttribute("src") === "bassdrum.mp3") {
         newSound.volume = 0.5;
-    } else if(soundsrc.getAttribute("src") === "guitarg.mp3") {
-        newSound.volume = 0.25;
-    } 
+    }
 
     newSound.preservesPitch = false;
     newSound.play();
+}
+
+var violinAudio = document.getElementById("violin");
+
+function playViolinAudio() {
+    if(Number(blocklist[x].innerHTML) + 1 > 15) {
+        alert("Maximum pitch is 14.");
+    } else {
+        violinAudio.playbackRate = Number(blocklist[x].innerHTML) + 1;
+    }
+
+    violinAudio.preservesPitch = false;
+    violinAudio.currentTime = 0.15;
+    violinAudio.play();
 }
 
 function stopInterval() {
@@ -218,4 +230,26 @@ function clearAll() {
     }
     blocklist = [];
 }
+
+var darkColor = window.matchMedia("(prefers-color-scheme: dark)");
+var lightColor = window.matchMedia("(prefers-color-scheme: light)");
+
+function turnDark() {
+    if(darkColor.matches) {
+        document.body.style.backgroundColor = "#070620";
+        document.body.style.color = "white";
+    }
+}
+
+function turnBright() {
+    if(lightColor.matches) {
+        document.body.style.backgroundColor = "white";
+        document.body.style.color = "black";
+    }
+}
+
+turnDark(darkColor);
+turnBright(lightColor);
+darkColor.addListener(turnDark);
+lightColor.addListener(turnBright);
 /*------------*/

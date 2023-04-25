@@ -2,6 +2,12 @@
     margin: 0;
 }
 
+body {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
 #box {
     background-color: aliceblue;
     min-height: 2.5vw;
@@ -60,8 +66,8 @@
     background-color: goldenrod;
 }
 
-.guitar {
-    background-color: saddlebrown;
+.violin {
+    background-color: #5D1E0F;
 }
 
 @media only screen and (max-width: 1400px) {

@@ -258,3 +258,25 @@ checkBroke(name2, brokerstocks2, document.getElementById("borrow2"), brokerInter
 checkBroke(name3, brokerstocks3, document.getElementById("borrow3"), brokerInterest3);
 checkBroke(name4, brokerstocks4, document.getElementById("borrow4"), brokerInterest4);
 checkBroke(name5, brokerstocks5, document.getElementById("borrow5"), brokerInterest5);
+
+var darkColor = window.matchMedia("(prefers-color-scheme: dark)");
+var lightColor = window.matchMedia("(prefers-color-scheme: light)");
+
+function turnDark() {
+    if(darkColor.matches) {
+        document.body.style.backgroundColor = "#070620";
+        document.body.style.color = "white";
+    }
+}
+
+function turnBright() {
+    if(lightColor.matches) {
+        document.body.style.backgroundColor = "white";
+        document.body.style.color = "black";
+    }
+}
+
+turnDark(darkColor);
+turnBright(lightColor);
+darkColor.addListener(turnDark);
+lightColor.addListener(turnBright);
