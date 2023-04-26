@@ -37,7 +37,6 @@ var aList = document.querySelectorAll("a");
 var date = new Date();
 
 if(date.getHours() >= 19) {
-    document.getElementById("mode").className = ("far fa-sun");
     document.body.style.backgroundColor = "#070620";
     document.body.style.color = "white";
 
