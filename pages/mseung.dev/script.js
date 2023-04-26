@@ -34,50 +34,18 @@ function startup() {
 startup();
 
 var aList = document.querySelectorAll("a");
-var darkColor = window.matchMedia("(prefers-color-scheme: dark)");
-var lightColor = window.matchMedia("(prefers-color-scheme: light)");
+var date = new Date();
 
-function switchmode() {
-    if(document.getElementById("mode").className == "fas fa-moon") {
-        document.getElementById("mode").className = ("far fa-sun");
-        document.body.style.backgroundColor = "#070620";
-        document.body.style.color = "white";
+if(date.getHours() >= 19) {
+    document.getElementById("mode").className = ("far fa-sun");
+    document.body.style.backgroundColor = "#070620";
+    document.body.style.color = "white";
 
-        for (let i=0; i<aList.length; i++) {
-            aList[i].style.border = "2px solid white";
-            aList[i].style.color = "white"
-        }
-
-        document.getElementById("sun").style.display = "none";
-    } else {
-        document.getElementById("mode").className = ("fas fa-moon");
-        document.body.style.backgroundColor = "white";
-        document.body.style.color = "black";
-
-        for (let i=0; i<aList.length; i++) {
-            aList[i].style.border = "2px solid black";
-            aList[i].style.color = "black"
-        }
-
-        document.getElementById("sun").style.display = "";
+    for (let i=0; i<aList.length; i++) {
+        aList[i].style.border = "2px solid white";
+        aList[i].style.color = "white"
     }
-}
 
-function changeSun() {
-    if(darkColor.matches) {
-        document.getElementById("mode").className = ("fas fa-moon");
-        switchmode();
-    }
+    document.getElementById("sun").style.display = "none";
+    changeSun();
 }
-changeSun(darkColor);
-
-function changeMoon() {
-    if(lightColor.matches) {
-        document.getElementById("mode").className = ("fas fa-sun");
-        switchmode();
-    }
-}
-changeSun(lightColor);
-
-darkColor.addListener(changeSun);
-lightColor.addListener(changeMoon);
