@@ -261,7 +261,7 @@ checkBroke(name5, brokerstocks5, document.getElementById("borrow5"), brokerInter
 
 var date = new Date();
 
-if(date.getHours() >= 19) {
+if(date.getHours() >= 19 || date.getHours() <= 6) {
     document.body.style.backgroundColor = "#070620";
     document.body.style.color = "white";
 }
