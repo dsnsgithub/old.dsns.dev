@@ -211,7 +211,7 @@ let data = [];
 let type = "chinese character";
 let index = 0;
 
-let currentLesson = "L9";
+let currentLesson = "L10";
 lessonSelect.value = currentLesson;
 
 let characters, sentencePatterns, pinyinArray;
