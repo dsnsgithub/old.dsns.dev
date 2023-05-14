@@ -44,7 +44,11 @@ async function load() {
 		const button = document.createElement("button");
 		button.style.marginBottom = "15px";
 
-		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
+		const result = await fetch(`/api/uuidConvert/${uuid}`)
+			.then((res) => res.json())
+			.catch(() => {
+				window.location.href = "/statistics/error.html";
+			});
 		const IGN = result["name"];
 
 		button.innerHTML = `<h2>${IGN}</h2>`;
@@ -68,7 +72,12 @@ async function load() {
 	for (const uuid in storage) {
 		if (!storage[uuid]) continue;
 
-		const response = await fetch(`/api/history/${uuid}`).then((res) => res.json());
+		const response = await fetch(`/api/history/${uuid}`)
+			.then((res) => res.json())
+			.catch(() => {
+				window.location.href = "/statistics/error.html";
+			});
+
 		const [IGN, result] = response;
 
 		combinedArray[0].push(IGN);
@@ -153,4 +162,4 @@ async function load() {
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(load);
 
-setInterval(load, 60000);
+setInterval(load, 10000);

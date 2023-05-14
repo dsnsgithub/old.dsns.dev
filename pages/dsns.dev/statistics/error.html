@@ -34,10 +34,6 @@
 
 </head>
 
-
-
-<!--? MAIN CONTENT ---------------------------------------------------------------------------------------------------------------------- -->
-
 <body>
 	<nav class="navbar is-fixed-top" aria-label="main navigation">
 		<div class="navbar-brand">
@@ -46,15 +42,15 @@
 					<img id="kirbyicon" src="/static/images/jpg/icon.jpg" alt="DSNS icon">
 				</a>
 			</div>
-
+	
 			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 			</a>
 		</div>
-
-
+	
+	
 		<div class="navbar-menu">
 			<div class="navbar-end">
 				<a href="/" class="navbar-item">
@@ -66,7 +62,7 @@
 						<span class="icon-source"></span>
 						Projects
 					</a>
-
+	
 					<div class="navbar-dropdown is-right">
 						<a href="/statistics/" class="navbar-item">
 							<span class="icon-stacked_line_chart"></span>
@@ -126,37 +122,15 @@
 		</div>
 	</nav>
 
-	<div class="section">
-		<div class="columns">
-			<div class="column is-two-thirds">
-				<div class="box">
-					<div id="chart" style="height: 50vh;"></div>
-				</div>
-			</div>
+	<center>
+		<h2 class="title">Unable to reach Hypixel API. Try again later. Notify DSNS at DSNS#5781.</h2>
 
-			<div class="column">
-				<div class="box">
-					<h2 class="title">Add Players:</h2>
+		<br>
+		<br>
 
-					<input type="text" id="ignInput" class="input">
-					<button class="button is-primary" style="margin-top:20px;" id="ignSubmit">Submit</button>
-				</div>
+		<iframe height="1000px" width="60%" src="https://status.hypixel.net/" frameborder="0"></iframe>
+	</center>
 
-				<hr>
-
-				<div class="box">
-					<h2 class="title">Current Players:</h2>
-					<div class="columns is-multiline" id="player-list">
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<script src="index.js"></script>
 </body>
 
 </html>
