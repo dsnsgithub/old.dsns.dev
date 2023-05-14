@@ -33,7 +33,7 @@ ignSubmit.addEventListener("click", async () => {
 const suggestedUUIDs = {
 	"557bafa10aad40bbb67207a9cefa8220": true,
 	"769f1d98aeef49cd934b4202e1c5537f": true,
-	"b5ed8d9fd5254274a7ea07d6e2bf2218": false,
+	b5ed8d9fd5254274a7ea07d6e2bf2218: false,
 	"9e6cdbe98a744a33b53941cb0efd8113": false
 };
 
@@ -65,8 +65,8 @@ async function load() {
 
 	let combinedArray = [["Date"]];
 	let combined = {};
+	let storedDates = {};
 
-	let count = 1;
 	let storage = JSON.parse(window.localStorage.getItem("UUIDs"));
 	for (const uuid in storage) {
 		if (!storage[uuid]) continue;
@@ -77,27 +77,46 @@ async function load() {
 
 		combinedArray[0].push(IGN);
 
-		for (const key in result) {
-			const entry = result[key];
-
-			if (!combined[entry["date"]]) {
-				combined[entry["date"]] = [];
-			}
-
-			if (combined[entry["date"]].length < count) {
-				combined[entry["date"]].push(entry["level"]);
-			}
+		if (!combined[IGN]) {
+			combined[IGN] = [];
 		}
-		count++;
+		combined[IGN] = result;
 	}
 
-	for (const date in combined) {
-		if (combined[date].length == count - 1) {
-			combinedArray.push([date, ...combined[date]]);
+	for (const IGN in combined) {
+		for (const index in combined[IGN]) {
+			const entry = combined[IGN][index];
+
+			if (!storedDates[entry["date"]]) {
+				storedDates[entry["date"]] = [];
+			}
 		}
 	}
 
-	console.log(combinedArray);
+	console.log(storedDates);
+
+	for (const date in storedDates) {
+		let row = [date];
+		for (const IGN in combined) {
+			let found = false;
+			let foundIndex = 0;
+			for (const index in combined[IGN]) {
+				const entry = combined[IGN][index];
+
+				if (entry["date"] == date) {
+					row.push(entry["level"]);
+					found = true;
+					foundIndex = index;
+					break;
+				}
+			}
+
+			if (!found) row.push(combined[IGN][foundIndex]["level"]);
+		}
+
+		combinedArray.push(row);
+	}
+
 	const data = google.visualization.arrayToDataTable(combinedArray);
 	const chart = new google.visualization.LineChart(document.getElementById("chart"));
 

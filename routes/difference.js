@@ -23,8 +23,6 @@ module.exports = function (app) {
 			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
 
 			const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
-
-			if (!database[uuid]) database[uuid] = [];
 			const lastIndex = database[uuid].length - 1;
 
 			if (!reloadAll) {
@@ -45,7 +43,7 @@ module.exports = function (app) {
 			});
 		}
 
-		fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 	}
 
 	updateDatabase(false);
