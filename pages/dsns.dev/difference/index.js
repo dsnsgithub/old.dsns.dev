@@ -1,11 +1,7 @@
 function toggle(uuid) {
 	const UUIDs = JSON.parse(window.localStorage.getItem("UUIDs"));
 
-	if (UUIDs[uuid] == true) {
-		UUIDs[uuid] = false;
-	} else {
-		UUIDs[uuid] = true;
-	}
+	UUIDs[uuid] = !UUIDs[uuid];
 
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
 	load();
@@ -13,13 +9,11 @@ function toggle(uuid) {
 const ignSubmit = document.getElementById("ignSubmit");
 ignSubmit.addEventListener("click", async () => {
 	const ignInput = document.getElementById("ignInput").value;
-
 	const result = await fetch(`/api/ignConvert/${ignInput}`).then((res) => res.json());
 
 	if (!result["id"]) return alert("Invalid IGN");
 
 	const uuid = result["id"];
-
 	const UUIDs = JSON.parse(window.localStorage.getItem("UUIDs"));
 
 	UUIDs[uuid] = true;
@@ -113,7 +107,23 @@ async function load() {
 		combinedArray.push(row);
 	}
 
-	const data = google.visualization.arrayToDataTable(combinedArray);
+	let final = [];
+
+	if (combinedArray[0].length == 3) {
+		final.push(["Date", `Difference between ${combinedArray[0][1]} and ${combinedArray[0][2]}`]);
+		combinedArray.shift();
+
+		for (let row of combinedArray) {
+			row[1] = Math.abs(row[2] - row[1]);
+			row.pop();
+
+			final.push(row);
+		}
+	} else {
+		final = combinedArray;
+	}
+
+	const data = google.visualization.arrayToDataTable(final);
 	const chart = new google.visualization.LineChart(document.getElementById("chart"));
 
 	chart.draw(data, {
