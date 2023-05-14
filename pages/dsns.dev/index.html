@@ -28,7 +28,7 @@
 
 	<!-- Discord Tag Popup-->
 	<script>
-		document.addEventListener("DOMContentLoaded",()=>{function e(e){e.classList.remove("is-active")}(document.querySelectorAll(".js-modal-trigger")||[]).forEach(e=>{const t=e.dataset.target,d=document.getElementById(t);e.addEventListener("click",()=>{!function(e){e.classList.add("is-active")}(d)})}),(document.querySelectorAll(".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button")||[]).forEach(t=>{const d=t.closest(".modal");t.addEventListener("click",()=>{e(d)})}),document.addEventListener("keydown",t=>{27===(t||window.event).keyCode&&(document.querySelectorAll(".modal")||[]).forEach(t=>{e(t)})})});
+		document.addEventListener("DOMContentLoaded", () => { function e(e) { e.classList.remove("is-active") } (document.querySelectorAll(".js-modal-trigger") || []).forEach(e => { const t = e.dataset.target, d = document.getElementById(t); e.addEventListener("click", () => { !function (e) { e.classList.add("is-active") }(d) }) }), (document.querySelectorAll(".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button") || []).forEach(t => { const d = t.closest(".modal"); t.addEventListener("click", () => { e(d) }) }), document.addEventListener("keydown", t => { 27 === (t || window.event).keyCode && (document.querySelectorAll(".modal") || []).forEach(t => { e(t) }) }) });
 	</script>
 
 </head>
@@ -63,9 +63,9 @@
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference/" class="navbar-item">
+						<a href="/statistics/" class="navbar-item">
 							<span class="icon-stacked_line_chart"></span>
-							Hypixel Level Difference
+							Hypixel Level Statistics
 						</a>
 						<a href="/ppi/" class="navbar-item">
 							<span class="icon-calculate"></span>
@@ -83,9 +83,9 @@
 							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames/" class="navbar-item">
+						<a href="/player/" class="navbar-item">
 							<span class="icon-person_search"></span>
-							Recent Games Finder
+							Hypixel Player Lookup
 						</a>
 						<a href="/ip/" class="navbar-item">
 							<span class="icon-wifi_find"></span>
@@ -137,7 +137,7 @@
 								</a>
 							</div>
 							<div class="column is-2">
-								<button class="js-modal-trigger" style="background-color: white; border:none; cursor: pointer;" data-target="discordModal"  title="DSNS#5781">
+								<button class="js-modal-trigger" style="background-color: white; border:none; cursor: pointer;" data-target="discordModal" title="DSNS#5781">
 									<img src="/static/images/svg/icons/discord.svg" alt="Discord Tag: DSNS#5781" style="transform: scale(1.2); margin-top: 5px;" id="discordIcon">
 								</button>
 							</div>

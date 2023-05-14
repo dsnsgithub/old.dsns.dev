@@ -6,6 +6,7 @@ function toggle(uuid) {
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
 	load();
 }
+
 const ignSubmit = document.getElementById("ignSubmit");
 ignSubmit.addEventListener("click", async () => {
 	const ignInput = document.getElementById("ignInput").value;
@@ -24,9 +25,7 @@ ignSubmit.addEventListener("click", async () => {
 
 const suggestedUUIDs = {
 	"557bafa10aad40bbb67207a9cefa8220": true,
-	"769f1d98aeef49cd934b4202e1c5537f": true,
-	b5ed8d9fd5254274a7ea07d6e2bf2218: false,
-	"9e6cdbe98a744a33b53941cb0efd8113": false
+	"769f1d98aeef49cd934b4202e1c5537f": true
 };
 
 if (!window.localStorage.getItem("UUIDs")) window.localStorage.setItem("UUIDs", JSON.stringify(suggestedUUIDs));
@@ -36,7 +35,6 @@ async function load() {
 	playerList.innerHTML = "";
 	for (const uuid in JSON.parse(window.localStorage.getItem("UUIDs"))) {
 		const button = document.createElement("button");
-		button.classList = "column is-one-third button m-1 is-large";
 		button.style.marginBottom = "15px";
 
 		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
@@ -108,7 +106,6 @@ async function load() {
 	}
 
 	let final = [];
-
 	if (combinedArray[0].length == 3) {
 		final.push(["Date", `Difference between ${combinedArray[0][1]} and ${combinedArray[0][2]}`]);
 		combinedArray.shift();
@@ -129,7 +126,7 @@ async function load() {
 	chart.draw(data, {
 		title: "Hypixel Level Statistics",
 		curveType: "function",
-		legend: { position: "none" },
+		legend: { position: "bottom" },
 		hAxis: { textPosition: "none" }
 	});
 
@@ -142,7 +139,7 @@ async function load() {
 			chart.draw(data, {
 				title: "Hypixel Level Statistics",
 				curveType: "function",
-				legend: { position: "none" },
+				legend: { position: "bottom" },
 				hAxis: { textPosition: "none" }
 			});
 		});

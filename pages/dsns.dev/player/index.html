@@ -3,41 +3,28 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Hypixel Level Statistics</title>
+	<title>Hypixel Player Lookup</title>
+
+	<link rel="stylesheet" href="/static/css/bulma.min.css">
+	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Hypixel Level Statistics" />
-	<meta property="og:description" content="This web app calculates statistics for Hypixel levels and plots the change over time." />
-	<meta name="description" content="This web app calculates statistics for Hypixel levels and plots the change over time." />
-	<meta property="og:url" content="https://dsns.dev/difference/" />
+	<meta property="og:title" content="Hypixel Player Lookup" />
+	<meta property="og:description" content="This web app can lookup the status and recent games of any Hypixel player." />
+	<meta name="description" content="This web app can lookup the status and recent games of any Hypixel player." />
+	<meta property="og:url" content="https://dsns.dev/player/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
-
-	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
 
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" href="/static/css/bulma.min.css">
-	<link rel="stylesheet" href="/static/css/static.css">
-	<link rel="stylesheet" href="index.css">
-
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script defer src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
 	<script defer src="/static/ga.js"></script>
-
 </head>
-
-
-
-<!--? MAIN CONTENT ---------------------------------------------------------------------------------------------------------------------- -->
 
 <body>
 	<nav class="navbar is-fixed-top" aria-label="main navigation">
@@ -69,9 +56,9 @@
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference/" class="navbar-item">
+						<a href="/statistics/" class="navbar-item">
 							<span class="icon-stacked_line_chart"></span>
-							Hypixel Level Difference
+							Hypixel Level Statistics
 						</a>
 						<a href="/ppi/" class="navbar-item">
 							<span class="icon-calculate"></span>
@@ -89,9 +76,9 @@
 							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames/" class="navbar-item">
+						<a href="/player/" class="navbar-item">
 							<span class="icon-person_search"></span>
-							Recent Games Finder
+							Hypixel Player Lookup
 						</a>
 						<a href="/ip/" class="navbar-item">
 							<span class="icon-wifi_find"></span>
@@ -127,37 +114,44 @@
 		</div>
 	</nav>
 
-	<div class="section">
-		<div class="columns">
-			<div class="column is-two-thirds">
-				<div class="box">
-					<div id="chart" style="height: 50vh;"></div>
-				</div>
-			</div>
-
-			<div class="column">
-				<div class="box">
-					<h2 class="title">Add Players:</h2>
-
-					<input type="text" id="ignInput" class="input">
-					<button class="button is-primary" style="margin-top:20px;" id="ignSubmit">Submit</button>
-				</div>
-
-				<hr>
-
-				<div class="box">
-					<h2 class="title">Current Players:</h2>
-					<div class="columns is-multiline" id="player-list">
-
+	<!-- Create a search box to enter a minecraft username-->
+	<section class="section">
+		<div class="container">
+			<div class="columns">
+				<div class="column is-half is-offset-one-quarter">
+					<div class="box">
+						<h1 class="title">Hypixel Player Lookup</h1>
+						<h2 class="subtitle">Find the status and recent games of any Hypixel player.</h2>
+						<div>
+							<div class="field">
+								<label class="label">Minecraft Username</label>
+								<div class="control">
+									<input class="input" type="text" name="username" id="IGN" placeholder="Enter a Minecraft username" required>
+								</div>
+							</div>
+							<div class="field">
+								<div class="control">
+									<button class="button is-primary" id="searchButton">
+										<span class="icon-person_search"></span>
+										Search
+									</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 
-
+	<section class="section">
+		<div class="container">
+			<div id="result" style="text-align: center;"></div>
+		</div>
+	</section>
 
 	<script src="index.js"></script>
+
 </body>
 
 </html>

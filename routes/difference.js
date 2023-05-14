@@ -2,6 +2,7 @@ require("dotenv").config(); //* npm install dotenv
 
 const axios = require("axios");
 axios.defaults.validateStatus = function (status) {
+	// axios rejects promise if status code is not 200, fixed
 	return true;
 };
 
@@ -17,56 +18,51 @@ const xpToLevel = (xp) => {
 	return round(Math.sqrt(2 * xp + 30625) / 50 - 2.5, 2);
 };
 
-module.exports = function (app) {
-	async function updateDatabase() {
-		for (const uuid in database) {
-			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
+async function updateDatabase() {
+	for (const uuid in database) {
+		const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
 
-			const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
-			const lastIndex = database[uuid].length - 1;
+		const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
+		const lastIndex = database[uuid].length - 1;
 
-			if (lastIndex != -1) {
-				if (database[uuid][lastIndex]["level"] == xpLevel) {
-					continue;
-				}
+		if (lastIndex != -1) {
+			if (database[uuid][lastIndex]["level"] == xpLevel) {
+				continue;
 			}
-
-			database[uuid].push({
-				date: new Date().toLocaleDateString("en-US", {
-					hour: "numeric",
-					minute: "numeric",
-					hour12: true
-				}),
-				level: xpLevel
-			});
 		}
 
-		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+		database[uuid].push({
+			date: new Date().toLocaleDateString("en-US", {
+				hour: "numeric",
+				minute: "numeric",
+				hour12: true
+			}),
+			level: xpLevel
+		});
 	}
 
-	updateDatabase();
-	setInterval(updateDatabase, process.env["RELOAD_TIME"]);
+	return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+}
 
+updateDatabase();
+setInterval(updateDatabase, process.env["RELOAD_TIME"]);
+
+module.exports = function (app) {
 	app.get("/api/history/:uuid", async function (req, res, next) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
 			const result = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${req.params.uuid}`);
 
-			if (database[req.params.uuid]) {
-				res.json([result["data"]["name"], database[req.params.uuid]]);
-			} else {
-				if (!result["data"]["name"]) {
-					res.json({ error: "UUID doesn't exist." });
-				} else {
-					database[req.params.uuid] = [];
-					fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+			if (database[req.params.uuid]) return res.json([result["data"]["name"], database[req.params.uuid]]);
+			if (!result["data"]["name"]) return res.json({ error: "UUID doesn't exist." });
 
-					await updateDatabase();
+			database[req.params.uuid] = [];
+			fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 
-					res.json([result["data"]["name"], database[req.params.uuid]]);
-				}
-			}
+			await updateDatabase();
+
+			res.json([result["data"]["name"], database[req.params.uuid]]);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/history: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
