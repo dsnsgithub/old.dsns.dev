@@ -13,12 +13,25 @@ const round = (number, decimalPlaces) => {
 	return Math.round(number * factorOfTen) / factorOfTen;
 };
 
+const xpToLevel = (xp) => {
+	return round(Math.sqrt(2 * xp + 30625) / 50 - 2.5, 3);
+};
+
 module.exports = function (app) {
 	async function updateDatabase() {
 		for (const uuid in database) {
 			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
 
+			const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
+
 			if (!database[uuid]) database[uuid] = [];
+			const lastIndex = database[uuid].length - 1;
+
+			if (lastIndex != -1) {
+				if (database[uuid][lastIndex]["level"] == xpLevel) {
+					continue;
+				}
+			}
 
 			database[uuid].push({
 				date: new Date().toLocaleDateString("en-US", {
@@ -26,7 +39,7 @@ module.exports = function (app) {
 					minute: "numeric",
 					hour12: true
 				}),
-				level: round(Math.sqrt(2 * result["data"]["player"]["networkExp"] + 30625) / 50 - 2.5, 5)
+				level: xpLevel
 			});
 		}
 
@@ -45,7 +58,6 @@ module.exports = function (app) {
 			if (database[req.params.uuid]) {
 				res.json([result["data"]["name"], database[req.params.uuid]]);
 			} else {
-
 				if (!result["data"]["name"]) {
 					res.json({ error: "UUID doesn't exist." });
 				} else {
@@ -96,8 +108,7 @@ module.exports = function (app) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}
-	})
-
+	});
 
 	app.get("/api/ignConvert/:ign", async function (req, res, next) {
 		try {

@@ -44,7 +44,7 @@ async function load() {
 	playerList.innerHTML = "";
 	for (const uuid in JSON.parse(window.localStorage.getItem("UUIDs"))) {
 		const button = document.createElement("button");
-		button.classList = "button is-large";
+		button.classList = "column is-one-third button m-1 is-large";
 		button.style.marginBottom = "15px";
 
 		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
@@ -54,9 +54,9 @@ async function load() {
 		button.setAttribute("onClick", `toggle("${uuid}")`);
 
 		if (JSON.parse(window.localStorage.getItem("UUIDs"))[uuid]) {
-			button.classList = "button is-large is-primary";
+			button.classList = "column is-one-third button m-1 is-large is-primary";
 		} else {
-			button.classList = "button is-large is-danger";
+			button.classList = "column is-one-third button m-1 is-large is-danger";
 		}
 
 		playerList.appendChild(button);
