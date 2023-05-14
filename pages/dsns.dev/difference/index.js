@@ -72,7 +72,7 @@ async function load() {
 		if (!storage[uuid]) continue;
 
 		const response = await fetch(`/api/history/${uuid}`).then((res) => res.json());
-		if (response.length <= 1) continue;
+		if (response.length <= 1) document.location.reload();
 		const [IGN, result] = response;
 
 		combinedArray[0].push(IGN);

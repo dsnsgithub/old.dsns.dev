@@ -18,7 +18,7 @@ const xpToLevel = (xp) => {
 };
 
 module.exports = function (app) {
-	async function updateDatabase() {
+	async function updateDatabase(reloadAll) {
 		for (const uuid in database) {
 			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
 
@@ -27,12 +27,14 @@ module.exports = function (app) {
 			if (!database[uuid]) database[uuid] = [];
 			const lastIndex = database[uuid].length - 1;
 
-			if (lastIndex != -1) {
-				if (database[uuid][lastIndex]["level"] == xpLevel) {
-					continue;
+			if (!reloadAll) {
+				if (lastIndex != -1) {
+					if (database[uuid][lastIndex]["level"] == xpLevel) {
+						continue;
+					}
 				}
 			}
-
+			
 			database[uuid].push({
 				date: new Date().toLocaleDateString("en-US", {
 					hour: "numeric",
@@ -46,8 +48,8 @@ module.exports = function (app) {
 		fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 	}
 
-	updateDatabase();
-	setInterval(updateDatabase, process.env["RELOAD_TIME"]);
+	updateDatabase(false);
+	setInterval(() => { updateDatabase(false); }, process.env["RELOAD_TIME"]);
 
 	app.get("/api/history/:uuid", async function (req, res, next) {
 		try {
@@ -64,7 +66,7 @@ module.exports = function (app) {
 					database[req.params.uuid] = [];
 					fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 
-					await updateDatabase();
+					await updateDatabase(true);
 
 					res.json(database[req.params.uuid]);
 				}
