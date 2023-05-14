@@ -8,7 +8,6 @@ function toggle(uuid) {
 	}
 
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
-	console.log(JSON.parse(window.localStorage.getItem("UUIDs")));
 	load();
 }
 const ignSubmit = document.getElementById("ignSubmit");
@@ -26,7 +25,6 @@ ignSubmit.addEventListener("click", async () => {
 	UUIDs[uuid] = true;
 
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
-	console.log(JSON.parse(window.localStorage.getItem("UUIDs")));
 	load();
 });
 
@@ -72,7 +70,6 @@ async function load() {
 		if (!storage[uuid]) continue;
 
 		const response = await fetch(`/api/history/${uuid}`).then((res) => res.json());
-		if (response.length <= 1) document.location.reload();
 		const [IGN, result] = response;
 
 		combinedArray[0].push(IGN);
@@ -80,6 +77,7 @@ async function load() {
 		if (!combined[IGN]) {
 			combined[IGN] = [];
 		}
+
 		combined[IGN] = result;
 	}
 
@@ -92,8 +90,6 @@ async function load() {
 			}
 		}
 	}
-
-	console.log(storedDates);
 
 	for (const date in storedDates) {
 		let row = [date];
@@ -121,7 +117,7 @@ async function load() {
 	const chart = new google.visualization.LineChart(document.getElementById("chart"));
 
 	chart.draw(data, {
-		title: "Hypixel Level Comparison",
+		title: "Hypixel Level Statistics",
 		curveType: "function",
 		legend: { position: "none" },
 		hAxis: { textPosition: "none" }
@@ -134,7 +130,7 @@ async function load() {
 
 		timeout = window.requestAnimationFrame(function () {
 			chart.draw(data, {
-				title: "Hypixel Level Comparison",
+				title: "Hypixel Level Statistics",
 				curveType: "function",
 				legend: { position: "none" },
 				hAxis: { textPosition: "none" }
@@ -145,3 +141,5 @@ async function load() {
 
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(load);
+
+setInterval(load, 30000);

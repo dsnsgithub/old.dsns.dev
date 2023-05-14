@@ -14,25 +14,23 @@ const round = (number, decimalPlaces) => {
 };
 
 const xpToLevel = (xp) => {
-	return round(Math.sqrt(2 * xp + 30625) / 50 - 2.5, 3);
+	return round(Math.sqrt(2 * xp + 30625) / 50 - 2.5, 2);
 };
 
 module.exports = function (app) {
-	async function updateDatabase(reloadAll) {
+	async function updateDatabase() {
 		for (const uuid in database) {
 			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
 
 			const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
 			const lastIndex = database[uuid].length - 1;
 
-			if (!reloadAll) {
-				if (lastIndex != -1) {
-					if (database[uuid][lastIndex]["level"] == xpLevel) {
-						continue;
-					}
+			if (lastIndex != -1) {
+				if (database[uuid][lastIndex]["level"] == xpLevel) {
+					continue;
 				}
 			}
-			
+
 			database[uuid].push({
 				date: new Date().toLocaleDateString("en-US", {
 					hour: "numeric",
@@ -46,8 +44,8 @@ module.exports = function (app) {
 		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 	}
 
-	updateDatabase(false);
-	setInterval(() => { updateDatabase(false); }, process.env["RELOAD_TIME"]);
+	updateDatabase();
+	setInterval(updateDatabase, process.env["RELOAD_TIME"]);
 
 	app.get("/api/history/:uuid", async function (req, res, next) {
 		try {
@@ -64,9 +62,9 @@ module.exports = function (app) {
 					database[req.params.uuid] = [];
 					fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 
-					await updateDatabase(true);
+					await updateDatabase();
 
-					res.json(database[req.params.uuid]);
+					res.json([result["data"]["name"], database[req.params.uuid]]);
 				}
 			}
 		} catch (error) {
