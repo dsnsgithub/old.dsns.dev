@@ -23,6 +23,13 @@ ignSubmit.addEventListener("click", async () => {
 	load();
 });
 
+document.onkeyup = function (event) {
+	if (event.key == "Enter") {
+		event.preventDefault();
+		ignSubmit.click();
+	}
+};
+
 const suggestedUUIDs = {
 	"557bafa10aad40bbb67207a9cefa8220": true,
 	"769f1d98aeef49cd934b4202e1c5537f": true
@@ -66,10 +73,7 @@ async function load() {
 
 		combinedArray[0].push(IGN);
 
-		if (!combined[IGN]) {
-			combined[IGN] = [];
-		}
-
+		if (!combined[IGN]) combined[IGN] = [];
 		combined[IGN] = result;
 	}
 
@@ -149,4 +153,4 @@ async function load() {
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(load);
 
-setInterval(load, 30000);
+setInterval(load, 60000);

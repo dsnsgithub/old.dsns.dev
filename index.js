@@ -21,6 +21,7 @@ async function runRoutes() {
 	if (process.env["LEVEL"] == "true") routes.push(require(__dirname + "/routes/difference.js")(app));
 	if (process.env["WHOIS"] == "true") routes.push(require(__dirname + "/routes/whois.js")(app));
 	if (process.env["YOUTUBE"] == "true") routes.push(require(__dirname + "/routes/youtube.js")(app));
+	if (process.env["ONLYEGGROLLS"] == "true") routes.push(require(__dirname + "/routes/shoppingcart.js")(app));
 
 	const results = await Promise.allSettled(routes);
 	const failCheck = results.filter((result) => result.status === "rejected");
