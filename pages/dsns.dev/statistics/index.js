@@ -2,9 +2,16 @@ function toggle(uuid) {
 	const UUIDs = JSON.parse(window.localStorage.getItem("UUIDs"));
 
 	UUIDs[uuid] = !UUIDs[uuid];
-
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
-	load();
+
+	const button = document.getElementById(uuid);
+	if (UUIDs[uuid]) {
+		button.classList = "column is-one-third button m-1 is-large is-primary";
+	} else {
+		button.classList = "column is-one-third button m-1 is-large is-danger";
+	}
+
+	loadChart();
 }
 
 const ignSubmit = document.getElementById("ignSubmit");
@@ -20,7 +27,7 @@ ignSubmit.addEventListener("click", async () => {
 	UUIDs[uuid] = true;
 
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
-	load();
+	refreshPlayerList();
 });
 
 document.onkeyup = function (event) {
@@ -37,11 +44,12 @@ const suggestedUUIDs = {
 
 if (!window.localStorage.getItem("UUIDs")) window.localStorage.setItem("UUIDs", JSON.stringify(suggestedUUIDs));
 
-async function load() {
+async function refreshPlayerList() {
 	const playerList = document.getElementById("player-list");
 	playerList.innerHTML = "";
 	for (const uuid in JSON.parse(window.localStorage.getItem("UUIDs"))) {
 		const button = document.createElement("button");
+		button.id = uuid;
 		button.style.marginBottom = "15px";
 
 		const result = await fetch(`/api/uuidConvert/${uuid}`)
@@ -64,6 +72,10 @@ async function load() {
 		playerList.innerHTML += "<br>";
 	}
 
+	loadChart();
+}
+
+async function loadChart() {
 	let combinedArray = [["Date"]];
 	let combined = {};
 	let storedDates = {};
@@ -160,6 +172,6 @@ async function load() {
 }
 
 google.charts.load("current", { packages: ["corechart"] });
-google.charts.setOnLoadCallback(load);
+google.charts.setOnLoadCallback(refreshPlayerList);
 
-setInterval(load, 10000);
+setInterval(loadChart, 10000);
