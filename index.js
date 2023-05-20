@@ -17,15 +17,14 @@ async function runRoutes() {
 	app.use(express.urlencoded({ extended: true }));
 	app.use(express.json());
 
-	const routes = [];
-	if (process.env["LEVEL"] == "true") routes.push(require(__dirname + "/routes/difference.js")(app));
-	if (process.env["WHOIS"] == "true") routes.push(require(__dirname + "/routes/whois.js")(app));
-	if (process.env["YOUTUBE"] == "true") routes.push(require(__dirname + "/routes/youtube.js")(app));
-	if (process.env["ONLYEGGROLLS"] == "true") routes.push(require(__dirname + "/routes/shoppingcart.js")(app));
-
-	const results = await Promise.allSettled(routes);
-	const failCheck = results.filter((result) => result.status === "rejected");
-	if (failCheck.length) console.error("\x1b[31m" + "Route Failure:", JSON.stringify(failCheck) + "\x1b[0m");
+	try {
+		if (process.env["LEVEL"] == "true") require(__dirname + "/routes/difference.js")(app);
+		if (process.env["WHOIS"] == "true") require(__dirname + "/routes/whois.js")(app);
+		if (process.env["YOUTUBE"] == "true") require(__dirname + "/routes/youtube.js")(app);
+		if (process.env["ONLYEGGROLLS"] == "true") require(__dirname + "/routes/shoppingcart.js")(app);
+	} catch (error) {
+		console.error("\x1b[31m" + "Route Failure:", JSON.stringify(error) + "\x1b[0m");
+	}
 }
 
 async function openPort() {
@@ -80,4 +79,5 @@ async function useMiddleware() {
 	});
 }
 
-runRoutes().then(() => openPort());
+runRoutes();
+openPort();
