@@ -5,16 +5,16 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Recent Games Finder</title>
+	<title>Hypixel Player Lookup</title>
 
 	<link rel="stylesheet" href="/static/css/bulma.min.css">
 	<link rel="stylesheet" href="/static/css/static.css">
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Recent Games Finder" />
-	<meta property="og:description" content="This web app can lookup the recent games of any Hypixel player." />
-	<meta name="description" content="This web app can lookup the recent games of any Hypixel player." />
-	<meta property="og:url" content="https://dsns.dev/recentgames/" />
+	<meta property="og:title" content="Hypixel Player Lookup" />
+	<meta property="og:description" content="This web app can lookup the status and recent games of any Hypixel player." />
+	<meta name="description" content="This web app can lookup the status and recent games of any Hypixel player." />
+	<meta property="og:url" content="https://dsns.dev/player/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -56,9 +56,9 @@
 					</a>
 
 					<div class="navbar-dropdown is-right">
-						<a href="/difference/" class="navbar-item">
+						<a href="/statistics/" class="navbar-item">
 							<span class="icon-stacked_line_chart"></span>
-							Hypixel Level Difference
+							Hypixel Level Statistics
 						</a>
 						<a href="/ppi/" class="navbar-item">
 							<span class="icon-calculate"></span>
@@ -76,9 +76,9 @@
 							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames/" class="navbar-item">
+						<a href="/player/" class="navbar-item">
 							<span class="icon-person_search"></span>
-							Recent Games Finder
+							Hypixel Player Lookup
 						</a>
 						<a href="/ip/" class="navbar-item">
 							<span class="icon-wifi_find"></span>
@@ -120,8 +120,8 @@
 			<div class="columns">
 				<div class="column is-half is-offset-one-quarter">
 					<div class="box">
-						<h1 class="title">Recent Games Finder</h1>
-						<h2 class="subtitle">Find the recent games of any Hypixel player.</h2>
+						<h1 class="title">Hypixel Player Lookup</h1>
+						<h2 class="subtitle">Find the status and recent games of any Hypixel player.</h2>
 						<div>
 							<div class="field">
 								<label class="label">Minecraft Username</label>
@@ -144,7 +144,6 @@
 		</div>
 	</section>
 
-	<!-- Create a results section to display parsed recent games-->
 	<section class="section">
 		<div class="container">
 			<div id="result" style="text-align: center;"></div>

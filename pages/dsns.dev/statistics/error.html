@@ -4,13 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Hypixel Level Difference</title>
+	<title>Hypixel Level Statistics</title>
 
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Hypixel Level Difference" />
-	<meta property="og:description" content="This web app calculates the difference between Hypixel levels and plots the change over time." />
-	<meta name="description" content="This web app calculates the difference between Hypixel levels and plots the change over time." />
-	<meta property="og:url" content="https://dsns.dev/difference/" />
+	<meta property="og:title" content="Hypixel Level Statistics" />
+	<meta property="og:description" content="This web app calculates statistics for Hypixel levels and plots the change over time." />
+	<meta name="description" content="This web app calculates statistics for Hypixel levels and plots the change over time." />
+	<meta property="og:url" content="https://dsns.dev/statistics/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -23,9 +23,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="min.css">
+	<link rel="stylesheet" href="/static/css/bulma.min.css">
 	<link rel="stylesheet" href="/static/css/static.css">
-	<link rel="stylesheet" href="index.css">
 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -35,10 +34,6 @@
 
 </head>
 
-
-
-<!--? MAIN CONTENT ---------------------------------------------------------------------------------------------------------------------- -->
-
 <body>
 	<nav class="navbar is-fixed-top" aria-label="main navigation">
 		<div class="navbar-brand">
@@ -47,15 +42,15 @@
 					<img id="kirbyicon" src="/static/images/jpg/icon.jpg" alt="DSNS icon">
 				</a>
 			</div>
-
+	
 			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 				<span aria-hidden="true"></span>
 			</a>
 		</div>
-
-
+	
+	
 		<div class="navbar-menu">
 			<div class="navbar-end">
 				<a href="/" class="navbar-item">
@@ -67,11 +62,11 @@
 						<span class="icon-source"></span>
 						Projects
 					</a>
-
+	
 					<div class="navbar-dropdown is-right">
-						<a href="/difference/" class="navbar-item">
+						<a href="/statistics/" class="navbar-item">
 							<span class="icon-stacked_line_chart"></span>
-							Hypixel Level Difference
+							Hypixel Level Statistics
 						</a>
 						<a href="/ppi/" class="navbar-item">
 							<span class="icon-calculate"></span>
@@ -89,9 +84,9 @@
 							<span class="icon-redeem"></span>
 							Christmas Countdown
 						</a>
-						<a href="/recentgames/" class="navbar-item">
+						<a href="/player/" class="navbar-item">
 							<span class="icon-person_search"></span>
-							Recent Games Finder
+							Hypixel Player Lookup
 						</a>
 						<a href="/ip/" class="navbar-item">
 							<span class="icon-wifi_find"></span>
@@ -127,37 +122,15 @@
 		</div>
 	</nav>
 
-	<div class="section">
-		<div class="columns is-multiline">
-			<div class="column is-half-fullhd is-full-widescreen is-full-desktop is-full-tablet">
-				<h2>The Difference Between DSNS and AmKale</h2>
-				<h1 id="differenceAmKale"></h1>
+	<center>
+		<h2 class="title">Unable to reach Hypixel API. Try again later. Notify DSNS at DSNS#5781.</h2>
 
-				<div id="AmKale_chart" style="height: 27vh"></div>
-			</div>
-			<div class="column is-half-fullhd is-full-widescreen is-full-desktop is-full-tablet">
-				<h2>The Difference Between DSNS and jiebi</h2>
-				<h1 id="differenceJiebi"></h1>
+		<br>
+		<br>
 
-				<div id="jiebi_chart" style="height: 27vh"></div>
-			</div>
-			<div class="column is-full-tablet">
-				<h2>The Difference Between jiebi and AmKale</h2>
-				<h1 id="jiebiAmkale"></h1>
-			</div>
-		</div>
+		<iframe height="1000px" width="60%" src="https://status.hypixel.net/" frameborder="0"></iframe>
+	</center>
 
-
-		<h2 id="date">Last updated:</h2>
-	</div>
-
-	<hr>
-
-	<div class="section">
-		<div id="statusColumns" class="columns is-multiline"></div>
-	</div>
-
-	<script src="index.js"></script>
 </body>
 
 </html>

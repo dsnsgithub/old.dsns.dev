@@ -323,52 +323,33 @@ const gameTypes = {
 	}
 };
 
-async function run() {
-	// @ts-ignore
-	const IGN = document.getElementById("IGN").value;
-	const data = await fetch(`/api/recentgames/${IGN}`).then((res) => res.json());
+async function sanitizeMode(game, mode) {
+	const gameList = gameTypes["games"];
+	//? If the game doesn't exist in the gameTypes object
+	if (!gameList[game.toUpperCase()]) return [mode, game];
+	const sanitizedGame = gameList[game.toUpperCase()]["name"];
 
-	const resultDiv = document.getElementById("result");
-	resultDiv.innerText = "";
+	//? If the mode doesn't exist in the gameTypes object
+	if (!gameList[game.toUpperCase()]?.["modeNames"]?.[mode]) return [sanitizedGame, mode];
+	const sanitizedMode = gameList[game.toUpperCase()]["modeNames"][mode];
 
-	if (data.length === 0) {
-		resultDiv.innerHTML = `<h1 class="title">No recent games found.</h1>`;
-		return;
-	}
-
-	if (data["error"]) {
-		resultDiv.innerHTML = `<h1 class="title">${data["error"]}</h1>`;
-		return;
-	}
-
-	const table = document.createElement("table");
-	// add table is-striped is-fullwidth is-hoverable css classes to the table
-	table.classList.add("table", "is-striped", "is-fullwidth", "is-hoverable");
-
-	// Create a table that displays the parsed recent games data
-	table.createTHead();
-	table.createTBody();
-
-	const headRow = table.tHead.insertRow();
-	headRow.insertCell().innerText = "Game";
-	headRow.insertCell().innerText = "Mode";
-	headRow.insertCell().innerText = "Map";
-	headRow.insertCell().innerText = "Time";
-
-	for (const i in data) {
-		const [mode, game, time, map] = await parseRecentGames(data[i], IGN);
-
-		const row = table.insertRow();
-		row.insertCell().innerText = game;
-		row.insertCell().innerText = mode;
-		row.insertCell().innerText = map;
-		row.insertCell().innerText = time;
-	}
-
-	resultDiv.appendChild(table);
+	return [sanitizedGame, sanitizedMode];
 }
 
-async function parseRecentGames(recentGame, IGN) {
+async function parseStatus(status, IGN) {
+	if (!status["online"]) return `${IGN} is offline.`;
+
+	const game = status["game"]["name"];
+	const mode = status["mode"];
+
+	if (mode == game || !mode) return `${IGN} is online. They are playing ${game}.`;
+	if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${game} Lobby.`;
+
+	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+	return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
+}
+
+async function parseRecentGames(recentGame) {
 	if (!recentGame) return `No recent games.`;
 
 	const recentTime = new Date(recentGame["date"]).toLocaleDateString("en-US", {
@@ -377,28 +358,68 @@ async function parseRecentGames(recentGame, IGN) {
 		hour12: true
 	});
 
-	const game = recentGame["name"];
+	const game = recentGame["gameType"];
 	const mode = recentGame["mode"];
 	const map = recentGame["map"] || "Unknown";
 
 	if (!mode) return ["Unknown", game, recentTime, map];
 
 	//? Sanitize Hypixel API into a more readable format
-	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["game"], mode);
+	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["gameType"], mode);
 	return [sanitizedMode, sanitizedGame, recentTime, map];
 }
 
-async function sanitizeMode(game, mode) {
-	const gameList = gameTypes["games"];
-	//? If the game doesn't exist in the games.json file
-	if (!gameList[game.toUpperCase()]) return [mode, game];
-	const sanitizedGame = gameList[game.toUpperCase()]["name"];
+async function run() {
+	let IGN = document.getElementById("IGN").value;
 
-	//? If the mode doesn't exist in the games.json file
-	if (!gameList[game.toUpperCase()]?.["modeNames"]?.[mode]) return [sanitizedGame, mode];
-	const sanitizedMode = gameList[game.toUpperCase()]["modeNames"][mode];
+	const result = await fetch(`/api/ignConvert/${IGN}`).then((res) => res.json());
+	if (!result["id"]) return alert("Invalid IGN");
 
-	return [sanitizedGame, sanitizedMode];
+	const uuid = result["id"];
+	IGN = result["name"];
+
+	const resultDiv = document.getElementById("result");
+	resultDiv.innerText = "";
+
+	const status = await fetch(`/api/status/${uuid}`).then((res) => res.json());
+	const parsedStatus = await parseStatus(status, IGN);
+	resultDiv.innerHTML += `<h2 class="title">${parsedStatus}</h2>`;
+
+	const recentGames = await fetch(`/api/recentgames/${uuid}`).then((res) => res.json());
+	if (recentGames["games"].length === 0) {
+		resultDiv.innerHTML = `<h1 class="title">No recent games found.</h1>`;
+		return;
+	}
+
+	if (recentGames["error"]) {
+		resultDiv.innerHTML = `<h1 class="title">${recentGames["error"]}</h1>`;
+		return;
+	}
+
+	const table = document.createElement("table");
+	table.classList = "table is-striped is-hoverable is-fullwidth";
+
+	table.createTBody();
+
+	for (const i in recentGames["games"]) {
+		const [mode, game, time, map] = await parseRecentGames(recentGames["games"][i]);
+
+		const row = table.insertRow();
+		row.insertCell().innerText = game;
+		row.insertCell().innerText = mode;
+		row.insertCell().innerText = map;
+		row.insertCell().innerText = time;
+	}
+
+	table.createTHead();
+
+	const headRow = table.tHead.insertRow();
+	headRow.insertCell().innerText = "Game";
+	headRow.insertCell().innerText = "Mode";
+	headRow.insertCell().innerText = "Map";
+	headRow.insertCell().innerText = "Time";
+
+	resultDiv.appendChild(table);
 }
 
 document.onkeyup = function (event) {
