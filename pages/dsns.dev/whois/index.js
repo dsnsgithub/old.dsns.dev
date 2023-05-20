@@ -1,6 +1,7 @@
 async function whoIs() {
 	const domainInput = document.getElementById("domain");
 	const whois = document.getElementById("whois");
+	const resultBox = document.getElementById("results");
 
 	whois.innerText = "";
 
@@ -8,6 +9,7 @@ async function whoIs() {
 	const result = await fetch("/api/whois/" + domain).then((res) => res.text());
 
 	whois.innerHTML = result;
+	resultBox.style.display = "";
 }
 
 document.onkeyup = function (event) {

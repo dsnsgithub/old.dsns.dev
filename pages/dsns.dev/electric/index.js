@@ -10,14 +10,16 @@ function calculate() {
 	const pricePerGallon = document.getElementById("pricePerGallon").value;
 
 	const costElem = document.getElementById("cost");
+	const resultBox = document.getElementById("results");
 
 	const kWhperMile = wattsPerMile / 1000;
 	const kWhperGallon = kWhperMile * milesPerGallon;
 	const cost = kWhperGallon * priceperKwh;
 
-	costElem.innerText = `$${round(cost, 2)} per gallon equivalent`;
+	costElem.innerHTML = `$${round(cost, 2)} per gallon equivalent`;
 	costElem.innerHTML += "<br>";
-	costElem.innerText += `${round(pricePerGallon / priceperKwh / kWhperMile, 2)} mpg equivalent`;
+	costElem.innerHTML += `${round(pricePerGallon / priceperKwh / kWhperMile, 2)} mpg equivalent`;
+	resultBox.style.display = "block";
 }
 
 const calculateElem = document.getElementById("calculate");
