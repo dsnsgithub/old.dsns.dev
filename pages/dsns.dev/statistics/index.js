@@ -52,11 +52,7 @@ async function refreshPlayerList() {
 		button.id = uuid;
 		button.style.marginBottom = "15px";
 
-		const result = await fetch(`/api/uuidConvert/${uuid}`)
-			.then((res) => res.json())
-			.catch(() => {
-				window.location.href = "/statistics/error.html";
-			});
+		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
 		const IGN = result["name"];
 
 		button.innerHTML = `<h2>${IGN}</h2>`;
@@ -84,12 +80,7 @@ async function loadChart() {
 	for (const uuid in storage) {
 		if (!storage[uuid]) continue;
 
-		const response = await fetch(`/api/history/${uuid}`)
-			.then((res) => res.json())
-			.catch(() => {
-				window.location.href = "/statistics/error.html";
-			});
-
+		const response = await fetch(`/api/history/${uuid}`).then((res) => res.json());
 		const [IGN, result] = response;
 
 		combinedArray[0].push(IGN);
