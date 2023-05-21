@@ -15,6 +15,7 @@ module.exports = function (app) {
 			changeOrigin: true,
 			selfHandleResponse: true,
 			followRedirects: true,
+			ws: true,
 			onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/javascript"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
