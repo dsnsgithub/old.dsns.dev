@@ -13,11 +13,14 @@ const app = express();
 app.set("trust proxy", true);
 
 async function runRoutes() {
-	app.use(compression());
-	app.use(express.urlencoded({ extended: true }));
-	app.use(express.json());
-
 	try {
+		app.use(compression());
+
+		if (process.env["PROXY"] == "true") require(__dirname + "/routes/proxy.js")(app);
+
+		app.use(express.urlencoded({ extended: true }));
+		app.use(express.json());
+
 		if (process.env["LEVEL"] == "true") require(__dirname + "/routes/difference.js")(app);
 		if (process.env["WHOIS"] == "true") require(__dirname + "/routes/whois.js")(app);
 		if (process.env["YOUTUBE"] == "true") require(__dirname + "/routes/youtube.js")(app);
