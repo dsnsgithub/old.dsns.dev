@@ -387,12 +387,12 @@ async function run() {
 
 	const recentGames = await fetch(`/api/recentgames/${uuid}`).then((res) => res.json());
 	if (recentGames["games"].length === 0) {
-		resultDiv.innerHTML = `<h1 class="title">No recent games found.</h1>`;
+		resultDiv.innerHTML += `<h1 class="title">No recent games found.</h1>`;
 		return;
 	}
 
 	if (recentGames["error"]) {
-		resultDiv.innerHTML = `<h1 class="title">${recentGames["error"]}</h1>`;
+		resultDiv.innerHTML += `<h1 class="title">${recentGames["error"]}</h1>`;
 		return;
 	}
 
