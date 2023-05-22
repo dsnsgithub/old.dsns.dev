@@ -8,7 +8,7 @@ module.exports = function (app) {
 		createProxyMiddleware({
 			target: "https://tetr.io/",
 			pathFilter: function (path, req) {
-				return req.headers.host.startsWith("hide.dsns");
+				return req.headers.host.startsWith("tet.dsns");
 			},
 			changeOrigin: true,
 			selfHandleResponse: true,
@@ -18,7 +18,7 @@ module.exports = function (app) {
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/javascript"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
 					const response = responseBuffer.toString("utf8"); // convert buffer to string
-					return response.replace(/tetr.io/g, "hide.dsns.dev"); // manipulate response and return the result
+					return response.replace(/tetr.io/g, "tet.dsns.dev"); // manipulate response and return the result
 				}
 
 				return responseBuffer;
