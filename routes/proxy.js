@@ -8,7 +8,7 @@ module.exports = function (app) {
 		createProxyMiddleware({
 			target: "https://tetr.io/",
 			pathFilter: function (path, req) {
-				return req.headers.host.startsWith("tetr");
+				return req.headers.host.includes("tetr");
 			},
 			changeOrigin: true,
 			selfHandleResponse: true,
