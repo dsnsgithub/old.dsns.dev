@@ -18,7 +18,7 @@ module.exports = function (app) {
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/javascript"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
 					const response = responseBuffer.toString("utf8"); // convert buffer to string
-					return response.replace(/tetr.io/g, "tetr.dsns.dev"); // manipulate response and return the result
+					return response.replace(/tetr.io/g, req.headers.host); // manipulate response and return the result
 				}
 
 				return responseBuffer;
