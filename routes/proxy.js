@@ -40,11 +40,14 @@ module.exports = function (app) {
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/html; charset=utf-8", "text/javascript", "application/json", "application/javascript; charset=utf-8"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
 					const response = responseBuffer.toString("utf8"); // convert buffer to string
+
+					const splitDomain = req.headers.host.split(".");
+					const domain = splitDomain[1] + "." + splitDomain[2];
 					return response
 						.replace(/webosu.online/g, req.headers.host)
-						.replace(/catboy.best/g, "catboybest.dsns.dev")
-						.replace(/assets.ppy.sh/g, "assetsppysh.dsns.dev")
-						.replace(/livescores.webosu.workers.dev/g, "livescores.dsns.dev")
+						.replace(/catboy.best/g, `catboybest.${domain}`)
+						.replace(/assets.ppy.sh/g, `assetsppysh.${domain}`)
+						.replace(/livescores.webosu.workers.dev/g, `livescores.${domain}`);
 				}
 
 				return responseBuffer;
@@ -66,10 +69,13 @@ module.exports = function (app) {
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/html; charset=utf-8", "text/javascript", "application/json", "application/javascript; charset=utf-8"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
 					const response = responseBuffer.toString("utf8"); // convert buffer to string
+
+					const splitDomain = req.headers.host.split(".");
+					const domain = splitDomain[1] + "." + splitDomain[2];
 					return response
-						.replace(/catboy.best/g, "catboybest.dsns.dev")
-						.replace(/assets.ppy.sh/g, "assetsppysh.dsns.dev")
-						.replace(/livescores.webosu.workers.dev/g, "livescores.dsns.dev")
+						.replace(/catboy.best/g, `catboybest.${domain}`)
+						.replace(/assets.ppy.sh/g, `assetsppysh.${domain}`)
+						.replace(/livescores.webosu.workers.dev/g, `livescores.${domain}`);
 				}
 
 				return responseBuffer;
@@ -91,10 +97,13 @@ module.exports = function (app) {
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/html; charset=utf-8", "text/javascript", "application/json", "application/javascript; charset=utf-8"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
 					const response = responseBuffer.toString("utf8"); // convert buffer to string
+
+					const splitDomain = req.headers.host.split(".");
+					const domain = splitDomain[1] + "." + splitDomain[2];
 					return response
-						.replace(/catboy.best/g, "catboybest.dsns.dev")
-						.replace(/assets.ppy.sh/g, "assetsppysh.dsns.dev")
-						.replace(/livescores.webosu.workers.dev/g, "livescores.dsns.dev")
+						.replace(/catboy.best/g, `catboybest.${domain}`)
+						.replace(/assets.ppy.sh/g, `assetsppysh.${domain}`)
+						.replace(/livescores.webosu.workers.dev/g, `livescores.${domain}`);
 				}
 
 				return responseBuffer;
@@ -111,10 +120,7 @@ module.exports = function (app) {
 			changeOrigin: true,
 			selfHandleResponse: true,
 			followRedirects: true,
-			ws: true,
-			onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
-				return responseBuffer;
-			})
+			ws: true
 		})
 	);
 };
