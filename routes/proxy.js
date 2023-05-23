@@ -113,15 +113,6 @@ module.exports = function (app) {
 			followRedirects: true,
 			ws: true,
 			onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
-				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/html; charset=utf-8", "text/javascript", "application/json", "application/javascript; charset=utf-8"];
-				if (imageTypes.includes(proxyRes.headers["content-type"])) {
-					const response = responseBuffer.toString("utf8"); // convert buffer to string
-					return response
-						.replace(/catboy.best/g, "catboybest.dsns.dev")
-						.replace(/assets.ppy.sh/g, "assetsppysh.dsns.dev")
-						.replace(/livescores.webosu.workers.dev/g, "livescores.dsns.dev")
-				}
-
 				return responseBuffer;
 			})
 		})
