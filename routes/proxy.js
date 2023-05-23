@@ -66,6 +66,8 @@ module.exports = function (app) {
 			followRedirects: true,
 			ws: true,
 			onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
+				proxyRes.headers["Access-Control-Allow-Origin"] = "*";
+
 				const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/html; charset=utf-8", "text/javascript", "application/json", "application/javascript; charset=utf-8"];
 				if (imageTypes.includes(proxyRes.headers["content-type"])) {
 					const response = responseBuffer.toString("utf8"); // convert buffer to string
@@ -120,7 +122,10 @@ module.exports = function (app) {
 			changeOrigin: true,
 			selfHandleResponse: true,
 			followRedirects: true,
-			ws: true
+			ws: true,
+			onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
+				return responseBuffer;
+			})
 		})
 	);
 };
