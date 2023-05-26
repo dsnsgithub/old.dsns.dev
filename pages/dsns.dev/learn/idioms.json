@@ -1,52 +1,74 @@
 [
 	{
-		"question": "喬遷/乔迁",
-		"answer": "之喜",
-		"pinyin": "qiao2qian1zhi1xi3"
-	},
-	{
-		"question": "隔牆/隔墙",
-		"answer": "有耳",
-		"pinyin": "ge2qian2you3er3"
-	},
-	{
-		"question": "拐彎/拐弯",
-		"answer": "抹角",
-		"pinyin": "guai3wan1mo4jiao3"
-	},
-	{
-		"question": "人逢喜事",
-		"answer": "精神爽",
-		"pinyin": "ren2feng2xi3shi4jing1shen2shuang3"
-	},
-	{
-		"question": "趕鴨子/赶鸭子",
-		"answer": "上架",
-		"pinyin": "gan3ya1zishang4jia4"
-	},
-	{
-		"question": "守株待兔 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Indicates that someone is stupid and unimaginative about doing things or that someone puts their faith in chance and windfalls. <br><br>2. This implies that a determined effort can help accomplish things. <br><br>3. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.</div>",
-		"answer": "1",
-		"pinyin": "shou1zhu1dai4tu4"
-	}, 
-	{
-		"question": "東施效顰/东施效颦 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.<br><br>2. This implies that a determined effort can help accomplish things.<br><br>3. Someone who imitates poorly, making the imitator appear even more awkward and unpleasant.</div>",
+		"question": "掩耳盜鈴/掩耳盗铃 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. Feeling extremely proud <br><br>2. Arrogant <br><br>3. Deceiving <br><br>4. Superfluous</div>",
 		"answer": "3",
-		"pinyin": "dong1shi1xiao4pin2"
+		"pinyin": "yan3er3dao4ling2"
 	},
 	{
-		"question": "狐假虎威 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Indicates that someone is stupid and unimaginative about doing things or that someone puts their faith in chance and windfalls.<br><br>2. This implies that a determined effort can help accomplish things. <br><br>3. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.</div>",
-		"answer": "3",
-		"pinyin": "hu2jia3hu3wei1"
+		"question": "畫蛇添足/画蛇添足 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. Feeling extremely proud <br><br>2. Arrogant <br><br>3. Deceiving <br><br>4. Superfluous</div>",
+		"answer": "4",
+		"pinyin": "ye4lang2zi4da4"
 	},
 	{
-		"question": "愚公移山 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Someone who imitates poorly, making the imitator appear even more awkward and unpleasant.<br><br>2. This implies that a determined effort can help accomplish things.<br><br>3. Someone's words or behavior are contradictory.</div>",
+		"question": "夜郎自大 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. Feeling extremely proud <br><br>2. Arrogant <br><br>3. Deceiving <br><br>4. Superfluous</div>",
 		"answer": "2",
-		"pinyin": "yu2gong1yi2shan1"
+		"pinyin": "hua4she2tian1zu2"
 	},
 	{
-		"question": "自相矛盾 - Pick (1/2/3) <div class='box is-size-5 has-text-weight-normal'>1. Someone's words or behavior are contradictory.<br><br>2. This implies that a determined effort can help accomplish things.<br><br>3. This is used to describe someone who bullies the weak by flaunting his/her powerful connections.</div>",
+		"question": "得意洋洋 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. Feeling extremely proud <br><br>2. Arrogant <br><br>3. Deceiving <br><br>4. Superfluous</div>",
 		"answer": "1",
-		"pinyin": "zi4xiang1mao2dun4"
+		"pinyin": "de2yi4yang2yang2"
+	},
+	{
+		"question": "滿載而歸/满载而归 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. To return home home fully laden with riches, gifts, etc.<br><br>2. Not as much as those above, but more than those below.<br><br>3. A man's worth cannot be judged by his looks <br><br>4. All people within the four seas can become (as close) as your older and younger brothers.</div>",
+		"answer": "1",
+		"pinyin": "man3zai4er2gui1"
+	},
+	{
+		"question": "人不可貌相 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. To return home home fully laden with riches, gifts, etc.<br><br>2. Not as much as those above, but more than those below.<br><br>3. A man's worth cannot be judged by his looks <br><br>4. All people within the four seas can become (as close) as your older and younger brothers.</div>",
+		"answer": "3",
+		"pinyin": "ren2bu4ke3mao4xiang4"
+	},
+	{
+		"question": "比上不足，比下有余(餘) | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. To return home home fully laden with riches, gifts, etc.<br><br>2. Not as much as those above, but more than those below.<br><br>3. A man's worth cannot be judged by his looks <br><br>4. All people within the four seas can become (as close) as your older and younger brothers.</div>",
+		"answer": "2",
+		"pinyin": "bi3shang4bu4zu2bi3xia4you3yu2"
+	},
+	{
+		"question": "四海之內皆兄弟 | Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. To return home home fully laden with riches, gifts, etc.<br><br>2. Not as much as those above, but more than those below.<br><br>3. A man's worth cannot be judged by his looks <br><br>4. All people within the four seas can become (as close) as your older and younger brothers.</div>",
+		"answer": "4",
+		"pinyin": "si4hai3zhi1nei4jie1xiong1di4"
+	},
+	{
+		"question": "我可以進來嗎?/我可以进来吗？<u>行。</u> - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. xíng<br><br>2. xìng<br><br>3. háng<br><br>4. hàng</div>",
+		"answer": "1"
+	},
+	{
+		"question": "我去銀<u>行</u>了/我去银<u>行</u>了。- Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. xíng<br><br>2. xìng<br><br>3. háng<br><br>4. hàng</div>",
+		"answer": "3"
+	},
+	{
+		"question": "我去中國<u>了</u>。/我去中国<u>了</u>。- Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. liǎo<br><br>2. lé<br><br>3. le<br><br>4. liào</div>",
+		"answer": "3"
+	},
+	{
+		"question": "我去得<u>了</u>中國。/我去得<u>了</u>中国。- Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. liǎo<br><br>2. lé<br><br>3. le<br><br>4. liào</div>",
+		"answer": "1"
+	},
+	{
+		"question": "我跟爸爸<u>差</u>不多。- Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. chà<br><br>2. chā<br><br>3. cha<br><br>4. chá</div>",
+		"answer": "1"
+	},
+	{
+		"question": "現在我還有一點兒時<u>差</u>/现在我还有一点儿时<u>差</u> - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. chà<br><br>2. chā<br><br>3. cha<br><br>4. chá</div>",
+		"answer": "2"
+	},
+	{
+		"question": "電話很方<u>便</u>/电话很方<u>便</u> - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. pián<br><br>2. piǎn<br><br>3. biàn<br><br>4. bián</div>",
+		"answer": "3"
+	},
+	{
+		"question": "這張飛機票很<u>便宜</u>。/这张飞机票很<u>便宜</u>。 - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. pián<br><br>2. piǎn<br><br>3. biàn<br><br>4. bián</div>",
+		"answer": "2"
 	}
 ]

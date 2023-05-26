@@ -69,7 +69,7 @@ async function parseLesson(lesson) {
 			completePinyin += newCharacter;
 		}
 
-		pinyinArray.push([[format(completePinyin)], characterList[count][0].join("/")]);
+		pinyinArray.push([[format(completePinyin)], characterList[count][0].join("/"), "pinyin"]);
 		count += 1;
 	}
 
@@ -85,27 +85,28 @@ async function parseData() {
 	const polyAtomic = [];
 	for (const line of polyRaw) {
 		let [name, formula] = line.split(" - ");
-		polyAtomic.push([[format(name)], formula]);
-		polyAtomic.push([[format(formula)], name]);
+		polyAtomic.push([[format(name)], formula, "name"]);
+		polyAtomic.push([[format(formula)], name], "formula");
 	}
 
 	const idioms = [];
 	for (const line of idiomsRaw) {
-		idioms.push([[format(line.answer)], line.question]);
+		idioms.push([[format(line.answer)], line.question, "answer"]);
 
-		if (line.question.includes("-")) {
-			const [character, _] = line.question.split(" - ");
-			idioms.push([[format(line.pinyin)], character]);
-		} else {
-			let completeCharacter = "";
-			if (line.question.includes("/")) {
-				completeCharacter = line.question.split("/")[1] + line.answer;
-			} else {
-				completeCharacter = line.question + line.answer;
-			}
-
-			idioms.push([[format(line.pinyin)], completeCharacter]);
+		if (line.question.includes("|")) {
+			const [character, _] = line.question.split(" | ");
+			idioms.push([[format(line.pinyin)], character, "pinyin"]);
 		}
+		// else {
+		// 	let completeCharacter = "";
+		// 	if (line.question.includes("/")) {
+		// 		completeCharacter = line.question.split("/")[1] + line.answer;
+		// 	} else {
+		// 		completeCharacter = line.question + line.answer;
+		// 	}
+
+		// 	idioms.push([[format(line.pinyin)], completeCharacter]);
+		// }
 	}
 
 	return [polyAtomic, idioms];
@@ -124,6 +125,7 @@ function showNewDefinition() {
 		randomIndex = Math.floor(Math.random() * data.length);
 	} while (data[randomIndex] == lastQuestion && data.length > 1);
 
+	type = data[randomIndex][2] || type;
 	characterElem.innerHTML = `Type the ${type} for <b>${data[randomIndex][1]}</b>`;
 
 	lastQuestion = data[randomIndex];
