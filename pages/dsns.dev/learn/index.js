@@ -97,16 +97,6 @@ async function parseData() {
 			const [character, _] = line.question.split(" | ");
 			idioms.push([[format(line.pinyin)], character, "pinyin"]);
 		}
-		// else {
-		// 	let completeCharacter = "";
-		// 	if (line.question.includes("/")) {
-		// 		completeCharacter = line.question.split("/")[1] + line.answer;
-		// 	} else {
-		// 		completeCharacter = line.question + line.answer;
-		// 	}
-
-		// 	idioms.push([[format(line.pinyin)], completeCharacter]);
-		// }
 	}
 
 	return [polyAtomic, idioms];
@@ -173,31 +163,31 @@ function selectOption() {
 	if (selectElem.value == "Pinyin") {
 		data = [...pinyinArray];
 		type = "pinyin";
-		lessonSelect.style.display = "inline-block";
+		lessonSelect.parentElement.style.display = "inline-block";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "Sentence Patterns") {
 		data = [...sentencePatterns];
 		type = "chinese character(s)";
-		lessonSelect.style.display = "inline-block";
+		lessonSelect.parentElement.style.display = "inline-block";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "Chinese Characters (汉字)") {
 		type = "chinese character";
 		data = [...characters];
-		lessonSelect.style.display = "inline-block";
+		lessonSelect.parentElement.style.display = "inline-block";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "Polyatomic Ions") {
 		type = "name/formula";
 		data = [...polyAtomic];
-		lessonSelect.style.display = "none";
+		lessonSelect.parentElement.style.display = "none";
 
 		index = showNewDefinition();
 	} else if (selectElem.value == "中文三成语复习") {
 		type = "answer";
 		data = [...idioms];
-		lessonSelect.style.display = "none";
+		lessonSelect.parentElement.style.display = "none";
 
 		index = showNewDefinition();
 	}
@@ -248,6 +238,6 @@ pencilToggle.addEventListener("click", () => {
 		pencilArea.style.display = "none";
 		pencilToggle.style.backgroundColor = "lightcoral";
 	}
-})
+});
 
 run();

@@ -40,7 +40,7 @@
 		"pinyin": "si4hai3zhi1nei4jie1xiong1di4"
 	},
 	{
-		"question": "我可以進來嗎?/我可以进来吗？<u>行。</u> - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. xíng<br><br>2. xìng<br><br>3. háng<br><br>4. hàng</div>",
+		"question": "我可以進來嗎?/我可以进来吗？<u>行</u>。 - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. xíng<br><br>2. xìng<br><br>3. háng<br><br>4. hàng</div>",
 		"answer": "1"
 	},
 	{
@@ -68,7 +68,7 @@
 		"answer": "3"
 	},
 	{
-		"question": "這張飛機票很<u>便宜</u>。/这张飞机票很<u>便宜</u>。 - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. pián<br><br>2. piǎn<br><br>3. biàn<br><br>4. bián</div>",
+		"question": "這張飛機票很<u>便</u>宜。/这张飞机票很<u>便</u>宜。 - Pick (1/2/3/4) <div class='box is-size-5 has-text-weight-normal'>1. pián<br><br>2. piǎn<br><br>3. biàn<br><br>4. bián</div>",
 		"answer": "2"
 	}
 ]
