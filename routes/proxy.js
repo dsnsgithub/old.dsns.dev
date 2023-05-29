@@ -14,8 +14,8 @@ module.exports = function (app) {
 		followRedirects: true,
 		ws: true,
 		onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
-			const contentType = proxyRes.headers["content-type"].toLocaleLowerCase();
-			if (contentType.includes("text/") || contentType.includes("utf-8")) {
+			const imageTypes = ["text/css", "text/html; charset=UTF-8", "text/javascript"];
+			if (imageTypes.includes(proxyRes.headers["content-type"])) {
 				const response = responseBuffer.toString("utf8");
 				return response.replace(/tetr.io/g, req.headers.host);
 			}
