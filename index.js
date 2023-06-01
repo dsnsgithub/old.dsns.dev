@@ -49,7 +49,9 @@ async function useHTTPS() {
 
 	const server = https.createServer(keyPair("dsns.dev"), app);
 
-	const domains = ["mseung.dev", "orchardlakehouse.com", "onlyeggrolls.com"];
+	const files = fs.readdirSync(`${__dirname}/certificates/`, { withFileTypes: true });
+	const domains = files.filter((file) => file.isDirectory()).map((folder) => folder.name);
+
 	for (const domain of domains) {
 		const context = keyPair(domain);
 
