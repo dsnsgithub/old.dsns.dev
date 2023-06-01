@@ -1,14 +1,8 @@
 const { createProxyMiddleware, responseInterceptor } = require("http-proxy-middleware");
 
-// ! Line 77 of http-proxy-middleware.js in http-proxy-middleware must be changed to:
-// ! return contextMatcher.match(context, path, req) && this.proxyOptions.pathFilter(path, req);
-
 module.exports = function (app) {
 	const options = {
 		target: "https://tetr.io/",
-		pathFilter: function (path, req) {
-			return req.headers.host.includes("tetr");
-		},
 		changeOrigin: true,
 		selfHandleResponse: true,
 		followRedirects: true,
@@ -27,5 +21,5 @@ module.exports = function (app) {
 		})
 	};
 
-	app.use(createProxyMiddleware(options));
+	app.use(createProxyMiddleware((_, req) => req.headers.host.includes("tetr"), options));
 };

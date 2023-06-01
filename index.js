@@ -48,9 +48,14 @@ async function useHTTPS() {
 	}
 
 	const server = https.createServer(keyPair("dsns.dev"), app);
-	server.addContext("mseung.dev", keyPair("mseung.dev"));
-	server.addContext("orchardlakehouse.com", keyPair("orchardlakehouse.com"));
-	server.addContext("onlyeggrolls.com", keyPair("onlyeggrolls.com"));
+
+	const domains = ["mseung.dev", "orchardlakehouse.com", "onlyeggrolls.com"];
+	for (const domain of domains) {
+		const context = keyPair(domain);
+
+		server.addContext(domain, context);
+		server.addContext(`*.${domain}`, context);
+	}
 
 	server.listen(443, () => {
 		console.log("\x1b[32m" + "Express (HTTPS) opened Port" + "\x1b[33m", 443 + "\x1b[0m");
