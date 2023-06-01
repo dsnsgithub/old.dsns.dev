@@ -1,24 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="has-navbar-fixed-top">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>DSNS's Portfolio</title>
+	<title>404 - Page Not Found</title>
 
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="DSNS's Portfolio" />
-	<meta property="og:description" content="Check out what I do, and explore some of my projects." />
-	<meta name="description" content="Check out what I do, and explore some of my projects." />
-	<meta property="og:url" content="https://dsns.dev" />
+	<link rel="stylesheet" href="/static/css/bulma.min.css">
+	<link rel="stylesheet" href="/static/css/static.css">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+
+	<meta property="og:title" content="404 - Page Not Found" />
+	<meta property="og:description" content="The requested page could not be found on dsns.dev." />
+	<meta name="description" content="The requested page could not be found on dsns.dev." />
+	<meta property="og:url" content="https://dsns.dev/404" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script defer src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
+	<script defer src="/static/ga.js"></script>
 </head>
 
 <body>
+	<nav class="navbar is-fixed-top" aria-label="main navigation">
+		<div class="navbar-brand">
+			<div class="navbar-item">
+				<a href="/">
+					<img id="kirbyicon" src="/static/images/jpg/icon.jpg" alt="DSNS icon">
+				</a>
+			</div>
+
+			<a role="button" class="navbar-burger" href="/projects/" aria-label="navigation button">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</a>
+		</div>
+
+
+		<div class="navbar-menu">
+			<div class="navbar-end">
+				<a href="/" class="navbar-item">
+					<span class="icon-home"></span>
+					Home
+				</a>
+				<div class="navbar-item has-dropdown is-hoverable">
+					<a href="/projects/" class="navbar-link">
+						<span class="icon-source"></span>
+						Projects
+					</a>
+
+					<div class="navbar-dropdown is-right">
+						<a href="/statistics/" class="navbar-item">
+							<span class="icon-stacked_line_chart"></span>
+							Hypixel Level Statistics
+						</a>
+						<a href="/ppi/" class="navbar-item">
+							<span class="icon-calculate"></span>
+							PPI Calculator
+						</a>
+						<a href="/webcam/" class="navbar-item">
+							<span class="icon-videocam"></span>
+							Webcam Test
+						</a>
+						<a href="/birthdays/" class="navbar-item">
+							<span class="icon-cake"></span>
+							Birthday Countdown
+						</a>
+						<a href="/christmas/" class="navbar-item">
+							<span class="icon-redeem"></span>
+							Christmas Countdown
+						</a>
+						<a href="/player/" class="navbar-item">
+							<span class="icon-person_search"></span>
+							Hypixel Player Lookup
+						</a>
+						<a href="/ip/" class="navbar-item">
+							<span class="icon-wifi_find"></span>
+							IP Address Finder
+						</a>
+						<a href="/whois/" class="navbar-item">
+							<span class="icon-dns"></span>
+							WHOIS Domain Lookup
+						</a>
+						<a href="/speedtest/" class="navbar-item">
+							<span class="icon-speed"></span>
+							Internet Speedtest
+						</a>
+						<a href="/mp3/" class="navbar-item">
+							<span class="icon-queue_music"></span>
+							YouTube Audio Downloader
+						</a>
+						<a href="/level/" class="navbar-item">
+							<span class="icon-compass"></span>
+							Smartphone Level
+						</a>
+						<a href="/electric/" class="navbar-item">
+							<span class="icon-electric_car"></span>
+							Electricity Calculator
+						</a>
+						<a href="/learn/" class="navbar-item">
+							<span class="icon-translate"></span>
+							Learn Chinese Vocab
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container" style="display:flex;justify-content: center; align-items: center; height: 80vh;">
+		<div class="box has-text-centered">
+			<h1 class="title is-1 has-text-primary">404</h1>
+			<h2 class="subtitle is-3">Page Not Found</h2>
+			<h2 class="subtitle">The requested page could not be found on <a id="domainlink"></a>.</h2>
+		</div>
+	</div>
+
+
 	<script>
-		window.location.href = "https://pnrtscr.com/kqrkz7";
+		const domainLink = document.getElementById("domainlink");
+		domainLink.innerHTML = document.domain;
+		domainLink.href = `https://${document.domain}`;
 	</script>
+
 </body>
 
 </html>

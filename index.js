@@ -66,13 +66,26 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use((req, res, next) => {
-		if (req.hostname == "adamsai.com") return res.redirect(301, "https://dsns.dev" + req.url);
+		const hostnameList = req.hostname.split(".");
+		const name = hostnameList[hostnameList.length - 2];
 
 		let domain = "";
-		if (req.hostname.startsWith("dsns")) domain = "dsns.dev";
-		else if (req.hostname.startsWith("mseung")) domain = "mseung.dev";
-		else if (req.hostname.startsWith("orchardlakehouse")) domain = "orchardlakehouse.com";
-		else if (req.hostname.startsWith("onlyeggrolls")) domain = "onlyeggrolls.com";
+		switch (name) {
+			case "adamsai":
+				return res.redirect(301, "https://dsns.dev" + req.url);
+			case "dsns":
+				domain = "dsns.dev";
+				break;
+			case "mseung":
+				domain = "mseung.dev";
+				break;
+			case "orchardlakehouse":
+				domain = "orchardlakehouse.com";
+				break;
+			case "onlyeggrolls":
+				domain = "onlyeggrolls.com";
+				break;
+		}
 
 		const fullPath = `${__dirname}/pages/${domain}${req.url}`;
 		if (fs.existsSync(fullPath)) {
