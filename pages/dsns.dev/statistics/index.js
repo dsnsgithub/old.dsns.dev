@@ -6,13 +6,30 @@ function toggle(uuid) {
 
 	const button = document.getElementById(uuid);
 	if (UUIDs[uuid]) {
-		button.classList = "column is-one-third button m-1 is-large is-primary";
+		button.classList = "column is-one-third button m-1 is-large is-info";
 	} else {
-		button.classList = "column is-one-third button m-1 is-large is-danger";
+		button.classList = "column is-one-third button m-1 is-large";
 	}
 
 	loadChart();
 }
+
+const differenceButton = document.getElementById("differenceButton");
+let differenceEnabled = true;
+
+differenceButton.addEventListener("click", () => {
+	if (differenceEnabled) {
+		differenceButton.classList = "button is-info";
+		differenceButton.innerText = "Enable Difference Mode";
+		differenceEnabled = false;
+	} else {
+		differenceButton.classList = "button is-danger";
+		differenceButton.innerText = "Disable Difference Mode";
+		differenceEnabled = true;
+	}
+
+	loadChart();
+});
 
 const ignSubmit = document.getElementById("ignSubmit");
 ignSubmit.addEventListener("click", async () => {
@@ -59,9 +76,9 @@ async function refreshPlayerList() {
 		button.setAttribute("onClick", `toggle("${uuid}")`);
 
 		if (JSON.parse(window.localStorage.getItem("UUIDs"))[uuid]) {
-			button.classList = "column is-one-third button m-1 is-large is-primary";
+			button.classList = "column is-one-third button m-1 is-large is-info";
 		} else {
-			button.classList = "column is-one-third button m-1 is-large is-danger";
+			button.classList = "column is-one-third button m-1 is-large";
 		}
 
 		playerList.appendChild(button);
@@ -122,7 +139,7 @@ async function loadChart() {
 	}
 
 	let final = [];
-	if (combinedArray[0].length == 3) {
+	if (combinedArray[0].length == 3 && differenceEnabled) {
 		final.push(["Date", `Difference between ${combinedArray[0][1]} and ${combinedArray[0][2]}`]);
 		combinedArray.shift();
 

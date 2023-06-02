@@ -3,6 +3,8 @@ const round = (number, decimalPlaces) => {
 	return Math.round(number * factorOfTen) / factorOfTen;
 };
 
+const outputBox = document.getElementById("outputBox");
+
 function calculatePPI() {
 	const height = document.getElementById("height").value;
 	const width = document.getElementById("width").value;
@@ -15,6 +17,7 @@ function calculatePPI() {
 	const ppi = diagonal / screenSize;
 
 	ppiElement.innerText = round(ppi, 2);
+	outputBox.style.display = "block";
 }
 
 document.onkeyup = function (event) {
