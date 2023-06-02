@@ -6,6 +6,7 @@ var penDown = false;
 var pointerDown = false;
 
 function enableTrail() {
+    createTrail();
     if(penDown == true) {
         penDown = false;
         document.removeEventListener("mousemove", createTrail);
