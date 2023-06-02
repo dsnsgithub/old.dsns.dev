@@ -138,6 +138,10 @@ async function loadChart() {
 		combinedArray.push(row);
 	}
 
+	combinedArray.sort((a, b) => {
+		return new Date(a[0]).getTime() - new Date(b[0]).getTime();
+	});
+	
 	let final = [];
 	if (combinedArray[0].length == 3 && differenceEnabled) {
 		final.push(["Date", `Difference between ${combinedArray[0][1]} and ${combinedArray[0][2]}`]);
