@@ -70,7 +70,7 @@ async function refreshPlayerList() {
 
 		const button = document.createElement("button");
 		button.id = uuid;
-		button.style.width = "100%"
+		button.style.width = "100%";
 
 		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
 		const IGN = result["name"];
