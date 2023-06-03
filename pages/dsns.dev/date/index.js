@@ -1,3 +1,5 @@
+const outputBox = document.getElementById("outputBox");
+
 function commonDates(date) {
 	date = date.toLowerCase();
 
@@ -6,12 +8,11 @@ function commonDates(date) {
 	}
 
 	if (date.includes("christmas")) {
-		return new Date("December 31" + new Date().getFullYear())
+		return new Date("December 31" + new Date().getFullYear());
 	}
 
 	return new Date(date);
 }
-
 
 function calculateDates() {
 	const firstDate = commonDates(document.getElementById("date1").value);
@@ -26,4 +27,13 @@ function calculateDates() {
 
 	const resultElem = document.getElementById("result");
 	resultElem.innerText = days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+
+	outputBox.style.display = "block";
 }
+
+document.onkeyup = function (event) {
+	if (event.key == "Enter") {
+		event.preventDefault();
+		calculateDates();
+	}
+};
