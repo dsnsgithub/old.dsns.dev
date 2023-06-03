@@ -52,6 +52,9 @@ html.has-navbar-fixed-top {
 	.icon-wifi_find:before {
 		content: "\e90e";
 	}
+	.icon-calendar:before {
+		content: "\e902";
+	}
 	.icon-compass:before {
 		content: "\e910";
 	}
