@@ -16,7 +16,7 @@ function commonDates(date) {
 	}
 
 	if (date.includes("christmas")) {
-		return new Date(new Date().getFullYear(), 11, 24);
+		return new Date(new Date().getFullYear(), 11, 25);
 	}
 
 	if (date.includes("new year")) {
@@ -25,16 +25,6 @@ function commonDates(date) {
 
 	if (date.includes("valentine")) {
 		return new Date(new Date().getFullYear(), 1, 14);
-	}
-
-	if (date.includes("easter")) {
-		const calculateEaster = (y) =>
-			new Date(
-				y,
-				2,
-				22 + ((35 - (new Date(y, 2, 1).getDay() + (new Date(y, 2, 1).getMonth() % 2) * 31 - (new Date(y, 2, 1).getMonth() == 1) * 3 - (1 - (((y / 100) | 0) % 4) || (y / 400) | 0))) % 35)
-			);
-		return calculateEaster(new Date().getFullYear());
 	}
 
 	if (date.includes("thanksgiving")) {

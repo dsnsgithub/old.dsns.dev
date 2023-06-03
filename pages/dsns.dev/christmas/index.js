@@ -1,5 +1,14 @@
 let turnFireworksOn = false;
-const christmasDate = new Date(new Date().getFullYear(), 11, 24);
+const oneDay = 1000 * 60 * 60 * 24;
+
+const christmasDate = new Date(new Date().getFullYear(), 11, 25);
+const christmasDistance = new Date() - christmasDate;
+
+// If the distance is greater than one, roll it over to the next year
+// This ensures that the time rolls over after Christmas but before New Years
+if (christmasDistance > oneDay) {
+	birthday["date"].setFullYear(currentYear + 1);
+}
 
 function countdown() {
 	const now = new Date().getTime();
