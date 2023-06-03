@@ -6,9 +6,9 @@ function toggle(uuid) {
 
 	const button = document.getElementById(uuid);
 	if (UUIDs[uuid]) {
-		button.classList = "column is-one-third button m-1 is-large is-info";
+		button.classList = "button m-1 is-large is-info";
 	} else {
-		button.classList = "column is-one-third button m-1 is-large";
+		button.classList = "button m-1 is-large";
 	}
 
 	loadChart();
@@ -65,9 +65,12 @@ async function refreshPlayerList() {
 	const playerList = document.getElementById("player-list");
 	playerList.innerHTML = "";
 	for (const uuid in JSON.parse(window.localStorage.getItem("UUIDs"))) {
+		const columnDiv = document.createElement("div");
+		columnDiv.classList = "column is-one-third";
+
 		const button = document.createElement("button");
 		button.id = uuid;
-		button.style.marginBottom = "15px";
+		button.style.width = "100%"
 
 		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
 		const IGN = result["name"];
@@ -76,13 +79,13 @@ async function refreshPlayerList() {
 		button.setAttribute("onClick", `toggle("${uuid}")`);
 
 		if (JSON.parse(window.localStorage.getItem("UUIDs"))[uuid]) {
-			button.classList = "column is-one-third button m-1 is-large is-info";
+			button.classList = "button m-1 is-large is-info";
 		} else {
-			button.classList = "column is-one-third button m-1 is-large";
+			button.classList = "button m-1 is-large";
 		}
 
-		playerList.appendChild(button);
-		playerList.innerHTML += "<br>";
+		columnDiv.appendChild(button);
+		playerList.appendChild(columnDiv);
 	}
 
 	loadChart();
