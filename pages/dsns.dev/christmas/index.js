@@ -1,11 +1,5 @@
 let turnFireworksOn = false;
-const christmasDate = new Date("December 25, 2021");
-let christmasDifference = christmasDate.getTime() - new Date().getTime();
-
-while (christmasDifference < -86400000) {
-	christmasDate.setFullYear(christmasDate.getFullYear() + 1);
-	christmasDifference = christmasDate.getTime() - new Date().getTime();
-}
+const christmasDate = new Date(new Date().getFullYear(), 11, 24);
 
 function countdown() {
 	const now = new Date().getTime();
