@@ -116,32 +116,32 @@ async function loadChart() {
 		}
 	}
 
-	for (const date in storedDates) {
-		let row = [date];
-		for (const IGN in combined) {
-			let found = false;
-			let foundIndex = 0;
-			for (const index in combined[IGN]) {
-				const entry = combined[IGN][index];
+	const sortedDates = Object.keys(storedDates)
+		.sort((a, b) => {
+			return new Date(a).getTime() - new Date(b).getTime();
+		})
+		.reduce((obj, key) => {
+			obj[key] = storedDates[key];
+			return obj;
+		}, {});
 
+	for (const IGN in combined) {
+		let lastEntry = 0;
+		for (const date in sortedDates) {
+			for (const entry of combined[IGN]) {
 				if (entry["date"] == date) {
-					row.push(entry["level"]);
-					found = true;
-					foundIndex = index;
+					lastEntry = entry["level"];
 					break;
 				}
 			}
-
-			if (!found) row.push(combined[IGN][foundIndex]["level"]);
+			sortedDates[date].push(lastEntry);
 		}
-
-		combinedArray.push(row);
 	}
 
-	combinedArray.sort((a, b) => {
-		return new Date(a[0]).getTime() - new Date(b[0]).getTime();
-	});
-	
+	for (const date in sortedDates) {
+		combinedArray.push([date].concat(sortedDates[date]));
+	}
+
 	let final = [];
 	if (combinedArray[0].length == 3 && differenceEnabled) {
 		final.push(["Date", `Difference between ${combinedArray[0][1]} and ${combinedArray[0][2]}`]);
