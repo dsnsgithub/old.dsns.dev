@@ -12,6 +12,8 @@ var marginY2 = 0;
 
 var wait;
 var keydown = false;
+var movevalue = 50;
+var dividevalue = 1; 
 
 var up;
 var left;
@@ -29,8 +31,6 @@ var obstacleClient;
 var movableClient;
 
 var level = 0;
-
-restart(false);
 
 function move(event) {
     playerClient = block.getBoundingClientRect();
@@ -89,65 +89,65 @@ function move(event) {
         playerdir = "up";
         check();
         if(down == false) {
-            marginY = marginY - 50;
+            marginY = marginY - movevalue;
         }
     } else if(e == "ArrowDown") {
         playerdir = "down";
         check2();
         if(up == false) {
-            marginY = marginY + 50;
+            marginY = marginY + movevalue;
         }
     } else if(e == "ArrowLeft") {
         playerdir = "left";
         check3();
         if(right == false) {
-            marginX = marginX - 50;
+            marginX = marginX - movevalue;
         }
     } else if(e == "ArrowRight") {
         playerdir = "right";
         check4();
         if(left == false) {
-            marginX = marginX + 50;
+            marginX = marginX + movevalue;
         }
     }
 
     function check() {
         checkCollisionMovable();
         if(isTouchingMovable == true) {
-            checkCollisionObstacle(50);
+            checkCollisionObstacle(movevalue);
         }
         if(dir == "bottom" && down == false) {
-            marginY2 = marginY2 - 50;
+            marginY2 = marginY2 - movevalue;
         }
     }
 
     function check2() {
         checkCollisionMovable();
         if(isTouchingMovable == true) {
-            checkCollisionObstacle(50);
+            checkCollisionObstacle(movevalue);
         }
         if(dir == "up" && up == false) {
-            marginY2 = marginY2 + 50;
+            marginY2 = marginY2 + movevalue;
         }
     }
 
     function check3() {
         checkCollisionMovable();
         if(isTouchingMovable == true) {
-            checkCollisionObstacle(50);
+            checkCollisionObstacle(movevalue);
         }
         if(dir == "right" && right == false) {
-            marginX2 = marginX2 - 50;
+            marginX2 = marginX2 - movevalue;
         }
     }
 
     function check4() {
         checkCollisionMovable();
         if(isTouchingMovable == true) {
-            checkCollisionObstacle(50);
+            checkCollisionObstacle(movevalue);
         }
         if(dir == "left" && left == false) {
-            marginX2 = marginX2 + 50;
+            marginX2 = marginX2 + movevalue;
         }
     }
 
@@ -182,6 +182,9 @@ var y;
 var missileAtkSpd;
 
 function restart(died) { 
+    if(level == 0) {
+        document.getElementById("startscreen").style.display = "none";
+    }
     clearInterval(waitMissiles);
     clearInterval(missileAtkSpd);
     onetimepls = false;
@@ -196,6 +199,7 @@ function restart(died) {
         document.getElementById("level").style.opacity = 1;
         document.getElementById("youwin").style.display = "";
         document.getElementById("pushingbox").style.display = "";
+        document.getElementById("cheering").play();
     } else {
         document.getElementById("level").innerHTML = level;
         document.getElementById("level").style.animationName = "slide";
@@ -224,24 +228,27 @@ function restart(died) {
                 } else if(died == true) {
                     x = 1;
                 }
-                console.log(x);
                 y = ("level" + x)
                 document.getElementById(String(y)).style.display = "";
             }
             if(level == 1) {
                 clearInterval(missileAtkSpd);
-                movable.style.left = "250px";
-                movable.style.top = "100px";
-                end.style.left = "550px";
-                end.style.top = "50px";
+                movable.style.left = (250/dividevalue) + "px";
+                movable.style.top = (100/dividevalue) + "px";
+                end.style.left = (550/dividevalue) + "px";
+                end.style.top = (50/dividevalue) + "px";
+                movable.style.display = "";
+                end.style.display = "";
+                block.style.display = "";
+                document.getElementById("level1").style.display = "";
             }
             if(level == 2) {
-                movable.style.left = "100px";
-                movable.style.top = "150px";
-                end.style.left = "50px";
-                end.style.top = "300px";
+                movable.style.left = (100/dividevalue) + "px";
+                movable.style.top = (150/dividevalue) + "px";
+                end.style.left = (50/dividevalue) + "px";
+                end.style.top = (300/dividevalue) + "px";
                 missileAtkSpd = setInterval(function() {
-                    missiles(0, 1000)
+                    missiles(3, 350)
                 }, 3000);
             }
             if(level == 3) {
@@ -256,12 +263,12 @@ function restart(died) {
                 document.getElementById(String(y)).style.display = "";
                 clearInterval(missileAtkSpd);
                 missileAtkSpd = setInterval(function() {
-                    missiles(0, 900)
-                }, 1100);
-                movable.style.left = "100px";
-                movable.style.top = "100px";
-                end.style.left = "350px";
-                end.style.top = "700px";
+                    missiles(3, 300)
+                }, 1300);
+                movable.style.left = (100/dividevalue) + "px";
+                movable.style.top = (100/dividevalue) + "px";
+                end.style.left = (350/dividevalue) + "px";
+                end.style.top = (700/dividevalue) + "px";
             }
             setTimeout(() => {
                 document.getElementById("level").style.animationName = "";
@@ -275,28 +282,35 @@ var seconds;
 var waitMissiles;
 var onetimepls
 var missileSpeed;
+document.getElementById("launch").volume = 0.3;
 
 function missiles(time, speed) {
     playerClient = block.getBoundingClientRect();
     movableClient = movable.getBoundingClientRect();
-    missile.style.top = playerClient.top - 50 + "px";
-    missile.style.left = playerClient.left - 50 + "px";
+    missile.style.top = playerClient.top - movevalue + "px";
+    missile.style.left = playerClient.left - movevalue + "px";
     missile.innerHTML = time;
     missile.style.display = "flex";
+    document.getElementById("launch").play();
     function countdown() {
-        if(time > 0) {
+        if(time > 1) {
             time--;
             missile.innerHTML = time;
         } else {
+            document.getElementById("launch").pause();
+            document.getElementById("launch").currentTime = 0;
+            document.getElementById("explosion").currentTime = 1.5;
+            document.getElementById("explosion").play();
+
             playerClient = block.getBoundingClientRect();
             movableClient = movable.getBoundingClientRect();
-            if((playerClient.top >= parseInt(missile.style.top) && playerClient.top <= (parseInt(missile.style.top) + 150 - parseInt(block.offsetHeight)))) {
-                if((playerClient.left >= parseInt(missile.style.left) && playerClient.left <= (parseInt(missile.style.left) + 150 - parseInt(block.offsetWidth)))) {
+            if((playerClient.top >= parseInt(missile.style.top) && playerClient.top <= (parseInt(missile.style.top) + parseInt(missile.offsetWidth) - parseInt(block.offsetHeight)))) {
+                if((playerClient.left >= parseInt(missile.style.left) && playerClient.left <= (parseInt(missile.style.left) + parseInt(missile.offsetWidth) - parseInt(block.offsetWidth)))) {
                     onetimepls = true;
                 }
             }
-            if((movableClient.top >= parseInt(missile.style.top) && movableClient.top <= (parseInt(missile.style.top) + 150 - parseInt(movable.offsetHeight)))) {
-                if((movableClient.left >= parseInt(missile.style.left) && movableClient.left <= (parseInt(missile.style.left) + 150 - parseInt(movable.offsetWidth)))) {
+            if((movableClient.top >= parseInt(missile.style.top) && movableClient.top <= (parseInt(missile.style.top) + parseInt(missile.offsetWidth) - parseInt(movable.offsetHeight)))) {
+                if((movableClient.left >= parseInt(missile.style.left) && movableClient.left <= (parseInt(missile.style.left) + parseInt(missile.offsetWidth) - parseInt(movable.offsetWidth)))) {
                     onetimepls = true;
                 }
             }
@@ -323,9 +337,60 @@ document.addEventListener('keyup', function() {
     clearInterval(wait);
 }, false);
 
-var date = new Date();
+var z = 1;
+var plsonlyonce = false;
+const media = window.matchMedia("(max-width: 1100px)");
 
-if(date.getHours() >= 19 || date.getHours() <= 6) {
-    document.body.style.backgroundColor = "#070620";
-    document.body.style.color = "white";
+function otherMedia(query) {
+    if(query.matches) {
+        block.style.width = (block.offsetWidth * 0.5) + "px";
+        block.style.height = (block.offsetHeight * 0.5) + "px";
+        end.style.width = (end.offsetWidth * 0.5) + "px";
+        end.style.height = (end.offsetHeight * 0.5) + "px";
+        movable.style.width = (movable.offsetWidth * 0.5) + "px";
+        movable.style.height = (movable.offsetHeight * 0.5) + "px";
+        missile.style.width = (missile.offsetWidth * 0.5) + "px";
+        missile.style.height = (missile.offsetHeight * 0.5) + "px";
+        missile.style.fontSize = "1rem";
+        block.style.top = (block.offsetTop * 0.5) + "px";
+        block.style.left = (block.offsetLeft * 0.5) + "px";
+        end.style.top = (end.offsetTop * 0.5) + "px";
+        end.style.left = (end.offsetLeft * 0.5) + "px";
+        movable.style.top = (movable.offsetTop * 0.5) + "px";
+        movable.style.left = (movable.offsetLeft * 0.5) + "px";
+        checkMedia(query);
+    }
 }
+
+function checkMedia(please) {
+    if(z < 4) {
+        var imrunningoutofnames = ("level" + z);
+        var l = document.getElementById(imrunningoutofnames);
+        var levelarticles = l.querySelectorAll("article");
+    
+        if(please.matches) {
+            movevalue = 25;
+            dividevalue = 2;
+        
+            for(let i=0; i<levelarticles.length; i++) {
+                levelarticles[i].style.width = (levelarticles[i].offsetWidth * 0.5) + "px";
+                levelarticles[i].style.height = (levelarticles[i].offsetHeight * 0.5) + "px";
+                levelarticles[i].style.top = (levelarticles[i].offsetTop * 0.5) + "px";
+                levelarticles[i].style.left = (levelarticles[i].offsetLeft * 0.5) + "px";
+            }
+
+            z++;
+            checkMedia(please);
+        }
+    }
+}
+
+otherMedia(media);
+
+document.getElementById("level1").style.display = "none";
+document.getElementById("level2").style.display = "none";
+document.getElementById("level3").style.display = "none";
+block.style.display = "none";
+end.style.display = "none";
+movable.style.display = "none";
+missile.style.display = "none";

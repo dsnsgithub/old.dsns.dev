@@ -310,7 +310,6 @@ article {
     justify-content: center;
     align-items: center;
     font-size: 3rem;
-    flex-wrap: wrap;
 }
 
 @keyframes slide {
@@ -326,7 +325,19 @@ article {
     height: 150px;
     opacity: 0.7;
     background-color: orange;
-    display: none;
     justify-content: center;
     align-items: center;
+}
+
+#startscreen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5vh;
+    font-size: 3rem;
+    flex-wrap: wrap;
 }

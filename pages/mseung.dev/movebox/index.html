@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
     <meta property="og:type" content="website">
-	<meta property="og:title" content="Max's Bio">
-	<meta property="og:description" content="Definitely one of the websites ever containing silly games and stuff I make.">
-	<meta name="description" content="Definitely one of the websites ever containing silly games and stuff I make.">
-	<meta property="og:url" content="https://mseung.dev/">
-	<meta property="og:image" content="https://mseung.dev/pictures/penguin.png">
-    
+    <meta property="og:title" content="Max's Bio">
+    <meta property="og:description"
+        content="Definitely one of the websites ever containing silly games and stuff I make.">
+    <meta name="description" content="Definitely one of the websites ever containing silly games and stuff I make.">
+    <meta property="og:url" content="https://mseung.dev/">
+    <meta property="og:image" content="https://mseung.dev/pictures/penguin.png">
+
     <title>GBOSBUMADY</title>
 </head>
+
 <body>
+    <audio src="missilelaunch.mp3" id="launch"></audio>
+    <audio src="explosion.mp3" id="explosion"></audio>
+    <audio src="cheering.mp3" id="cheering"></audio>
+
+
     <div style="height: 100vh; width: 100vw; display: flex; align-items: flex-end;">
-        <p>Get the Box to the Other Side or get Blown Up and the Missiles are Aimed Directly at You<br> Programmed by Max S.</p>
+        <p>Programmed by Max S.</p>
     </div>
     <div id="block"></div>
     <section id="movable"></section>
 
     <div id="level1">
-        <article id="wall1"></article>  
+        <article id="wall1"></article>
         <article id="wall2"></article>
         <article id="wall3"></article>
         <article id="wall4"></article>
-        <article id="wall5"></article>
         <article id="wall5"></article>
         <article id="wall6"></article>
         <article id="wall7"></article>
@@ -38,8 +45,8 @@
         <article id="wall9"></article>
     </div>
 
-    <div id="level2" style="display: none;">
-        <article id="wall10"></article>  
+    <div id="level2">
+        <article id="wall10"></article>
         <article id="wall11"></article>
         <article id="wall12"></article>
         <article id="wall13"></article>
@@ -55,8 +62,8 @@
         <article id="wall23"></article>
     </div>
 
-    <div id="level3" style="display: none;">
-        <article id="wall24"></article>  
+    <div id="level3">
+        <article id="wall24"></article>
         <article id="wall25"></article>
         <article id="wall26"></article>
         <article id="wall27"></article>
@@ -90,8 +97,15 @@
     <div id="endzone"></div>
     <div id="missile"></div>
     <div id="level"></div>
+    <div id="startscreen">
+        <p style="position: static !important;">Get the Box to the Other Side or get Blown Up <br> and the Missiles are
+            Aimed Directly at You</p>
+        <button onclick="restart(false)" style="font-size: 2rem; position: static !important;">Play</button>
+    </div>
     <img src="/pictures/youwin.png" id="youwin" style="display: none;">
-    <img src="/pictures/pushingbox.png" id="pushingbox" style="display: none; position: absolute; right: 0; height: 50vh;">
-<script src="index.js"></script>
+    <img src="/pictures/pushingbox.png" id="pushingbox"
+        style="display: none; position: absolute; right: 0; height: 50vh;">
+    <script src="index.js"></script>
 </body>
+
 </html>
