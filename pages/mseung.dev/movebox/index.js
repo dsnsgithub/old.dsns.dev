@@ -394,3 +394,14 @@ block.style.display = "none";
 end.style.display = "none";
 movable.style.display = "none";
 missile.style.display = "none";
+
+var date = new Date();
+var articleList = document.querySelectorAll("article");
+
+if(date.getHours() >= 19 || date.getHours() <= 6) {
+    document.body.style.backgroundColor = "#070620";
+    document.body.style.color = "white";
+    for(let t=0; t<articleList.length; t++) {
+        articleList[t].style.backgroundColor = "white";
+    }
+}
