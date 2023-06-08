@@ -3,7 +3,6 @@ require("dotenv").config(); //* npm install dotenv
 
 //? Requirements ----------------------------------------------------------------------------------
 const https = require("https");
-const { URL } = require("url");
 const fs = require("fs");
 const path = require("path");
 
