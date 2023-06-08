@@ -129,7 +129,7 @@ async function loadChart() {
 		}, {});
 
 	for (const IGN in combined) {
-		let lastEntry = 0;
+		let lastEntry = combined[IGN][0]["level"];
 		for (const date in sortedDates) {
 			for (const entry of combined[IGN]) {
 				if (entry["date"] == date) {
@@ -159,6 +159,8 @@ async function loadChart() {
 	} else {
 		final = combinedArray;
 	}
+
+	console.log(final)
 
 	const data = google.visualization.arrayToDataTable(final);
 	const chart = new google.visualization.LineChart(document.getElementById("chart"));
