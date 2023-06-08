@@ -1,3 +1,7 @@
+let historyCache = {};
+let ignCache = {};
+let uuidCache = {};
+
 function toggle(uuid) {
 	const UUIDs = JSON.parse(window.localStorage.getItem("UUIDs"));
 
@@ -34,7 +38,14 @@ differenceButton.addEventListener("click", () => {
 const ignSubmit = document.getElementById("ignSubmit");
 ignSubmit.addEventListener("click", async () => {
 	const ignInput = document.getElementById("ignInput").value;
-	const result = await fetch(`/api/ignConvert/${ignInput}`).then((res) => res.json());
+
+	let result = {};
+	if (ignCache[ignInput]) {
+		result = ignCache[ignInput];
+	} else {
+		result = await fetch(`/api/ignConvert/${ignInput}`).then((res) => res.json());
+		ignCache[ignInput] = result;
+	}
 
 	if (!result["id"]) return alert("Invalid IGN");
 
@@ -72,7 +83,14 @@ async function refreshPlayerList() {
 		button.id = uuid;
 		button.style.width = "100%";
 
-		const result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
+		let result = {};
+		if (uuidCache[uuid]) {
+			result = uuidCache[uuid];
+		} else {
+			result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
+			uuidCache[uuid] = result;
+		}
+
 		const IGN = result["name"];
 
 		button.innerHTML = `<h2>${IGN}</h2>`;
@@ -100,7 +118,14 @@ async function loadChart() {
 	for (const uuid in storage) {
 		if (!storage[uuid]) continue;
 
-		const response = await fetch(`/api/history/${uuid}`).then((res) => res.json());
+		let response = {};
+		if (historyCache[uuid]) {
+			response = historyCache[uuid];
+		} else {
+			response = await fetch(`/api/history/${uuid}`).then((res) => res.json());
+			historyCache[uuid] = response;
+		}
+
 		const [IGN, result] = response;
 
 		combinedArray[0].push(IGN);
@@ -160,8 +185,6 @@ async function loadChart() {
 		final = combinedArray;
 	}
 
-	console.log(final)
-
 	const data = google.visualization.arrayToDataTable(final);
 	const chart = new google.visualization.LineChart(document.getElementById("chart"));
 
@@ -191,4 +214,10 @@ async function loadChart() {
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(refreshPlayerList);
 
-setInterval(loadChart, 10000);
+setInterval(() => {
+	historyCache = {};
+	ignCache = {};
+	uuidCache = {};
+
+	loadChart();
+}, 60000);
