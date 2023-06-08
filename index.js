@@ -3,6 +3,7 @@ require("dotenv").config(); //* npm install dotenv
 
 //? Requirements ----------------------------------------------------------------------------------
 const https = require("https");
+const { URL } = require("url");
 const fs = require("fs");
 const path = require("path");
 
@@ -87,7 +88,7 @@ async function useMiddleware() {
 				break;
 		}
 
-		const fullPath = `${__dirname}/pages/${domain}${req.url}`;
+		const fullPath = `${__dirname}/pages/${domain}${req.url.split("?")[0]}`;
 		if (fs.existsSync(fullPath)) {
 			if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
 				return res.redirect(req.path + "/");
