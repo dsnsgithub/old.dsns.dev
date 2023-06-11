@@ -138,6 +138,10 @@ body {
     height: 12.5vw;
     font-size: 10vw;
   }
+
+  #arrow {
+    display: none;
+  }
 }
 
 @media only screen and (max-height: 530px) {
@@ -151,21 +155,14 @@ body {
   }
 }
 
-.flower {
-  content: url("/pictures/flower.png");
-}
-
-#flowers {
-  display: flex;
-  justify-content: space-around;
-  height: 110vh;
-  width: 100vw;
-  position: absolute;
-  align-items: flex-end;
-  z-index: -1;
-}
-
 #sun {
   z-index: -1;
   position: absolute;
+}
+
+#arrow {
+  position: absolute;
+  top: 15vh;
+  left: 37vw;
+  width: 16vw;
 }
