@@ -127,9 +127,9 @@ var oldVar;
 var onlyonceagain = false;
 
 setInterval(function() {
+    oldVar = date.getDate();
     date = new Date();
     currentDate.innerHTML = date;
-    oldVar = date.getDate();
     checkTime();
     if(onlyonceagain == false) {
         onlyonceagain = true;
