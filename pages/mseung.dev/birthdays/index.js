@@ -22,6 +22,10 @@ function checkTime() {
         document.body.style.color = "white";
         document.getElementById("container").style.backgroundColor = "#160f3a";
         colors = ["maroon", "darkorange", "goldenrod", "darkgreen", "darkblue", "purple"];  
+
+        for(let i=0; i<names.length; i++) {
+            cards[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length) + 0];
+        }
     }
 }
 /*--------------------------------------------------- */
