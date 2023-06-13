@@ -128,7 +128,6 @@ var onlyonceagain = false;
 
 setInterval(function() {
     date = new Date();
-    date.setDate(14);
     currentDate.innerHTML = date;
     oldVar = date.getDate();
     checkTime();
