@@ -124,12 +124,18 @@ function check() {
 }
 
 var oldVar;
+var onlyonceagain = false;
 
 setInterval(function() {
     date = new Date();
+    date.setDate(14);
     currentDate.innerHTML = date;
     oldVar = date.getDate();
     checkTime();
+    if(onlyonceagain == false) {
+        onlyonceagain = true;
+        check();
+    }
     if(oldVar != date.getDate()) {
         check();
     }
