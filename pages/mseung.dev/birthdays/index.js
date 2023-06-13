@@ -94,10 +94,23 @@ function check() {
                 enableBirthdays = true;
                 birthdaynumber++;
                 birthdaylist.push(cards[i]);
+            } else {
+                if(birthdaylist.includes(cards[i])) {
+                    document.getElementById("row" + rows.length).append(birthdaylist.shift());
+                    birthdaylist.splice(0, 1);
+                    birthdaynumber--;
+                }
+            }
+        } else {
+            if(birthdaylist.includes(cards[i])) {
+                document.getElementById("row" + rows.length).append(birthdaylist.shift());
+                birthdaylist.splice(0, 1);
+                birthdaynumber--;
             }
         }
         if(birthdaynumber == 0) {
             enableBirthdays = false;
+            birthdaypeople.style.display = "none";
         }
     }
     if(enableBirthdays == true) {
@@ -121,6 +134,10 @@ function check() {
             }
         }
     }
+}
+
+function removeBirthday() {
+
 }
 
 var oldVar;
