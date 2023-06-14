@@ -14,6 +14,7 @@ var newNames = [];
 var date = new Date();
 
 var enableSection = false;
+var onlyonceagainagainagain = false;
 
 /*time thing so the colors will actually work thanks */
 function checkTime() {
@@ -23,6 +24,12 @@ function checkTime() {
         document.getElementById("container").style.backgroundColor = "#160f3a";
         colors = ["maroon", "darkorange", "goldenrod", "darkgreen", "darkblue", "purple"];  
 
+    }
+}
+
+function onlyonceagainagain() {
+    if(onlyonceagainagainagain = false) {
+        onlyonceagainagainagain = true;
         for(let i=0; i<names.length; i++) {
             cards[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length) + 0];
         }
@@ -138,10 +145,6 @@ function check() {
             }
         }
     }
-}
-
-function removeBirthday() {
-
 }
 
 var oldVar;
