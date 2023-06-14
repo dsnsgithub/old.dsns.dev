@@ -23,12 +23,12 @@ function checkTime() {
         document.body.style.color = "white";
         document.getElementById("container").style.backgroundColor = "#160f3a";
         colors = ["maroon", "darkorange", "goldenrod", "darkgreen", "darkblue", "purple"];  
-
+        onlyonceagainagain();
     }
 }
 
 function onlyonceagainagain() {
-    if(onlyonceagainagainagain = false) {
+    if(onlyonceagainagainagain == false) {
         onlyonceagainagainagain = true;
         for(let i=0; i<names.length; i++) {
             cards[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length) + 0];
