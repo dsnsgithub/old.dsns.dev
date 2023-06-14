@@ -126,7 +126,7 @@ function check() {
     }
     if(enableBirthdays == true) {
         for(let x=1; x<rows.length+1; x++) {
-
+            cardnumber = cardnumber + birthdaynumber;
             row = document.getElementById("row" + x);
             while(row.childElementCount < 4 && x<rows.length) {
                 cardnumber++;
