@@ -374,7 +374,7 @@ async function parseRecentGames(recentGame) {
 async function run() {
 	let IGN = document.getElementById("IGN").value;
 
-	const result = await fetch(`/api/ignConvert/${IGN}`).then((res) => res.json());
+	const result = await fetch(`https://cors.dsns.dev/api.mojang.com/users/profiles/minecraft/${IGN}`).then((res) => res.json());
 	if (!result["id"]) return alert("Invalid IGN");
 
 	const uuid = result["id"];

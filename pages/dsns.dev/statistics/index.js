@@ -43,7 +43,7 @@ ignSubmit.addEventListener("click", async () => {
 	if (ignCache[ignInput]) {
 		result = ignCache[ignInput];
 	} else {
-		result = await fetch(`/api/ignConvert/${ignInput}`).then((res) => res.json());
+		result = await fetch(`https://cors.dsns.dev/api.mojang.com/users/profiles/minecraft/${ignInput}`).then((res) => res.json());
 		ignCache[ignInput] = result;
 	}
 
@@ -87,7 +87,7 @@ async function refreshPlayerList() {
 		if (uuidCache[uuid]) {
 			result = uuidCache[uuid];
 		} else {
-			result = await fetch(`/api/uuidConvert/${uuid}`).then((res) => res.json());
+			result = await fetch(`https://cors.dsns.dev/sessionserver.mojang.com/session/minecraft/profile/${uuid}`).then((res) => res.json());
 			uuidCache[uuid] = result;
 		}
 
@@ -126,12 +126,20 @@ async function loadChart() {
 			historyCache[uuid] = response;
 		}
 
-		const [IGN, result] = response;
+		let result = {};
+		if (uuidCache[uuid]) {
+			result = uuidCache[uuid];
+		} else {
+			result = await fetch(`https://cors.dsns.dev/sessionserver.mojang.com/session/minecraft/profile/${uuid}`).then((res) => res.json());
+			uuidCache[uuid] = result;
+		}
+
+		const IGN = result["name"];
 
 		combinedArray[0].push(IGN);
 
 		if (!combined[IGN]) combined[IGN] = [];
-		combined[IGN] = result;
+		combined[IGN] = response;
 	}
 
 	for (const IGN in combined) {

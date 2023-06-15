@@ -57,17 +57,16 @@ module.exports = function (app) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
-			const result = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${req.params.uuid}`);
+			if (database[req.params.uuid]) return res.json(database[req.params.uuid]);
 
-			if (database[req.params.uuid]) return res.json([result["data"]["name"], database[req.params.uuid]]);
+			const result = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${req.params.uuid}`);
 			if (!result["data"]["name"]) return res.json({ error: "UUID doesn't exist." });
 
 			database[req.params.uuid] = [];
 			fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 
 			await updateDatabase();
-
-			res.json([result["data"]["name"], database[req.params.uuid]]);
+			res.json(database[req.params.uuid]);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/history: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
@@ -93,30 +92,6 @@ module.exports = function (app) {
 			res.json(result.data);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send(error);
-		}
-	});
-
-	app.get("/api/uuidConvert/:uuid", async function (req, res, next) {
-		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
-
-			const result = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${req.params.uuid}`);
-			res.json(result.data);
-		} catch (error) {
-			console.error("\x1b[31m" + "Error: Broken (GET) /api/uuidConvert: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send(error);
-		}
-	});
-
-	app.get("/api/ignConvert/:ign", async function (req, res, next) {
-		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
-
-			const result = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${req.params.ign}`);
-			res.json(result.data);
-		} catch (error) {
-			console.error("\x1b[31m" + "Error: Broken (GET) /api/ignConvert: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}
 	});
