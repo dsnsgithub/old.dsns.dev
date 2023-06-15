@@ -339,13 +339,15 @@ async function sanitizeMode(game, mode) {
 async function parseStatus(status, IGN) {
 	if (!status["online"]) return `${IGN} is offline.`;
 
-	const game = status["game"]["name"];
+	const game = status["gameType"];
 	const mode = status["mode"];
+	const map = status["map"];
 
 	if (mode == game || !mode) return `${IGN} is online. They are playing ${game}.`;
 	if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${game} Lobby.`;
 
 	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
+	if (map) return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame} on ${map}.`;
 	return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
 }
 
@@ -382,7 +384,7 @@ async function run() {
 	resultDiv.innerText = "";
 
 	const status = await fetch(`/api/status/${uuid}`).then((res) => res.json());
-	const parsedStatus = await parseStatus(status, IGN);
+	const parsedStatus = await parseStatus(status["session"], IGN);
 	resultDiv.innerHTML += `<h2 class="title">${parsedStatus}</h2>`;
 
 	const recentGames = await fetch(`/api/recentgames/${uuid}`).then((res) => res.json());
