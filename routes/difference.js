@@ -19,29 +19,34 @@ const xpToLevel = (xp) => {
 };
 
 async function updateDatabase() {
-	for (const uuid in database) {
-		const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
+	try {
+		for (const uuid in database) {
+			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
 
-		const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
-		const lastIndex = database[uuid].length - 1;
+			const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
+			const lastIndex = database[uuid].length - 1;
 
-		if (lastIndex != -1) {
-			if (database[uuid][lastIndex]["level"] == xpLevel) {
-				continue;
+			if (lastIndex != -1) {
+				if (database[uuid][lastIndex]["level"] == xpLevel) {
+					continue;
+				}
 			}
+
+			database[uuid].push({
+				date: new Date().toLocaleDateString("en-US", {
+					hour: "numeric",
+					minute: "numeric",
+					hour12: true
+				}),
+				level: xpLevel
+			});
 		}
 
-		database[uuid].push({
-			date: new Date().toLocaleDateString("en-US", {
-				hour: "numeric",
-				minute: "numeric",
-				hour12: true
-			}),
-			level: xpLevel
-		});
+		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+	} catch (error) {
+		console.error("\x1b[31m" + "Error: Unable to update database: " + (error.stack || error) + "\x1b[0m");
+		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 	}
-
-	return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
 }
 
 updateDatabase();
@@ -99,7 +104,7 @@ module.exports = function (app) {
 			const result = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${req.params.uuid}`);
 			res.json(result.data);
 		} catch (error) {
-			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
+			console.error("\x1b[31m" + "Error: Broken (GET) /api/uuidConvert: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}
 	});
@@ -111,7 +116,7 @@ module.exports = function (app) {
 			const result = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${req.params.ign}`);
 			res.json(result.data);
 		} catch (error) {
-			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
+			console.error("\x1b[31m" + "Error: Broken (GET) /api/ignConvert: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}
 	});
