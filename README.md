@@ -8,7 +8,6 @@ Created with:
 - Bulma
 - Hypixel API
 - Express
-- SSE (EventSource)
 - HTML/CSS/JS
 
 ## How To Install
@@ -25,19 +24,14 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 ### 3. Create a `.env` file and add these properties:
 	HTTPS = false
 	NODE_ENV = development
-	
-	WHOIS = true
-	YOUTUBE = true
+
+	HYPIXEL = true
+	API_KEY = [only used for /statistics and /player]
+	RELOAD_TIME = 60000
 
 	PROXY = false
-
-	LEVEL = false
-	RECENTGAMES = false
-
-	API_KEY = [only needed for /difference and /recentgames]
-	UUIDs = 557bafa10aad40bbb67207a9cefa8220, 9e6cdbe98a744a33b53941cb0efd8113, 769f1d98aeef49cd934b4202e1c5537f
-	IGNs = DSNS, AmKale, jiebi
-	RELOAD_TIME = 120000
+	WHOIS = true
+	YOUTUBE = true
 
 	ONLYEGGROLLS = false
 

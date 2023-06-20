@@ -21,7 +21,7 @@ async function runRoutes() {
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());
 
-		if (process.env["LEVEL"] == "true") require(__dirname + "/routes/difference.js")(app);
+		if (process.env["HYPIXEL"] == "true") require(__dirname + "/routes/hypixel.js")(app);
 		if (process.env["WHOIS"] == "true") require(__dirname + "/routes/whois.js")(app);
 		if (process.env["YOUTUBE"] == "true") require(__dirname + "/routes/youtube.js")(app);
 		if (process.env["ONLYEGGROLLS"] == "true") require(__dirname + "/routes/shoppingcart.js")(app);

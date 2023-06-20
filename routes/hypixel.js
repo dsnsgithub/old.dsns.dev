@@ -1,13 +1,13 @@
 require("dotenv").config(); //* npm install dotenv
 
 const axios = require("axios");
-axios.defaults.validateStatus = function (status) {
+axios.defaults.validateStatus = (status) => {
 	// axios rejects promise if status code is not 200, fixed
 	return true;
 };
 
 const fs = require("fs");
-const database = require(`${__dirname}/../json/difference.json`);
+const database = require(`${__dirname}/../json/levels.json`);
 
 const round = (number, decimalPlaces) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
@@ -42,10 +42,10 @@ async function updateDatabase() {
 			});
 		}
 
-		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+		return fs.writeFileSync(`${__dirname}/../json/levels.json`, JSON.stringify(database));
 	} catch (error) {
 		console.error("\x1b[31m" + "Error: Unable to update database: " + (error.stack || error) + "\x1b[0m");
-		return fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+		return fs.writeFileSync(`${__dirname}/../json/levels.json`, JSON.stringify(database));
 	}
 }
 
@@ -63,10 +63,10 @@ module.exports = function (app) {
 			if (!result["data"]["name"]) return res.json({ error: "UUID doesn't exist." });
 
 			database[req.params.uuid] = [];
-			fs.writeFileSync(`${__dirname}/../json/difference.json`, JSON.stringify(database));
+			fs.writeFileSync(`${__dirname}/../json/levels.json`, JSON.stringify(database));
 
 			await updateDatabase();
-			res.json(database[req.params.uuid]);
+			return res.json(database[req.params.uuid]);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/history: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
@@ -76,8 +76,9 @@ module.exports = function (app) {
 	app.get("/api/recentgames/:uuid", async function (req, res, next) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+
 			const result = await axios.get(`https://api.hypixel.net/recentgames?key=${process.env["API_KEY"]}&uuid=${req.params.uuid}`);
-			res.json(result.data);
+			return res.json(result.data);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/recentgames: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
@@ -89,7 +90,7 @@ module.exports = function (app) {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
 			const result = await axios.get(`https://api.hypixel.net/status?key=${process.env["API_KEY"]}&uuid=${req.params.uuid}`);
-			res.json(result.data);
+			return res.json(result.data);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
