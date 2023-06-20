@@ -224,4 +224,4 @@ async function loadChart() {
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(refreshPlayerList);
 
-setInterval(loadChart, 60000);
+setInterval(loadChart, 120000);

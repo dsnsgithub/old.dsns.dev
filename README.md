@@ -27,7 +27,7 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 
 	HYPIXEL = true
 	API_KEY = [only used for /statistics and /player]
-	RELOAD_TIME = 60000
+	RELOAD_TIME = 120000
 
 	PROXY = false
 	WHOIS = true

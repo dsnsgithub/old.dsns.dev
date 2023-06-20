@@ -21,7 +21,9 @@ const xpToLevel = (xp) => {
 async function updateDatabase() {
 	try {
 		for (const uuid in database) {
-			const result = await axios.get(`https://api.hypixel.net/player?key=${process.env["API_KEY"]}&uuid=${uuid}`);
+			const result = await axios.get(`https://api.hypixel.net/player?uuid=${uuid}`, {
+				headers: { "API-Key": process.env["API_KEY"] }
+			});
 
 			const xpLevel = xpToLevel(result["data"]["player"]["networkExp"]);
 			const lastIndex = database[uuid].length - 1;
@@ -77,7 +79,10 @@ module.exports = function (app) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
-			const result = await axios.get(`https://api.hypixel.net/recentgames?key=${process.env["API_KEY"]}&uuid=${req.params.uuid}`);
+			const result = await axios.get(`https://api.hypixel.net/recentgames?uuid=${req.params.uuid}`, {
+				headers: { "API-Key": process.env["API_KEY"] }
+			});
+
 			return res.json(result.data);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/recentgames: " + (error.stack || error) + "\x1b[0m");
@@ -89,7 +94,10 @@ module.exports = function (app) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 
-			const result = await axios.get(`https://api.hypixel.net/status?key=${process.env["API_KEY"]}&uuid=${req.params.uuid}`);
+			const result = await axios.get(`https://api.hypixel.net/status?uuid=${req.params.uuid}`, {
+				headers: { "API-Key": process.env["API_KEY"] }
+			});
+
 			return res.json(result.data);
 		} catch (error) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
