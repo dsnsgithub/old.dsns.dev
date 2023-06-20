@@ -2,10 +2,9 @@ let gameTypes = {};
 async function fetchGames() {
 	gameTypes = await fetch("https://api.hypixel.net/resources/games").then((res) => res.json());
 }
-
 fetchGames();
 
-async function sanitizeMode(game, mode) {
+function sanitizeMode(game, mode) {
 	const gameList = gameTypes["games"];
 	//? If the game doesn't exist in the gameTypes object
 	if (!gameList[game.toUpperCase()]) return [mode, game];
@@ -18,22 +17,20 @@ async function sanitizeMode(game, mode) {
 	return [sanitizedGame, sanitizedMode];
 }
 
-async function parseStatus(status, IGN) {
-	if (!status["online"]) return `${IGN} is offline.`;
+function parseStatus(status, IGN) {
+	if (!status["online"]) return `${IGN} is <span style="color: red;">offline</span>.`;
 
-	const game = status["gameType"];
-	const mode = status["mode"];
+	const [game, mode] = sanitizeMode(status["gameType"], status["mode"]);
 	const map = status["map"];
 
-	if (mode == game || !mode) return `${IGN} is online. They are playing ${game}.`;
-	if (status["mode"] == "LOBBY") return `${IGN} is online. They are in a ${game} Lobby.`;
+	if (mode == game || !mode) return `${IGN} is <span style="color: green;">online</span>. They are playing ${game}.`;
+	if (status["mode"] == "LOBBY") return `${IGN} is <span style="color: green;">online</span>. They are in a ${game} Lobby.`;
 
-	const [sanitizedGame, sanitizedMode] = await sanitizeMode(game, mode);
-	if (map) return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame} on ${map}.`;
-	return `${IGN} is online. They are playing ${sanitizedMode} ${sanitizedGame}.`;
+	if (map) return `${IGN} is <span style="color: green;">online</span>. They are playing ${mode} ${game} on ${map}.`;
+	return `${IGN} is <span style="color: green;">online</span>. They are playing ${mode} ${game}.`;
 }
 
-async function parseRecentGames(recentGame) {
+function parseRecentGames(recentGame) {
 	if (!recentGame) return `No recent games.`;
 
 	const startTime = new Date(recentGame["date"]).toLocaleDateString("en-US", {
@@ -42,21 +39,20 @@ async function parseRecentGames(recentGame) {
 		hour12: true
 	});
 
-	const endTime = new Date(recentGame["ended"]).toLocaleDateString("en-US", {
-		hour: "numeric",
-		minute: "numeric",
-		hour12: true
-	});
-
-
-	const game = recentGame["gameType"];
-	const mode = recentGame["mode"];
+	let endTime = "Still Playing";
+	if (recentGame["ended"]) {
+		endTime = new Date(recentGame["ended"]).toLocaleDateString("en-US", {
+			hour: "numeric",
+			minute: "numeric",
+			hour12: true
+		});
+	}
+	
+	const mode = recentGame["mode"] || "Unknown";
 	const map = recentGame["map"] || "Unknown";
 
-	if (!mode) return ["Unknown", game, recentTime, map];
-
 	//? Sanitize Hypixel API into a more readable format
-	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["gameType"], mode);
+	const [sanitizedGame, sanitizedMode] = sanitizeMode(recentGame["gameType"], mode);
 	return [sanitizedMode, sanitizedGame, startTime, endTime, map];
 }
 
@@ -69,13 +65,17 @@ async function search() {
 	const uuid = result["id"];
 	IGN = result["name"];
 
+	document.getElementById("playerModel").src = `https://crafatar.com/renders/body/${uuid}.png?scale=10&overlay`;
+	document.getElementById("rankInformation").src = `https://hypixel.paniek.de/signature/${uuid}/general-tooltip`;
+	document.getElementById("resultSection").style.display = "block";
+
 	const statusDiv = document.getElementById("status");
 	const recentGamesDiv = document.getElementById("recentGames");
 	statusDiv.innerHTML = "";
 	recentGamesDiv.innerHTML = "";
 
 	const status = await fetch(`/api/status/${uuid}`).then((res) => res.json());
-	const parsedStatus = await parseStatus(status["session"], IGN);
+	const parsedStatus = parseStatus(status["session"], IGN);
 	statusDiv.innerHTML += `<h2 class="title">${parsedStatus}</h2>`;
 
 	const recentGames = await fetch(`/api/recentgames/${uuid}`).then((res) => res.json());
@@ -95,7 +95,7 @@ async function search() {
 	table.createTBody();
 
 	for (const i in recentGames["games"]) {
-		const [mode, game, startTime, endTime, map] = await parseRecentGames(recentGames["games"][i]);
+		const [mode, game, startTime, endTime, map] = parseRecentGames(recentGames["games"][i]);
 
 		const row = table.insertRow();
 		row.insertCell().innerText = game;
@@ -115,9 +115,6 @@ async function search() {
 	headRow.insertCell().innerText = "End Time";
 
 	recentGamesDiv.appendChild(table);
-
-	document.getElementById("playerModel").src = `https://crafatar.com/renders/body/${uuid}.png?scale=10&overlay`;
-	document.getElementById("resultSection").style.display = "block";
 }
 
 document.onkeyup = function (event) {
