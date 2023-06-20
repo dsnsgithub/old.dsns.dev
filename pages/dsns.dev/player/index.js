@@ -74,11 +74,11 @@ async function search() {
 	statusDiv.innerHTML = "";
 	recentGamesDiv.innerHTML = "";
 
-	const status = await fetch(`/api/status/${uuid}`).then((res) => res.json());
+	const status = await fetch(`https://hypixel.dsns.dev/status/${uuid}`).then((res) => res.json());
 	const parsedStatus = parseStatus(status["session"], IGN);
 	statusDiv.innerHTML += `<h2 class="title">${parsedStatus}</h2>`;
 
-	const recentGames = await fetch(`/api/recentgames/${uuid}`).then((res) => res.json());
+	const recentGames = await fetch(`https://hypixel.dsns.dev/recentgames/${uuid}`).then((res) => res.json());
 	if (recentGames["games"].length === 0) {
 		recentGamesDiv.innerHTML += `<h1 class="title">No recent games found.</h1>`;
 		return;

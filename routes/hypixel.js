@@ -74,34 +74,4 @@ module.exports = function (app) {
 			return res.status(500).send(error);
 		}
 	});
-
-	app.get("/api/recentgames/:uuid", async function (req, res, next) {
-		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
-
-			const result = await axios.get(`https://api.hypixel.net/recentgames?uuid=${req.params.uuid}`, {
-				headers: { "API-Key": process.env["API_KEY"] }
-			});
-
-			return res.json(result.data);
-		} catch (error) {
-			console.error("\x1b[31m" + "Error: Broken (GET) /api/recentgames: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send(error);
-		}
-	});
-
-	app.get("/api/status/:uuid", async function (req, res, next) {
-		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
-
-			const result = await axios.get(`https://api.hypixel.net/status?uuid=${req.params.uuid}`, {
-				headers: { "API-Key": process.env["API_KEY"] }
-			});
-
-			return res.json(result.data);
-		} catch (error) {
-			console.error("\x1b[31m" + "Error: Broken (GET) /api/status: " + (error.stack || error) + "\x1b[0m");
-			return res.status(500).send(error);
-		}
-	});
 };
