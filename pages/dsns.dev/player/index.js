@@ -36,11 +36,18 @@ async function parseStatus(status, IGN) {
 async function parseRecentGames(recentGame) {
 	if (!recentGame) return `No recent games.`;
 
-	const recentTime = new Date(recentGame["date"]).toLocaleDateString("en-US", {
+	const startTime = new Date(recentGame["date"]).toLocaleDateString("en-US", {
 		hour: "numeric",
 		minute: "numeric",
 		hour12: true
 	});
+
+	const endTime = new Date(recentGame["ended"]).toLocaleDateString("en-US", {
+		hour: "numeric",
+		minute: "numeric",
+		hour12: true
+	});
+
 
 	const game = recentGame["gameType"];
 	const mode = recentGame["mode"];
@@ -50,7 +57,7 @@ async function parseRecentGames(recentGame) {
 
 	//? Sanitize Hypixel API into a more readable format
 	const [sanitizedGame, sanitizedMode] = await sanitizeMode(recentGame["gameType"], mode);
-	return [sanitizedMode, sanitizedGame, recentTime, map];
+	return [sanitizedMode, sanitizedGame, startTime, endTime, map];
 }
 
 async function search() {
@@ -62,37 +69,40 @@ async function search() {
 	const uuid = result["id"];
 	IGN = result["name"];
 
-	const resultDiv = document.getElementById("result");
-	resultDiv.innerText = "";
+	const statusDiv = document.getElementById("status");
+	const recentGamesDiv = document.getElementById("recentGames");
+	statusDiv.innerHTML = "";
+	recentGamesDiv.innerHTML = "";
 
 	const status = await fetch(`/api/status/${uuid}`).then((res) => res.json());
 	const parsedStatus = await parseStatus(status["session"], IGN);
-	resultDiv.innerHTML += `<h2 class="title">${parsedStatus}</h2>`;
+	statusDiv.innerHTML += `<h2 class="title">${parsedStatus}</h2>`;
 
 	const recentGames = await fetch(`/api/recentgames/${uuid}`).then((res) => res.json());
 	if (recentGames["games"].length === 0) {
-		resultDiv.innerHTML += `<h1 class="title">No recent games found.</h1>`;
+		recentGamesDiv.innerHTML += `<h1 class="title">No recent games found.</h1>`;
 		return;
 	}
 
 	if (recentGames["error"]) {
-		resultDiv.innerHTML += `<h1 class="title">${recentGames["error"]}</h1>`;
+		recentGamesDiv.innerHTML += `<h1 class="title">${recentGames["error"]}</h1>`;
 		return;
 	}
 
 	const table = document.createElement("table");
-	table.classList = "table is-striped is-hoverable is-fullwidth";
+	table.classList = "table is-bordered is-hoverable is-fullwidth";
 
 	table.createTBody();
 
 	for (const i in recentGames["games"]) {
-		const [mode, game, time, map] = await parseRecentGames(recentGames["games"][i]);
+		const [mode, game, startTime, endTime, map] = await parseRecentGames(recentGames["games"][i]);
 
 		const row = table.insertRow();
 		row.insertCell().innerText = game;
 		row.insertCell().innerText = mode;
 		row.insertCell().innerText = map;
-		row.insertCell().innerText = time;
+		row.insertCell().innerText = startTime;
+		row.insertCell().innerText = endTime;
 	}
 
 	table.createTHead();
@@ -101,9 +111,13 @@ async function search() {
 	headRow.insertCell().innerText = "Game";
 	headRow.insertCell().innerText = "Mode";
 	headRow.insertCell().innerText = "Map";
-	headRow.insertCell().innerText = "Time";
+	headRow.insertCell().innerText = "Start Time";
+	headRow.insertCell().innerText = "End Time";
 
-	resultDiv.appendChild(table);
+	recentGamesDiv.appendChild(table);
+
+	document.getElementById("playerModel").src = `https://crafatar.com/renders/body/${uuid}.png?scale=10&overlay`;
+	document.getElementById("resultSection").style.display = "block";
 }
 
 document.onkeyup = function (event) {

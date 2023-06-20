@@ -93,7 +93,7 @@ async function refreshPlayerList() {
 
 		const IGN = result["name"];
 
-		button.innerHTML = `<h2>${IGN}</h2>`;
+		button.innerHTML = `<h2>${IGN}</h2><img src="https://crafatar.com/avatars/${uuid}" width="30px" style="margin-left: 10px">`;
 		button.setAttribute("onClick", `toggle("${uuid}")`);
 
 		if (JSON.parse(window.localStorage.getItem("UUIDs"))[uuid]) {
