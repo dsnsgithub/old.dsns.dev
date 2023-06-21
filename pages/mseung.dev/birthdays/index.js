@@ -54,9 +54,8 @@ function sort() {
 
     dates = dates.sort((a,b)=>a - b);
     for (let i = 0; i < dates.length; i++) {
-        if (date.getMonth() + 1 >= Number(dates[i].charAt(0) + dates[i].charAt(1)) && date.getDate() > Number(dates[i].charAt(2) + dates[i].charAt(3)) || date.getMonth() + 1 > Number(dates[i].charAt(0) + dates[i].charAt(1))) {
+        if ((date.getMonth() + 1 >= Number(dates[0].charAt(0) + dates[0].charAt(1)) && date.getDate() > Number(dates[0].charAt(2) + dates[0].charAt(3))) || date.getMonth() + 1 > Number(dates[0].charAt(0) + dates[0].charAt(1))) {
             dates.push(dates.shift());
-            console.log("true");
         }
     }
 
