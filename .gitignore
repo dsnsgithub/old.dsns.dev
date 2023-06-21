@@ -8,3 +8,4 @@ json/
 certificates/
 
 deploy.sh
+.dev.vars
