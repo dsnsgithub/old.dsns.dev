@@ -87,6 +87,8 @@ async function useMiddleware() {
 				break;
 		}
 
+		if (hostnameList.length > 2) return res.redirect(`https://${domain}` + req.url);
+
 		const fullPath = `${__dirname}/pages/${domain}${req.url.split("?")[0]}`;
 		if (fs.existsSync(fullPath)) {
 			if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
