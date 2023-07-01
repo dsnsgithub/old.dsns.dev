@@ -8,5 +8,8 @@ certificates/
 json/
 !json/games.json
 
+deploy.py
+*.log
+
 deploy.sh
 .dev.vars
