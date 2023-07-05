@@ -3,12 +3,18 @@ async function whoIs() {
 	const whois = document.getElementById("whois");
 	const resultBox = document.getElementById("results");
 
-	whois.innerText = "";
+	whois.innerHTML = "";
 
 	const domain = domainInput.value;
-	const result = await fetch("/api/whois/" + domain).then((res) => res.text());
+	const result = await fetch("/api/whois/" + domain).then((res) => res.json());
 
-	whois.innerHTML = result;
+	whois.innerHTML = "";
+
+	for (const key in result) {
+		whois.innerHTML += `<b>${key}: </b> ${result[key]} <br>`
+		console.log(key)
+	}
+
 	resultBox.style.display = "";
 }
 

@@ -1,20 +1,27 @@
-require("dotenv").config(); //* npm install dotenv
+import dotenv from "dotenv"
+dotenv.config()
 
-const axios = require("axios");
+import { Express } from "express";
+import axios from "axios"
 axios.defaults.validateStatus = (status) => {
 	// axios rejects promise if status code is not 200, fixed
 	return true;
 };
 
-const fs = require("fs");
-const database = require(`${__dirname}/../json/levels.json`);
+import fs from "fs";
 
-const round = (number, decimalPlaces) => {
+export interface Database {
+	[key: string]: { date: string; level: number }[];
+}
+import _data from "../json/levels.json";
+const database: Database = _data;
+
+const round = (number: number, decimalPlaces: number) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
 	return Math.round(number * factorOfTen) / factorOfTen;
 };
 
-const xpToLevel = (xp) => {
+const xpToLevel = (xp: number) => {
 	return round(Math.sqrt(2 * xp + 30625) / 50 - 2.5, 2);
 };
 
@@ -45,16 +52,16 @@ async function updateDatabase() {
 		}
 
 		return fs.writeFileSync(`${__dirname}/../json/levels.json`, JSON.stringify(database));
-	} catch (error) {
+	} catch (error: any) {
 		console.error("\x1b[31m" + "Error: Unable to update database: " + (error.stack || error) + "\x1b[0m");
 		return fs.writeFileSync(`${__dirname}/../json/levels.json`, JSON.stringify(database));
 	}
 }
 
 updateDatabase();
-setInterval(updateDatabase, process.env["RELOAD_TIME"]);
+setInterval(updateDatabase, Number(process.env["RELOAD_TIME"]));
 
-module.exports = function (app) {
+module.exports = function (app: Express) {
 	app.get("/api/history/:uuid", async function (req, res, next) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
@@ -69,7 +76,7 @@ module.exports = function (app) {
 
 			await updateDatabase();
 			return res.json(database[req.params.uuid]);
-		} catch (error) {
+		} catch (error: any) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/history: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}

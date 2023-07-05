@@ -1,7 +1,8 @@
 //? Requirements
-const ytdl = require("ytdl-core");
+import ytdl from "ytdl-core"
+import { Express } from "express";
 
-module.exports = function (app) {
+module.exports = function (app: Express) {
 	app.get("/api/youtube/:id", async function (req, res, next) {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
@@ -28,7 +29,7 @@ module.exports = function (app) {
 				filter: "audioonly",
 				quality: "highestaudio"
 			}).pipe(res);
-		} catch (error) {
+		} catch (error: any) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/youtube: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}
@@ -43,16 +44,16 @@ module.exports = function (app) {
 
 			let formats = info.formats;
 			formats.sort((a, b) => {
-				return b.bitrate - a.bitrate;
+				return (b.bitrate || 0) - (a.bitrate || 0);
 			});
 
-			formats = formats.filter((video) => video.mimeType.includes("video/mp4"));
+			formats = formats.filter((video) => video.mimeType && video.mimeType.includes("video/mp4"));
 
 			return res.json({
 				highestvideo: formats[0],
 				highest: formats.filter((video) => video.hasAudio == true)[0]
 			});
-		} catch (error) {
+		} catch (error: any) {
 			console.error("\x1b[31m" + "Error: Broken (GET) /api/youtubeVideo: " + (error.stack || error) + "\x1b[0m");
 			return res.status(500).send(error);
 		}

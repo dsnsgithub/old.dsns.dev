@@ -2,12 +2,12 @@
 require("dotenv").config(); //* npm install dotenv
 
 //? Requirements ----------------------------------------------------------------------------------
-const https = require("https");
-const fs = require("fs");
-const path = require("path");
+import https from "https";
+import fs from "fs";
+import path from "path";
 
-const express = require("express"); //* npm install express
-const compression = require("compression"); //* npm install compression
+import express from "express"
+import compression from "compression"
 
 const app = express();
 app.set("trust proxy", true);
@@ -16,15 +16,14 @@ async function runRoutes() {
 	try {
 		app.use(compression());
 
-		if (process.env["PROXY"] == "true") require(__dirname + "/routes/proxy.js")(app);
+		if (process.env["PROXY"] == "true") require(__dirname + "/routes/proxy.ts")(app);
 
 		app.use(express.urlencoded({ extended: true }));
 		app.use(express.json());
 
-		if (process.env["HYPIXEL"] == "true") require(__dirname + "/routes/hypixel.js")(app);
-		if (process.env["WHOIS"] == "true") require(__dirname + "/routes/whois.js")(app);
-		if (process.env["YOUTUBE"] == "true") require(__dirname + "/routes/youtube.js")(app);
-		if (process.env["ONLYEGGROLLS"] == "true") require(__dirname + "/routes/shoppingcart.js")(app);
+		if (process.env["HYPIXEL"] == "true") require(__dirname + "/routes/hypixel.ts")(app);
+		if (process.env["WHOIS"] == "true") require(__dirname + "/routes/whois.ts")(app);
+		if (process.env["YOUTUBE"] == "true") require(__dirname + "/routes/youtube.ts")(app);
 	} catch (error) {
 		console.error("\x1b[31m" + "Route Failure:", JSON.stringify(error) + "\x1b[0m");
 	}
@@ -40,7 +39,7 @@ async function openPort() {
 }
 
 async function useHTTPS() {
-	function keyPair(domain) {
+	function keyPair(domain: string) {
 		return {
 			key: fs.readFileSync(`${__dirname}/certificates/${domain}/key.pem`),
 			cert: fs.readFileSync(`${__dirname}/certificates/${domain}/cert.pem`)
@@ -89,10 +88,10 @@ async function useMiddleware() {
 
 		if (hostnameList.length > 2) return res.redirect(`https://${domain}` + req.url);
 
-		const fullPath = `${__dirname}/pages/${domain}${req.url.split("?")[0]}`;
+		const fullPath = path.normalize(`${__dirname}/pages/${domain}${req.url.split("?")[0]}`);
 		if (fs.existsSync(fullPath)) {
-			if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
-				return res.redirect(req.path + "/");
+			if (fs.lstatSync(fullPath).isDirectory()) {
+				return res.sendFile(fullPath + "index.html");
 			}
 
 			return res.sendFile(fullPath);
