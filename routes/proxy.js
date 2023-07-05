@@ -24,6 +24,6 @@ module.exports = function (app) {
 	};
 
 	app.use(createProxyMiddleware((_, req) => req.headers.host.includes("tetr"), createOptions("https://tetr.io/", "tetr.io")));
-	app.use(createProxyMiddleware((_, req) => req.headers.host.includes("map"), createOptions("http://10.3.3.191:8123", "10:3.3.191:8123")));
-	app.use(createProxyMiddleware((_, req) => req.headers.host.includes("status"), createOptions("https://stats.uptimerobot.com", "stats.uptimerobot.com")));
+	app.use(createProxyMiddleware((_, req) => req.headers.host.startsWith("map.dsns."), createOptions("http://10.3.3.191:8123", "10:3.3.191:8123")));
+	app.use(createProxyMiddleware((_, req) => req.headers.host.startsWith("status.dsns."), createOptions("https://stats.uptimerobot.com", "stats.uptimerobot.com")));
 };
