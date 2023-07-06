@@ -1,38 +1,38 @@
 * {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+	margin: 0;
+	font-family: "Poppins", sans-serif;
+	font-size: 1rem;
 }
 
 i {
-    font-size: 7.5rem;
+	font-size: 7.5rem;
 }
 
 .logos {
-    display: flex;
-    justify-content: center;
-    gap: 5vw;
+	display: flex;
+	justify-content: center;
+	gap: 5vw;
 }
-  
+
 .button:hover {
-    background-color: limegreen;
-    color: black;
+	background-color: limegreen;
+	color: black;
 }
 
 .icon {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
 
 @media only screen and (max-width: 680px) {
-    .logos {
-        flex-direction: column;
-    }
+	.logos {
+		flex-direction: column;
+	}
 
-    #penguin {
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-    }
+	#penguin {
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
 }

@@ -1,36 +1,36 @@
 * {
-    margin: 0;
-    position: absolute;
-    font-size: 1.5rem;
-    font-family: "Poppins", sans-serif;
+	margin: 0;
+	position: absolute;
+	font-size: 1.5rem;
+	font-family: "Poppins", sans-serif;
 }
 
 body {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 #box {
-    height: 100vh;
-    width: 100vw;
-    display: grid;
-    place-items: center;
+	height: 100vh;
+	width: 100vw;
+	display: grid;
+	place-items: center;
 }
 
 #circle {
-    width: 1vw;
-    height: 1vw;
-    border-radius: 1vw;
-    background-color: red;
-    opacity: 0.4;
+	width: 1vw;
+	height: 1vw;
+	border-radius: 1vw;
+	background-color: red;
+	opacity: 0.4;
 }
 
 #choices {
-    width: 30vw;
-    height: 2vh;
-    display: flex;
-    justify-content: space-evenly;
+	width: 30vw;
+	height: 2vh;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 #choices > p {
-    position: static !important;
+	position: static !important;
 }

@@ -1,168 +1,167 @@
 * {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  overflow: hidden;
+	margin: 0;
+	font-family: "Poppins", sans-serif;
+	overflow: hidden;
 }
 
 a {
-  display: flex;
-  height: 5vh;
-  border: 2px solid black;
-  margin-bottom: 0.3vh;
-  margin-left: 1.5px;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: black;
-  transition: 0.3s;
+	display: flex;
+	height: 5vh;
+	border: 2px solid black;
+	margin-bottom: 0.3vh;
+	margin-left: 1.5px;
+	border-radius: 4px;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	color: black;
+	transition: 0.3s;
 }
 
 a:hover {
-  background-color: limegreen;
+	background-color: limegreen;
 }
 
 body {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 #menu {
-  height: 100vh;
-  width: 15vw;
+	height: 100vh;
+	width: 15vw;
 }
 
 #main {
-  font-size: 3.25rem;
-  height: 100vh;
-  width: 70vw;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+	font-size: 3.25rem;
+	height: 100vh;
+	width: 70vw;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
 #menubutton {
-  width: 5vw;
-  height: 5vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2.5vw;
-  transition: 0.3s;
+	width: 5vw;
+	height: 5vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2.5vw;
+	transition: 0.3s;
 }
 
 #menubutton:hover {
-  color: limegreen;
+	color: limegreen;
 }
 
 #list {
-  display: none;
-  flex-direction: column;
+	display: none;
+	flex-direction: column;
 }
 
 #left {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 #quote {
-  font-size: 1rem;
+	font-size: 1rem;
 }
 
 #iconlist {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 #mainimg {
-  width: 17.5vw;
+	width: 17.5vw;
 }
 
 @media only screen and (max-width: 1599px) {
-  #menu {
-    width: 20vw;
-  }
+	#menu {
+		width: 20vw;
+	}
 
-  #main {
-    width: 60vw;
-  }
+	#main {
+		width: 60vw;
+	}
 
-  #menubutton {
-    width: 7.5vw;
-    height: 7.5vw;
-    font-size: 5vw;
-  }
-
+	#menubutton {
+		width: 7.5vw;
+		height: 7.5vw;
+		font-size: 5vw;
+	}
 }
 
 @media only screen and (max-width: 1000px) {
-  a {
-    font-size: 0.85rem;
-  }
+	a {
+		font-size: 0.85rem;
+	}
 
-  #menu {
-    width: 20vw;
-  }
+	#menu {
+		width: 20vw;
+	}
 
-  #main {
-    width: 60vw;
-  }
+	#main {
+		width: 60vw;
+	}
 
-  #mainimg {
-    width: 20vw;
-  }
+	#mainimg {
+		width: 20vw;
+	}
 
-  #menubutton {
-    width: 10vw;
-    height: 10vw;
-    font-size: 7.5vw;
-  }
+	#menubutton {
+		width: 10vw;
+		height: 10vw;
+		font-size: 7.5vw;
+	}
 }
 
 @media only screen and (max-width: 870px) {
-  a {
-    font-size: 0.7rem;
-  }
+	a {
+		font-size: 0.7rem;
+	}
 
-  #main {
-    justify-content: none;
-    flex-direction: column;
-  }
+	#main {
+		justify-content: none;
+		flex-direction: column;
+	}
 
-  #mainimg {
-    width: 50vw;
-  }
+	#mainimg {
+		width: 50vw;
+	}
 
-  #menubutton {
-    width: 12.5vw;
-    height: 12.5vw;
-    font-size: 10vw;
-  }
+	#menubutton {
+		width: 12.5vw;
+		height: 12.5vw;
+		font-size: 10vw;
+	}
 
-  #arrow {
-    display: none;
-  }
+	#arrow {
+		display: none;
+	}
 }
 
 @media only screen and (max-height: 530px) {
-  #main {
-    justify-content: space-evenly;
-    flex-direction: row;
-  }
+	#main {
+		justify-content: space-evenly;
+		flex-direction: row;
+	}
 
-  #mainimg {
-    width: 25vw;
-  }
+	#mainimg {
+		width: 25vw;
+	}
 }
 
 #sun {
-  z-index: -1;
-  position: absolute;
+	z-index: -1;
+	position: absolute;
 }
 
 #arrow {
-  position: absolute;
-  top: 15vh;
-  left: 37vw;
-  width: 16vw;
+	position: absolute;
+	top: 15vh;
+	left: 37vw;
+	width: 16vw;
 }

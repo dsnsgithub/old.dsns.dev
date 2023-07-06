@@ -1,94 +1,94 @@
 * {
-    margin: 0;
+	margin: 0;
 }
 
 body {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
 }
 
 #box {
-    background-color: aliceblue;
-    min-height: 2.5vw;
-    margin-top: 5vh;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100vw;
+	background-color: aliceblue;
+	min-height: 2.5vw;
+	margin-top: 5vh;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100vw;
 }
 
 #options {
-    position: fixed;
-    top: 0;
-    width: 100vw;
+	position: fixed;
+	top: 0;
+	width: 100vw;
 }
 
 .block {
-    font-size: 1.5rem;
-    width: 2.5vw;
-    height: 2.5vw;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
+	font-size: 1.5rem;
+	width: 2.5vw;
+	height: 2.5vw;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
 }
 
 .note {
-    background-color: blue;
+	background-color: blue;
 }
 
 .drum {
-    background-color: red;
+	background-color: red;
 }
 
 .connect {
-    background-color: green;
+	background-color: green;
 }
 
 .tempo {
-    background-color: pink;
+	background-color: pink;
 }
 
 .tempo::after {
-    content: ">";
+	content: ">";
 }
 
 .pause {
-    background-color: purple;
+	background-color: purple;
 }
 
 .pause::after {
-    content: "#";
+	content: "#";
 }
 
 .trumpet {
-    background-color: goldenrod;
+	background-color: goldenrod;
 }
 
 .violin {
-    background-color: #5D1E0F;
+	background-color: #5d1e0f;
 }
 
 @media only screen and (max-width: 1400px) {
-    .block {
-        width: 5vw;
-        height: 5vw;
-    }
+	.block {
+		width: 5vw;
+		height: 5vw;
+	}
 
-    #box {
-        min-height: 5vw;
-    }
+	#box {
+		min-height: 5vw;
+	}
 }
 
 @media only screen and (max-width: 700px) {
-    .block {
-        width: 10vw;
-        height: 10vw;
-    }
+	.block {
+		width: 10vw;
+		height: 10vw;
+	}
 
-    #box {
-        min-height: 10vw;
-        margin-top: 10vh;
-    }
+	#box {
+		min-height: 10vw;
+		margin-top: 10vh;
+	}
 }

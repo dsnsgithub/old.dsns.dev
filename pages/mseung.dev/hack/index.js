@@ -6,22 +6,22 @@ var wait;
 var wait2;
 
 function jumpscare() {
-    box.style.display = "none";
-    document.documentElement.requestFullscreen();
+	box.style.display = "none";
+	document.documentElement.requestFullscreen();
 
-    wait = setInterval(epilepsy, 10);
-    scare.currentTime = 6.0;
-    scare.play();
-    wait2 = setInterval(replay, 5000);
+	wait = setInterval(epilepsy, 10);
+	scare.currentTime = 6.0;
+	scare.play();
+	wait2 = setInterval(replay, 5000);
 }
 
 function epilepsy() {
-    document.body.style.backgroundColor = colors[Math.floor(Math.random() * 6) + 0];
+	document.body.style.backgroundColor = colors[Math.floor(Math.random() * 6) + 0];
 }
 
 function replay() {
-    scare.currentTime = 6.0;
-    scare.play();
+	scare.currentTime = 6.0;
+	scare.play();
 }
 
 window.addEventListener("beforeunload", function (e) {
