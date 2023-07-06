@@ -110,8 +110,6 @@ async function refreshPlayerList() {
 }
 
 async function loadChart() {
-	historyCache = {};
-
 	let combinedArray = [["Date"]];
 	let combined = {};
 	let storedDates = {};
@@ -224,4 +222,7 @@ async function loadChart() {
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(refreshPlayerList);
 
-setInterval(loadChart, 120000);
+setInterval(() => {
+	historyCache = {};
+	loadChart();
+}, 120000);
