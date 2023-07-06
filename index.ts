@@ -83,6 +83,8 @@ async function useMiddleware() {
 			case "onlyeggrolls":
 				domain = "onlyeggrolls.com";
 				break;
+			default:
+				return req.socket.destroy();
 		}
 
 		if (hostnameList.length > 2) return res.redirect(`https://${domain}` + req.url);
