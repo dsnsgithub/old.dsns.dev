@@ -41,4 +41,4 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 
 ### 5. Start the express server:
 
-    node .
+    ts-node .
