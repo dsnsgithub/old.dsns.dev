@@ -64,6 +64,8 @@ async function useHTTPS() {
 
 async function useMiddleware() {
 	app.use((req, res, next) => {
+		if (!req.hostname) return req.socket.destroy();
+
 		const hostnameList = req.hostname.split(".");
 		const name = hostnameList[hostnameList.length - 2];
 
