@@ -2,7 +2,7 @@ import whois from "whois-json";
 import { Express } from "express";
 
 module.exports = function (app: Express) {
-	app.get("/api/whois/:domain", async function (req, res, next) {
+	app.get("/api/whois/:domain", async (req, res, next) => {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 

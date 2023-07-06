@@ -1,19 +1,20 @@
-import dotenv from "dotenv"
-dotenv.config()
-
 import { Express } from "express";
-import axios from "axios"
-axios.defaults.validateStatus = (status) => {
-	// axios rejects promise if status code is not 200, fixed
-	return true;
-};
+import dotenv from "dotenv";
+import axios from "axios";
 
 import fs from "fs";
+import _data from "../json/levels.json";
+
+dotenv.config();
+
+// axios rejects promise if status code is not 200, fixed
+axios.defaults.validateStatus = (status) => {
+	return true;
+};
 
 export interface Database {
 	[key: string]: { date: string; level: number }[];
 }
-import _data from "../json/levels.json";
 const database: Database = _data;
 
 const round = (number: number, decimalPlaces: number) => {
@@ -62,7 +63,7 @@ updateDatabase();
 setInterval(updateDatabase, Number(process.env["RELOAD_TIME"]));
 
 module.exports = function (app: Express) {
-	app.get("/api/history/:uuid", async function (req, res, next) {
+	app.get("/api/history/:uuid", async (req, res, next) => {
 		try {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 

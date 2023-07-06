@@ -2,7 +2,7 @@ import { createProxyMiddleware, responseInterceptor } from "http-proxy-middlewar
 import { Express } from "express";
 
 module.exports = function (app: Express) {
-	const createOptions = (target: string, responseModifier: string) => {
+	function createOptions(target: string, responseModifier: string) {
 		return {
 			target: target,
 			changeOrigin: true,
@@ -23,7 +23,7 @@ module.exports = function (app: Express) {
 				return responseBuffer;
 			})
 		};
-	};
+	}
 
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("tetr"), createOptions("https://tetr.io/", "tetr.io")));
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").startsWith("map.dsns."), createOptions("http://10.3.3.191:8123", "10:3.3.191:8123")));

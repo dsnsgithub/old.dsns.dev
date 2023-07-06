@@ -16,6 +16,6 @@
 		"@types/whois-json": "^2.0.2"
 	},
 	"scripts": {
-		"run": "ts-node ."
+		"start": "ts-node ."
 	}
 }

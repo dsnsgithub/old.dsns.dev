@@ -1,13 +1,12 @@
-// @ts-check
-require("dotenv").config(); //* npm install dotenv
-
-//? Requirements ----------------------------------------------------------------------------------
 import https from "https";
 import fs from "fs";
 import path from "path";
 
-import express from "express"
-import compression from "compression"
+import express from "express";
+import compression from "compression";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.set("trust proxy", true);
@@ -97,7 +96,6 @@ async function useMiddleware() {
 			return res.sendFile(fullPath);
 		}
 
-		//? 404
 		res.status(404);
 		return res.redirect(`https://${req.hostname}/404.html`);
 	});
