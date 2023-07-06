@@ -87,10 +87,10 @@ async function useMiddleware() {
 
 		if (hostnameList.length > 2) return res.redirect(`https://${domain}` + req.url);
 
-		const fullPath = path.normalize(`${__dirname}/pages/${domain}${req.url.split("?")[0]}`);
+		const fullPath = `${__dirname}/pages/${domain}${req.url.split("?")[0]}`;
 		if (fs.existsSync(fullPath)) {
-			if (fs.lstatSync(fullPath).isDirectory()) {
-				return res.sendFile(fullPath + "index.html");
+			if (!path.extname(fullPath) && !fullPath.endsWith("/")) {
+				return res.redirect(req.path + "/");
 			}
 
 			return res.sendFile(fullPath);
