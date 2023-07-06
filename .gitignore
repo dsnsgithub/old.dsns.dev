@@ -11,5 +11,5 @@ json/
 deploy.py
 *.log
 
-deploy.sh
+deploy.bat
 .dev.vars
