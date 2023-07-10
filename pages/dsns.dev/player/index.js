@@ -47,7 +47,7 @@ function parseRecentGames(recentGame) {
 			hour12: true
 		});
 	}
-	
+
 	const mode = recentGame["mode"] || "Unknown";
 	const map = recentGame["map"] || "Unknown";
 
@@ -65,7 +65,7 @@ async function search() {
 	const uuid = result["id"];
 	IGN = result["name"];
 
-	document.getElementById("playerModel").src = `https://crafatar.com/renders/body/${uuid}.png?scale=10&overlay`;
+	document.getElementById("playerModel").src = `https://mc-heads.net/body/${uuid}`;
 	document.getElementById("rankInformation").src = `https://hypixel.paniek.de/signature/${uuid}/general-tooltip`;
 	document.getElementById("resultSection").style.display = "block";
 
