@@ -77,7 +77,7 @@ async function refreshPlayerList() {
 	playerList.innerHTML = "";
 	for (const uuid in JSON.parse(window.localStorage.getItem("UUIDs"))) {
 		const columnDiv = document.createElement("div");
-		columnDiv.classList = "column is-one-third";
+		columnDiv.classList = "column is-half-fullhd is-full-widescreen";
 
 		const button = document.createElement("button");
 		button.id = uuid;
