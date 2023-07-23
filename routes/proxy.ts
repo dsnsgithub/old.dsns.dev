@@ -11,8 +11,7 @@ module.exports = function (app: Express) {
 			ws: true,
 			onProxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
 				const contentHeader = proxyRes.headers?.["content-type"];
-				if (!contentHeader) return responseBuffer;
-				if (!req.headers.host) return responseBuffer;
+				if (!contentHeader || !req.headers.host) return responseBuffer;
 
 				const contentType = contentHeader.toLowerCase();
 				if (contentType.includes("text/") || contentType.includes("utf-8")) {

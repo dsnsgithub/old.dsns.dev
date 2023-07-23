@@ -14,7 +14,7 @@ module.exports = function (app: Express) {
 				return res.status(400).send("Video over 30 minutes");
 			}
 
-			const fullLink = `https://youtube.com/watch?v=${req.params.id}`;
+			const fullLink = `https://www.youtube.com/watch?v=${req.params.id}`;
 
 			let title = videoInfo.videoDetails.title;
 			title = title.replace(/[^\w]/g, "_"); // \w is the same as [A-Za-z0-9_]
@@ -39,7 +39,7 @@ module.exports = function (app: Express) {
 			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
 			if (!req.params.id) return res.status(400).send("Invalid YouTube Link");
 
-			const info = await ytdl.getInfo(`https://youtube.com/watch?v=${req.params.id}`);
+			const info = await ytdl.getInfo(`https://www.youtube.com/watch?v=${req.params.id}`);
 
 			let formats = info.formats;
 			formats.sort((a, b) => {
