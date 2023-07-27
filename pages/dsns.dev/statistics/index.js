@@ -5,6 +5,8 @@ let uuidCache = {};
 function toggle(uuid) {
 	const UUIDs = JSON.parse(window.localStorage.getItem("UUIDs"));
 
+	if (UUIDs[uuid] === undefined) return;
+
 	UUIDs[uuid] = !UUIDs[uuid];
 	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
 
@@ -16,6 +18,14 @@ function toggle(uuid) {
 	}
 
 	loadChart();
+}
+
+function remove(uuid) {
+	const UUIDs = JSON.parse(window.localStorage.getItem("UUIDs"));
+	delete UUIDs[uuid];
+	window.localStorage.setItem("UUIDs", JSON.stringify(UUIDs));
+
+	refreshPlayerList();
 }
 
 const differenceButton = document.getElementById("differenceButton");
@@ -93,7 +103,9 @@ async function refreshPlayerList() {
 
 		const IGN = result["name"];
 
+		button.style.position = "relative";
 		button.innerHTML = `<h2>${IGN}</h2><img src="https://mc-heads.net/avatar/${uuid}" width="30px" style="margin-left: 10px">`;
+		button.innerHTML += `<button style="position: absolute; left: 85%;" class="button is-ghost" onClick="remove('${uuid}')">❌</button>`;
 		button.setAttribute("onClick", `toggle("${uuid}")`);
 
 		if (JSON.parse(window.localStorage.getItem("UUIDs"))[uuid]) {
