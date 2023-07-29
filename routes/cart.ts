@@ -202,7 +202,7 @@ module.exports = function (app: Express) {
 			from: process.env["smtpEmail"],
 			to: req.body["email"],
 			subject: "OnlyEggrolls Verification",
-			text: `Click this link to create an account on onlyeggrolls.com: https://onlyeggrolls.test/verify/${code}`
+			text: `Click this link to create an account on onlyeggrolls.com: https://onlyeggrolls.com/verify/${code}`
 		});
 
 		fs.writeFileSync(path.resolve(__dirname + "/../json/verify.json"), JSON.stringify(verifyDatabase));
