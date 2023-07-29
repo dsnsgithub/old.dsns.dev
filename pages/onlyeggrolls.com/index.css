@@ -16,15 +16,15 @@ a:link {
 }
 
 #menu {
-	height: 10vh;
+	height: 150px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 
 #menubutton {
-	height: 5vw;
-	width: 5vw;
+	height: 150px;
+	width: 150px;
 	font-size: 3rem;
 	background-color: white;
 	border: none;
@@ -77,7 +77,7 @@ a:link {
 }
 
 #menubar {
-	width: 25vw;
+	width: 700px;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -96,24 +96,9 @@ a:link {
 	flex-direction: column;
 }
 
-@media screen and (max-width: 1500px) {
-	#menubar {
-		width: 25vw;
-	}
 
+@media screen and (max-width: 600px) {
 	#menubutton {
-		width: 7.5vw;
-		height: 7.5vw;
-	}
-}
-
-@media screen and (max-width: 900px) {
-	#menubar {
-		width: 100vw;
-	}
-
-	#menubutton {
-		width: 25vw;
-		height: 25vw;
+		width: 50px;
 	}
 }
