@@ -21,7 +21,7 @@ async function grabOrders() {
 		const row = resultTable.insertRow();
 		row.insertCell().innerText = "$" + order["totalPrice"];
 		row.insertCell().innerText = order["boughtItems"];
-		row.insertCell().innerText = order["ccn"];
+		row.insertCell().innerText = order["CCN"];
 	}
 }
 

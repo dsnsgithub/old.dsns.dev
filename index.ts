@@ -23,6 +23,7 @@ async function runRoutes() {
 		if (process.env["HYPIXEL"] == "true") require(__dirname + "/routes/hypixel.ts")(app);
 		if (process.env["WHOIS"] == "true") require(__dirname + "/routes/whois.ts")(app);
 		if (process.env["YOUTUBE"] == "true") require(__dirname + "/routes/youtube.ts")(app);
+		if (process.env["ONLYEGGROLLS"] == "true") require(__dirname + "/routes/cart.ts")(app);
 	} catch (error) {
 		console.error("\x1b[31m" + "Route Failure:", JSON.stringify(error) + "\x1b[0m");
 	}

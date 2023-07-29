@@ -30,7 +30,7 @@
 			<a href="/signup/">Sign Up</a>
 		</div>
 		<div id="logo">
-			<h1>OnlyEggrolls Signup</h1>
+			<h1>OnlyEggrolls Signup/Login</h1>
 		</div>
 	</div>
 
@@ -40,7 +40,7 @@
 
 			<!-- Rounded switch -->
 			<input style="zoom: 2; margin-right: 10px;" id="loginBox" type="checkbox" value="Login" onclick="switchBox()">
-			<label for="loginBox" style="font-size: 30px;">Sign Up</label><br>
+			<label for="loginBox" style="font-size: 30px;">Create Account/Sign Up</label><br>
 
 			<hr>
 
@@ -91,11 +91,17 @@
 			</div>
 
 
-			<button class="button is-block is-danger is-large" onclick="submit();">Sign Up/Login</button>
+			<button class="button is-block is-primary is-large" onclick="submit();">Sign Up/Login</button>
 
 		</div>
 
+
+		<div class="box" style="display: hidden;" id="accountInfo">
+		</div>
+
 	</div>
+
+
 
 	<script src="../index.js"></script>
 	<script src="index.js"></script>

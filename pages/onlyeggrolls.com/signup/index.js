@@ -45,3 +45,18 @@ async function switchBox() {
 		signupField.style.display = "none";
 	}
 }
+
+
+const accountInfo = document.getElementById("accountInfo");
+async function checkAccountInfo() {
+	const res = await fetch("/api/accountInfo")
+
+	if (res.status != 200) {
+		accountInfo.innerHTML = "You are currently not signed in.";
+	} else {
+		const response = await res.json();
+		accountInfo.innerText = "You are already signed in under: " + response["email"];
+	}
+}
+
+checkAccountInfo();
