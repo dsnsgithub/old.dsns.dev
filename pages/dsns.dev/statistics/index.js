@@ -104,7 +104,7 @@ async function refreshPlayerList() {
 		const IGN = result["name"];
 
 		button.style.position = "relative";
-		button.innerHTML = `<h2>${IGN}</h2><img src="https://mc-heads.net/avatar/${uuid}" width="30px" style="margin-left: 10px">`;
+		button.innerHTML = `<img src="https://mc-heads.net/avatar/${uuid}" width="30px" style="margin-right: 15px"><h2>${IGN}</h2>`;
 		button.innerHTML += `<button style="position: absolute; left: 85%;" class="button is-ghost" onClick="remove('${uuid}')">❌</button>`;
 		button.setAttribute("onClick", `toggle("${uuid}")`);
 
