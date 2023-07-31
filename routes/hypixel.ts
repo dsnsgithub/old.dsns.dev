@@ -70,7 +70,7 @@ module.exports = function (app: Express) {
 			if (database[req.params.uuid]) return res.json(database[req.params.uuid]);
 
 			const result = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${req.params.uuid}`);
-			if (!result["data"]["name"]) return res.json({ error: "UUID doesn't exist." });
+			if (!result["data"]["name"]) return res.status(400).json({ error: "UUID doesn't exist." });
 
 			database[req.params.uuid] = [];
 			fs.writeFileSync(`${__dirname}/../json/levels.json`, JSON.stringify(database));
