@@ -434,7 +434,9 @@ module.exports = function (app: Express) {
 			const compare = await bcrypt.compare(req.body["password"], loginDatabase[req.body["email"]]["password"]);
 			if (!compare) return res.status(400).send("Incorrect password.");
 
-			res.cookie("uuid", loginDatabase[req.body["email"]]["uuid"]);
+			res.cookie("uuid", loginDatabase[req.body["email"]]["uuid"], {
+				maxAge: 1000 * 60 * 60 * 24 * 365
+			});
 			return res.status(200).send("Logged in as: " + req.body["email"]);
 		} catch (error: any) {
 			console.error("\x1b[31m" + "Error: Broken (POST) /api/signup: " + (error.stack || error) + "\x1b[0m");
