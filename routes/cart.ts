@@ -129,7 +129,10 @@ module.exports = function (app: Express) {
 			const cartDatabase: CartDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname + "/../json/cart.json"), "utf8"));
 			const uuid = crypto.randomBytes(20).toString("hex");
 
-			res.cookie("uuid", uuid);
+			res.cookie("uuid", uuid, {
+				maxAge: 1000 * 60 * 60 * 24 * 365
+			});
+
 			cartDatabase[uuid] = defaultCart;
 
 			fs.writeFileSync(path.resolve(__dirname + "/../json/cart.json"), JSON.stringify(cartDatabase));
