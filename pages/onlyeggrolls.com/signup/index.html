@@ -36,68 +36,74 @@
 
 
 	<div class="container">
-		<div class="box">
+		<section class="section">
+			<div class="box" id="chooseSection">
+				<div class="columns">
+					<div class="column has-text-centered">
+						<button class="button is-large is-primary" id="signUpButton">Sign Up</button>
+					</div>
 
-			<!-- Rounded switch -->
-			<input style="zoom: 2; margin-right: 10px;" id="loginBox" type="checkbox" value="Login" onclick="switchBox()">
-			<label for="loginBox" style="font-size: 30px;">Create Account/Sign Up</label><br>
-
-			<hr>
-
-			<div class="field">
-				<div class="control">
-					<input class="input is-large" type="email" placeholder="Email" autofocus="" id="email">
-				</div>
-			</div>
-			<div class="field">
-				<div class="control">
-					<input class="input is-large" type="password" placeholder="Password" id="password">
+					<div class="column has-text-centered">
+						<button class="button is-large is-info" id="loginButton">Login</button>
+					</div>
 				</div>
 			</div>
 
-			<div id="signup-field" style="display: none;">
-				<hr>
+			<!-- Only visible when a button is clicked. -->
+			<div class="box" style="display: none; margin-left: 10%; margin-right: 10%;" id="loginSection">
 				<div class="field">
 					<div class="control">
-						<input class="input is-large" type="number" placeholder="Credit Card Number" id="CCN">
+						<input class="input is-large" type="email" placeholder="Email" autofocus="" id="email">
 					</div>
 				</div>
 				<div class="field">
 					<div class="control">
-						<input class="input is-large" type="number" placeholder="CVV" id="CVV">
+						<input class="input is-large" type="password" placeholder="Password" id="password">
 					</div>
 				</div>
 
-				<div class="field">
-					<div class="control">
-						<input class="input is-large" type="text" placeholder="Address" id="address">
+				<div id="signUpSection">
+					<div class="field">
+						<div class="control">
+							<input class="input is-large" type="number" placeholder="Credit Card Number" id="CCN">
+						</div>
+					</div>
+					<div class="field">
+						<div class="control">
+							<input class="input is-large" type="number" placeholder="CVV" id="CVV">
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="control">
+							<input class="input is-large" type="text" placeholder="Address" id="address">
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="control">
+							<input class="input is-large" type="number" placeholder="Zip Code" id="zipCode">
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="control">
+							<input class="input is-large" type="text" placeholder="Full Name" id="fullName">
+						</div>
 					</div>
 				</div>
 
-				<div class="field">
-					<div class="control">
-						<input class="input is-large" type="number" placeholder="Zip Code" id="zipCode">
-					</div>
-				</div>
-
-				<div class="field">
-					<div class="control">
-						<input class="input is-large" type="text" placeholder="Full Name" id="fullName">
-					</div>
-				</div>
-
-				<br>
-
+				<button id="submitButton" class="button is-block is-link is-medium" style="margin-top: 25px;" onclick="submit();">Submit</button>
 			</div>
+		</section>
 
-
-			<button class="button is-block is-primary is-large" onclick="submit();">Sign Up/Login</button>
-
-		</div>
-
-
-		<div class="box" style="display: hidden;" id="accountInfo">
-		</div>
+		<section class="section">
+			<div class="columns">
+				<div class="column is-half is-offset-one-quarter">
+					<div class="box has-text-centered" id="accountInfo"></div>
+				</div>
+			</div>
+		</section>
 
 	</div>
 

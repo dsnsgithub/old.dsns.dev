@@ -35,16 +35,25 @@ async function submit() {
 	}
 }
 
-async function switchBox() {
-	const signupField = document.getElementById("signup-field");
-	const loginBox = document.getElementById("loginBox");
+const signUpButton = document.getElementById("signUpButton");
+const loginButton = document.getElementById("loginButton");
+const submitButton = document.getElementById("submitButton");
 
-	if (loginBox.checked) {
-		signupField.style.display = "block";
-	} else {
-		signupField.style.display = "none";
-	}
-}
+const loginSection = document.getElementById("loginSection");
+const signUpSection = document.getElementById("signUpSection");
+
+signUpButton.addEventListener("click", async () => {
+	signUpSection.style.display = "block";
+	loginSection.style.display = "block";
+	submitButton.innerHTML = "Sign Up"
+	submitButton.classList.add("");
+})
+
+loginButton.addEventListener("click", async () => {
+	signUpSection.style.display = "none";
+	loginSection.style.display = "block";
+	submitButton.innerHTML = "Login";
+});
 
 
 const accountInfo = document.getElementById("accountInfo");
