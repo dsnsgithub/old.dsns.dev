@@ -305,7 +305,7 @@ function populateModal(scheduleDB) {
 			window.localStorage.setItem("periodNames", JSON.stringify(periodNames));
 
 			clearInterval(timer);
-			run();
+			run(false);
 		});
 
 		field.appendChild(label);
@@ -320,16 +320,18 @@ const reset = document.getElementById("reset");
 reset.addEventListener("click", async () => {
 	clearInterval(timer);
 	localStorage.clear();
-	run();
+	run(true);
 })
 
 let timer;
-async function run() {
+async function run(completeRefresh) {
 	const scheduleDB = await grabSchedules();
 	if (!window.localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
 	if (!window.localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
 
-	populateModal(scheduleDB);
+	if (completeRefresh) {
+		populateModal(scheduleDB);
+	}
 
 	// Check for summer
 	if (new Date(scheduleDB["about"]["endDate"]).getTime() < new Date().getTime() && new Date(scheduleDB["about"]["startDate"]).getTime() > new Date().getTime()) {
@@ -351,4 +353,4 @@ async function run() {
 	}, 1000);
 }
 
-run();
+run(true);
