@@ -13,3 +13,6 @@ max_line_length = 200
 
 [*.txt]
 insert_final_newline = false
+
+[*.py]
+indent_style = space
