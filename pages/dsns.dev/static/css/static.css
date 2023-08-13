@@ -27,77 +27,75 @@ html.has-navbar-fixed-top {
 	min-height: calc(100vh - 5rem);
 }
 
-@media screen and (min-width: 1024px) {
-	@font-face {
-		font-family: "icomoon";
-		src: url("/static/fonts/icomoon.woff") format("woff");
-	}
+@font-face {
+	font-family: "icomoon";
+	src: url("/static/fonts/icomoon.woff") format("woff");
+}
 
-	[class^="icon-"],
-	[class*=" icon-"] {
-		font-family: "icomoon" !important;
-		font-weight: normal;
-		font-style: normal;
-		font-size: 24px;
-		line-height: 1;
-		letter-spacing: normal;
-		text-transform: none;
-		display: inline-block;
-		white-space: nowrap;
-		word-wrap: normal;
-		direction: ltr;
-		margin-right: 6px;
-	}
+[class^="icon-"],
+[class*=" icon-"] {
+	font-family: "icomoon" !important;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	margin-right: 6px;
+}
 
-	.icon-wifi_find:before {
-		content: "\e90e";
-	}
-	.icon-calendar:before {
-		content: "\e902";
-	}
-	.icon-compass:before {
-		content: "\e910";
-	}
-	.icon-watch:before {
-		content: "\e903";
-	}
-	.icon-queue_music:before {
-		content: "\e90f";
-	}
-	.icon-videocam:before {
-		content: "\e905";
-	}
-	.icon-cake:before {
-		content: "\e907";
-	}
-	.icon-dns:before {
-		content: "\e90c";
-	}
-	.icon-home:before {
-		content: "\e904";
-	}
-	.icon-redeem:before {
-		content: "\e908";
-	}
-	.icon-translate:before {
-		content: "\e901";
-	}
-	.icon-speed:before {
-		content: "\e90d";
-	}
-	.icon-calculate:before {
-		content: "\e906";
-	}
-	.icon-electric_car:before {
-		content: "\e900";
-	}
-	.icon-person_search:before {
-		content: "\e90b";
-	}
-	.icon-source:before {
-		content: "\e909";
-	}
-	.icon-stacked_line_chart:before {
-		content: "\e90a";
-	}
+.icon-wifi_find:before {
+	content: "\e90e";
+}
+.icon-calendar:before {
+	content: "\e902";
+}
+.icon-compass:before {
+	content: "\e910";
+}
+.icon-watch:before {
+	content: "\e903";
+}
+.icon-queue_music:before {
+	content: "\e90f";
+}
+.icon-videocam:before {
+	content: "\e905";
+}
+.icon-cake:before {
+	content: "\e907";
+}
+.icon-dns:before {
+	content: "\e90c";
+}
+.icon-home:before {
+	content: "\e904";
+}
+.icon-redeem:before {
+	content: "\e908";
+}
+.icon-translate:before {
+	content: "\e901";
+}
+.icon-speed:before {
+	content: "\e90d";
+}
+.icon-calculate:before {
+	content: "\e906";
+}
+.icon-electric_car:before {
+	content: "\e900";
+}
+.icon-person_search:before {
+	content: "\e90b";
+}
+.icon-source:before {
+	content: "\e909";
+}
+.icon-stacked_line_chart:before {
+	content: "\e90a";
 }
