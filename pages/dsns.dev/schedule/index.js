@@ -8,6 +8,8 @@ function createCustomDate(inputTime) {
 	let hour = parseInt(inputHourRaw);
 	if (isPM && hour !== 12) {
 		hour += 12;
+	} else if (hour == 12) {
+		hour -= 12;
 	}
 
 	currentDate.setHours(hour, parseInt(inputMinute), 0, 0);
@@ -83,6 +85,11 @@ function getDayIndices(daysArray) {
 
 async function grabSchedules() {
 	const scheduleDB = {
+		about: {
+			startDate: "6/5/2023",
+			endDate: "8/10/2023",
+			avaliablePeriods: ["1", "2", "3", "4", "5", "6", "B"]
+		},
 		regular: {
 			days: getDayIndices(["monday", "tuesday", "friday"])
 		},
@@ -116,6 +123,8 @@ async function grabSchedules() {
 	};
 
 	for (const scheduleName in scheduleDB) {
+		if (scheduleName == "about") continue;
+
 		const schedule = await fetch(`dvhs/${scheduleName}.txt`)
 			.then((res) => res.text())
 			.then((data) => data.split("\n"));
@@ -123,6 +132,10 @@ async function grabSchedules() {
 		scheduleDB[scheduleName]["times"] = [];
 		for (const line of schedule) {
 			let [periodName, startTime, endTime] = line.split(" ");
+
+			if (checkifInRemovedPeriods(periodName)) continue;
+
+			periodName = lookupCustomPeriod(periodName);
 
 			if (periodName.length == 1) {
 				periodName = `${getOrdinalNumber(periodName)} period`;
@@ -139,6 +152,8 @@ async function grabSchedules() {
 		}
 	}
 
+	scheduleDB["about"]["avaliablePeriods"] = scheduleDB["about"]["avaliablePeriods"].filter((element) => !checkifInRemovedPeriods(element));
+
 	return scheduleDB;
 }
 
@@ -149,6 +164,7 @@ async function findCorrectSchedule(scheduleDB) {
 	let mostSpecificDate = null;
 
 	for (const schedule in scheduleDB) {
+		if (schedule == "about") continue;
 		const days = scheduleDB[schedule]["days"];
 
 		for (const day of days) {
@@ -181,7 +197,7 @@ async function countdown(scheduleTimes) {
 	if (scheduleTimes[0]["startTime"] > currentTime) {
 		const timeTil = timeBetweenDates(currentTime, scheduleTimes[0]["startTime"]);
 
-		periodElem.innerHTML = `${scheduleTimes[0]["periodName"]} will start in ${timeTil}`;
+		periodElem.innerHTML = `${scheduleTimes[0]["periodName"].replace(/</g, "&lt;").replace(/>/g, "&gt;")} will start in ${timeTil}`;
 		timeElem.innerHTML = "Make sure to complete your homework!";
 		return;
 	}
@@ -199,9 +215,12 @@ async function countdown(scheduleTimes) {
 
 		if (period["startTime"] <= currentTime && period["endTime"] >= currentTime) {
 			if (nextPeriod) {
-				periodElem.innerHTML = `${period["periodName"]} is in session. <br>${nextPeriod["periodName"]} will start in ${timeBetweenDates(currentTime, period["endTime"])}.`;
+				periodElem.innerHTML = `${period["periodName"].replace(/</g, "&lt;").replace(/>/g, "&gt;")} is in session. <br>${nextPeriod["periodName"]} will start in ${timeBetweenDates(
+					currentTime,
+					period["endTime"]
+				)}.`;
 			} else {
-				periodElem.innerHTML = `${period["periodName"]} is in session. <br>School will end in ${timeBetweenDates(currentTime, period["endTime"])}.`;
+				periodElem.innerHTML = `${period["periodName"].replace(/</g, "&lt;").replace(/>/g, "&gt;")} is in session. <br>School will end in ${timeBetweenDates(currentTime, period["endTime"])}.`;
 			}
 
 			timeElem.innerHTML = `${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`;
@@ -210,16 +229,115 @@ async function countdown(scheduleTimes) {
 	}
 }
 
+function lookupCustomPeriod(periodName) {
+	if (!window.localStorage.getItem("periodNames")) return periodName;
+	const periodNames = JSON.parse(window.localStorage.getItem("periodNames"));
+
+	return periodNames[periodName] || periodName;
+}
+
+function createAvaliablePeriodsDB(scheduleDB) {
+	let entry = {};
+	const avaliablePeriods = scheduleDB["about"]["avaliablePeriods"];
+
+	for (const period of avaliablePeriods) {
+		entry[period] = null;
+	}
+
+	window.localStorage.setItem("periodNames", JSON.stringify(entry));
+}
+
+function createRemovedPeriodsDB() {
+	window.localStorage.setItem("removedPeriods", JSON.stringify([]));
+}
+
+function checkifInRemovedPeriods(period) {
+	if (!window.localStorage.getItem("removedPeriods")) return false;
+
+	const removedPeriodNames = JSON.parse(window.localStorage.getItem("removedPeriods"));
+	return removedPeriodNames.includes(period);
+}
+
+const customizeFormElem = document.getElementById("customizeForm");
+function populateModal(scheduleDB) {
+	customizeFormElem.innerHTML = "";
+	const periodNames = JSON.parse(window.localStorage.getItem("periodNames"));
+
+	for (const period of scheduleDB["about"]["avaliablePeriods"]) {
+		let cleanPeriod = "";
+		if (period.length == 1) {
+			cleanPeriod = `${getOrdinalNumber(period)} period`;
+		}
+		// <label class="subtitle">1st Period:</label>
+		// <input class="subtitle" type="text">
+
+		const field = document.createElement("div");
+		field.className = "field";
+
+		const label = document.createElement("label");
+		label.textContent = cleanPeriod;
+		label.className = "label";
+		label.style.display = "inline-block";
+
+		const button = document.createElement("button");
+		button.className = "button is-ghost";
+		button.innerHTML = "❌";
+		button.style.marginTop = "-8px";
+
+		button.addEventListener("click", async () => {
+			const removedPeriodNames = JSON.parse(window.localStorage.getItem("removedPeriods"));
+			removedPeriodNames.push(period);
+
+			window.localStorage.setItem("removedPeriods", JSON.stringify(removedPeriodNames));
+		});
+
+		const input = document.createElement("input");
+		input.placeholder = cleanPeriod;
+		input.className = "input";
+		input.type = "text";
+		input.id = period;
+		input.value = periodNames[period] || "";
+
+		input.addEventListener("change", async () => {
+			const periodNames = JSON.parse(window.localStorage.getItem("periodNames"));
+			periodNames[period] = input.value;
+
+			window.localStorage.setItem("periodNames", JSON.stringify(periodNames));
+
+			clearInterval(timer);
+			run();
+		});
+
+		field.appendChild(label);
+		field.appendChild(button);
+		field.appendChild(input);
+		customizeFormElem.appendChild(field);
+	}
+}
+
+
+const reset = document.getElementById("reset");
+reset.addEventListener("click", async () => {
+	clearInterval(timer);
+	localStorage.clear();
+	run();
+})
+
+let timer;
 async function run() {
+	const scheduleDB = await grabSchedules();
+	if (!window.localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
+	if (!window.localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
+
+	populateModal(scheduleDB);
+
 	// Check for summer
-	if (new Date("6/5/2023").getTime() < new Date().getTime() && new Date("8/10/2023").getTime() > new Date().getTime()) {
+	if (new Date(scheduleDB["about"]["endDate"]).getTime() < new Date().getTime() && new Date(scheduleDB["about"]["startDate"]).getTime() > new Date().getTime()) {
 		periodElem.innerHTML = "No School!";
 		timeElem.innerHTML = "Enjoy your summer!";
 	}
 
-	const scheduleDB = await grabSchedules();
 	const correctScheduleName = await findCorrectSchedule(scheduleDB);
-	console.log(correctScheduleName);
 	if (correctScheduleName == null) {
 		periodElem.innerHTML = "No School!";
 		timeElem.innerHTML = "Enjoy your time off!";
@@ -228,7 +346,7 @@ async function run() {
 
 	const scheduleTimes = scheduleDB[correctScheduleName]["times"];
 	countdown(scheduleTimes);
-	setInterval(() => {
+	timer = setInterval(() => {
 		countdown(scheduleTimes);
 	}, 1000);
 }

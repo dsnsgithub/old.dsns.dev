@@ -24,6 +24,12 @@
 	<script defer src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
 	<script defer src="/static/ga.js"></script>
 
+
+	<!-- Modal script -->
+	<script>
+		document.addEventListener("DOMContentLoaded", () => { function e(e) { e.classList.remove("is-active") } (document.querySelectorAll(".js-modal-trigger") || []).forEach(e => { const t = e.dataset.target, d = document.getElementById(t); e.addEventListener("click", () => { !function (e) { e.classList.add("is-active") }(d) }) }), (document.querySelectorAll(".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button") || []).forEach(t => { const d = t.closest(".modal"); t.addEventListener("click", () => { e(d) }) }), document.addEventListener("keydown", t => { 27 === (t || window.event).keyCode && (document.querySelectorAll(".modal") || []).forEach(t => { e(t) }) }) });
+	</script>
+
 </head>
 
 <body>
@@ -108,9 +114,25 @@
 				<div class="box has-text-centered">
 					<h1 class="title" id="period"></h1>
 					<h2 class="subtitle" id="timeRange"></h2>
+					<button class="button is-primary js-modal-trigger" data-target="customizeModal"><span class="icon-dns"></span>Customize Period Names</button>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div class="modal" id="customizeModal">
+		<div class="modal-background"></div>
+
+		<div class="modal-content">
+			<div class="box">
+				<h1 class="title">Customize Period Names</h1>
+				<button class="button is-danger" style="float: right; margin-top:-60px;" id="reset">Reset</button>
+				<form id="customizeForm">
+				</form>
+			</div>
+		</div>
+
+		<button class="modal-close is-large" aria-label="close"></button>
 	</div>
 
 	<script src="index.js"></script>
