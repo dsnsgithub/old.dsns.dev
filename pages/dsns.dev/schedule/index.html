@@ -3,30 +3,27 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Internet Speedtest</title>
+	<title>School Schedule</title>
 
-	<link rel="stylesheet" href="min.css">
-	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="/static/css/bulma.min.css">
 	<link rel="stylesheet" href="/static/css/static.css">
+
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="School Schedule" />
+	<meta property="og:description" content="This web app keeps you informed on your school schedule so you know when the next period starts." />
+	<meta name="description" content="This web app keeps you informed on your school schedule so you know when the next period starts." />
+	<meta property="og:url" content="https://dsns.dev/schedule/" />
+	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
 
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Internet Speedtest" />
-	<meta property="og:description" content="This web app is a bloat-free speedtest." />
-	<meta name="description" content="This web app is a bloat-free speedtest." />
-	<meta property="og:url" content="https://dsns.dev/speedtest/" />
-	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
-
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script defer src="https://www.googletagmanager.com/gtag/js?id=G-VCKBLC2CHC"></script>
 	<script defer src="/static/ga.js"></script>
 
-	<script src="speedtest.js"></script>
 </head>
 
 <body>
@@ -105,59 +102,19 @@
 		</div>
 	</nav>
 
-
-	<section class="hero is-fullheight-with-navbar">
-		<div class="hero-body">
-			<div class="container">
+	<div class="container">
+		<div class="columns">
+			<div class="column is-half is-offset-one-quarter">
 				<div class="box has-text-centered">
-					<div class="columns">
-						<div class="column">
-							<h2>Download Speed:</h2>
-							<h2 id="download">...</h2>
-						</div>
-						<div class="column">
-							<h2>Upload Speed:</h2>
-							<h2 id="upload">...</h2>
-						</div>
-					</div>
-
-					<hr>
-
-					<div class="columns">
-						<div class="column">
-							<h2>Ping:</h2>
-							<h2 id="ping">...</h2>
-						</div>
-						<div class="column">
-							<h2>Jitter:</h2>
-							<h2 id="jitter">...</h2>
-						</div>
-					</div>
-					<button class="button is-primary" style="font-size: 30px;" id="start">
-						Start Speedtest!
-					</button>
+					<h1 class="title" id="period"></h1>
+					<h2 class="subtitle" id="timeRange"></h2>
 				</div>
-
-				<div class="box has-text-centered">
-					<div class="columns">
-						<div class="column">
-							<h3 class="title">Status:</h3>
-							<p style="text-align: center; font-size: 25px;" id="status"></p>
-						</div>
-						<div class="column">
-							<h3 class="title">ISP Info:</h3>
-							<p style="text-align: center; font-size: 25px;" id="ispinfo"></p>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
+	</div>
 
-		<script src="index.js"></script>
-
-	</section>
-
+	<script src="index.js"></script>
 </body>
+
 
 </html>

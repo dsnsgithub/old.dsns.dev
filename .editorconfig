@@ -10,3 +10,6 @@ indent_style = tab
 indent_size = 4
 trim_trailing_whitespace = true
 max_line_length = 200
+
+[*.txt]
+insert_final_newline = false

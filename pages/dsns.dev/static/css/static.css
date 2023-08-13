@@ -58,6 +58,9 @@ html.has-navbar-fixed-top {
 	.icon-compass:before {
 		content: "\e910";
 	}
+	.icon-watch:before {
+		content: "\e903";
+	}
 	.icon-queue_music:before {
 		content: "\e90f";
 	}
