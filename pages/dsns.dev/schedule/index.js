@@ -86,7 +86,7 @@ function getDayIndices(daysArray) {
 }
 
 function cleanXSS(input) {
-	return cleanXSS.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 //? Schedule Functions -------------------------------------------------------------
