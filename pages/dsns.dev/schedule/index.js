@@ -213,7 +213,8 @@ async function countdown(scheduleTimes) {
 		return;
 	}
 
-	for (const periodIndex in scheduleTimes) {
+	for (let periodIndex in scheduleTimes) {
+		periodIndex = Number(periodIndex)
 		const period = scheduleTimes[periodIndex];
 		const nextPeriod = scheduleTimes[periodIndex + 1];
 
