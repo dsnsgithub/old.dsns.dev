@@ -10,7 +10,7 @@ function createCustomDate(inputTime) {
 	let hour = parseInt(inputHourRaw);
 	if (isPM && hour !== 12) {
 		hour += 12;
-	} else if (hour == 12) {
+	} else if (hour == 12 && !isPM) {
 		hour -= 12;
 	}
 
