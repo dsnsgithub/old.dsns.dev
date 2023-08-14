@@ -33,7 +33,10 @@ function timeBetweenDates(firstDate, secondDate) {
 	let seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
 	if (seconds < 10) seconds = `0${seconds}`;
-	if (!hours) return `${minutes}:${seconds}`;
+	if (!hours) {
+		if (minutes < 10) minutes = `0${minutes}`;
+		return `${minutes}:${seconds}`
+	};
 
 	return `${hours}:${minutes}:${seconds}`;
 }
