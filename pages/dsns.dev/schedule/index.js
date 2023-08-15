@@ -35,8 +35,8 @@ function timeBetweenDates(firstDate, secondDate) {
 	if (seconds < 10) seconds = `0${seconds}`;
 	if (!hours) {
 		if (minutes < 10) minutes = `0${minutes}`;
-		return `${minutes}:${seconds}`
-	};
+		return `${minutes}:${seconds}`;
+	}
 
 	return `${hours}:${minutes}:${seconds}`;
 }
@@ -214,18 +214,29 @@ async function countdown(scheduleTimes) {
 	}
 
 	for (let periodIndex in scheduleTimes) {
-		periodIndex = Number(periodIndex)
+		periodIndex = Number(periodIndex);
 		const period = scheduleTimes[periodIndex];
 		const nextPeriod = scheduleTimes[periodIndex + 1];
 
 		if (period["startTime"] <= currentTime && period["endTime"] >= currentTime) {
 			if (nextPeriod) {
-				periodElem.innerHTML = `${cleanXSS(period["periodName"])} is in session. <br>${cleanXSS(nextPeriod["periodName"])} will start in ${timeBetweenDates(currentTime, period["endTime"])}.`;
+				periodElem.innerHTML = `${cleanXSS(period["periodName"])} is in session. <br>${cleanXSS(nextPeriod["periodName"])} will start in ${timeBetweenDates(
+					currentTime,
+					nextPeriod["startTime"]
+				)}.`;
 			} else {
 				periodElem.innerHTML = `${cleanXSS(period["periodName"])} is in session. <br>School will end in ${timeBetweenDates(currentTime, period["endTime"])}.`;
 			}
 
 			timeElem.innerHTML = `${formatDate(period["startTime"])} to ${formatDate(period["endTime"])}`;
+			return;
+		}
+
+		// if there is a break in the schedule
+		if (nextPeriod && period["endTime"] < currentTime && nextPeriod["startTime"] > currentTime) {
+			period.innerHTML = `${cleanXSS(nextPeriod["periodName"])} will start in ${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`;
+			timeElem.innerHTML = `${formatDate(nextPeriod["startTime"])} to ${formatDate(nextPeriod["endTime"])}`;
+
 			return;
 		}
 	}
