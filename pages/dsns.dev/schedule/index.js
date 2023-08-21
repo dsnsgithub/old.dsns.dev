@@ -354,7 +354,7 @@ function populateScheduleSection(schedule, name) {
 
 	const times = schedule["times"];
 	const table = document.createElement("table");
-	table.classList = "table is-bordered is-hoverable is-fullwidth";
+	table.classList = "table is-striped is-bordered is-hoverable is-fullwidth";
 	table.createTBody();
 
 	for (const period of times) {
