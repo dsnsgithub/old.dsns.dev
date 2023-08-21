@@ -101,33 +101,43 @@ async function grabSchedules() {
 			avaliablePeriods: ["1", "2", "3", "4", "5", "6", "B"]
 		},
 		regular: {
+			officialName: "Regular",
 			days: getDayIndices(["monday", "tuesday", "friday"])
 		},
 		wednesday: {
+			officialName: "Wednesday Block",
 			days: getDayIndices(["wednesday"])
 		},
 		thursday: {
+			officialName: "Thursday Block",
 			days: getDayIndices(["thursday"])
 		},
 		minimum: {
+			officialName: "Minimum Day",
 			days: ["8/10", "6/5"]
 		},
 		rally: {
+			officialName: "Rally",
 			days: ["8/18", "10/13", "2/16", "5/28"]
 		},
 		assembly: {
+			officialName: "Assembly",
 			days: ["10/3"]
 		},
 		"finalShort1+4": {
+			officialName: "Final Periods 1/4",
 			days: ["12/18", "6/3"]
 		},
 		"finalShort2+5": {
+			officialName: "Final Periods 2/5",
 			days: ["12/19", "6/4"]
 		},
 		"finalShort3+6": {
+			officialName: "Final Periods 3/6",
 			days: ["12/20", "6/5"]
 		},
 		finalReverse: {
+			officialName: "B Period Final - Reverse",
 			days: ["12/15", "5/31"]
 		}
 	};
@@ -140,19 +150,29 @@ async function grabSchedules() {
 			.then((data) => data.split("\n"));
 
 		scheduleDB[scheduleName]["times"] = [];
-		for (const line of schedule) {
-			let [periodName, startTime, endTime] = line.split(" ");
-			if (checkRemovedPeriods(periodName)) continue;
+		for (const index in schedule) {
+			const line = schedule[index];
+			let [rawPeriodName, startTime, endTime] = line.split(" ");
+			if (checkRemovedPeriods(rawPeriodName)) continue;
 
-			periodName = findCorrectPeriodName(periodName);
+			let periodName = findCorrectPeriodName(rawPeriodName);
 			if (periodName.length == 1) {
 				periodName = `${getOrdinalNumber(periodName)} period`;
 			}
 			if (periodName == "Passing") {
+				if (!schedule[index + 1]) continue;
+
+				periodName += " period";
+			}
+
+			if (periodName == "Break") {
+				if (!schedule[index + 1]) continue;
+
 				periodName += " period";
 			}
 
 			scheduleDB[scheduleName]["times"].push({
+				rawPeriodName: rawPeriodName,
 				periodName: periodName,
 				startTime: createCustomDate(startTime),
 				endTime: createCustomDate(endTime)
@@ -161,12 +181,12 @@ async function grabSchedules() {
 	}
 
 	scheduleDB["about"]["avaliablePeriods"] = scheduleDB["about"]["avaliablePeriods"].filter((element) => !checkRemovedPeriods(element));
+
 	return scheduleDB;
 }
 
-async function findCorrectSchedule(scheduleDB) {
-	const currentTime = new Date();
-	const dayofTheWeek = currentTime.getDay();
+async function findCorrectSchedule(scheduleDB, currentDate) {
+	const dayofTheWeek = currentDate.getDay();
 	let mostSpecificSchedule = null;
 	let mostSpecificDate = null;
 
@@ -183,7 +203,7 @@ async function findCorrectSchedule(scheduleDB) {
 					}
 				}
 			} else {
-				if (sameDay(currentTime, new Date(`${day}/${currentTime.getFullYear()}`))) {
+				if (sameDay(currentDate, new Date(`${day}/${currentDate.getFullYear()}`))) {
 					mostSpecificSchedule = schedule;
 					mostSpecificDate = dayofTheWeek;
 				}
@@ -325,6 +345,36 @@ function populateModal(scheduleDB) {
 	}
 }
 
+const scheduleSection = document.getElementById("scheduleBox");
+const currentSchedule = document.getElementById("currentSchedule");
+const scheduleName = document.getElementById("scheduleName");
+const scheduleTitle = document.getElementById("scheduleTitle");
+
+function populateScheduleSection(schedule, name) {
+	scheduleName.innerText = schedule["officialName"];
+	scheduleTitle.innerText = name;
+
+	const times = schedule["times"];
+	const table = document.createElement("table");
+	table.classList = "table is-bordered is-hoverable is-fullwidth";
+	table.createTBody();
+
+	for (const period of times) {
+		const row = table.insertRow();
+		row.insertCell().innerText = period["rawPeriodName"];
+		row.insertCell().innerText = formatDate(period["startTime"]);
+		row.insertCell().innerText = formatDate(period["endTime"]);
+	}
+
+	currentSchedule.appendChild(table);
+	scheduleSection.style.display = "block";
+}
+
+async function populateTomorrowSection(scheduleDB, currentDate) {
+	const tomorrowScheduleName = await findCorrectSchedule(scheduleDB, new Date(currentDate.setDate(currentDate.getDate() + 1)));
+	if (tomorrowScheduleName != null) populateScheduleSection(scheduleDB[tomorrowScheduleName], `Tomorrow's Schedule`);
+}
+
 let timer;
 const periodElem = document.getElementById("period");
 const timeElem = document.getElementById("timeRange");
@@ -332,6 +382,10 @@ const customizeFormElem = document.getElementById("customizeForm");
 const reset = document.getElementById("reset");
 
 async function run(completeRefresh) {
+	const currentDate = new Date();
+	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 4))
+	const currentTime = currentDate.getTime();
+
 	const scheduleDB = await grabSchedules();
 	if (!window.localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
 	if (!window.localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
@@ -341,15 +395,20 @@ async function run(completeRefresh) {
 	}
 
 	// Check for summer
-	if (new Date(scheduleDB["about"]["endDate"]).getTime() < new Date().getTime() && new Date(scheduleDB["about"]["startDate"]).getTime() > new Date().getTime()) {
+	if (new Date(scheduleDB["about"]["endDate"]).getTime() < currentTime && new Date(scheduleDB["about"]["startDate"]).getTime() > currentTime) {
 		periodElem.innerHTML = "No School!";
 		timeElem.innerHTML = "Enjoy your summer!";
+
+		await populateTomorrowSection(scheduleDB, currentDate);
+		return;
 	}
 
-	const correctScheduleName = await findCorrectSchedule(scheduleDB);
+	const correctScheduleName = await findCorrectSchedule(scheduleDB, currentDate);
 	if (correctScheduleName == null) {
 		periodElem.innerHTML = "No School!";
 		timeElem.innerHTML = "Enjoy your time off!";
+
+		await populateTomorrowSection(scheduleDB, currentDate);
 		return;
 	}
 
@@ -358,6 +417,13 @@ async function run(completeRefresh) {
 	timer = setInterval(() => {
 		countdown(scheduleTimes);
 	}, 1000);
+
+	// School is over
+	if (scheduleDB[correctScheduleName]["times"][scheduleTimes.length - 1]["endTime"] < currentTime) {
+		await populateTomorrowSection(scheduleDB, currentDate);
+	} else {
+		populateScheduleSection(scheduleDB[correctScheduleName], `Today's Schedule`);
+	}
 }
 
 reset.addEventListener("click", async () => {
