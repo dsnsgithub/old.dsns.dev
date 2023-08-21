@@ -150,26 +150,13 @@ async function grabSchedules() {
 			.then((data) => data.split("\n"));
 
 		scheduleDB[scheduleName]["times"] = [];
-		for (const index in schedule) {
-			const line = schedule[index];
+		for (const line of schedule) {
 			let [rawPeriodName, startTime, endTime] = line.split(" ");
 			if (checkRemovedPeriods(rawPeriodName)) continue;
 
 			let periodName = findCorrectPeriodName(rawPeriodName);
-			if (periodName.length == 1) {
-				periodName = `${getOrdinalNumber(periodName)} period`;
-			}
-			if (periodName == "Passing") {
-				if (!schedule[index + 1]) continue;
-
-				periodName += " period";
-			}
-
-			if (periodName == "Break") {
-				if (!schedule[index + 1]) continue;
-
-				periodName += " period";
-			}
+			if (periodName.length == 1) periodName = `${getOrdinalNumber(periodName)} period`;
+			if (periodName == "Passing") continue;
 
 			scheduleDB[scheduleName]["times"].push({
 				rawPeriodName: rawPeriodName,
@@ -177,6 +164,17 @@ async function grabSchedules() {
 				startTime: createCustomDate(startTime),
 				endTime: createCustomDate(endTime)
 			});
+		}
+
+		const times = scheduleDB[scheduleName]["times"];
+		const firstPeriod = times[0]["periodName"];
+		const lastPeriod = times[times.length - 1]["periodName"];
+		if (firstPeriod == "Break") {
+			times.shift();
+		}
+
+		if (lastPeriod == "Break") {
+			times.pop();
 		}
 	}
 
@@ -361,7 +359,7 @@ function populateScheduleSection(schedule, name) {
 
 	for (const period of times) {
 		const row = table.insertRow();
-		row.insertCell().innerText = period["rawPeriodName"];
+		row.insertCell().innerText = period["periodName"];
 		row.insertCell().innerText = formatDate(period["startTime"]);
 		row.insertCell().innerText = formatDate(period["endTime"]);
 	}
@@ -390,7 +388,7 @@ const reset = document.getElementById("reset");
 
 async function run(completeRefresh) {
 	const currentDate = new Date();
-	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 4))
+	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 3))
 	const currentTime = currentDate.getTime();
 
 	const scheduleDB = await grabSchedules();
