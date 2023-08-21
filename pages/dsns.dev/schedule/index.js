@@ -366,6 +366,13 @@ function populateScheduleSection(schedule, name) {
 		row.insertCell().innerText = formatDate(period["endTime"]);
 	}
 
+	table.createTHead();
+
+	const headRow = table.tHead.insertRow();
+	headRow.insertCell().innerHTML = "<b>Period</b>";
+	headRow.insertCell().innerHTML = "<b>Start Time</b>";
+	headRow.insertCell().innerHTML = "<b>End Time</b>";
+
 	currentSchedule.appendChild(table);
 	scheduleSection.style.display = "block";
 }

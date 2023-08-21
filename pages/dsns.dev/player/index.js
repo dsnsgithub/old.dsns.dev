@@ -108,11 +108,11 @@ async function search() {
 	table.createTHead();
 
 	const headRow = table.tHead.insertRow();
-	headRow.insertCell().innerText = "Game";
-	headRow.insertCell().innerText = "Mode";
-	headRow.insertCell().innerText = "Map";
-	headRow.insertCell().innerText = "Start Time";
-	headRow.insertCell().innerText = "End Time";
+	headRow.insertCell().innerHTML = "<b>Game</b>";
+	headRow.insertCell().innerHTML = "<b>Mode</b>";
+	headRow.insertCell().innerHTML = "<b>Map</b>";
+	headRow.insertCell().innerHTML = "<b>Start Time</b>";
+	headRow.insertCell().innerHTML = "<b>End Time</b>";
 
 	recentGamesDiv.appendChild(table);
 }
