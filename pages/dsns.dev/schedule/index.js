@@ -252,7 +252,7 @@ async function countdown(scheduleTimes) {
 
 		// if there is a break in the schedule
 		if (nextPeriod && period["endTime"] < currentTime && nextPeriod["startTime"] > currentTime) {
-			period.innerHTML = `${cleanXSS(nextPeriod["periodName"])} will start in ${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`;
+			periodElem.innerHTML = `${cleanXSS(nextPeriod["periodName"])} will start in ${timeBetweenDates(currentTime, nextPeriod["startTime"])}.`;
 			timeElem.innerHTML = `${formatDate(nextPeriod["startTime"])} to ${formatDate(nextPeriod["endTime"])}`;
 
 			return;
