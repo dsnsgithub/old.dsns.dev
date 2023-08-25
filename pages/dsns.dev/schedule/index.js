@@ -282,6 +282,7 @@ const scheduleName = document.getElementById("scheduleName");
 const scheduleTitle = document.getElementById("scheduleTitle");
 
 function populateScheduleSection(schedule, name) {
+	currentSchedule.innerHTML = "";
 	scheduleName.innerText = schedule["officialName"];
 	scheduleTitle.innerText = name;
 
