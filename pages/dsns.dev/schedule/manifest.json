@@ -5,7 +5,7 @@
 	"background_color": "transparent",
 	"display": "standalone",
 	"scope": "/schedule",
-	"start_url": "/schedule",
+	"start_url": "/schedule/index.html",
 	"icons": [
 		{
 			"src": "./icons/icon-192x192.png",
