@@ -6,7 +6,18 @@ self.addEventListener("install", (e) => {
 		caches.open(cacheName).then(async (cache) => {
 			// Our application only has two files here index.html and manifest.json
 			// but you can add more such as style.css as your app grows
-			let cachedList = ["./", "./index.html", "./manifest.json", "./index.js", "./dvhs/schedule.json"];
+			let cachedList = [
+				"./",
+				"./index.html",
+				"./manifest.json",
+				"./index.js",
+				"./dvhs/schedule.json",
+				"/static/css/bulma.min.css",
+				"/static/css/static.css",
+				"/static/images/jpg/icon.jpg",
+				"/static/fonts/icomoon.woff",
+				"/static/fonts/poppins.woff2"
+			];
 
 			// import schedules
 			const scheduleDB = await fetch("https://dsns.dev/schedule/dvhs/schedule.json").then((res) => res.json());
@@ -16,7 +27,7 @@ self.addEventListener("install", (e) => {
 				cachedList.push(`${scheduleDB["about"]}${scheduleName}.txt`);
 			}
 
-			return cache.addAll();
+			return cache.addAll(cachedList);
 		})
 	);
 });
@@ -25,6 +36,8 @@ self.addEventListener("install", (e) => {
 // and check if we have cached the file
 // if so it will serve the cached file
 self.addEventListener("fetch", (event) => {
+	console.log(`[Service Worker] Fetched resource ${event.request.url}`);
+
 	event.respondWith(
 		caches
 			.open(cacheName)

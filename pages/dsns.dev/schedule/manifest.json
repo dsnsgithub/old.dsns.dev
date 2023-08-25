@@ -2,7 +2,7 @@
 	"name": "School Schedule",
 	"short_name": "Scheduler",
 	"theme_color": "#d488a3",
-	"background_color": "#239fd0",
+	"background_color": "transparent",
 	"display": "standalone",
 	"scope": "/schedule",
 	"start_url": "/schedule",
