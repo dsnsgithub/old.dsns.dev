@@ -17,7 +17,14 @@ self.addEventListener("install", (e) => {
 				"/static/images/jpg/icon.jpg",
 				"/static/fonts/icomoon.woff",
 				"/static/fonts/poppins.woff2",
-				"./sw.js"
+				"./sw.js",
+				"/static/favicon/apple-touch-icon.png",
+				"/static/favicon/favicon-32x32.png",
+				"/static/favicon/favicon-16x16.png",
+				"./icons/icon-192x192.png",
+				"./icons/icon-256x256.png",
+				"./icons/icon-384x384.png",
+				"./icons/icon-512x512.png"
 			];
 
 			// import schedules
