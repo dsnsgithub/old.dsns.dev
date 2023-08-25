@@ -25,7 +25,7 @@ self.addEventListener("install", (e) => {
 			for (const scheduleName in scheduleDB) {
 				if (scheduleName == "about") continue;
 
-				cachedList.push(`${scheduleDB["about"]}${scheduleName}.txt`);
+				cachedList.push(`${scheduleDB["about"]["url"]}${scheduleName}.txt`);
 			}
 
 			return cache.addAll(cachedList);
