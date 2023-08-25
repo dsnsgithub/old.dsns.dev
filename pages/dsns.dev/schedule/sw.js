@@ -16,7 +16,8 @@ self.addEventListener("install", (e) => {
 				"/static/css/static.css",
 				"/static/images/jpg/icon.jpg",
 				"/static/fonts/icomoon.woff",
-				"/static/fonts/poppins.woff2"
+				"/static/fonts/poppins.woff2",
+				"./sw.js"
 			];
 
 			// import schedules
@@ -36,13 +37,12 @@ self.addEventListener("install", (e) => {
 // and check if we have cached the file
 // if so it will serve the cached file
 self.addEventListener("fetch", (event) => {
-	console.log(`[Service Worker] Fetched resource ${event.request.url}`);
-
 	event.respondWith(
 		caches
 			.open(cacheName)
 			.then((cache) => cache.match(event.request, { ignoreSearch: true }))
 			.then((response) => {
+				console.log(response)
 				return response || fetch(event.request);
 			})
 	);
