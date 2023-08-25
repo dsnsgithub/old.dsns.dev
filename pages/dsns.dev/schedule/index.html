@@ -16,6 +16,7 @@
 	<meta property="og:url" content="https://dsns.dev/schedule/" />
 	<meta property="og:image" content="https://dsns.dev/static/images/png/kirby.png" />
 
+	<link rel="manifest" href="manifest.json">
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
@@ -28,6 +29,15 @@
 	<!-- Modal script -->
 	<script>
 		document.addEventListener("DOMContentLoaded", () => { function e(e) { e.classList.remove("is-active") } (document.querySelectorAll(".js-modal-trigger") || []).forEach(e => { const t = e.dataset.target, d = document.getElementById(t); e.addEventListener("click", () => { !function (e) { e.classList.add("is-active") }(d) }) }), (document.querySelectorAll(".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button") || []).forEach(t => { const d = t.closest(".modal"); t.addEventListener("click", () => { e(d) }) }), document.addEventListener("keydown", t => { 27 === (t || window.event).keyCode && (document.querySelectorAll(".modal") || []).forEach(t => { e(t) }) }) });
+	</script>
+
+
+	<!-- PWA script -->
+	<script>
+		// Registering our Service worker
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker.register("sw.js", { scope: "./" })
+		}
 	</script>
 
 </head>

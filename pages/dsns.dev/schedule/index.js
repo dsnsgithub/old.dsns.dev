@@ -67,85 +67,18 @@ function getOrdinalNumber(number) {
 	}
 }
 
-function getDayIndices(daysArray) {
-	const dayIndexMap = {
-		sunday: 0,
-		monday: 1,
-		tuesday: 2,
-		wednesday: 3,
-		thursday: 4,
-		friday: 5,
-		saturday: 6
-	};
-
-	return daysArray.map((day) => {
-		const lowerCaseDay = day.toLowerCase();
-		if (dayIndexMap.hasOwnProperty(lowerCaseDay)) {
-			return dayIndexMap[lowerCaseDay];
-		} else {
-			throw new Error(`Invalid day: ${day}`);
-		}
-	});
-}
-
 function cleanXSS(input) {
 	return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 //? Schedule Functions -------------------------------------------------------------
-async function grabSchedules() {
-	const scheduleDB = {
-		about: {
-			startDate: "6/5/2023",
-			endDate: "8/10/2023",
-			avaliablePeriods: ["1", "2", "3", "4", "5", "6", "B"]
-		},
-		regular: {
-			officialName: "Regular",
-			days: getDayIndices(["monday", "tuesday", "friday"])
-		},
-		wednesday: {
-			officialName: "Wednesday Block",
-			days: getDayIndices(["wednesday"])
-		},
-		thursday: {
-			officialName: "Thursday Block",
-			days: getDayIndices(["thursday"])
-		},
-		minimum: {
-			officialName: "Minimum Day",
-			days: ["8/10", "6/5"]
-		},
-		rally: {
-			officialName: "Rally",
-			days: ["8/18", "10/13", "2/16", "5/28"]
-		},
-		assembly: {
-			officialName: "Assembly",
-			days: ["10/3"]
-		},
-		"finalShort1+4": {
-			officialName: "Final Periods 1/4",
-			days: ["12/18", "6/3"]
-		},
-		"finalShort2+5": {
-			officialName: "Final Periods 2/5",
-			days: ["12/19", "6/4"]
-		},
-		"finalShort3+6": {
-			officialName: "Final Periods 3/6",
-			days: ["12/20", "6/5"]
-		},
-		finalReverse: {
-			officialName: "B Period Final - Reverse",
-			days: ["12/15", "5/31"]
-		}
-	};
+async function grabSchedules(url) {
+	const scheduleDB = await fetch(url).then(res => res.json());
 
 	for (const scheduleName in scheduleDB) {
 		if (scheduleName == "about") continue;
 
-		const schedule = await fetch(`dvhs/${scheduleName}.txt`)
+		const schedule = await fetch(`${scheduleDB["about"]["url"]}${scheduleName}.txt`)
 			.then((res) => res.text())
 			.then((data) => data.split("\n"));
 
@@ -391,7 +324,7 @@ async function run(completeRefresh) {
 	// const currentDate = new Date(new Date().setDate(new Date().getDate() + 3))
 	const currentTime = currentDate.getTime();
 
-	const scheduleDB = await grabSchedules();
+	const scheduleDB = await grabSchedules("/schedule/dvhs/schedule.json");
 	if (!window.localStorage.getItem("periodNames")) createAvaliablePeriodsDB(scheduleDB);
 	if (!window.localStorage.getItem("removedPeriods")) createRemovedPeriodsDB();
 
