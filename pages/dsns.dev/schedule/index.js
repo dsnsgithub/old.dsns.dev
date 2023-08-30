@@ -117,9 +117,40 @@ async function grabSchedules(url) {
 }
 
 async function findCorrectSchedule(scheduleDB, currentDate) {
+	const currentTime = currentDate.getTime();
 	const dayofTheWeek = currentDate.getDay();
 	let mostSpecificSchedule = null;
 	let mostSpecificDate = null;
+
+	// Check for summer
+	if (new Date(scheduleDB["about"]["endDate"]).getTime() < currentTime && new Date(scheduleDB["about"]["startDate"]).getTime() > currentTime) {
+		return null;
+	}
+
+	// Check for off days
+	for (const item of scheduleDB["about"]["noSchool"]) {
+		if (typeof item === "object") {
+			let [startDate, endDate] = item;
+			startDate = new Date(startDate);
+			endDate = new Date(endDate);
+
+			// add one because the entire day of the endDate considered "off" still
+			endDate = new Date(endDate.setDate(endDate.getDate() + 1))
+
+			if (new Date(startDate).getTime() < currentTime && new Date(endDate).getTime() > currentTime) {
+				return null;
+			}
+		} else {
+			const startDate = new Date(item);
+			let endDate = new Date(item);
+			endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+
+			if (new Date(startDate).getTime() < currentTime && new Date(endDate).getTime() > currentTime) {
+				return null;
+			}
+		}
+	}
+
 
 	for (const schedule in scheduleDB) {
 		if (schedule == "about") continue;
@@ -331,15 +362,6 @@ async function run(completeRefresh) {
 
 	if (completeRefresh) {
 		populateModal(scheduleDB);
-	}
-
-	// Check for summer
-	if (new Date(scheduleDB["about"]["endDate"]).getTime() < currentTime && new Date(scheduleDB["about"]["startDate"]).getTime() > currentTime) {
-		periodElem.innerHTML = "No School!";
-		timeElem.innerHTML = "Enjoy your summer!";
-
-		await populateTomorrowSection(scheduleDB, currentDate);
-		return;
 	}
 
 	const correctScheduleName = await findCorrectSchedule(scheduleDB, currentDate);
