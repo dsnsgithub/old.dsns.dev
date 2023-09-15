@@ -2,7 +2,7 @@
 
 ![screenshot](https://github.com/dsnsgithub/dsns.dev/blob/main/portfolio.png?raw=true)
 
-An express server running [dsns.dev](https://dsns.dev), [mseung.dev](https://mseung.dev), [onlyeggrolls.com](https://onlyeggrolls.com), and [orchardlakehouse.com](https://orchardlakehouse.com).
+An express server running [dsns.dev](https://dsns.dev) and [onlyeggrolls.com](https://onlyeggrolls.com).
 
 Created with:
 

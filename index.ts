@@ -77,12 +77,6 @@ async function useMiddleware() {
 			case "dsns":
 				domain = "dsns.dev";
 				break;
-			case "mseung":
-				domain = "mseung.dev";
-				break;
-			case "orchardlakehouse":
-				domain = "orchardlakehouse.com";
-				break;
 			case "onlyeggrolls":
 				domain = "onlyeggrolls.com";
 				break;
