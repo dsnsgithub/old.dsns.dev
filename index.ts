@@ -75,16 +75,18 @@ async function useMiddleware() {
 			case "adamsai":
 				return res.redirect(301, "https://dsns.dev" + req.url);
 			case "dsns":
-				domain = "dsns.dev";
-				break;
+				if ((req.headers.host || "").includes("old.dsns")) {
+					domain = "dsns.dev";
+					break;
+				}
+
+				return res.redirect(301, "https://dsns.dev" + req.url);
 			case "onlyeggrolls":
 				domain = "onlyeggrolls.com";
 				break;
 			default:
 				return req.socket.destroy();
 		}
-
-		if (hostnameList.length > 2) return res.redirect(`https://${domain}` + req.url);
 
 		const fullPath = `${__dirname}/pages/${domain}${req.url.split("?")[0]}`;
 		if (fs.existsSync(fullPath)) {

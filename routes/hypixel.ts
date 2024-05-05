@@ -13,9 +13,9 @@ axios.defaults.validateStatus = (status) => {
 };
 
 export interface Database {
-	[key: string]: { date: string; level: number }[];
+	[key: string]: { date: string; level: number | null }[];
 }
-const database: Database = _data;
+const database = _data as Database;
 
 const round = (number: number, decimalPlaces: number) => {
 	const factorOfTen = Math.pow(10, decimalPlaces);
@@ -65,7 +65,7 @@ setInterval(updateDatabase, Number(process.env["RELOAD_TIME"]));
 module.exports = function (app: Express) {
 	app.get("/api/history/:uuid", async (req, res, next) => {
 		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+			if (!req.hostname.includes("dsns")) return next();
 
 			if (database[req.params.uuid]) return res.json(database[req.params.uuid]);
 

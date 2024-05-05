@@ -13,3 +13,5 @@ deploy.py
 
 deploy.bat
 .dev.vars
+
+.DS_STORE

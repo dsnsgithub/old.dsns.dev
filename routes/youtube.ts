@@ -4,7 +4,7 @@ import { Express } from "express";
 module.exports = function (app: Express) {
 	app.get("/api/youtube/:id", async (req, res, next) => {
 		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+			if (!req.hostname.includes("dsns")) return next();
 			if (!req.params.id) return res.status(400).send("Invalid YouTube Link");
 
 			const videoInfo = await ytdl.getBasicInfo(req.params.id);
@@ -36,7 +36,7 @@ module.exports = function (app: Express) {
 
 	app.get("/api/youtubeVideo/:id", async (req, res, next) => {
 		try {
-			if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+			if (!req.hostname.includes("dsns")) return next();
 			if (!req.params.id) return res.status(400).send("Invalid YouTube Link");
 
 			const info = await ytdl.getInfo(`https://www.youtube.com/watch?v=${req.params.id}`);
@@ -59,7 +59,7 @@ module.exports = function (app: Express) {
 	});
 
 	app.use((req, res, next) => {
-		if (req.hostname != "dsns.dev" && req.hostname != "dsns.test") return next();
+		if (!req.hostname.includes("dsns")) return next();
 
 		if (!req.url.includes("/mp3")) return next();
 
