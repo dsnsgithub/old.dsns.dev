@@ -1,8 +1,8 @@
-# dsns.dev
+# old.dsns.dev
 
-![screenshot](https://github.com/dsnsgithub/dsns.dev/blob/main/portfolio.png?raw=true)
+![screenshot](https://github.com/dsnsgithub/old.dsns.dev/blob/main/portfolio.png?raw=true)
 
-An express server running [dsns.dev](https://dsns.dev) and [onlyeggrolls.com](https://onlyeggrolls.com).
+An express server running [old.dsns.dev](https://old.dsns.dev) and [onlyeggrolls.com](https://onlyeggrolls.com).
 
 Created with:
 
@@ -17,7 +17,7 @@ To launch the project locally, you'll need [Node.js](https://nodejs.org/en/) ins
 
 ### 1. Clone the Github Repository:
 
-    git clone https://github.com/dsnsgithub/dsns.dev
+    git clone https://github.com/dsnsgithub/old.dsns.dev
 
 ### 2. Enter the repository and install dependencies:
 
