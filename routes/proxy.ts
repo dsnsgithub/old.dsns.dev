@@ -29,5 +29,6 @@ module.exports = function (app: Express) {
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("tetr") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://tetr.io/", "tetr.io")));
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("tinfoil.onlyeggrolls"), createOptions("https://tinf0il.tech/", "tinf0il.tech")));
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("splix") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://splix.io/", "splix.io")));
-	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("vray") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.174:81", "splix.io")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("vray") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.177:81", "splix.io")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("map.dsns"), createOptions("http://10.3.3.177:8100", "10.3.3.177:8100")));
 };
