@@ -17,7 +17,7 @@ module.exports = function (app: Express) {
 				if (contentType.includes("text/") || contentType.includes("utf-8")) {
 					const response = responseBuffer.toString("utf8");
 					return response
-						.replace(/"domain":"[^"]*","domain_hash":"[^"]*","ch_domain":"[^"]*"/g, '"domain":null,"domain_hash":null,"ch_domain":null')
+						.replace(/domain:"[^"]*",domain_hash:"[^"]*",ch_domain:"[^"]*"/g, "domain:null,domain_hash:null,ch_domain:null")
 						.replace(new RegExp(responseModifier, "g"), req.headers.host);
 				}
 
@@ -27,8 +27,11 @@ module.exports = function (app: Express) {
 	}
 
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("tetr") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://tetr.io/", "tetr.io")));
-	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("tinfoil.onlyeggrolls"), createOptions("https://tinf0il.tech/", "tinf0il.tech")));
+	app.use(
+		createProxyMiddleware((_, req) => (req.headers.host || "").includes("tinfoil") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://tinf0il.tech/", "tinf0il.tech"))
+	);
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("splix") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://splix.io/", "splix.io")));
-	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("vray") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.177:81", "splix.io")));
-	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("map.dsns"), createOptions("http://10.3.3.177:8100", "10.3.3.177:8100")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("vray") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.172:81", "splix.io")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("server.mseung"), createOptions("http://localhost:3000", "http://localhost:3000")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("wss.mseung"), createOptions("http://10.3.3.222:5000", "http://localhost:5000")));
 };
