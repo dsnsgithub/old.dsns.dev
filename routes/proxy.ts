@@ -26,6 +26,13 @@ module.exports = function (app: Express) {
 		};
 	}
 
+	app.use((req, res, next) => {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+		res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+		next();
+	});
+
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("tetr") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://tetr.io/", "tetr.io")));
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("splix") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://splix.io/", "splix.io")));
 
