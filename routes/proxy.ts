@@ -30,6 +30,6 @@ module.exports = function (app: Express) {
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("splix") && (req.headers.host || "").includes("onlyeggrolls"), createOptions("https://splix.io/", "splix.io")));
 
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("vray") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.172:81", "splix.io")));
-	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("monopolyserver") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.172:4000", "splix.io")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("calopoly-server") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.172:4000", "splix.io")));
 	
 };
