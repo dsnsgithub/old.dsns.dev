@@ -17,7 +17,9 @@ module.exports = function (app: Express) {
 				if (contentType.includes("text/") || contentType.includes("utf-8")) {
 					const response = responseBuffer.toString("utf8");
 					return response
-						.replace(/domain:"[^"]*",domain_hash:"[^"]*",ch_domain:"[^"]*"/g, "domain:null,domain_hash:null,ch_domain:null")
+						.replace(/domain:"[^"]*"/g, "domain:null")
+						.replace(/domain_hash:"[^"]*"/g, "domain_hash:null")
+						.replace(/ch_domain:"[^"]*"/g, "ch_domain:null")
 						.replace(new RegExp(responseModifier, "g"), req.headers.host);
 				}
 
