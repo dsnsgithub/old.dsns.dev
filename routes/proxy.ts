@@ -40,5 +40,6 @@ module.exports = function (app: Express) {
 
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("vray") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.172:81", "splix.io")));
 	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("calopoly-server") && (req.headers.host || "").includes("dsns"), createOptions("http://10.3.3.172:4000", "splix.io")));
+	app.use(createProxyMiddleware((_, req) => (req.headers.host || "").includes("map.dsns"), createOptions("http://10.3.3.172:8100", "10.3.3.172:8100")));
 	
 };
